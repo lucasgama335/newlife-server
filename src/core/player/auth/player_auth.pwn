@@ -127,6 +127,11 @@ public OnPlayerConnect(playerid)
     return 1;
 }
 
+public OnPlayerUpdate(playerid)
+{
+    return 1;
+}
+
 public OnPlayerRequestClass(playerid, classid)
 {
     if (IsPlayerNPC(playerid))

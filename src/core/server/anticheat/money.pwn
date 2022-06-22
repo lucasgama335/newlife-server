@@ -24,3 +24,10 @@ stock Server_ResetPlayerMoney(playerid)
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+hook OnPlayerUpdate(playerid)
+{
+    if (GetPlayerMoney(playerid) != PlayerData_GetMoney(playerid)) {
+        Server_SetPlayerMoney(playerid, PlayerData_GetMoney(playerid));
+    }
+    return 1;
+}
