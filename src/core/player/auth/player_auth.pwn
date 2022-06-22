@@ -12,6 +12,7 @@ enum pTemporaryInfo
     bool:pIsAndroid
 }
 static Player_TemporaryInfo[MAX_PLAYERS][pTemporaryInfo];
+static HashPassword[MAX_PLAYERS][BCRYPT_HASH_LENGTH];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock bool:PlayerData_GetLoggedStatus(playerid)
@@ -89,6 +90,7 @@ static stock Player_ClearInfoVars(playerid)
     PlayerData_SetRecentlyLogged(playerid, true);
     PlayerData_SetIsRegistered(playerid, false);
     PlayerData_SetIsAndroid(playerid, false);
+    format(HashPassword[playerid], BCRYPT_HASH_LENGTH, "\0");
     return 1;
 }
 
@@ -99,7 +101,7 @@ static stock InsertPlayerInDataBase(playerid, const password[])
     PLAYER_TABLE_NAME,
     PLAYER_FIELD_NAME,
     PLAYER_FIELD_PASSWORD,
-    PlayerData_GetName(playerid),
+    Player_GetName(playerid),
     password);
     mysql_tquery(Database_GetConnection(), query_string, "OnPlayerRegister", "i", playerid);
     return 1;
@@ -241,22 +243,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			        ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Fazer Login", string, "Entrar", "Ajuda");
 			        return 1;
 	            }
-                new query_string[120];
-                mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "SELECT * FROM %s WHERE `name` = '%s' LIMIT 1", PLAYER_TABLE_NAME, Player_GetName(playerid));
-		        new Cache:result = mysql_query(Database_GetConnection(), query_string);
-                if (cache_is_valid(result))
-                {
-                    cache_set_active(result);
-                    new row;
-                    if (cache_get_row_count(row))
-                    {
-                        new hash[BCRYPT_HASH_LENGTH];
-                        cache_get_value_name(0, PLAYER_FIELD_PASSWORD, hash, BCRYPT_HASH_LENGTH); 
-                        bcrypt_verify(playerid, "OnPassswordVerify", inputtext, hash);
-                    }
-                }
-                cache_unset_active();
-		        cache_delete(result);
+                bcrypt_verify(playerid, "OnPassswordVerify", inputtext, HashPassword[playerid]);
 	            return 1;
 	        }
         }
@@ -302,13 +289,14 @@ function:OnPlayerDataLoaded(playerid, race_check)
 
     if(cache_num_rows() > 0)
 	{
-        new int_result, Float:float_result, string_result[100];
+        new int_result, Float:float_result;
+
+        // Temporary Password Hash to Compare in Login
+        cache_get_value_name(0, PLAYER_FIELD_PASSWORD, HashPassword[playerid], BCRYPT_HASH_LENGTH);
+
         // General Info
         cache_get_value_name_int(0, PLAYER_FIELD_ID, int_result);
         PlayerData_SetID(playerid, int_result);
-
-        cache_get_value_name(0, PLAYER_FIELD_NAME, string_result, (MAX_PLAYER_NAME + 1)); 
-        PlayerData_SetName(playerid, string_result);
 
         cache_get_value_name_int(0, PLAYER_FIELD_ADMIN, int_result);
         PlayerData_SetAdmin(playerid, int_result);
@@ -413,6 +401,7 @@ function:OnPassswordHash(playerid)
 function:OnPassswordVerify(playerid, bool:success)
 {
     if(success) {
+        format(HashPassword[playerid], BCRYPT_HASH_LENGTH, "\0");
  		OnPlayerLogin(playerid);
  	} 
     else {
@@ -420,7 +409,9 @@ function:OnPassswordVerify(playerid, bool:success)
         PlayerData_SetLoginAttempts(playerid, (PlayerData_GetLoginAttempts(playerid) + 1));
         if (PlayerData_GetLoginAttempts(playerid) > 5)
         {
+            format(HashPassword[playerid], BCRYPT_HASH_LENGTH, "\0");
             SendClientMessage(playerid, COLOR_INVALID, "Voc� errou sua senha v�rias vezes, por isso foi kickado do servidor!");
+            Kick(playerid);
         }
         else
         {

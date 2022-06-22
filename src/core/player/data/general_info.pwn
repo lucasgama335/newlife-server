@@ -6,7 +6,6 @@
 enum pGeneralInfo
 {
     pId,
-    pName[MAX_PLAYER_NAME + 1],
     pAdmin,
     pLastLoginDate,
     pLastLoginHour,
@@ -33,20 +32,6 @@ stock PlayerData_GetID(playerid)
 stock PlayerData_SetID(playerid, id)
 {
     return Player_GeneralInfo[playerid][pId] = id;
-}
-
-// Player Name Accessor Function
-stock PlayerData_GetName(playerid)
-{
-    new string[MAX_PLAYER_NAME + 1];
-    format(string, sizeof(string), "%s", Player_GeneralInfo[playerid][pName]);
-    return string;
-}
-
-stock PlayerData_SetName(playerid, const name[])
-{
-    format(Player_GeneralInfo[playerid][pName], (MAX_PLAYER_NAME + 1), "%s", name);
-    return 1;
 }
 
 // Player Admin Accessor Function
@@ -163,7 +148,6 @@ stock PlayerData_ResetGeneralInfo(playerid)
 {
     static const empty_data[pGeneralInfo];
     Player_GeneralInfo[playerid] = empty_data;
-    PlayerData_SetName(playerid, Player_GetName(playerid));
     Player_GeneralInfo[playerid][pLastPosX] = SPAWN_POSX;
     Player_GeneralInfo[playerid][pLastPosY] = SPAWN_POSY;
     Player_GeneralInfo[playerid][pLastPosZ] = SPAWN_POSZ;
