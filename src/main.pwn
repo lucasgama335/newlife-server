@@ -115,15 +115,7 @@ main()
 		printf("| Vehicles:     %d          		 |", MAX_VEHICLES);
 	#endif*/
 
-	#if MAX_PLAYERS > 0 && MAX_PLAYERS < 10
-		printf("| Players:      %d          		 |", MAX_PLAYERS);
-	#elseif MAX_PLAYERS >= 10 && MAX_PLAYERS < 100
-		printf("| Players:      %d          		 |", MAX_PLAYERS);
-	#elseif MAX_PLAYERS >= 100 && MAX_PLAYERS < 1000
-		printf("| Players:      %d          		 |", MAX_PLAYERS);
-	#else
-		printf("| Players:      %d          		 |", MAX_PLAYERS);
-	#endif
+	printf("| Players:      %d          		 |", MAX_PLAYERS);
 
 	printf("| Author:       %s           	 |", SERVER_OWNER);
 	#if DEV_MODE == true

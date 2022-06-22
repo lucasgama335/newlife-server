@@ -50,5 +50,39 @@
 		"conncookies": true,
 		"cookielogging": false,
 		"output": true
-	}
+	},
+	"builds": [
+		{
+			"name": "dev",
+			"args": [
+				"-;+",
+				"-(+",
+				"-d3",
+				"-Z+"
+			],
+			"includes": [
+				"legacy"
+			],
+			"constants": {
+				"MAX_PLAYERS": "10"
+			},
+			"compiler": {}
+		},
+		{
+			"name": "live",
+			"args": [
+				"-;+",
+				"-(+",
+				"-O1",
+				"-Z+"
+			],
+			"includes": [
+				"legacy"
+			],
+			"constants": {
+				"MAX_PLAYERS": "250"
+			},
+			"compiler": {}
+		}
+	]
 }
