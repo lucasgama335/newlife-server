@@ -17,12 +17,16 @@ static Player_ScoreInfo[MAX_PLAYERS][pScoreInfo];
 // Getters
 stock PlayerData_GetLevel(playerid)
 {
+    if (!IsPlayerConnected(playerid)) return;
+
     return Player_ScoreInfo[playerid][pLevel];
 }
 
 // Setters
 stock PlayerData_SetLevel(playerid, level)
 {
+    if (!IsPlayerConnected(playerid)) return;
+
     return Player_ScoreInfo[playerid][pLevel] = level;
 }
 
@@ -30,12 +34,16 @@ stock PlayerData_SetLevel(playerid, level)
 // Getters
 stock PlayerData_GetDeaths(playerid)
 {
+    if (!IsPlayerConnected(playerid)) return;
+
     return Player_ScoreInfo[playerid][pDeaths];
 }
 
 // Setters
 stock PlayerData_SetDeaths(playerid, deaths)
 {
+    if (!IsPlayerConnected(playerid)) return;
+
     return Player_ScoreInfo[playerid][pDeaths] = deaths;
 }
 
@@ -43,12 +51,16 @@ stock PlayerData_SetDeaths(playerid, deaths)
 // Getters
 stock PlayerData_GetKills(playerid)
 {
+    if (!IsPlayerConnected(playerid)) return;
+
     return Player_ScoreInfo[playerid][pKills];
 }
 
 // Setters
 stock PlayerData_SetKills(playerid, kills)
 {
+    if (!IsPlayerConnected(playerid)) return;
+
     return Player_ScoreInfo[playerid][pKills] = kills;
 }
 
@@ -56,12 +68,16 @@ stock PlayerData_SetKills(playerid, kills)
 // Getters
 stock PlayerData_GetWantedLevel(playerid)
 {
+    if (!IsPlayerConnected(playerid)) return;
+
     return Player_ScoreInfo[playerid][pWantedLevel];
 }
 
 // Setters
 stock PlayerData_SetWantedLevel(playerid, level)
 {
+    if (!IsPlayerConnected(playerid)) return;
+    
     return Player_ScoreInfo[playerid][pWantedLevel] = level;
 }
 
