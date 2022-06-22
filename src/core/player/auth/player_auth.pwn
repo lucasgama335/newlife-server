@@ -399,6 +399,7 @@ function:OnPlayerLogin(playerid)
         case 3: SetPlayerFightingStyle(playerid, FIGHT_STYLE_KNEEHEAD);
         case 4: SetPlayerFightingStyle(playerid, FIGHT_STYLE_GRABKICK);
         case 5: SetPlayerFightingStyle(playerid, FIGHT_STYLE_ELBOW);
+        default: SetPlayerFightingStyle(playerid, FIGHT_STYLE_NORMAL);
     }
     SetSpawnInfo(playerid, -1, PlayerData_GetSkin(playerid), SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA, 0, 0, 0, 0, 0, 0);
     HideLoginScreen(playerid);

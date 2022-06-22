@@ -64,3 +64,20 @@ hook OnGameModeExit()
 {
     mysql_close(DBConnection);
 }
+
+public OnQueryError(errorid, const error[], const callback[], const query[], MySQL:handle)
+{
+	switch(errorid)
+	{
+		case CR_SERVER_GONE_ERROR:
+		{
+			printf("Lost connection to server");
+		}
+		case ER_SYNTAX_ERROR:
+		{
+			printf("Something is wrong in your syntax, query: %s",query);
+		}
+	}
+    printf("There are %d unprocessed queries.", mysql_unprocessed_queries());
+	return 1;
+}

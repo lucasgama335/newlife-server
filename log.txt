@@ -1,0 +1,260 @@
+[2022-06-22T14:07:49Z] [Info] Loading plugin: crashdetect
+[2022-06-22T14:07:49Z] [Info]   CrashDetect plugin 4.20
+[2022-06-22T14:07:49Z] [Info] Loading plugin: mysql
+[2022-06-22T14:07:49Z] [Info]  >> plugin.mysql: R41-4 successfully loaded.
+[2022-06-22T14:07:49Z] [Info] Loading plugin: sscanf
+[2022-06-22T14:07:49Z] [Info] 
+
+[2022-06-22T14:07:49Z] [Info]  ===============================
+
+[2022-06-22T14:07:49Z] [Info]       sscanf plugin loaded.     
+
+[2022-06-22T14:07:49Z] [Info]         Version:  2.11.4        
+
+[2022-06-22T14:07:49Z] [Info]    (c) 2022 Alex "Y_Less" Cole  
+
+[2022-06-22T14:07:49Z] [Info]  ===============================
+
+[2022-06-22T14:07:49Z] [Info] Loading plugin: streamer
+[2022-06-22T14:07:49Z] [Info] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[2022-06-22T14:07:49Z] [Info] Loading plugin: samp_bcrypt
+[2022-06-22T14:07:49Z] [Info] [SampBcrypt] [info]: Version: 0.3.4
+[2022-06-22T14:07:49Z] [Info]  
+[2022-06-22T14:07:49Z] [Info]  
+[2022-06-22T14:07:49Z] [Info]          ==============================================================
+[2022-06-22T14:07:49Z] [Info]          |                                                            |
+[2022-06-22T14:07:49Z] [Info]          |                                                            |
+[2022-06-22T14:07:49Z] [Info]          |    YYYYYYY       YYYYYYY    SSSSSSSSSSSSSSS  IIIIIIIIII    |
+[2022-06-22T14:07:49Z] [Info]          |    Y:::::Y       Y:::::Y  SS:::::::::::::::S I::::::::I    |
+[2022-06-22T14:07:49Z] [Info]          |    Y:::::Y       Y:::::Y S:::::SSSSSS::::::S I::::::::I    |
+[2022-06-22T14:07:49Z] [Info]          |    Y::::::Y     Y::::::Y S:::::S     SSSSSSS II::::::II    |
+[2022-06-22T14:07:49Z] [Info]          |    YYY:::::Y   Y:::::YYY S:::::S               I::::I      |
+[2022-06-22T14:07:49Z] [Info]          |       Y:::::Y Y:::::Y    S:::::S               I::::I      |
+[2022-06-22T14:07:49Z] [Info]          |        Y:::::Y:::::Y      S::::SSSS            I::::I      |
+[2022-06-22T14:07:49Z] [Info]          |         Y:::::::::Y        SS::::::SSSSS       I::::I      |
+[2022-06-22T14:07:49Z] [Info]          |          Y:::::::Y           SSS::::::::SS     I::::I      |
+[2022-06-22T14:07:49Z] [Info]          |           Y:::::Y               SSSSSS::::S    I::::I      |
+[2022-06-22T14:07:49Z] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2022-06-22T14:07:49Z] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2022-06-22T14:07:49Z] [Info]          |           Y:::::Y        SSSSSSS     S:::::S II::::::II    |
+[2022-06-22T14:07:49Z] [Info]          |        YYYY:::::YYYY     S::::::SSSSSS:::::S I::::::::I    |
+[2022-06-22T14:07:49Z] [Info]          |        Y:::::::::::Y     S:::::::::::::::SS  I::::::::I    |
+[2022-06-22T14:07:49Z] [Info]          |        YYYYYYYYYYYYY      SSSSSSSSSSSSSSS    IIIIIIIIII    |
+[2022-06-22T14:07:49Z] [Info]          |                                                            |
+[2022-06-22T14:07:49Z] [Info]          |                                                            |
+[2022-06-22T14:07:49Z] [Info]          |                      (c) 2021 MPL v1.1                     |
+[2022-06-22T14:07:49Z] [Info]          |            Alex "Y_Less" Cole and contributors.            |
+[2022-06-22T14:07:49Z] [Info]          |                                                            |
+[2022-06-22T14:07:49Z] [Info]          |                                                            |
+[2022-06-22T14:07:49Z] [Info]          ==============================================================
+[2022-06-22T14:07:49Z] [Info]  
+[2022-06-22T14:07:49Z] [Info]  
+[2022-06-22T14:07:49Z] [Info]  ========================================== 
+[2022-06-22T14:07:49Z] [Info]  |                                        | 
+[2022-06-22T14:07:49Z] [Info]  |  Missing YSI scriptfiles directories:  | 
+[2022-06-22T14:07:49Z] [Info]  |                                        | 
+[2022-06-22T14:07:49Z] [Info]  |      /scriptfiles/YSI/fixes/           | 
+[2022-06-22T14:07:49Z] [Info]  |      /scriptfiles/YSI/temp/            | 
+[2022-06-22T14:07:49Z] [Info]  |                                        | 
+[2022-06-22T14:07:49Z] [Info]  ========================================== 
+[2022-06-22T14:07:49Z] [Info]  |                                        | 
+[2022-06-22T14:07:49Z] [Info]  |   Generating code, this may take a     | 
+[2022-06-22T14:07:49Z] [Info]  |  little bit of time.  Note that this   | 
+[2022-06-22T14:07:49Z] [Info]  |  code generation works best with the   | 
+[2022-06-22T14:07:49Z] [Info]  |     JIT plugin, which you are not      | 
+[2022-06-22T14:07:49Z] [Info]  |     currently using.  Get it here:     | 
+[2022-06-22T14:07:49Z] [Info]  |                                        | 
+[2022-06-22T14:07:49Z] [Info]  |       https://git.io/jit-plugin        | 
+[2022-06-22T14:07:49Z] [Info]  |                                        | 
+[2022-06-22T14:07:50Z] [Info]  |             Please wait...             | 
+[2022-06-22T14:07:50Z] [Info]  |                                        | 
+[2022-06-22T14:07:50Z] [Info]  |                 Done!                  | 
+[2022-06-22T14:07:50Z] [Info]  |                                        | 
+[2022-06-22T14:07:50Z] [Info]  ========================================== 
+[2022-06-22T14:07:50Z] [Info] [debug] Long callback execution detected (hang or performance issue)
+[2022-06-22T14:07:50Z] [Info] [debug] AMX backtrace:
+[2022-06-22T14:07:50Z] [Info] [debug] #0 000031e8 in Script_GetIncludesString (version[]=@0004c26c "", os[]=@0004c244 "", vlen=32, olen=10) at C:\Users\lucas\Desktop\SA-MP\NewLife Modular\dependencies\YSI-Includes\YSI_Coding\y_hooks\..\..\YSI_Core\y_core\y_version.inc:413
+[2022-06-22T14:07:50Z] [Info] [debug] #1 0000339c in YVers_PrintHeader () at C:\Users\lucas\Desktop\SA-MP\NewLife Modular\dependencies\YSI-Includes\YSI_Coding\y_hooks\..\..\YSI_Core\y_core\y_version.inc:457
+[2022-06-22T14:07:50Z] [Info] [debug] #2 000037f8 in YVers_StartCheck () at C:\Users\lucas\Desktop\SA-MP\NewLife Modular\dependencies\YSI-Includes\YSI_Coding\y_hooks\..\..\YSI_Core\y_core\y_version.inc:579
+[2022-06-22T14:07:50Z] [Info] [debug] #3 00002978 in public VA_OnCodeInit () at C:\Users\lucas\Desktop\SA-MP\NewLife Modular\dependencies\YSI-Includes\YSI_Coding\y_hooks\..\..\YSI_Core\y_core\y_scriptinit_impl.inc:1110
+[2022-06-22T14:07:50Z] [Info]  |                                        | 
+[2022-06-22T14:07:50Z] [Info]  | Server:      0.3DL - Windows           | 
+[2022-06-22T14:07:50Z] [Info]  | Compiler:    3.10.10 - Windows         | 
+[2022-06-22T14:07:50Z] [Info]  | Codepage:    <none>                    | 
+[2022-06-22T14:07:50Z] [Info]  | YSI:         5.06.1932                 | 
+[2022-06-22T14:07:50Z] [Info]  | Started:     1655917669                | 
+[2022-06-22T14:07:50Z] [Info]  | JIT:         <none>                    | 
+[2022-06-22T14:07:50Z] [Info]  | Crashdetect: <found>                   | 
+[2022-06-22T14:07:50Z] [Info]  |                                        | 
+[2022-06-22T14:07:50Z] [Info]  ========================================== 
+[2022-06-22T14:07:50Z] [Info]  
+[2022-06-22T14:07:50Z] [Info] Filterscript '../scriptfiles/callbackfix' loaded.
+[2022-06-22T14:07:50Z] [Info] *** YSI Info: YSI Script ID: 1
+[2022-06-22T14:07:50Z] [Info]  
+[2022-06-22T14:07:50Z] [Info] [DATABASE]: Database connection established.
+[2022-06-22T14:07:50Z] [Info] [DATABASE]: Player's table created.
+[2022-06-22T14:07:50Z] [Info] Setting server language to: "Portugues BR/PT"
+[2022-06-22T14:07:50Z] [Info] 
+==========================================
+[2022-06-22T14:07:50Z] [Info] |                                    	 |
+[2022-06-22T14:07:50Z] [Info] |    *** ***       ***   *** 	 	 |
+[2022-06-22T14:07:50Z] [Info] |    ***  ***      ***   *** 	 	 |
+[2022-06-22T14:07:50Z] [Info] |    ***   ***     ***   *** 	 	 |
+[2022-06-22T14:07:50Z] [Info] |    ***    ***    ***   *** 	 	 |
+[2022-06-22T14:07:50Z] [Info] |    ***     ***   ***   *** 	 	 |
+[2022-06-22T14:07:50Z] [Info] |    ***      ***  ***   *************   |
+[2022-06-22T14:07:50Z] [Info] |    ***       *** ***   *************   |
+[2022-06-22T14:07:50Z] [Info] |                                    	 |
+[2022-06-22T14:07:50Z] [Info] ==========================================
+[2022-06-22T14:07:50Z] [Info] |                                    	 |
+[2022-06-22T14:07:50Z] [Info] | Server:       NewLife RPG          	 |
+[2022-06-22T14:07:50Z] [Info] | Version:      v0.0.1           	 |
+[2022-06-22T14:07:50Z] [Info] | Players:      10          		 |
+[2022-06-22T14:07:50Z] [Info] | Author:       Lucas Gama           	 |
+[2022-06-22T14:07:50Z] [Info] | Status:       Initalized (MODE: Dev)   |
+[2022-06-22T14:07:50Z] [Info] |                                    	 |
+[2022-06-22T14:07:50Z] [Info] ==========================================
+
+[2022-06-22T14:07:50Z] [Info] Legacy Network started on port 7777
+[2022-06-22T14:07:50Z] [Info] Failed to announce legacy network to open.mp list
+[2022-06-22T14:08:16Z] [Info] Loading plugin: crashdetect
+[2022-06-22T14:08:16Z] [Info]   CrashDetect plugin 4.20
+[2022-06-22T14:08:16Z] [Info] Loading plugin: mysql
+[2022-06-22T14:08:16Z] [Info]  >> plugin.mysql: R41-4 successfully loaded.
+[2022-06-22T14:08:16Z] [Info] Loading plugin: sscanf
+[2022-06-22T14:08:16Z] [Info] 
+
+[2022-06-22T14:08:16Z] [Info]  ===============================
+
+[2022-06-22T14:08:16Z] [Info]       sscanf plugin loaded.     
+
+[2022-06-22T14:08:16Z] [Info]         Version:  2.11.4        
+
+[2022-06-22T14:08:16Z] [Info]    (c) 2022 Alex "Y_Less" Cole  
+
+[2022-06-22T14:08:16Z] [Info]  ===============================
+
+[2022-06-22T14:08:16Z] [Info] Loading plugin: streamer
+[2022-06-22T14:08:16Z] [Info] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[2022-06-22T14:08:16Z] [Info] Loading plugin: samp_bcrypt
+[2022-06-22T14:08:16Z] [Info] [SampBcrypt] [info]: Version: 0.3.4
+[2022-06-22T14:08:16Z] [Info]  
+[2022-06-22T14:08:16Z] [Info]  
+[2022-06-22T14:08:16Z] [Info]          ==============================================================
+[2022-06-22T14:08:16Z] [Info]          |                                                            |
+[2022-06-22T14:08:16Z] [Info]          |                                                            |
+[2022-06-22T14:08:16Z] [Info]          |    YYYYYYY       YYYYYYY    SSSSSSSSSSSSSSS  IIIIIIIIII    |
+[2022-06-22T14:08:16Z] [Info]          |    Y:::::Y       Y:::::Y  SS:::::::::::::::S I::::::::I    |
+[2022-06-22T14:08:16Z] [Info]          |    Y:::::Y       Y:::::Y S:::::SSSSSS::::::S I::::::::I    |
+[2022-06-22T14:08:16Z] [Info]          |    Y::::::Y     Y::::::Y S:::::S     SSSSSSS II::::::II    |
+[2022-06-22T14:08:16Z] [Info]          |    YYY:::::Y   Y:::::YYY S:::::S               I::::I      |
+[2022-06-22T14:08:16Z] [Info]          |       Y:::::Y Y:::::Y    S:::::S               I::::I      |
+[2022-06-22T14:08:16Z] [Info]          |        Y:::::Y:::::Y      S::::SSSS            I::::I      |
+[2022-06-22T14:08:16Z] [Info]          |         Y:::::::::Y        SS::::::SSSSS       I::::I      |
+[2022-06-22T14:08:16Z] [Info]          |          Y:::::::Y           SSS::::::::SS     I::::I      |
+[2022-06-22T14:08:16Z] [Info]          |           Y:::::Y               SSSSSS::::S    I::::I      |
+[2022-06-22T14:08:16Z] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2022-06-22T14:08:16Z] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2022-06-22T14:08:16Z] [Info]          |           Y:::::Y        SSSSSSS     S:::::S II::::::II    |
+[2022-06-22T14:08:16Z] [Info]          |        YYYY:::::YYYY     S::::::SSSSSS:::::S I::::::::I    |
+[2022-06-22T14:08:16Z] [Info]          |        Y:::::::::::Y     S:::::::::::::::SS  I::::::::I    |
+[2022-06-22T14:08:16Z] [Info]          |        YYYYYYYYYYYYY      SSSSSSSSSSSSSSS    IIIIIIIIII    |
+[2022-06-22T14:08:16Z] [Info]          |                                                            |
+[2022-06-22T14:08:16Z] [Info]          |                                                            |
+[2022-06-22T14:08:16Z] [Info]          |                      (c) 2021 MPL v1.1                     |
+[2022-06-22T14:08:16Z] [Info]          |            Alex "Y_Less" Cole and contributors.            |
+[2022-06-22T14:08:16Z] [Info]          |                                                            |
+[2022-06-22T14:08:16Z] [Info]          |                                                            |
+[2022-06-22T14:08:16Z] [Info]          ==============================================================
+[2022-06-22T14:08:16Z] [Info]  
+[2022-06-22T14:08:16Z] [Info]  
+[2022-06-22T14:08:16Z] [Info]  ========================================== 
+[2022-06-22T14:08:16Z] [Info]  |                                        | 
+[2022-06-22T14:08:16Z] [Info]  |  Missing YSI scriptfiles directories:  | 
+[2022-06-22T14:08:16Z] [Info]  |                                        | 
+[2022-06-22T14:08:16Z] [Info]  |      /scriptfiles/YSI/fixes/           | 
+[2022-06-22T14:08:16Z] [Info]  |      /scriptfiles/YSI/temp/            | 
+[2022-06-22T14:08:16Z] [Info]  |                                        | 
+[2022-06-22T14:08:16Z] [Info]  ========================================== 
+[2022-06-22T14:08:16Z] [Info]  |                                        | 
+[2022-06-22T14:08:16Z] [Info]  |   Generating code, this may take a     | 
+[2022-06-22T14:08:16Z] [Info]  |  little bit of time.  Note that this   | 
+[2022-06-22T14:08:16Z] [Info]  |  code generation works best with the   | 
+[2022-06-22T14:08:16Z] [Info]  |     JIT plugin, which you are not      | 
+[2022-06-22T14:08:16Z] [Info]  |     currently using.  Get it here:     | 
+[2022-06-22T14:08:16Z] [Info]  |                                        | 
+[2022-06-22T14:08:16Z] [Info]  |       https://git.io/jit-plugin        | 
+[2022-06-22T14:08:16Z] [Info]  |                                        | 
+[2022-06-22T14:08:16Z] [Info]  |             Please wait...             | 
+[2022-06-22T14:08:17Z] [Info]  |                                        | 
+[2022-06-22T14:08:17Z] [Info]  |                 Done!                  | 
+[2022-06-22T14:08:17Z] [Info]  |                                        | 
+[2022-06-22T14:08:17Z] [Info]  ========================================== 
+[2022-06-22T14:08:17Z] [Info] [debug] Long callback execution detected (hang or performance issue)
+[2022-06-22T14:08:17Z] [Info] [debug] AMX backtrace:
+[2022-06-22T14:08:17Z] [Info] [debug] #0 000031e8 in Script_GetIncludesString (version[]=@0004c26c "", os[]=@0004c244 "", vlen=32, olen=10) at C:\Users\lucas\Desktop\SA-MP\NewLife Modular\dependencies\YSI-Includes\YSI_Coding\y_hooks\..\..\YSI_Core\y_core\y_version.inc:413
+[2022-06-22T14:08:17Z] [Info] [debug] #1 0000339c in YVers_PrintHeader () at C:\Users\lucas\Desktop\SA-MP\NewLife Modular\dependencies\YSI-Includes\YSI_Coding\y_hooks\..\..\YSI_Core\y_core\y_version.inc:457
+[2022-06-22T14:08:17Z] [Info] [debug] #2 000037f8 in YVers_StartCheck () at C:\Users\lucas\Desktop\SA-MP\NewLife Modular\dependencies\YSI-Includes\YSI_Coding\y_hooks\..\..\YSI_Core\y_core\y_version.inc:579
+[2022-06-22T14:08:17Z] [Info] [debug] #3 00002978 in public VA_OnCodeInit () at C:\Users\lucas\Desktop\SA-MP\NewLife Modular\dependencies\YSI-Includes\YSI_Coding\y_hooks\..\..\YSI_Core\y_core\y_scriptinit_impl.inc:1110
+[2022-06-22T14:08:17Z] [Info]  |                                        | 
+[2022-06-22T14:08:17Z] [Info]  | Server:      0.3DL - Windows           | 
+[2022-06-22T14:08:17Z] [Info]  | Compiler:    3.10.10 - Windows         | 
+[2022-06-22T14:08:17Z] [Info]  | Codepage:    <none>                    | 
+[2022-06-22T14:08:17Z] [Info]  | YSI:         5.06.1932                 | 
+[2022-06-22T14:08:17Z] [Info]  | Started:     1655917696                | 
+[2022-06-22T14:08:17Z] [Info]  | JIT:         <none>                    | 
+[2022-06-22T14:08:17Z] [Info]  | Crashdetect: <found>                   | 
+[2022-06-22T14:08:17Z] [Info]  |                                        | 
+[2022-06-22T14:08:17Z] [Info]  ========================================== 
+[2022-06-22T14:08:17Z] [Info]  
+[2022-06-22T14:08:17Z] [Info] Filterscript '../scriptfiles/callbackfix' loaded.
+[2022-06-22T14:08:17Z] [Info] *** YSI Info: YSI Script ID: 1
+[2022-06-22T14:08:17Z] [Info]  
+[2022-06-22T14:08:17Z] [Info] [DATABASE]: Database connection established.
+[2022-06-22T14:08:17Z] [Info] [DATABASE]: Player's table created.
+[2022-06-22T14:08:17Z] [Info] Setting server language to: "Portugues BR/PT"
+[2022-06-22T14:08:17Z] [Info] 
+==========================================
+[2022-06-22T14:08:17Z] [Info] |                                    	 |
+[2022-06-22T14:08:17Z] [Info] |    *** ***       ***   *** 	 	 |
+[2022-06-22T14:08:17Z] [Info] |    ***  ***      ***   *** 	 	 |
+[2022-06-22T14:08:17Z] [Info] |    ***   ***     ***   *** 	 	 |
+[2022-06-22T14:08:17Z] [Info] |    ***    ***    ***   *** 	 	 |
+[2022-06-22T14:08:17Z] [Info] |    ***     ***   ***   *** 	 	 |
+[2022-06-22T14:08:17Z] [Info] |    ***      ***  ***   *************   |
+[2022-06-22T14:08:17Z] [Info] |    ***       *** ***   *************   |
+[2022-06-22T14:08:17Z] [Info] |                                    	 |
+[2022-06-22T14:08:17Z] [Info] ==========================================
+[2022-06-22T14:08:17Z] [Info] |                                    	 |
+[2022-06-22T14:08:17Z] [Info] | Server:       NewLife RPG          	 |
+[2022-06-22T14:08:17Z] [Info] | Version:      v0.0.1           	 |
+[2022-06-22T14:08:17Z] [Info] | Players:      10          		 |
+[2022-06-22T14:08:17Z] [Info] | Author:       Lucas Gama           	 |
+[2022-06-22T14:08:17Z] [Info] | Status:       Initalized (MODE: Dev)   |
+[2022-06-22T14:08:17Z] [Info] |                                    	 |
+[2022-06-22T14:08:17Z] [Info] ==========================================
+
+[2022-06-22T14:08:17Z] [Info] Legacy Network started on port 7777
+[2022-06-22T14:08:17Z] [Info] Failed to announce legacy network to open.mp list
+[2022-06-22T14:08:42Z] [Info] [connection] incoming connection: 127.0.0.1:56267 id: 0
+[2022-06-22T14:08:42Z] [Info] [join] Gandalf_Storm has joined the server (0:127.0.0.1)
+[2022-06-22T14:08:57Z] [Info] [part] Gandalf_Storm has left the server (0:1)
+[2022-06-22T14:09:29Z] [Info] 
+
+*** Streamer Plugin v2.9.5 by Incognito unloaded ***
+
+[2022-06-22T14:09:30Z] [Info] 
+
+[2022-06-22T14:09:30Z] [Info]  ===============================
+
+[2022-06-22T14:09:30Z] [Info]      sscanf plugin unloaded.    
+
+[2022-06-22T14:09:30Z] [Info]  ===============================
+
+[2022-06-22T14:09:30Z] [Info] plugin.mysql: Unloading plugin...
