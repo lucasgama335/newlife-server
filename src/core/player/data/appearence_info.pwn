@@ -13,58 +13,64 @@ enum pAppearance
 static Player_AppearanceInfo[MAX_PLAYERS][pAppearance];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-/**
- *  Appearance Player Info
- */
-// Player Gender Accessor Function
+// ============== GENDER ACCESSORS ============== //
+// Getters
 stock PlayerData_GetGender(playerid)
 {
     return Player_AppearanceInfo[playerid][pGender];
 }
 
+// Setters
 stock PlayerData_SetGender(playerid, gender)
 {
     return Player_AppearanceInfo[playerid][pGender] = gender;
 }
 
-// Player Fight Style Accessor Function
+// ============== FIGHT STYLE ACCESSORS ============== //
+// Getters
 stock PlayerData_GetFightStyle(playerid)
 {
     return Player_AppearanceInfo[playerid][pFightStyle];
 }
 
+// Setters
 stock PlayerData_SetFightStyle(playerid, style)
 {
     return Player_AppearanceInfo[playerid][pFightStyle] = style;
 }
 
-// Player Actual Skin Accessor Function
+// ============== ACTUAL SKIN ACCESSORS ============== //
+// Getters
 stock PlayerData_GetSkin(playerid)
 {
     return Player_AppearanceInfo[playerid][pSkin];
 }
 
+// Setters
 stock PlayerData_SetSkin(playerid, skinid)
 {
     return Player_AppearanceInfo[playerid][pSkin] = skinid;
 }
 
-// Player Old Skin Accessor Function
+// ============== OLD SKIN ACCESSORS ============== //
+// Getters
 stock PlayerData_GetOldSkin(playerid)
 {
     return Player_AppearanceInfo[playerid][pOldSkin];
 }
 
+// Setters
 stock PlayerData_SetOldSkin(playerid, skinid)
 {
     return Player_AppearanceInfo[playerid][pOldSkin] = skinid;
 }
 
+// ============== RESET INFO ============== //
 stock PlayerData_ResetAppearenceInfo(playerid)
 {
     static const empty_data[pAppearance];
     Player_AppearanceInfo[playerid] = empty_data;
-    Player_AppearanceInfo[playerid][pGender] = 1;
+    Player_AppearanceInfo[playerid][pGender] = GENDER_MALE;
     Player_AppearanceInfo[playerid][pSkin] = DEFAULT_SKIN;
     return Player_AppearanceInfo[playerid];
 }

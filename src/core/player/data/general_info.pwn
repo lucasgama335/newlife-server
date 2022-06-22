@@ -20,46 +20,43 @@ enum pGeneralInfo
 static Player_GeneralInfo[MAX_PLAYERS][pGeneralInfo];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-/**
- *  General Player Info
- */
-// Player ID Accessor Function
+// ============== ID ACCESSORS ============== //
+// Getters
 stock PlayerData_GetID(playerid)
 {
     return Player_GeneralInfo[playerid][pId];
 }
 
+// Setters
 stock PlayerData_SetID(playerid, id)
 {
     return Player_GeneralInfo[playerid][pId] = id;
 }
 
-// Player Admin Accessor Function
+// ============== ADMIN ACCESSORS ============== //
+// Getters
 stock PlayerData_GetAdmin(playerid)
 {
     return Player_GeneralInfo[playerid][pAdmin];
 }
 
+// Setters
 stock PlayerData_SetAdmin(playerid, level)
 {
     return Player_GeneralInfo[playerid][pAdmin] = level;
 }
 
-// Player Last Login Date Accessor Function
-stock PlayerData_GetLastLoginDate(playerid)
+// ============== LAST LOGIN ACCESSORS ============== //
+// Getters
+stock PlayerData_GetLastConnectedTime(playerid)
 {
-    return Player_GeneralInfo[playerid][pLastLoginDate];
+    return Player_GeneralInfo[playerid][pLastConnectedTime];
 }
 
+// Setters
 stock PlayerData_SetLastLoginDate(playerid, timestamp)
 {
     return Player_GeneralInfo[playerid][pLastLoginDate] = timestamp;
-}
-
-// Player Last Login Hour Accessor Function
-stock PlayerData_GetLastLoginHour(playerid)
-{
-    return Player_GeneralInfo[playerid][pLastLoginHour];
 }
 
 stock PlayerData_SetLastLoginHour(playerid, timestamp)
@@ -67,83 +64,56 @@ stock PlayerData_SetLastLoginHour(playerid, timestamp)
     return Player_GeneralInfo[playerid][pLastLoginHour] = timestamp;
 }
 
-// Player Last Connected Time Accessor Function
-stock PlayerData_GetLastConnectedTime(playerid)
-{
-    return Player_GeneralInfo[playerid][pLastConnectedTime];
-}
-
 stock PlayerData_SetLastConnectedTime(playerid, time)
 {
     return Player_GeneralInfo[playerid][pLastConnectedTime] = time;
 }
 
-// Player Last Pos X Accessor Function
-stock Float:PlayerData_GetLastPosX(playerid)
+// ============== LAST POSITION ACCESSORS ============== //
+// Getters
+stock Player_GetLastPosition(playerid, &Float:x, &Float:y, &Float:z, &interior, &vw)
 {
-    return Player_GeneralInfo[playerid][pLastPosX];
+    x = Player_GeneralInfo[playerid][pLastPosX];
+    y = Player_GeneralInfo[playerid][pLastPosY];
+    z = Player_GeneralInfo[playerid][pLastPosZ];
+    interior = Player_GeneralInfo[playerid][pLastInterior];
+    vw = Player_GeneralInfo[playerid][pLastVw];
+    return 1;
 }
 
-stock Float:PlayerData_SetLastPosX(playerid, Float:position)
+stock PlayerData_GetLastPosAngle(playerid, &Float:a)
 {
-    return Player_GeneralInfo[playerid][pLastPosX] = position;
+    a = Player_GeneralInfo[playerid][pLastPosA];
+    return 1;
 }
 
-// Player Last Pos Y Accessor Function
-stock Float:PlayerData_GetLastPosY(playerid)
+// Setters
+stock PlayerData_SetLastPosition(playerid, Float:setX, Float:setY, Float:setZ, Float:setA, interiorid, vw)
 {
-    return Player_GeneralInfo[playerid][pLastPosY];
+    Player_GeneralInfo[playerid][pLastInterior] = interiorid;
+    Player_GeneralInfo[playerid][pLastVw] = vw;
+    Player_GeneralInfo[playerid][pLastPosX] = setX;
+    Player_GeneralInfo[playerid][pLastPosY] = setY;
+    Player_GeneralInfo[playerid][pLastPosZ] = setZ;
+    Player_GeneralInfo[playerid][pLastPosA] = setA;
+    return 1;
 }
 
-stock Float:PlayerData_SetLastPosY(playerid, Float:position)
+stock PlayerData_UpdateLastPosition(playerid)
 {
-    return Player_GeneralInfo[playerid][pLastPosY] = position;
+    new Float:pos_x, Float:pos_y, Float:pos_z, Float:pos_a, interior, vw;
+    GetPlayerPosition(playerid, pos_x, pos_y, pos_z);
+    GetPlayerFacingAngle(playerid, pos_a);
+    Player_GeneralInfo[playerid][pLastInterior] = GetPlayerInterior(playerid);
+    Player_GeneralInfo[playerid][pLastVw] = GetPlayerVirtualWorld(playerid);
+    Player_GeneralInfo[playerid][pLastPosX] = pos_x;
+    Player_GeneralInfo[playerid][pLastPosY] = pos_y;
+    Player_GeneralInfo[playerid][pLastPosZ] = pos_z;
+    Player_GeneralInfo[playerid][pLastPosA] = pos_a;
+    return 1;
 }
 
-// Player Last Pos Z Accessor Function
-stock Float:PlayerData_GetLastPosZ(playerid)
-{
-    return Player_GeneralInfo[playerid][pLastPosZ];
-}
-
-stock Float:PlayerData_SetLastPosZ(playerid, Float:position)
-{
-    return Player_GeneralInfo[playerid][pLastPosZ] = position;
-}
-
-// Player Last Pos A Accessor Function
-stock Float:PlayerData_GetLastPosA(playerid)
-{
-    return Player_GeneralInfo[playerid][pLastPosA];
-}
-
-stock Float:PlayerData_SetLastPosA(playerid, Float:position)
-{
-    return Player_GeneralInfo[playerid][pLastPosA] = position;
-}
-
-// Player Last Interior Accessor Function
-stock Float:PlayerData_GetLastInterior(playerid)
-{
-    return Player_GeneralInfo[playerid][pLastInterior];
-}
-
-stock PlayerData_SetLastInterior(playerid, interiorid)
-{
-    return Player_GeneralInfo[playerid][pLastInterior] = interiorid;
-}
-
-// Player Last Virtual World Accessor Function
-stock Float:PlayerData_GetVirtualWorld(playerid)
-{
-    return Player_GeneralInfo[playerid][pLastVw];
-}
-
-stock PlayerData_SetVirtualWorld(playerid, vwid)
-{
-    return Player_GeneralInfo[playerid][pLastVw] = vwid;
-}
-
+// ============== RESET INFO ============== //
 stock PlayerData_ResetGeneralInfo(playerid)
 {
     static const empty_data[pGeneralInfo];

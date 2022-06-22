@@ -289,7 +289,7 @@ function:OnPlayerDataLoaded(playerid, race_check)
 
     if(cache_num_rows() > 0)
 	{
-        new int_result, Float:float_result;
+        new int_result;
 
         // Temporary Password Hash to Compare in Login
         cache_get_value_name(0, PLAYER_FIELD_PASSWORD, HashPassword[playerid], BCRYPT_HASH_LENGTH);
@@ -310,23 +310,15 @@ function:OnPlayerDataLoaded(playerid, race_check)
         cache_get_value_name_int(0, PLAYER_FIELD_LAST_CONNECTED_TIME, int_result);
         PlayerData_SetLastConnectedTime(playerid, int_result);
         
-        cache_get_value_name_float(0, PLAYER_FIELD_LAST_POSX, float_result);
-        PlayerData_SetLastPosX(playerid, float_result);
-        
-        cache_get_value_name_float(0, PLAYER_FIELD_LAST_POSY, float_result);
-        PlayerData_SetLastPosY(playerid, float_result);
-        
-        cache_get_value_name_float(0, PLAYER_FIELD_LAST_POSZ, float_result);
-        PlayerData_SetLastPosZ(playerid, float_result);
-        
-        cache_get_value_name_float(0, PLAYER_FIELD_LAST_POSA, float_result);
-        PlayerData_SetLastPosA(playerid, float_result);
-        
-        cache_get_value_name_int(0, PLAYER_FIELD_LAST_INTERIOR, int_result);
-        PlayerData_SetLastInterior(playerid, int_result);
-        
-        cache_get_value_name_int(0, PLAYER_FIELD_LAST_VW, int_result);
-        PlayerData_SetVirtualWorld(playerid, int_result);
+        // Position
+        new Float:pos_x, Float:pos_y, Float:pos_z, Float:pos_a, interior, vw;
+        cache_get_value_name_float(0, PLAYER_FIELD_LAST_POSX, pos_x);
+        cache_get_value_name_float(0, PLAYER_FIELD_LAST_POSY, pos_y);
+        cache_get_value_name_float(0, PLAYER_FIELD_LAST_POSZ, pos_z);
+        cache_get_value_name_float(0, PLAYER_FIELD_LAST_POSA, pos_a);
+        cache_get_value_name_int(0, PLAYER_FIELD_LAST_INTERIOR, interior);
+        cache_get_value_name_int(0, PLAYER_FIELD_LAST_VW, vw);
+        PlayerData_SetLastPosition(playerid, pos_x, pos_y, pos_z, pos_a, interior, vw);
         
 
         // Appearence

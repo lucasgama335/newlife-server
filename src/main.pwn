@@ -52,6 +52,8 @@
 #define	SPAWN_VW			0
 #define DEFAULT_CLEAR_LINES 15
 #define	CAMERA_SPEED		2000
+#define	GENDER_MALE			1
+#define	GENDER_FEMALE		2
 
 // Dialogs
 #define DIALOG_ONLY_READ		0

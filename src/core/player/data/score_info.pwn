@@ -13,53 +13,59 @@ enum pScoreInfo
 static Player_ScoreInfo[MAX_PLAYERS][pScoreInfo];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-/**
- *  Score Player Info
- */
-// Player Level Accessor Function
+// ============== LEVEL ACCESSORS ============== //
+// Getters
 stock PlayerData_GetLevel(playerid)
 {
     return Player_ScoreInfo[playerid][pLevel];
 }
 
+// Setters
 stock PlayerData_SetLevel(playerid, level)
 {
     return Player_ScoreInfo[playerid][pLevel] = level;
 }
 
-// Player Deaths Accessor Function
+// ============== DEATHS ACCESSORS ============== //
+// Getters
 stock PlayerData_GetDeaths(playerid)
 {
     return Player_ScoreInfo[playerid][pDeaths];
 }
 
+// Setters
 stock PlayerData_SetDeaths(playerid, deaths)
 {
     return Player_ScoreInfo[playerid][pDeaths] = deaths;
 }
 
-// Player Kills Accessor Function
+// ============== KILLS ACCESSORS ============== //
+// Getters
 stock PlayerData_GetKills(playerid)
 {
     return Player_ScoreInfo[playerid][pKills];
 }
 
+// Setters
 stock PlayerData_SetKills(playerid, kills)
 {
     return Player_ScoreInfo[playerid][pKills] = kills;
 }
 
-// Player Wanted Level Accessor Function
+// ============== WANTED LEVEL ACCESSORS ============== //
+// Getters
 stock PlayerData_GetWantedLevel(playerid)
 {
     return Player_ScoreInfo[playerid][pWantedLevel];
 }
 
+// Setters
 stock PlayerData_SetWantedLevel(playerid, level)
 {
     return Player_ScoreInfo[playerid][pWantedLevel] = level;
 }
 
+// ============== RESET INFO ============== //
 stock PlayerData_ResetScoreInfo(playerid)
 {
     static const empty_data[pScoreInfo];
