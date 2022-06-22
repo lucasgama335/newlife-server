@@ -48,10 +48,6 @@ stock PlayerData_SetAdmin(playerid, level)
 
 // ============== LAST LOGIN ACCESSORS ============== //
 // Getters
-stock PlayerData_GetLastConnectedTime(playerid)
-{
-    return Player_GeneralInfo[playerid][pLastConnectedTime];
-}
 
 // Setters
 stock PlayerData_SetLastLoginDate(playerid, timestamp)
