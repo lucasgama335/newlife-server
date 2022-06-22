@@ -114,7 +114,7 @@ stock Float:PlayerData_GetLastPosX(playerid)
     return Player_GeneralInfo[playerid][pLastPosX];
 }
 
-stock PlayerData_SetLastPosX(playerid, float:position)
+stock Float:PlayerData_SetLastPosX(playerid, Float:position)
 {
     return Player_GeneralInfo[playerid][pLastPosX] = position;
 }
@@ -125,7 +125,7 @@ stock Float:PlayerData_GetLastPosY(playerid)
     return Player_GeneralInfo[playerid][pLastPosY];
 }
 
-stock PlayerData_SetLastPosY(playerid, float:position)
+stock Float:PlayerData_SetLastPosY(playerid, Float:position)
 {
     return Player_GeneralInfo[playerid][pLastPosY] = position;
 }
@@ -136,7 +136,7 @@ stock Float:PlayerData_GetLastPosZ(playerid)
     return Player_GeneralInfo[playerid][pLastPosZ];
 }
 
-stock PlayerData_SetLastPosZ(playerid, float:position)
+stock Float:PlayerData_SetLastPosZ(playerid, Float:position)
 {
     return Player_GeneralInfo[playerid][pLastPosZ] = position;
 }
@@ -147,7 +147,7 @@ stock Float:PlayerData_GetLastPosA(playerid)
     return Player_GeneralInfo[playerid][pLastPosA];
 }
 
-stock PlayerData_SetLastPosA(playerid, float:position)
+stock Float:PlayerData_SetLastPosA(playerid, Float:position)
 {
     return Player_GeneralInfo[playerid][pLastPosA] = position;
 }

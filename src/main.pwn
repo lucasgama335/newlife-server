@@ -51,6 +51,7 @@
 #define	SPAWN_INTERIOR		0
 #define	SPAWN_VW			0
 #define DEFAULT_CLEAR_LINES 15
+#define	CAMERA_SPEED		2000
 
 // Dialogs
 #define DIALOG_ONLY_READ		0
@@ -65,13 +66,16 @@
 #include "utils/delayed_kick.pwn"
 #include "utils/colors.pwn"
 #include "utils/player_name.pwn"
+#include "utils/chat.pwn"
 
 // SERVER CORE
 #include "core/server/database/connection/connect.pwn"
 #include "core/server/database/tables/create_player_table.pwn"
+#include "core/server/anticheat/money.pwn"
 
-// MISCELLANEOUS CORE
-
+// EXTRA CORE
+#include "core/extra/textdraws/loading_screen.pwn"
+#include "core/extra/textdraws/login_screen.pwn"
 
 // PLAYER CORE
 #include "core/player/data/general_info.pwn"
