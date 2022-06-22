@@ -11,7 +11,7 @@
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 
 // Send Messsage Chat to Near Players
-stock ProxDetector(Float:range, playerid, string[], col1, col2, col3, col4, col5)
+stock SendMessageInRange(Float:range, playerid, const string[], col1, col2, col3, col4, col5)
 {
 	if (IsPlayerConnected(playerid))
 	{

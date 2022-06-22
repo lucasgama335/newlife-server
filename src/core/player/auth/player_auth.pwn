@@ -120,6 +120,7 @@ public OnPlayerDisconnect(playerid, reason)
         case 1: format(string, sizeof(string), "%s saiu por vontade própria (ID: %d - Ping: %d - PL: %.01f).", Player_GetName(playerid), playerid, GetPlayerPing(playerid), PacketLoss);
         case 2: format(string, sizeof(string), "%s saiu do servidor por ter sido kickado ou banido (ID: %d - Ping: %d - PL: %.01f).", Player_GetName(playerid), playerid, GetPlayerPing(playerid), PacketLoss);
 	}
+    SendMessageInRange(100.0, playerid, string, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE);
     return 1;
 }
 
@@ -199,8 +200,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			        ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Fazer Login", string, "Entrar", "Ajuda");
 			        return 1;
 	            }
-                bcrypt_verify(playerid, "OnPassswordVerify", inputtext, HashPassword[playerid]);
-	            return 1;
+                return bcrypt_verify(playerid, "OnPassswordVerify", inputtext, HashPassword[playerid]);
 	        }
         }
         case DIALOG_REGISTER:
@@ -214,7 +214,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	                format(string, sizeof(string), "{FFFFFF}Bem Vindo ao {33CCFF}%s{FFFFFF}!\n\nSua Conta: {33CCFF}%s{FFFFFF}.\nStatus: {FF0000}N�o Registrada{FFFFFF}.\n\n{B4B5B7}Insira a senha abaixo para registrar.", SERVER_NAME, Player_GetName(playerid));
 					return ShowPlayerDialog(playerid, DIALOG_REGISTER, DIALOG_STYLE_PASSWORD, "Fazer Cadastro", string, "Registrar", "Sair");
 				}
-                bcrypt_hash(0, "OnPassswordHash", inputtext, BCRYPT_COST);
+                return bcrypt_hash(0, "OnPassswordHash", inputtext, BCRYPT_COST);
             }
         }
     }
