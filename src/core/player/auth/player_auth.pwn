@@ -15,60 +15,11 @@ static Player_TemporaryInfo[MAX_PLAYERS][pTemporaryInfo];
 static HashPassword[MAX_PLAYERS][BCRYPT_HASH_LENGTH];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-stock bool:PlayerData_GetLoggedStatus(playerid)
-{
-    return Player_TemporaryInfo[playerid][pLogged];
-}
-
-stock bool:PlayerData_SetLoggedStatus(playerid, bool:status)
-{
-    return Player_TemporaryInfo[playerid][pLogged] = status;
-}
-
-stock bool:PlayerData_GetRecentlyLogged(playerid)
-{
-    return Player_TemporaryInfo[playerid][pRecentlyLogged];
-}
-
-stock bool:PlayerData_SetRecentlyLogged(playerid, bool:status)
-{
-    return Player_TemporaryInfo[playerid][pRecentlyLogged] = status;
-}
-
-stock bool:PlayerData_GetIsRegistered(playerid)
-{
-    return Player_TemporaryInfo[playerid][pIsRegistered];
-}
-
-stock bool:PlayerData_SetIsRegistered(playerid, bool:status)
-{
-    return Player_TemporaryInfo[playerid][pIsRegistered] = status;
-}
-
-stock bool:PlayerData_GetIsAndroid(playerid)
-{
-    return Player_TemporaryInfo[playerid][pIsAndroid];
-}
-
-stock bool:PlayerData_SetIsAndroid(playerid, bool:status)
-{
-    return Player_TemporaryInfo[playerid][pIsAndroid] = status;
-}
-
-stock PlayerData_GetLoginAttempts(playerid)
-{
-    return Player_TemporaryInfo[playerid][pLoginAttempts];
-}
-
-stock PlayerData_SetLoginAttempts(playerid, attempts)
-{
-    return Player_TemporaryInfo[playerid][pLoginAttempts] = attempts;
-}
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 static stock IsPlayerLogged(playerid)
 {
-    if (PlayerData_GetLoggedStatus(playerid))
+    if (Player_TemporaryInfo[playerid][pLogged])
     {
         SetSpawnInfo(playerid, -1, DEFAULT_SKIN, SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA, 0, 0, 0, 0, 0, 0);
         SpawnPlayer(playerid);
@@ -86,10 +37,10 @@ static stock Player_ClearInfoVars(playerid)
     PlayerData_ResetScoreInfo(playerid);
 
     // Temporary Vars
-    PlayerData_SetLoginAttempts(playerid, 0);
-    PlayerData_SetRecentlyLogged(playerid, true);
-    PlayerData_SetIsRegistered(playerid, false);
-    PlayerData_SetIsAndroid(playerid, false);
+    Player_TemporaryInfo[playerid][pLoginAttempts] = 0;
+    Player_TemporaryInfo[playerid][pRecentlyLogged] = true;
+    Player_TemporaryInfo[playerid][pIsRegistered] = false;
+    Player_TemporaryInfo[playerid][pIsAndroid] = false;
     format(HashPassword[playerid], BCRYPT_HASH_LENGTH, "\0");
     return 1;
 }
@@ -139,12 +90,12 @@ public OnPlayerRequestClass(playerid, classid)
 		return 1;
 	}
 
-    if (PlayerData_GetRecentlyLogged(playerid)) 
+    if (Player_TemporaryInfo[playerid][pRecentlyLogged]) 
 	{
         TogglePlayerSpectating(playerid, true);
         InterpolateCameraPos(playerid, 1205.1385, -1022.0357, 98.2310, 1323.6675, -920.1975, 92.3793, CAMERA_SPEED, CAMERA_MOVE);
 		InterpolateCameraLookAt(playerid, 1205.7915, -1021.2730, 98.0759, 1324.2585, -919.3865, 92.3142, CAMERA_SPEED, CAMERA_MOVE);
-        if (PlayerData_GetIsAndroid(playerid))
+        if (Player_TemporaryInfo[playerid][pIsAndroid])
         {
             HideLoginScreen(playerid);
             ShowPlayerDialog(playerid, DIALOG_CHECK_ANDROID, DIALOG_STYLE_MSGBOX, "Checagem de Plataforma - Servidor", "{FFFFFF}Olá jogador, detectamos uma mudança de plataforma e precisamos colher algumas informações.\nVocê deve informar em qual plataforma você está se conectando ao servidor (Android ou PC) corretamente.\n\n{9fa19e}Se você estiver se conectando pelo Android (Celular), Selecine '{03a9fd}Android{9fa19e}'.\n{9fa19e}Se você estiver se conectando pelo Computador, Selecione '{00b100}PC{9fa19e}'.\n\n{f2664d}Importante: {FFFFFF}Caso marque a opção 'Android' algumas coisas do servidor funcionarão de uma forma diferente,\npor questões de compatibilidade com a plataforma.\n\nSelecione abaixo corretamente, por qual meio você está acessando o servidor:", "Android", "PC");
@@ -160,7 +111,7 @@ public OnPlayerRequestClass(playerid, classid)
 public OnPlayerDisconnect(playerid, reason)
 {
     Database_IncrementRaceCheck(playerid);
-    PlayerData_SetLoggedStatus(playerid, false);
+    Player_TemporaryInfo[playerid][pLogged] = false;
     
     new string[150], Float:PacketLoss;
     switch (reason)
@@ -178,7 +129,7 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 	if (clickedid == LoginTextDraw_GetByIndex(5))
 	{
         new string[256];
-		if (PlayerData_GetIsRegistered(playerid))
+		if (Player_TemporaryInfo[playerid][pIsRegistered])
         {
             SendClientMessage(playerid, 0xffcc99FF, "[CONTA]: Sua conta est� registrada, digite sua senha para logar!");
             format(string, sizeof(string), "{FFFFFF}Bem Vindo ao {33CCFF}%s{FFFFFF}!\n\nSua Conta: {33CCFF}%s{FFFFFF}.\nStatus: {00FF00}Registrada{FFFFFF}.\n\n{B4B5B7}Insira a senha abaixo para logar.", SERVER_NAME, Player_GetName(playerid));
@@ -220,14 +171,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             new string[256];
 			if (!response) 
             {
-                PlayerData_SetIsAndroid(playerid, false);
+                Player_TemporaryInfo[playerid][pIsAndroid] = false;
                 SendClientMessage(playerid, 0xffcc99FF, "[CONTA]: Sua conta está registrada, digite sua senha para logar!");
                 format(string, sizeof(string), "{FFFFFF}Bem Vindo ao {33CCFF}%s{FFFFFF}!\n\nSua Conta: {33CCFF}%s{FFFFFF}.\nStatus: {00FF00}Registrada{FFFFFF}.\n\n{B4B5B7}Insira a senha abaixo para logar.", SERVER_NAME, Player_GetName(playerid));
                 return ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Fazer Login", string, "Entrar", "Ajuda");
             }
             if (response) 
             {
-                PlayerData_SetIsAndroid(playerid, true);
+                Player_TemporaryInfo[playerid][pIsAndroid] = true;
                 SendClientMessage(playerid, 0xffcc99FF, "[CONTA]: Sua conta não está registrada, digite uma senha para se registrar.");
                 format(string, sizeof(string), "{FFFFFF}Bem Vindo ao {33CCFF}%s{FFFFFF}!\n\nSua Conta: {33CCFF}%s{FFFFFF}.\nStatus: {FF0000}N�o Registrada{FFFFFF}.\n\n{B4B5B7}Insira a senha abaixo para registrar.", SERVER_NAME, Player_GetName(playerid));
                 return ShowPlayerDialog(playerid, DIALOG_REGISTER, DIALOG_STYLE_PASSWORD, "Fazer Cadastro", string, "Registrar", "Cancelar");
@@ -274,7 +225,7 @@ public OnAndroidCheck(playerid, bool:isDisgustingThiefToBeBanned)
 {
 	if (isDisgustingThiefToBeBanned)
 	{
-        PlayerData_SetIsAndroid(playerid, true);
+        Player_TemporaryInfo[playerid][pIsAndroid] = true;
 	}
 }
 
@@ -368,11 +319,11 @@ function:OnPlayerDataLoaded(playerid, race_check)
         PlayerData_SetWantedLevel(playerid, int_result);
         
 
-        PlayerData_SetIsRegistered(playerid, true);
+        Player_TemporaryInfo[playerid][pIsRegistered] = true;
 	}
 	else
 	{
-        PlayerData_SetIsRegistered(playerid, false);
+        Player_TemporaryInfo[playerid][pIsRegistered] = false;
 	}
     ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 	SendClientMessage(playerid, COLOR_SOFTGREY, "* Dados Carregados com sucesso, pressione em 'Fazer Login'!");
@@ -403,8 +354,8 @@ function:OnPassswordVerify(playerid, bool:success)
  	} 
     else {
  		new string[256];
-        PlayerData_SetLoginAttempts(playerid, (PlayerData_GetLoginAttempts(playerid) + 1));
-        if (PlayerData_GetLoginAttempts(playerid) > 5)
+        Player_TemporaryInfo[playerid][pLoginAttempts]++;
+        if (Player_TemporaryInfo[playerid][pLoginAttempts] > 5)
         {
             format(HashPassword[playerid], BCRYPT_HASH_LENGTH, "\0");
             SendClientMessage(playerid, COLOR_INVALID, "Voc� errou sua senha v�rias vezes, por isso foi kickado do servidor!");
@@ -412,7 +363,7 @@ function:OnPassswordVerify(playerid, bool:success)
         }
         else
         {
-            format(string, sizeof(string), "[%s AVISO]: Senha incorreta, voc� j� tentou [%d/5].", SERVER_TAG, PlayerData_GetLoginAttempts(playerid));
+            format(string, sizeof(string), "[%s AVISO]: Senha incorreta, voc� j� tentou [%d/5].", SERVER_TAG, Player_TemporaryInfo[playerid][pLoginAttempts]);
             SendClientMessage(playerid, COLOR_INVALID, string);
             format(string, sizeof(string), "[%s AVISO]: Se voc� errar al�m do limite, ser� kickado!", SERVER_TAG);
             SendClientMessage(playerid, COLOR_INVALID, string);
@@ -426,7 +377,7 @@ function:OnPassswordVerify(playerid, bool:success)
 function:OnPlayerRegister(playerid) 
 {
     PlayerData_SetID(playerid, cache_insert_id());
-    PlayerData_SetIsRegistered(playerid, true);
+    Player_TemporaryInfo[playerid][pIsRegistered] = true;
     OnPlayerLogin(playerid);
     return 1;
 }
@@ -435,7 +386,7 @@ function:OnPlayerLogin(playerid)
 {
     CancelSelectTextDraw(playerid);
 	TogglePlayerSpectating(playerid, false);
-    PlayerData_SetLoggedStatus(playerid, true);
+    Player_TemporaryInfo[playerid][pLogged] = true;
 
     SetPlayerScore(playerid, PlayerData_GetLevel(playerid));
     SetPlayerWantedLevel(playerid, PlayerData_GetWantedLevel(playerid));
