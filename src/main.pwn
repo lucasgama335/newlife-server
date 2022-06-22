@@ -40,9 +40,9 @@
 
 // Macros
 #define function:%0(%1)			forward %0(%1); public %0(%1)
-#define DelayedKick(%0) 		SetTimerEx("_KickTimer", 100, false, "i", %0)
 
 // Configuration
+#define	INVALID_VALUE		-1
 #define DEFAULT_SKIN		0
 #define	SPAWN_POSX			839.1713
 #define	SPAWN_POSY			-1341.7622
@@ -53,7 +53,7 @@
 #define DEFAULT_CLEAR_LINES 15
 
 // Dialogs
-#define DSFUNCAO				0
+#define DIALOG_ONLY_READ		0
 #define	DIALOG_CHECK_ANDROID 	1
 #define DIALOG_LOGIN    		2
 #define DIALOG_REGISTER    		3
@@ -61,6 +61,26 @@
 /*==============================================================================
 	Gamemode Scripts
 ==============================================================================*/
+// UTILS
+#include "utils/delayed_kick.pwn"
+#include "utils/colors.pwn"
+#include "utils/player_name.pwn"
+
+// SERVER CORE
+#include "core/server/database/connection/connect.pwn"
+#include "core/server/database/tables/create_player_table.pwn"
+
+// MISCELLANEOUS CORE
+
+
+// PLAYER CORE
+#include "core/player/data/general_info.pwn"
+#include "core/player/data/appearence_info.pwn"
+#include "core/player/data/money_info.pwn"
+#include "core/player/data/score_info.pwn"
+#include "core/player/auth/player_auth.pwn"
+
+// FEATURES CORE
 
 main() 
 {
@@ -123,6 +143,7 @@ public OnGameModeInit()
 	SendRconCommand(serverCmd);
 	format(serverCmd, sizeof(serverCmd), "weburl %s", SERVER_WEBSITE);
 	SendRconCommand(serverCmd);
+
 	//=====================================[ GAMEMODE CONFIGURATION ]====================================||
 	UsePlayerPedAnims(); // Use walking animation of CJ to all skins
     ShowPlayerMarkers(0);
@@ -136,11 +157,5 @@ public OnGameModeInit()
 
 public OnGameModeExit()
 {
-	return 1;
-}
-
-function:_KickTimer(playerid)
-{
-    Kick(playerid);
 	return 1;
 }
