@@ -7,7 +7,6 @@ enum pGeneralInfo
 {
     pId,
     pName[MAX_PLAYER_NAME + 1],
-    pPassword[BCRYPT_HASH_LENGTH],
     pAdmin,
     pLastLoginDate,
     pLastLoginHour,
@@ -47,20 +46,6 @@ stock PlayerData_GetName(playerid)
 stock PlayerData_SetName(playerid, const name[])
 {
     format(Player_GeneralInfo[playerid][pName], (MAX_PLAYER_NAME + 1), "%s", name);
-    return 1;
-}
-
-// Player Password Accessor Function
-stock PlayerData_GetPassword(playerid)
-{
-    new string[BCRYPT_HASH_LENGTH];
-    format(string, sizeof(string), "%s", Player_GeneralInfo[playerid][pPassword]);
-    return string;
-}
-
-stock PlayerData_SetPassword(playerid, const password[])
-{
-    format(Player_GeneralInfo[playerid][pPassword], BCRYPT_HASH_LENGTH, "%s", password);
     return 1;
 }
 

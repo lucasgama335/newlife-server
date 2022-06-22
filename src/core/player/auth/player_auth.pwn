@@ -92,7 +92,7 @@ static stock Player_ClearInfoVars(playerid)
     return 1;
 }
 
-static stock InsertPlayerInDataBase(playerid) 
+static stock InsertPlayerInDataBase(playerid, const password[]) 
 {
     new query_string[256];
     format(query_string, sizeof(query_string), "INSERT INTO %s (%s, %s) VALUES ('%s', '%s')", 
@@ -100,7 +100,7 @@ static stock InsertPlayerInDataBase(playerid)
     PLAYER_FIELD_NAME,
     PLAYER_FIELD_PASSWORD,
     PlayerData_GetName(playerid),
-    PlayerData_GetPassword(playerid));
+    password);
     mysql_tquery(Database_GetConnection(), query_string, "OnPlayerRegister", "i", playerid);
     return 1;
 }
@@ -241,7 +241,23 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			        ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Fazer Login", string, "Entrar", "Ajuda");
 			        return 1;
 	            }
-	            return bcrypt_verify(playerid, "OnPassswordVerify", inputtext, PlayerData_GetPassword(playerid));
+                new query_string[120];
+                mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "SELECT * FROM %s WHERE `name` = '%s' LIMIT 1", PLAYER_TABLE_NAME, Player_GetName(playerid));
+		        new Cache:result = mysql_query(Database_GetConnection(), query_string);
+                if (cache_is_valid(result))
+                {
+                    cache_set_active(result);
+                    new row;
+                    if (cache_get_row_count(row))
+                    {
+                        new hash[BCRYPT_HASH_LENGTH];
+                        cache_get_value_name(0, PLAYER_FIELD_PASSWORD, hash, BCRYPT_HASH_LENGTH); 
+                        bcrypt_verify(playerid, "OnPassswordVerify", inputtext, hash);
+                    }
+                }
+                cache_unset_active();
+		        cache_delete(result);
+	            return 1;
 	        }
         }
         case DIALOG_REGISTER:
@@ -293,9 +309,6 @@ function:OnPlayerDataLoaded(playerid, race_check)
 
         cache_get_value_name(0, PLAYER_FIELD_NAME, string_result, (MAX_PLAYER_NAME + 1)); 
         PlayerData_SetName(playerid, string_result);
-
-        cache_get_value_name(0, PLAYER_FIELD_PASSWORD, string_result, BCRYPT_HASH_LENGTH); 
-        PlayerData_SetPassword(playerid, string_result);
 
         cache_get_value_name_int(0, PLAYER_FIELD_ADMIN, int_result);
         PlayerData_SetAdmin(playerid, int_result);
@@ -393,8 +406,7 @@ function:OnPassswordHash(playerid)
 {
     new hash[BCRYPT_HASH_LENGTH];
 	bcrypt_get_hash(hash);
-    PlayerData_SetPassword(playerid, hash);
-    InsertPlayerInDataBase(playerid);
+    InsertPlayerInDataBase(playerid, hash);
     return 1;
 }
 
