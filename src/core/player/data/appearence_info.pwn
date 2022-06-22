@@ -17,7 +17,7 @@ static Player_AppearanceInfo[MAX_PLAYERS][pAppearance];
 // Getters
 stock PlayerData_GetGender(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_AppearanceInfo[playerid][pGender];
 }
@@ -25,7 +25,7 @@ stock PlayerData_GetGender(playerid)
 // Setters
 stock PlayerData_SetGender(playerid, gender)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
     if (gender < 1 || gender > 2) gender = 1;
 
     return Player_AppearanceInfo[playerid][pGender] = gender;
@@ -35,7 +35,7 @@ stock PlayerData_SetGender(playerid, gender)
 // Getters
 stock PlayerData_GetFightStyle(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_AppearanceInfo[playerid][pFightStyle];
 }
@@ -43,7 +43,7 @@ stock PlayerData_GetFightStyle(playerid)
 // Setters
 stock PlayerData_SetFightStyle(playerid, style)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_AppearanceInfo[playerid][pFightStyle] = style;
 }
@@ -52,7 +52,7 @@ stock PlayerData_SetFightStyle(playerid, style)
 // Getters
 stock PlayerData_GetSkin(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_AppearanceInfo[playerid][pSkin];
 }
@@ -60,7 +60,7 @@ stock PlayerData_GetSkin(playerid)
 // Setters
 stock PlayerData_SetSkin(playerid, skinid)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_AppearanceInfo[playerid][pSkin] = skinid;
 }
@@ -69,7 +69,7 @@ stock PlayerData_SetSkin(playerid, skinid)
 // Getters
 stock PlayerData_GetOldSkin(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_AppearanceInfo[playerid][pOldSkin];
 }
@@ -77,7 +77,7 @@ stock PlayerData_GetOldSkin(playerid)
 // Setters
 stock PlayerData_SetOldSkin(playerid, skinid)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
     
     return Player_AppearanceInfo[playerid][pOldSkin] = skinid;
 }

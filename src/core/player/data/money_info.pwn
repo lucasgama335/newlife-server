@@ -17,7 +17,7 @@ static Player_MoneyInfo[MAX_PLAYERS][pMoneyInfo];
 // Getters
 stock PlayerData_GetMoney(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_MoneyInfo[playerid][pMoney];
 }
@@ -25,7 +25,7 @@ stock PlayerData_GetMoney(playerid)
 // Setters
 stock PlayerData_SetMoney(playerid, money)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_MoneyInfo[playerid][pMoney] = money;
 }
@@ -34,7 +34,7 @@ stock PlayerData_SetMoney(playerid, money)
 // Getters
 stock bool:PlayerData_GetBankStatus(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_MoneyInfo[playerid][pBankAccount];
 }
@@ -42,7 +42,7 @@ stock bool:PlayerData_GetBankStatus(playerid)
 // Setters
 stock bool:PlayerData_SetBankStatus(playerid, bool:status)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_MoneyInfo[playerid][pBankAccount] = status;
 }
@@ -51,7 +51,7 @@ stock bool:PlayerData_SetBankStatus(playerid, bool:status)
 // Getters
 stock PlayerData_GetBankMoney(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_MoneyInfo[playerid][pBankMoney];
 }
@@ -59,7 +59,7 @@ stock PlayerData_GetBankMoney(playerid)
 // Setters
 stock PlayerData_SetBankMoney(playerid, money)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_MoneyInfo[playerid][pBankMoney] = money;
 }
@@ -68,7 +68,7 @@ stock PlayerData_SetBankMoney(playerid, money)
 // Getters
 stock PlayerData_GetCoins(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_MoneyInfo[playerid][pCoins];
 }
@@ -76,7 +76,7 @@ stock PlayerData_GetCoins(playerid)
 // Setters
 stock PlayerData_SetCoins(playerid, coins)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
     
     return Player_MoneyInfo[playerid][pCoins] = coins;
 }

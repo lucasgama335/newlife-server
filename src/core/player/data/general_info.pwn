@@ -24,7 +24,7 @@ static Player_GeneralInfo[MAX_PLAYERS][pGeneralInfo];
 // Getters
 stock PlayerData_GetID(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_GeneralInfo[playerid][pId];
 }
@@ -32,7 +32,7 @@ stock PlayerData_GetID(playerid)
 // Setters
 stock PlayerData_SetID(playerid, id)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_GeneralInfo[playerid][pId] = id;
 }
@@ -41,7 +41,7 @@ stock PlayerData_SetID(playerid, id)
 // Getters
 stock PlayerData_GetAdmin(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_GeneralInfo[playerid][pAdmin];
 }
@@ -49,7 +49,7 @@ stock PlayerData_GetAdmin(playerid)
 // Setters
 stock PlayerData_SetAdmin(playerid, level)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_GeneralInfo[playerid][pAdmin] = level;
 }
@@ -60,21 +60,21 @@ stock PlayerData_SetAdmin(playerid, level)
 // Setters
 stock PlayerData_SetLastLoginDate(playerid, timestamp)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_GeneralInfo[playerid][pLastLoginDate] = timestamp;
 }
 
 stock PlayerData_SetLastLoginHour(playerid, timestamp)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_GeneralInfo[playerid][pLastLoginHour] = timestamp;
 }
 
 stock PlayerData_SetLastConnectedTime(playerid, time)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_GeneralInfo[playerid][pLastConnectedTime] = time;
 }
@@ -83,7 +83,7 @@ stock PlayerData_SetLastConnectedTime(playerid, time)
 // Getters
 stock Player_GetLastPosition(playerid, &Float:x, &Float:y, &Float:z, &interior, &vw)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     x = Player_GeneralInfo[playerid][pLastPosX];
     y = Player_GeneralInfo[playerid][pLastPosY];
@@ -95,7 +95,7 @@ stock Player_GetLastPosition(playerid, &Float:x, &Float:y, &Float:z, &interior, 
 
 stock PlayerData_GetLastPosAngle(playerid, &Float:a)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     a = Player_GeneralInfo[playerid][pLastPosA];
     return 1;
@@ -104,7 +104,7 @@ stock PlayerData_GetLastPosAngle(playerid, &Float:a)
 // Setters
 stock PlayerData_SetLastPosition(playerid, Float:setX, Float:setY, Float:setZ, Float:setA, interiorid, vw)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     Player_GeneralInfo[playerid][pLastInterior] = interiorid;
     Player_GeneralInfo[playerid][pLastVw] = vw;
@@ -117,7 +117,7 @@ stock PlayerData_SetLastPosition(playerid, Float:setX, Float:setY, Float:setZ, F
 
 stock PlayerData_UpdateLastPosition(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     new Float:pos_x, Float:pos_y, Float:pos_z, Float:pos_a, interior, vw;
     GetPlayerPosition(playerid, pos_x, pos_y, pos_z);
@@ -148,7 +148,7 @@ stock PlayerData_ResetGeneralInfo(playerid)
 // ============== SAVE DB INFO ============== //
 stock Database_SaveGeneralInfo(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

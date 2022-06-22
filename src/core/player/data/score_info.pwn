@@ -17,7 +17,7 @@ static Player_ScoreInfo[MAX_PLAYERS][pScoreInfo];
 // Getters
 stock PlayerData_GetLevel(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_ScoreInfo[playerid][pLevel];
 }
@@ -25,7 +25,7 @@ stock PlayerData_GetLevel(playerid)
 // Setters
 stock PlayerData_SetLevel(playerid, level)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_ScoreInfo[playerid][pLevel] = level;
 }
@@ -34,7 +34,7 @@ stock PlayerData_SetLevel(playerid, level)
 // Getters
 stock PlayerData_GetDeaths(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_ScoreInfo[playerid][pDeaths];
 }
@@ -42,7 +42,7 @@ stock PlayerData_GetDeaths(playerid)
 // Setters
 stock PlayerData_SetDeaths(playerid, deaths)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_ScoreInfo[playerid][pDeaths] = deaths;
 }
@@ -51,7 +51,7 @@ stock PlayerData_SetDeaths(playerid, deaths)
 // Getters
 stock PlayerData_GetKills(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_ScoreInfo[playerid][pKills];
 }
@@ -59,7 +59,7 @@ stock PlayerData_GetKills(playerid)
 // Setters
 stock PlayerData_SetKills(playerid, kills)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_ScoreInfo[playerid][pKills] = kills;
 }
@@ -68,7 +68,7 @@ stock PlayerData_SetKills(playerid, kills)
 // Getters
 stock PlayerData_GetWantedLevel(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
 
     return Player_ScoreInfo[playerid][pWantedLevel];
 }
@@ -76,7 +76,7 @@ stock PlayerData_GetWantedLevel(playerid)
 // Setters
 stock PlayerData_SetWantedLevel(playerid, level)
 {
-    if (!IsPlayerConnected(playerid)) return;
+    if (!IsPlayerConnected(playerid)) return false;
     
     return Player_ScoreInfo[playerid][pWantedLevel] = level;
 }
