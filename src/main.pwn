@@ -11,22 +11,26 @@
 /*==============================================================================
 	Libraries and respective links to their release pages
 ==============================================================================*/
-#include <a_mysql>					// By pBlueG:				https://github.com/pBlueG/SA-MP-MySQL
-#include <samp_bcrypt>				// By LassiR				https://github.com/LassiR/bcrypt-samp
-#include <crashdetect>				// By Zeex:					https://github.com/Zeex/samp-plugin-crashdetect
-#include <sscanf2>					// By Y_Less:				https://github.com/Y-Less/sscanf
-#include <streamer>					// By Incognito:			https://github.com/samp-incognito/samp-streamer-plugin
-#include <YSI_Coding\y_hooks> 		// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
-#include <YSI_Visual\y_commands> 	// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
-#include <YSI_Data\y_iterate>       // By Y_Less:				https://github.com/pawn-lang/YSI-Includes
-#include <YSI_Players\y_android>	// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
+#include <a_mysql>						// By pBlueG:				https://github.com/pBlueG/SA-MP-MySQL
+#include <samp_bcrypt>					// By LassiR				https://github.com/LassiR/bcrypt-samp
+#include <sscanf2>						// By Y_Less:				https://github.com/Y-Less/sscanf
+#include <streamer>						// By Incognito:			https://github.com/samp-incognito/samp-streamer-plugin
+#include <YSI_Coding\y_hooks> 			// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
+#include <YSI_Visual\y_commands> 		// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
+#include <YSI_Data\y_iterate>       	// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
+#include <YSI_Players\y_android>		// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
+#include <YSI_Extra\y_inline_mysql>		// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
+#include <YSI_Extra\y_inline_bcrypt>	// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 
 /*==============================================================================
 	Definitions
 ==============================================================================*/
 // Server Info
 #define	DEV_MODE				true
+
 #define	MYSQL_DEBUG				true
+#define	MYSQL_SETUP_TABLES		false
+
 #define SERVER_NAME				"NewLife"
 #define	SERVER_TAG				"NL"
 #define	SERVER_MODE				"RPG [BR/PT]"
@@ -42,24 +46,35 @@
 #define function:%0(%1)			forward %0(%1); public %0(%1)
 
 // Configuration
-#define	INVALID_VALUE		-1
-#define DEFAULT_SKIN		0
-#define	SPAWN_POSX			839.1713
-#define	SPAWN_POSY			-1341.7622
-#define	SPAWN_POSZ			7.1719
-#define	SPAWN_POSA			84.6765
-#define	SPAWN_INTERIOR		0
-#define	SPAWN_VW			0
-#define DEFAULT_CLEAR_LINES 15
-#define	CAMERA_SPEED		2000
-#define	GENDER_MALE			1
-#define	GENDER_FEMALE		2
+#define	INVALID_VALUE			-1
 
+#define	MAX_PASS_LEN			15
+
+#define DEFAULT_SKIN			0
+
+#define	SPAWN_POSX				839.1713
+#define	SPAWN_POSY				-1341.7622
+#define	SPAWN_POSZ				7.1719
+#define	SPAWN_POSA				84.6765
+#define	SPAWN_INTERIOR			0
+#define	SPAWN_VW				0
+
+#define DEFAULT_CLEAR_LINES 	15
+
+#define	CAMERA_SPEED			2000
+
+#define	GENDER_MALE				1
+#define	GENDER_FEMALE			2
+
+#define	MAX_VEHICLE_PER_PLAYER	2
 // Dialogs
-#define DIALOG_ONLY_READ		0
-#define	DIALOG_CHECK_ANDROID 	1
-#define DIALOG_LOGIN    		2
-#define DIALOG_REGISTER    		3
+enum 
+{
+	DIALOG_ONLY_READ,
+	DIALOG_CHECK_ANDROID,
+	DIALOG_LOGIN,
+	DIALOG_REGISTER
+}
 
 /*==============================================================================
 	Gamemode Scripts
@@ -71,8 +86,11 @@
 #include "utils/chat.pwn"
 
 // SERVER CORE
-#include "core/server/database/connection/connect.pwn"
-#include "core/server/database/tables/create_player_table.pwn"
+#include "core/server/database/connect.pwn"
+#include "core/server/database/tables/players_table.pwn"
+#if MYSQL_SETUP_TABLES
+	#include "core/server/database/create_tables.pwn"
+#endif
 #include "core/server/anticheat/money.pwn"
 
 // EXTRA CORE
@@ -120,7 +138,7 @@ main()
 	printf("| Players:      %d          		 |", MAX_PLAYERS);
 
 	printf("| Author:       %s           	 |", SERVER_OWNER);
-	#if DEV_MODE == true
+	#if DEV_MODE
 		print("| Status:       Initalized (MODE: Dev)   |");
 	#else
 		print("| Status:       Initalized (MODE: Live)  |");

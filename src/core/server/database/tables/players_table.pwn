@@ -31,10 +31,14 @@
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-stock Database_CreatePlayerTable()
+stock Database_CreatePlayersTable()
 {
-    new query_string[1082];
-    format(query_string, sizeof(query_string), "CREATE TABLE IF NOT EXISTS "PLAYER_TABLE_NAME" \
+    inline OnQueryFinished()
+    {
+        printf("[DATABASE]: Player's table created.");
+    }
+
+    MySQL_TQueryInline(Database_GetConnection(), using inline OnQueryFinished, "CREATE TABLE IF NOT EXISTS "PLAYER_TABLE_NAME" \
     ( \
         "PLAYER_FIELD_ID" int NOT NULL PRIMARY KEY AUTO_INCREMENT, \
         "PLAYER_FIELD_NAME" varchar(%d) NOT NULL UNIQUE, \
@@ -64,16 +68,9 @@ stock Database_CreatePlayerTable()
         created_at timestamp DEFAULT CURRENT_TIMESTAMP, \
         updated_at timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP \
     )", MAX_PLAYER_NAME, BCRYPT_HASH_LENGTH, DEFAULT_SKIN, DEFAULT_SKIN, SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA);
-    
-    mysql_query(Database_GetConnection(), query_string, false);
-    printf("[DATABASE]: Player's table created.");
+    return 1;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
-hook OnGameModeInit() 
-{
-    Database_CreatePlayerTable();
-    return 1;
-}
