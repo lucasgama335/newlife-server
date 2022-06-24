@@ -90,6 +90,25 @@ stock PlayerData_ResetScoreInfo(playerid)
     return Player_ScoreInfo[playerid];
 }
 
+stock Database_SaveScoreInfo(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    inline OnSaveData()
+    {
+        print("Informações de Pontuações Salvas.");
+    }
+    MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
+    %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d",
+    PLAYER_TABLE_NAME,
+    PLAYER_FIELD_LEVEL, Player_ScoreInfo[playerid][pLevel],
+    PLAYER_FIELD_DEATHS, Player_ScoreInfo[playerid][pDeaths],
+    PLAYER_FIELD_KILLS, Player_ScoreInfo[playerid][pKills],
+    PLAYER_FIELD_WANTED_LEVEL, Player_ScoreInfo[playerid][pWantedLevel],
+    PlayerData_GetID(playerid));
+    return 1;
+}
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------

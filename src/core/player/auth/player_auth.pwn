@@ -4,17 +4,15 @@
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static loginAttempts[MAX_PLAYERS],
-       bool:isLogged[MAX_PLAYERS],
        bool:recentlyLogged[MAX_PLAYERS],
-       bool:isRegistered[MAX_PLAYERS],
-       bool:isUsingAndroid[MAX_PLAYERS];
+       bool:isRegistered[MAX_PLAYERS];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 static stock IsPlayerLogged(playerid)
 {
-    if (isLogged[playerid])
+    if (PlayerData_GetIsLogged(playerid))
     {
         SetPlayerInterior(playerid, 0);
         SetCameraBehindPlayer(playerid);
@@ -35,7 +33,7 @@ static stock Player_ClearInfoVars(playerid)
     loginAttempts[playerid] = 0;
     recentlyLogged[playerid] = true;
     isRegistered[playerid] = false;
-    isUsingAndroid[playerid] = false;
+    PlayerData_SetIsUsingAndroid(playerid, false);
     return 1;
 }
 
@@ -51,6 +49,24 @@ static stock InsertPlayerInDataBase(playerid, const password[])
     return 1;
 }
 
+static stock ShowLoginDialog(playerid)
+{
+    static string[256];
+    SendClientMessage(playerid, 0xffcc99FF, "[CONTA]: Sua conta está registrada, digite sua senha para logar!");
+    format(string, sizeof(string), "{FFFFFF}Bem Vindo ao {33CCFF}%s{FFFFFF}!\n\nSua Conta: {33CCFF}%s{FFFFFF}.\nStatus: {00FF00}Registrada{FFFFFF}.\n\n{B4B5B7}Insira a senha abaixo para logar.", SERVER_NAME, Player_GetName(playerid));
+    ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Fazer Login", string, "Entrar", "Ajuda");
+    return 1;
+}
+
+static stock ShowRegisterDialog(playerid)
+{
+    static string[256];
+    SendClientMessage(playerid, 0xffcc99FF, "[CONTA]: Sua conta não está registrada, digite uma senha para se registrar.");
+    format(string, sizeof(string), "{FFFFFF}Bem Vindo ao {33CCFF}%s{FFFFFF}!\n\nSua Conta: {33CCFF}%s{FFFFFF}.\nStatus: {FF0000}Não Registrada{FFFFFF}.\n\n{B4B5B7}Insira a senha abaixo para registrar.", SERVER_NAME, Player_GetName(playerid));
+    ShowPlayerDialog(playerid, DIALOG_REGISTER, DIALOG_STYLE_PASSWORD, "Fazer Cadastro", string, "Registrar", "Cancelar");
+    return 1;
+}
+
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 public OnPlayerConnect(playerid)
 {
@@ -61,6 +77,7 @@ public OnPlayerConnect(playerid)
 
     // Textdraws
     ShowLoadingScreen(playerid);
+    SetPlayerColor(playerid, COLOR_GRAD2);
 
     new race_check = Database_GetRaceCheck(playerid);
     inline const OnPlayerDataLoaded()
@@ -165,10 +182,10 @@ public OnPlayerRequestClass(playerid, classid)
         TogglePlayerSpectating(playerid, true);
         InterpolateCameraPos(playerid, 1205.1385, -1022.0357, 98.2310, 1323.6675, -920.1975, 92.3793, CAMERA_SPEED, CAMERA_MOVE);
 		InterpolateCameraLookAt(playerid, 1205.7915, -1021.2730, 98.0759, 1324.2585, -919.3865, 92.3142, CAMERA_SPEED, CAMERA_MOVE);
-        if (isUsingAndroid[playerid])
+        if (PlayerData_GetIsUsingAndroid(playerid))
         {
             HideLoginScreen(playerid);
-            ShowPlayerDialog(playerid, DIALOG_CHECK_ANDROID, DIALOG_STYLE_MSGBOX, "Checagem de Plataforma - Servidor", "{FFFFFF}Olï¿½ jogador, detectamos uma mudanï¿½a de plataforma e precisamos colher algumas informaï¿½ï¿½es.\nVocï¿½ deve informar em qual plataforma vocï¿½ estï¿½ se conectando ao servidor (Android ou PC) corretamente.\n\n{9fa19e}Se vocï¿½ estiver se conectando pelo Android (Celular), Selecine '{03a9fd}Android{9fa19e}'.\n{9fa19e}Se vocï¿½ estiver se conectando pelo Computador, Selecione '{00b100}PC{9fa19e}'.\n\n{f2664d}Importante: {FFFFFF}Caso marque a opï¿½ï¿½o 'Android' algumas coisas do servidor funcionarï¿½o de uma forma diferente,\npor questï¿½es de compatibilidade com a plataforma.\n\nSelecione abaixo corretamente, por qual meio vocï¿½ estï¿½ acessando o servidor:", "Android", "PC");
+            ShowPlayerDialog(playerid, DIALOG_CHECK_ANDROID, DIALOG_STYLE_MSGBOX, "Checagem de Plataforma - Servidor", "{FFFFFF}Olá jogador, detectamos uma mudança de plataforma e precisamos colher algumas informações.\nVocê deve informar em qual plataforma você está se conectando ao servidor (Android ou PC) corretamente.\n\n{9fa19e}Se você estiver se conectando pelo Android (Celular), Selecine '{03a9fd}Android{9fa19e}'.\n{9fa19e}Se você estiver se conectando pelo Computador, Selecione '{00b100}PC{9fa19e}'.\n\n{f2664d}Importante: {FFFFFF}Caso marque a opção 'Android' algumas coisas do servidor funcionarão de uma forma diferente,\npor questões de compatibilidade com a plataforma.\n\nSelecione abaixo corretamente, por qual meio você está acessando o servidor:", "Android", "PC");
         }
     }
     else
@@ -186,53 +203,53 @@ public OnPlayerRequestSpawn(playerid)
 public OnPlayerDisconnect(playerid, reason)
 {
     Database_IncrementRaceCheck(playerid);
-    isLogged[playerid] = false;
+    PlayerData_SetIsLogged(playerid, false);
     
     new string[150], Float:PacketLoss;
     switch (reason)
     {
-        case 0: format(string, sizeof(string), "%s saiu do servidor por erro de conexï¿½o ou crash (ID: %d - Ping: %d - PL: %.01f).", Player_GetName(playerid), playerid, GetPlayerPing(playerid), PacketLoss);
-        case 1: format(string, sizeof(string), "%s saiu por vontade prï¿½pria (ID: %d - Ping: %d - PL: %.01f).", Player_GetName(playerid), playerid, GetPlayerPing(playerid), PacketLoss);
+        case 0: format(string, sizeof(string), "%s saiu do servidor por erro de conexão ou crash (ID: %d - Ping: %d - PL: %.01f).", Player_GetName(playerid), playerid, GetPlayerPing(playerid), PacketLoss);
+        case 1: format(string, sizeof(string), "%s saiu por vontade própria (ID: %d - Ping: %d - PL: %.01f).", Player_GetName(playerid), playerid, GetPlayerPing(playerid), PacketLoss);
         case 2: format(string, sizeof(string), "%s saiu do servidor por ter sido kickado ou banido (ID: %d - Ping: %d - PL: %.01f).", Player_GetName(playerid), playerid, GetPlayerPing(playerid), PacketLoss);
 	}
     SendMessageInRange(100.0, playerid, string, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE);
+    
+    CallLocalFunction("BeforeSaveOnDisconnect", "i", playerid);
+    Database_SaveGeneralInfo(playerid);
+    Database_SaveMoneyInfo(playerid);
+    Database_SaveScoreInfo(playerid);
     return 1;
 }
 
 public OnPlayerClickTextDraw(playerid, Text:clickedid)
 {
-    // TELA DE LOGIN: Botï¿½o de Login
+    // Login Screen: Login Button
 	if (clickedid == LoginTextDraw_GetByIndex(5))
 	{
-        new string[256];
 		if (isRegistered[playerid])
         {
-            SendClientMessage(playerid, 0xffcc99FF, "[CONTA]: Sua conta estï¿½ registrada, digite sua senha para logar!");
-            format(string, sizeof(string), "{FFFFFF}Bem Vindo ao {33CCFF}%s{FFFFFF}!\n\nSua Conta: {33CCFF}%s{FFFFFF}.\nStatus: {00FF00}Registrada{FFFFFF}.\n\n{B4B5B7}Insira a senha abaixo para logar.", SERVER_NAME, Player_GetName(playerid));
-            ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Fazer Login", string, "Entrar", "Ajuda");
+            ShowLoginDialog(playerid);
         }
         else
         {
-            SendClientMessage(playerid, 0xffcc99FF, "[CONTA]: Sua conta nï¿½o estï¿½ registrada, digite uma senha para se registrar.");
-            format(string, sizeof(string), "{FFFFFF}Bem Vindo ao {33CCFF}%s{FFFFFF}!\n\nSua Conta: {33CCFF}%s{FFFFFF}.\nStatus: {FF0000}Nï¿½o Registrada{FFFFFF}.\n\n{B4B5B7}Insira a senha abaixo para registrar.", SERVER_NAME, Player_GetName(playerid));
-            ShowPlayerDialog(playerid, DIALOG_REGISTER, DIALOG_STYLE_PASSWORD, "Fazer Cadastro", string, "Registrar", "Cancelar");
+            ShowRegisterDialog(playerid);
         }
 	}
-	// TELA DE LOGIN: Botï¿½o de Informaï¿½ï¿½es
+	// Login Screen: Info Button
 	else if (clickedid == LoginTextDraw_GetByIndex(6))
 	{
-		ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,  "Informaï¿½ï¿½es Gerais", "{FFFFFF}O NewLife ï¿½ um servidor RPG, que tem como principal objetivo a simulaï¿½ï¿½o da vida real.\n\nNele haverï¿½ guerra entre facï¿½ï¿½es criminosas, operaï¿½ï¿½es policiais, roubos, sequestro, assaltos, emboscadas dentre outras coisas.\n\nNo servidor tambï¿½m ï¿½ possï¿½vel adquirir propriedade privada, como: empresas, casas, mansï¿½es, veï¿½culo prï¿½prio, celular, itens e etc.\n\n{6e6e6e}De inï¿½cio, todos os jogadores deverï¿½o ir ao centro de licenï¿½as conseguir suas habilitaï¿½ï¿½es para veï¿½culos motorizados\ne depois devem seguir para a prefeitura para conseguir o seu primeiro emprego, de uma maneira bem simples. Caso nï¿½o saiba\nonde fica localizado, basta digitar: /gps no chat.\nConseguir o seu primeiro emprego ï¿½ de extrema importï¿½ncia, pois ï¿½ atravï¿½s dele, que vocï¿½ conseguirï¿½ juntar seu primeiro dinheiro para adquirir suas coisas no servidor. \n\nNesse perï¿½odo que vocï¿½ estiver trabalhando em seu emprego, irï¿½ evoluindo de nï¿½vel, apï¿½s atingir o nï¿½vel requisitdo pelos lï¿½deres, poderï¿½ participar de uma ORGANIZAï¿½ï¿½O.\nNo servidor, possuï¿½mos organizaï¿½ï¿½es, criminosas, policiais e outros tipos variados.\nSaiba que os empregos sï¿½o diferentes das organizaï¿½ï¿½es.\nEmpregos sï¿½o adquiridos facilmente na prefeitura, organizaï¿½ï¿½es sï¿½o diferentes.\nPara participar de uma ï¿½ necessï¿½rio cumprir os requisitos exigidos pelo lï¿½der e conhecer muito bem as regras do servidor e de cada organizaï¿½ï¿½o.\nEm nosso servidor nï¿½o ï¿½ obrigatï¿½rio o uso de programas de comunicaï¿½ï¿½o para entrar em uma organizaï¿½ï¿½o, essa exigï¿½ncia ficarï¿½ a encargo de cada lï¿½der.\n\n{FFFFFF}Para qualquer dï¿½vida relacionada ao servidor, dificuldade para se registrar no servidor ou fï¿½rum, dicas, compra de VIP e etc,\nentre em contato atravï¿½s dos nossos meios de comunicaï¿½ï¿½o(/sites).", "Entendi", "");
+		ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,  "Informações Gerais", "{FFFFFF}O NewLife é um servidor RPG, que tem como principal objetivo a simulação da vida real.\n\nNele haverá guerra entre facções criminosas, operacções policiais, roubos, sequestro, assaltos, emboscadas dentre outras coisas.\n\nNo servidor também é possível adquirir propriedade privada, como: empresas, casas, mansões, veículo próprio, celular, itens e etc.\n\n{6e6e6e}De início, todos os jogadores deverão ir ao centro de licenças conseguir suas habilitações para veículos motorizados\ne depois devem seguir para a prefeitura para conseguir o seu primeiro emprego, de uma maneira bem simples. Caso não saiba\nonde fica localizado, basta digitar: /gps no chat.\nConseguir o seu primeiro emprego é de extrema importância, pois é aravés dele, que você conseguirá juntar seu primeiro dinheiro para adquirir suas coisas no servidor. \n\nNesse período que você estiver trabalhando em seu emprego, irá evoluindo de nível, após atingir o nível requisitdo pelos líderes, poderá participar de uma ORGANIZAÇÃO.\nNo servidor, possuímos organizações, criminosas, policiais e outros tipos variados.\nSaiba que os empregos são diferentes das organizações.\nEmpregos são adquiridos facilmente na prefeitura, organizações são diferentes.\nPara participar de uma é necessário cumprir os requisitos exigidos pelo líder e conhecer muito bem as regras do servidor e de cada organização.\nEm nosso servidor não é obrigatório o uso de programas de comunicação para entrar em uma organização, essa exigência ficará a encargo de cada líder.\n\n{FFFFFF}Para qualquer dúvida relacionada ao servidor, dificuldade para se registrar no servidor ou fórum, dicas, compra de VIP e etc,\nentre em contato através dos nossos meios de comunicação(/sites).", "Entendi", "");
 	}
-	// TELA DE LOGIN: Botï¿½o de Crï¿½ditos
+	// Login Screen: Credits Button
 	else if (clickedid == LoginTextDraw_GetByIndex(7))
 	{
-        return SendClientMessage(playerid, -1, "Vocï¿½ clicou nos crï¿½ditos.");
+        return SendClientMessage(playerid, -1, "Você clicou nos créditos.");
 		// return ReCommand:creditos(playerid);
 	}
-	// TELA DE LOGIN: Botï¿½o de Sair
+	// Login Screen: Exit Button
 	else if (clickedid == LoginTextDraw_GetByIndex(8))
 	{
-		SendClientMessage(playerid, COLOR_YELLOW, "[Servidor]: Vocï¿½ optou por sair do servidor.");
+		SendClientMessage(playerid, COLOR_YELLOW, "[Servidor]: Você optou por sair do servidor.");
 		DelayedKick(playerid);
 	}
 	return 1;
@@ -244,20 +261,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
     {
         case DIALOG_CHECK_ANDROID:
 		{
-            new string[256];
 			if (!response) 
             {
-                isUsingAndroid[playerid] = false;
-                SendClientMessage(playerid, 0xffcc99FF, "[CONTA]: Sua conta estï¿½ registrada, digite sua senha para logar!");
-                format(string, sizeof(string), "{FFFFFF}Bem Vindo ao {33CCFF}%s{FFFFFF}!\n\nSua Conta: {33CCFF}%s{FFFFFF}.\nStatus: {00FF00}Registrada{FFFFFF}.\n\n{B4B5B7}Insira a senha abaixo para logar.", SERVER_NAME, Player_GetName(playerid));
-                return ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Fazer Login", string, "Entrar", "Ajuda");
+                PlayerData_SetIsUsingAndroid(playerid, false);
+                return ShowLoginDialog(playerid);
             }
             if (response) 
             {
-                isUsingAndroid[playerid] = true;
-                SendClientMessage(playerid, 0xffcc99FF, "[CONTA]: Sua conta nï¿½o estï¿½ registrada, digite uma senha para se registrar.");
-                format(string, sizeof(string), "{FFFFFF}Bem Vindo ao {33CCFF}%s{FFFFFF}!\n\nSua Conta: {33CCFF}%s{FFFFFF}.\nStatus: {FF0000}Nï¿½o Registrada{FFFFFF}.\n\n{B4B5B7}Insira a senha abaixo para registrar.", SERVER_NAME, Player_GetName(playerid));
-                return ShowPlayerDialog(playerid, DIALOG_REGISTER, DIALOG_STYLE_PASSWORD, "Fazer Cadastro", string, "Registrar", "Cancelar");
+                PlayerData_SetIsUsingAndroid(playerid, true);
+                return ShowRegisterDialog(playerid);                
             }
         }
         case DIALOG_LOGIN:
@@ -270,11 +282,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	        {
 	            if (strlen(inputtext) < 8 || strlen(inputtext) > MAX_PASS_LEN)
 	            {
-	                new string[256];
                     SendClientMessage(playerid, COLOR_INVALID, "[AVISO]: A senha deve conter de 8 a 15 caracteres.");
-	                format(string, sizeof(string), "{FFFFFF}Bem Vindo ao {33CCFF}%s{FFFFFF}!\n\nSua Conta: {33CCFF}%s{FFFFFF}.\nStatus: {00FF00}Registrada{FFFFFF}.\n\n{B4B5B7}Insira a senha abaixo para logar.", SERVER_NAME, Player_GetName(playerid));
-			        ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Fazer Login", string, "Entrar", "Ajuda");
-			        return 1;
+			        return ShowLoginDialog(playerid);
 	            }
 
                 // BcryptInline cannot access the parameters of the calling function directly, only the variables of the function body, so we need to create a copy of the inputtext
@@ -299,17 +308,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                                 loginAttempts[playerid]++;
                                 if (loginAttempts[playerid] > 5)
                                 {
-                                    SendClientMessage(playerid, COLOR_INVALID, "Vocï¿½ errou sua senha vï¿½rias vezes, por isso foi kickado do servidor!");
+                                    SendClientMessage(playerid, COLOR_INVALID, "Você errou sua senha várias vezes, por isso foi kickado do servidor!");
                                     DelayedKick(playerid);
                                 }
                                 else
                                 {
-                                    format(string, sizeof(string), "[%s AVISO]: Senha incorreta, vocï¿½ jï¿½ tentou [%d/5].", SERVER_TAG, loginAttempts[playerid]);
+                                    format(string, sizeof(string), "[%s AVISO]: Senha incorreta, você já tentou [%d/5].", SERVER_TAG, loginAttempts[playerid]);
                                     SendClientMessage(playerid, COLOR_INVALID, string);
-                                    format(string, sizeof(string), "[%s AVISO]: Se vocï¿½ errar alï¿½m do limite, serï¿½ kickado!", SERVER_TAG);
+                                    format(string, sizeof(string), "[%s AVISO]: Se você errar além do limite, será kickado!", SERVER_TAG);
                                     SendClientMessage(playerid, COLOR_INVALID, string);
-                                    format(string, sizeof(string), "{FFFFFF}Bem Vindo ao {33CCFF}%s{FFFFFF}!\n\nSua Conta: {33CCFF}%s{FFFFFF}.\nStatus: {00FF00}Registrada{FFFFFF}.\n\n{B4B5B7}Insira a senha abaixo para logar.", SERVER_NAME, Player_GetName(playerid));
-                                    ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Fazer Login", string, "Entrar", "Sair");
+                                    ShowLoginDialog(playerid);
                                 }
                             } 
                         }
@@ -319,8 +327,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     else
                     {
                         SendClientMessage(playerid, COLOR_INVALID, "[AVISO]: Falha ao realizar login, tente novamente.");
-                        format(string, sizeof(string), "{FFFFFF}Bem Vindo ao {33CCFF}%s{FFFFFF}!\n\nSua Conta: {33CCFF}%s{FFFFFF}.\nStatus: {00FF00}Registrada{FFFFFF}.\n\n{B4B5B7}Insira a senha abaixo para logar.", SERVER_NAME, Player_GetName(playerid));
-                        ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Fazer Login", string, "Entrar", "Sair");
+                        ShowLoginDialog(playerid);
                     }
                 }
                 // Get the hashed password from db
@@ -334,10 +341,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             {
                 if (!strlen(inputtext) || strlen(inputtext) < 8 || strlen(inputtext) > MAX_PASS_LEN)
 				{
-				    new string[256];
                     SendClientMessage(playerid, COLOR_INVALID, "[AVISO]: A senha deve conter de 8 a 15 caracteres.");
-	                format(string, sizeof(string), "{FFFFFF}Bem Vindo ao {33CCFF}%s{FFFFFF}!\n\nSua Conta: {33CCFF}%s{FFFFFF}.\nStatus: {FF0000}Nï¿½o Registrada{FFFFFF}.\n\n{B4B5B7}Insira a senha abaixo para registrar.", SERVER_NAME, Player_GetName(playerid));
-					return ShowPlayerDialog(playerid, DIALOG_REGISTER, DIALOG_STYLE_PASSWORD, "Fazer Cadastro", string, "Registrar", "Sair");
+	                return ShowRegisterDialog(playerid);
 				}
 
                 inline const OnPassswordHash(string:hash[])
@@ -353,17 +358,21 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 public OnAndroidCheck(playerid, bool:isDisgustingThiefToBeBanned)
 {
-	if (isDisgustingThiefToBeBanned)
-	{
-        isUsingAndroid[playerid] = true;
-	}
+	if (isDisgustingThiefToBeBanned) PlayerData_SetIsUsingAndroid(playerid, true);
 }
 
 function:OnPlayerLogin(playerid) 
 {
+    if (PlayerData_GetAdmin(playerid) > OWNER)
+	{
+		SendClientMessage(playerid, COLOR_ADMIN, "Nível de Administração Inválido!"); 
+		DelayedKick(playerid);
+        return 1;
+    }
+
     CancelSelectTextDraw(playerid);
 	TogglePlayerSpectating(playerid, false);
-    isLogged[playerid] = true;
+    PlayerData_SetIsLogged(playerid, true);
 
     SetPlayerScore(playerid, PlayerData_GetLevel(playerid));
     SetPlayerWantedLevel(playerid, PlayerData_GetWantedLevel(playerid));
@@ -383,6 +392,23 @@ function:OnPlayerLogin(playerid)
 
     ClearChatBox(playerid, 15);
 	StopAudioStreamForPlayer(playerid);
+    if (PlayerData_GetAdmin(playerid) >= HELPER && PlayerData_GetAdmin(playerid) < SUB_OWNER)
+    {
+        new adminName[35];
+        format(adminName, sizeof(adminName), "~w~%s ~g~ON", Player_GetName(playerid));
+        GameTextForAll(adminName, 5000, 1);
+    }
+    new string[150];
+    format(string, sizeof(string), "~w~Bem Vindo ~n~~y~%s", Player_GetName(playerid));
+    GameTextForPlayer(playerid, string, 5000, 1);
+    format(string, sizeof(string), (PlayerData_GetAdmin(playerid) < HELPER_OWNER ? "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [%s]!" : "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [N/A]!"), Player_GetName(playerid), playerid, PlayerData_GetLevel(playerid), Player_GetIP(playerid));
+ 	MensagemAdmin(COLOR_SKIN, string, HELPER);
+
     SpawnPlayer(playerid);
+    return 1;
+}
+
+function:BeforeSaveOnDisconnect(playerid)
+{
     return 1;
 }

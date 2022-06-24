@@ -15,12 +15,12 @@
 #include <samp_bcrypt>					// By LassiR				https://github.com/LassiR/bcrypt-samp
 #include <sscanf2>						// By Y_Less:				https://github.com/Y-Less/sscanf
 #include <streamer>						// By Incognito:			https://github.com/samp-incognito/samp-streamer-plugin
-#include <YSI_Coding\y_hooks> 			// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
-#include <YSI_Visual\y_commands> 		// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
-#include <YSI_Data\y_iterate>       	// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 #include <YSI_Players\y_android>		// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
+#include <YSI_Data\y_iterate>       	// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
+#include <YSI_Visual\y_commands> 		// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 #include <YSI_Extra\y_inline_mysql>		// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 #include <YSI_Extra\y_inline_bcrypt>	// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
+#include <YSI_Coding\y_hooks> 			// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 
 /*==============================================================================
 	Definitions
@@ -67,6 +67,7 @@
 #define	GENDER_FEMALE			2
 
 #define	MAX_VEHICLE_PER_PLAYER	2
+
 // Dialogs
 enum 
 {
@@ -76,14 +77,30 @@ enum
 	DIALOG_REGISTER
 }
 
+// Admin Levels
+enum
+{
+	NO_ADMIN,
+	HELPER,
+	ASPIRANT,
+	BEGINNER,
+	AUXILIAR,
+	MASTER,
+	MASTERP,
+	MASTERPP,
+	HELPER_OWNER,
+	SUB_OWNER,
+	OWNER
+}
+
 /*==============================================================================
 	Gamemode Scripts
 ==============================================================================*/
 // UTILS
 #include "utils/delayed_kick.pwn"
 #include "utils/colors.pwn"
-#include "utils/player_name.pwn"
 #include "utils/chat.pwn"
+#include "utils/player.pwn"
 
 // SERVER CORE
 #include "core/server/database/connect.pwn"
@@ -103,6 +120,18 @@ enum
 #include "core/player/data/money_info.pwn"
 #include "core/player/data/score_info.pwn"
 #include "core/player/auth/player_auth.pwn"
+#include "core/player/player_spawn.pwn"
+#include "core/player/player_cmds.pwn"
+#include "core/player/admin/admin_cmds_lvl1.pwn"
+#include "core/player/admin/admin_cmds_lvl2.pwn"
+#include "core/player/admin/admin_cmds_lvl3.pwn"
+#include "core/player/admin/admin_cmds_lvl4.pwn"
+#include "core/player/admin/admin_cmds_lvl5.pwn"
+#include "core/player/admin/admin_cmds_lvl6.pwn"
+#include "core/player/admin/admin_cmds_lvl7.pwn"
+#include "core/player/admin/admin_cmds_lvl8.pwn"
+#include "core/player/admin/admin_cmds_lvl9.pwn"
+#include "core/player/admin/admin_cmds_lvl10.pwn"
 
 // FEATURES CORE
 

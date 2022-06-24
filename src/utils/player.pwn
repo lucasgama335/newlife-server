@@ -12,6 +12,19 @@ stock Player_GetName(playerid)
     return player_name;
 }
 
+stock Player_GetIP(playerid)
+{
+    static str[16];
+    GetPlayerIp(playerid, str, sizeof(str));
+    return str;
+}
+
+function:SetPlayerToTeamColor(playerid, admin, org)
+{
+    SetPlayerColor(playerid, COLOR_WHITE);
+	return 1;
+}
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------

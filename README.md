@@ -1,63 +1,50 @@
-# NewLife_Server
+<p align="center">
+	<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Grand_Theft_Auto_San_Andreas_logo.svg/338px-Grand_Theft_Auto_San_Andreas_logo.svg.png" alt="Logo">
+</p>
 
-[![sampctl](https://img.shields.io/badge/sampctl-NewLife_Server-2f2f2f.svg?style=for-the-badge)](https://github.com/lucasgama335/NewLife_Server)
+##### A RPG Gamemode with basics structures...
+- Login and Register System
+- In Development...
 
-<!--
-Short description of your library, why it's useful, some examples, pictures or
-videos. Link to your forum release thread too.
+## Discord server
+<p align="center">
+	<a href="https://discord.com/">
+		<img src="https://discord.com/assets/e4923594e694a21542a489471ecffa50.svg" alt="Logo" height="128">
+	</a>
+</p>
 
-Remember: You can use "forumfmt" to convert this readme to forum BBCode!
-
-What the sections below should be used for:
-
-`## Installation`: Leave this section un-edited unless you have some specific
-additional installation procedure.
-
-`## Testing`: Whether your library is tested with a simple `main()` and `print`,
-unit-tested, or demonstrated via prompting the player to connect, you should
-include some basic information for users to try out your code in some way.
-
-And finally, maintaining your version number`:
-
-* Follow [Semantic Versioning](https://semver.org/)
-* When you release a new version, update `VERSION` and `git tag` it
-* Versioning is important for sampctl to use the version control features
-
-Happy Pawning!
--->
-
-## Installation
-
-Simply install to your project:
-
+# Running & Compiling
+Run this gamemode in three line!
 ```bash
-sampctl package install lucasgama335/NewLife_Server
-```
-
-Include in your code and begin using the library:
-
-```pawn
-#include <NewLife_Server>
-```
-
-## Usage
-
-<!--
-Write your code documentation or examples here. If your library is documented in
-the source code, direct users there. If not, list your API and describe it well
-in this section. If your library is passive and has no API, simply omit this
-section.
--->
-
-## Testing
-
-<!--
-Depending on whether your package is tested via in-game "demo tests" or
-y_testing unit-tests, you should indicate to readers what to expect below here.
--->
-
-To test, simply run the package:
-
-```bash
+sampctl package ensure
+sampctl package build
 sampctl package run
 ```
+
+# How to contribute.
+
+#### Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create.
+
+Any contributions you make are **greatly appreciated**.
+
+- 1. Fork the Project
+- 2. Create your Feature Branch (`git checkout -b feature/`)
+- 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+- 4. Push to the Branch (`git push origin feature/AmazingFeature`)
+- 5. Open a Pull Request
+
+# Thanks to
+Name | Message
+--- | --- |
+[Southclaws] | Includes, snippets from Scavenge Survive, sampctl.
+[maddinat0r] | MySQL
+[Y_Less]     | for YSI Library, used a lot throughout the code and sscanf.
+[Zeex]       | amx_assembly, crashdetect, indirection
+[Incognito]  | streamer
+[LassiR]     | Bcrypt
+
+Very special thanks to
+**SA:MP Team past, present and future - SA:MP.**
+

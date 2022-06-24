@@ -88,6 +88,26 @@ stock PlayerData_ResetMoneyInfo(playerid)
     return Player_MoneyInfo[playerid] = empty_data;
 }
 
+// ============== SAVE DB INFO ============== //
+stock Database_SaveMoneyInfo(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    inline OnSaveData()
+    {
+        print("Informações de Dinheiro Salvas.");
+    }
+    MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
+    %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
+    PLAYER_TABLE_NAME, 
+    PLAYER_FIELD_MONEY, Player_MoneyInfo[playerid][pMoney], 
+    PLAYER_FIELD_BANK_ACCOUNT, (Player_MoneyInfo[playerid][pBankAccount] ? 1 : 0), 
+    PLAYER_FIELD_BANK_MONEY, Player_MoneyInfo[playerid][pBankMoney], 
+    PLAYER_FIELD_COINS, Player_MoneyInfo[playerid][pCoins],
+    PlayerData_GetID(playerid));
+    return 1;
+}
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------

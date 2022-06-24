@@ -18,6 +18,8 @@ enum pGeneralInfo
     pLastVw,
 }
 static Player_GeneralInfo[MAX_PLAYERS][pGeneralInfo];
+static bool:isUsingAndroid[MAX_PLAYERS];
+static bool:isLogged[MAX_PLAYERS];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 // ============== ID ACCESSORS ============== //
@@ -119,8 +121,8 @@ stock PlayerData_UpdateLastPosition(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    new Float:pos_x, Float:pos_y, Float:pos_z, Float:pos_a, interior, vw;
-    GetPlayerPosition(playerid, pos_x, pos_y, pos_z);
+    new Float:pos_x, Float:pos_y, Float:pos_z, Float:pos_a;
+    GetPlayerPos(playerid, pos_x, pos_y, pos_z);
     GetPlayerFacingAngle(playerid, pos_a);
     Player_GeneralInfo[playerid][pLastInterior] = GetPlayerInterior(playerid);
     Player_GeneralInfo[playerid][pLastVw] = GetPlayerVirtualWorld(playerid);
@@ -129,6 +131,35 @@ stock PlayerData_UpdateLastPosition(playerid)
     Player_GeneralInfo[playerid][pLastPosZ] = pos_z;
     Player_GeneralInfo[playerid][pLastPosA] = pos_a;
     return 1;
+}
+
+// ============== TEMPORARY ACCESSORS ============== //
+stock bool:PlayerData_GetIsUsingAndroid(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return isUsingAndroid[playerid];
+}
+
+stock bool:PlayerData_GetIsLogged(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return isLogged[playerid];
+}
+
+stock bool:PlayerData_SetIsUsingAndroid(playerid, bool:status)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return isLogged[playerid] = status;
+}
+
+stock bool:PlayerData_SetIsLogged(playerid, bool:status)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+    
+    return isLogged[playerid] = status;
 }
 
 // ============== RESET INFO ============== //
@@ -149,6 +180,26 @@ stock PlayerData_ResetGeneralInfo(playerid)
 stock Database_SaveGeneralInfo(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
+
+    inline OnSaveData()
+    {
+        print("Informações Gerais Salvas.");
+    }
+    MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
+    %s = %d, %s = %d, %s = %d, %s = %d, %s = %f, %s = %f, %s = %f, %s = %f, %s = %d, %s = %d WHERE id = %d", 
+    PLAYER_TABLE_NAME,
+    PLAYER_FIELD_ADMIN, Player_GeneralInfo[playerid][pAdmin],
+    PLAYER_FIELD_LAST_LOGIN_DATE, Player_GeneralInfo[playerid][pLastLoginDate],
+    PLAYER_FIELD_LAST_LOGIN_HOUR, Player_GeneralInfo[playerid][pLastLoginHour],
+    PLAYER_FIELD_LAST_CONNECTED_TIME, Player_GeneralInfo[playerid][pLastConnectedTime],
+    PLAYER_FIELD_LAST_POSX, Player_GeneralInfo[playerid][pLastPosX],
+    PLAYER_FIELD_LAST_POSY, Player_GeneralInfo[playerid][pLastPosY],
+    PLAYER_FIELD_LAST_POSZ, Player_GeneralInfo[playerid][pLastPosZ],
+    PLAYER_FIELD_LAST_POSA, Player_GeneralInfo[playerid][pLastPosA],
+    PLAYER_FIELD_LAST_INTERIOR, Player_GeneralInfo[playerid][pLastInterior],
+    PLAYER_FIELD_LAST_VW, Player_GeneralInfo[playerid][pLastVw],
+    Player_GeneralInfo[playerid][pId]);
+    return 1;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
