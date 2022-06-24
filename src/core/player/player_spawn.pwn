@@ -10,7 +10,7 @@
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
-public OnPlayerSpawn(playerid)
+hook OnPlayerSpawn(playerid)
 {
     if (!PlayerData_GetIsLogged(playerid))
     {
@@ -33,6 +33,11 @@ public OnPlayerSpawn(playerid)
     SetPlayerFacingAngle(playerid, SPAWN_POSA);
     SetPlayerToTeamColor(playerid, PlayerData_GetAdmin(playerid), 0);
     return 1;
+}
+
+hook OnPlayerRequestSpawn(playerid)
+{
+	return IsPlayerLogged(playerid);
 }
 
 hook BeforeSaveOnDisconnect(playerid)

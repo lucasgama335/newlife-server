@@ -183,7 +183,7 @@ stock Database_SaveGeneralInfo(playerid)
 
     inline OnSaveData()
     {
-        print("Informações Gerais Salvas.");
+        print("[debug]: General data saved.");
     }
     MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
     %s = %d, %s = %d, %s = %d, %s = %d, %s = %f, %s = %f, %s = %f, %s = %f, %s = %d, %s = %d WHERE id = %d", 

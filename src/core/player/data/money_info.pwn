@@ -8,6 +8,7 @@ enum pMoneyInfo
     pMoney,
     bool:pBankAccount,
     pBankMoney,
+    pSalary,
     pCoins,
 }
 static Player_MoneyInfo[MAX_PLAYERS][pMoneyInfo];
@@ -64,6 +65,23 @@ stock PlayerData_SetBankMoney(playerid, money)
     return Player_MoneyInfo[playerid][pBankMoney] = money;
 }
 
+// ============== SALARY ACCESSORS ============== //
+// Getters
+stock PlayerData_GetSalary(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_MoneyInfo[playerid][pSalary];
+}
+
+// Setters
+stock PlayerData_SetSalary(playerid, money)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_MoneyInfo[playerid][pSalary] = money;
+}
+
 // ============== COINS ACCESSORS ============== //
 // Getters
 stock PlayerData_GetCoins(playerid)
@@ -95,14 +113,15 @@ stock Database_SaveMoneyInfo(playerid)
 
     inline OnSaveData()
     {
-        print("Informações de Dinheiro Salvas.");
+        print("[debug]: Money data saved.");
     }
     MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
-    %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
+    %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME, 
     PLAYER_FIELD_MONEY, Player_MoneyInfo[playerid][pMoney], 
     PLAYER_FIELD_BANK_ACCOUNT, (Player_MoneyInfo[playerid][pBankAccount] ? 1 : 0), 
     PLAYER_FIELD_BANK_MONEY, Player_MoneyInfo[playerid][pBankMoney], 
+    PLAYER_FIELD_SALARY, Player_MoneyInfo[playerid][pSalary], 
     PLAYER_FIELD_COINS, Player_MoneyInfo[playerid][pCoins],
     PlayerData_GetID(playerid));
     return 1;

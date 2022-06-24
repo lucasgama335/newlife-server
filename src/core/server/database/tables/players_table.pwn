@@ -7,6 +7,7 @@
 #define PLAYER_FIELD_PASSWORD                   "password"
 #define PLAYER_FIELD_ADMIN                      "admin"
 #define PLAYER_FIELD_LEVEL                      "level"
+#define PLAYER_FIELD_EXP                        "experience"
 #define PLAYER_FIELD_MONEY                      "money"
 #define PLAYER_FIELD_BANK_ACCOUNT               "bank_account"
 #define PLAYER_FIELD_BANK_MONEY                 "bank_money"
@@ -14,6 +15,7 @@
 #define PLAYER_FIELD_FIGHT_STYLE                "fight_style"
 #define PLAYER_FIELD_SKIN                       "skin"
 #define PLAYER_FIELD_OLDSKIN                    "oldskin"
+#define PLAYER_FIELD_SALARY                     "salary"
 #define PLAYER_FIELD_COINS                      "coins"
 #define PLAYER_FIELD_DEATHS                     "deaths"
 #define PLAYER_FIELD_KILLS                      "kills"
@@ -45,7 +47,9 @@ stock Database_CreatePlayersTable()
         "PLAYER_FIELD_PASSWORD" varchar(%d) NOT NULL, \
         "PLAYER_FIELD_ADMIN" int NOT NULL DEFAULT 0, \
         "PLAYER_FIELD_LEVEL" int NOT NULL DEFAULT 1, \
+        "PLAYER_FIELD_EXP" int NOT NULL DEFAULT 0, \
         "PLAYER_FIELD_MONEY" int NOT NULL DEFAULT 0, \
+        "PLAYER_FIELD_SALARY" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_BANK_ACCOUNT" tinyint NOT NULL DEFAULT 0, \
         "PLAYER_FIELD_BANK_MONEY" int NOT NULL DEFAULT 0, \
         "PLAYER_FIELD_GENDER" int DEFAULT 1 NOT NULL, \

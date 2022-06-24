@@ -29,7 +29,7 @@
 #define	DEV_MODE				true
 
 #define	MYSQL_DEBUG				true
-#define	MYSQL_SETUP_TABLES		false
+#define	MYSQL_SETUP_TABLES		true
 
 #define SERVER_NAME				"NewLife"
 #define	SERVER_TAG				"NL"
@@ -68,6 +68,8 @@
 
 #define	MAX_VEHICLE_PER_PLAYER	2
 
+#define	MAX_ADMIN_ROLES			11
+
 // Dialogs
 enum 
 {
@@ -101,6 +103,7 @@ enum
 #include "utils/colors.pwn"
 #include "utils/chat.pwn"
 #include "utils/player.pwn"
+#include "utils/admin.pwn"
 
 // SERVER CORE
 #include "core/server/database/connect.pwn"
@@ -113,13 +116,14 @@ enum
 // EXTRA CORE
 #include "core/extra/textdraws/loading_screen.pwn"
 #include "core/extra/textdraws/login_screen.pwn"
+#include "core/extra/maps/spawn.pwn"
 
 // PLAYER CORE
 #include "core/player/data/general_info.pwn"
 #include "core/player/data/appearence_info.pwn"
 #include "core/player/data/money_info.pwn"
 #include "core/player/data/score_info.pwn"
-#include "core/player/auth/player_auth.pwn"
+#include "core/player/player_auth.pwn"
 #include "core/player/player_spawn.pwn"
 #include "core/player/player_cmds.pwn"
 #include "core/player/admin/admin_cmds_lvl1.pwn"
@@ -197,10 +201,5 @@ public OnGameModeInit()
 	EnableStuntBonusForAll(0);
     SetNameTagDrawDistance(100.0);
     ManualVehicleEngineAndLights();
-	return 1;
-}
-
-public OnGameModeExit()
-{
 	return 1;
 }

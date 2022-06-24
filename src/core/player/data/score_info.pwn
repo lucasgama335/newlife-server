@@ -96,7 +96,7 @@ stock Database_SaveScoreInfo(playerid)
 
     inline OnSaveData()
     {
-        print("Informações de Pontuações Salvas.");
+        print("[debug]: Score data saved.");
     }
     MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
     %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d",

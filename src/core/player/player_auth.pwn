@@ -10,7 +10,7 @@ static loginAttempts[MAX_PLAYERS],
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
-static stock IsPlayerLogged(playerid)
+stock IsPlayerLogged(playerid)
 {
     if (PlayerData_GetIsLogged(playerid))
     {
@@ -42,7 +42,6 @@ static stock InsertPlayerInDataBase(playerid, const password[])
     inline const OnPlayerRegister()
     {
         PlayerData_SetID(playerid, cache_insert_id());
-        isRegistered[playerid] = true;
         OnPlayerLogin(playerid);
     }
     MySQL_TQueryInline(Database_GetConnection(), using inline OnPlayerRegister, "INSERT INTO %s (%s, %s) VALUES ('%s', '%s')", PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, PLAYER_FIELD_PASSWORD, Player_GetName(playerid), password);
@@ -68,7 +67,7 @@ static stock ShowRegisterDialog(playerid)
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
-public OnPlayerConnect(playerid)
+hook OnPlayerConnect(playerid)
 {
     Database_IncrementRaceCheck(playerid);
 
@@ -143,6 +142,7 @@ public OnPlayerConnect(playerid)
             PlayerData_SetWantedLevel(playerid, wanted_level);
             
             isRegistered[playerid] = true;
+            SetSpawnInfo(playerid, -1, PlayerData_GetSkin(playerid), SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA, 0, 0, 0, 0, 0, 0);
         }
         else
         {
@@ -165,12 +165,28 @@ public OnPlayerConnect(playerid)
     return 1;
 }
 
-public OnPlayerUpdate(playerid)
+hook OnPlayerDisconnect(playerid, reason)
 {
+    Database_IncrementRaceCheck(playerid);
+    PlayerData_SetIsLogged(playerid, false);
+    
+    new string[150], Float:PacketLoss;
+    switch (reason)
+    {
+        case 0: format(string, sizeof(string), "%s saiu do servidor por erro de conexão ou crash (ID: %d - Ping: %d - PL: %.01f).", Player_GetName(playerid), playerid, GetPlayerPing(playerid), PacketLoss);
+        case 1: format(string, sizeof(string), "%s saiu por vontade própria (ID: %d - Ping: %d - PL: %.01f).", Player_GetName(playerid), playerid, GetPlayerPing(playerid), PacketLoss);
+        case 2: format(string, sizeof(string), "%s saiu do servidor por ter sido kickado ou banido (ID: %d - Ping: %d - PL: %.01f).", Player_GetName(playerid), playerid, GetPlayerPing(playerid), PacketLoss);
+	}
+    SendMessageInRange(100.0, playerid, string, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE);
+    
+    CallLocalFunction("BeforeSaveOnDisconnect", "i", playerid);
+    Database_SaveGeneralInfo(playerid);
+    Database_SaveMoneyInfo(playerid);
+    Database_SaveScoreInfo(playerid);
     return 1;
 }
 
-public OnPlayerRequestClass(playerid, classid)
+hook OnPlayerRequestClass(playerid, classid)
 {
     if (IsPlayerNPC(playerid))
 	{
@@ -195,33 +211,7 @@ public OnPlayerRequestClass(playerid, classid)
     return 0;
 }
 
-public OnPlayerRequestSpawn(playerid)
-{
-	return IsPlayerLogged(playerid);
-}
-
-public OnPlayerDisconnect(playerid, reason)
-{
-    Database_IncrementRaceCheck(playerid);
-    PlayerData_SetIsLogged(playerid, false);
-    
-    new string[150], Float:PacketLoss;
-    switch (reason)
-    {
-        case 0: format(string, sizeof(string), "%s saiu do servidor por erro de conexão ou crash (ID: %d - Ping: %d - PL: %.01f).", Player_GetName(playerid), playerid, GetPlayerPing(playerid), PacketLoss);
-        case 1: format(string, sizeof(string), "%s saiu por vontade própria (ID: %d - Ping: %d - PL: %.01f).", Player_GetName(playerid), playerid, GetPlayerPing(playerid), PacketLoss);
-        case 2: format(string, sizeof(string), "%s saiu do servidor por ter sido kickado ou banido (ID: %d - Ping: %d - PL: %.01f).", Player_GetName(playerid), playerid, GetPlayerPing(playerid), PacketLoss);
-	}
-    SendMessageInRange(100.0, playerid, string, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE);
-    
-    CallLocalFunction("BeforeSaveOnDisconnect", "i", playerid);
-    Database_SaveGeneralInfo(playerid);
-    Database_SaveMoneyInfo(playerid);
-    Database_SaveScoreInfo(playerid);
-    return 1;
-}
-
-public OnPlayerClickTextDraw(playerid, Text:clickedid)
+hook OnPlayerClickTextDraw(playerid, Text:clickedid)
 {
     // Login Screen: Login Button
 	if (clickedid == LoginTextDraw_GetByIndex(5))
@@ -255,7 +245,7 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 	return 1;
 }
 
-public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
+hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
     switch(dialogid)
     {
@@ -356,13 +346,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
     return 1;
 }
 
-public OnAndroidCheck(playerid, bool:isDisgustingThiefToBeBanned)
+hook OnAndroidCheck(playerid, bool:isDisgustingThiefToBeBanned)
 {
 	if (isDisgustingThiefToBeBanned) PlayerData_SetIsUsingAndroid(playerid, true);
 }
 
 function:OnPlayerLogin(playerid) 
 {
+    recentlyLogged[playerid] = false;
+    isRegistered[playerid] = true;
+    
     if (PlayerData_GetAdmin(playerid) > OWNER)
 	{
 		SendClientMessage(playerid, COLOR_ADMIN, "Nível de Administração Inválido!"); 
@@ -370,10 +363,7 @@ function:OnPlayerLogin(playerid)
         return 1;
     }
 
-    CancelSelectTextDraw(playerid);
-	TogglePlayerSpectating(playerid, false);
     PlayerData_SetIsLogged(playerid, true);
-
     SetPlayerScore(playerid, PlayerData_GetLevel(playerid));
     SetPlayerWantedLevel(playerid, PlayerData_GetWantedLevel(playerid));
     Server_SetPlayerMoney(playerid, PlayerData_GetMoney(playerid));
@@ -387,11 +377,12 @@ function:OnPlayerLogin(playerid)
         case 5: SetPlayerFightingStyle(playerid, FIGHT_STYLE_ELBOW);
         default: SetPlayerFightingStyle(playerid, FIGHT_STYLE_NORMAL);
     }
-    SetSpawnInfo(playerid, -1, PlayerData_GetSkin(playerid), SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA, 0, 0, 0, 0, 0, 0);
     HideLoginScreen(playerid);
-
+    CancelSelectTextDraw(playerid);
+	TogglePlayerSpectating(playerid, false);
     ClearChatBox(playerid, 15);
 	StopAudioStreamForPlayer(playerid);
+
     if (PlayerData_GetAdmin(playerid) >= HELPER && PlayerData_GetAdmin(playerid) < SUB_OWNER)
     {
         new adminName[35];
@@ -401,14 +392,19 @@ function:OnPlayerLogin(playerid)
     new string[150];
     format(string, sizeof(string), "~w~Bem Vindo ~n~~y~%s", Player_GetName(playerid));
     GameTextForPlayer(playerid, string, 5000, 1);
+    SendClientMessage(playerid, COLOR_WHITE, "________________________________________________________________________________________________");
+    format(string, sizeof(string), "* [Aviso]: Seja Bem Vindo(a): {FFFFFF}%s{33ccff}.", Player_GetName(playerid));
+    SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
+    SendClientMessage(playerid, COLOR_LIGHTBLUE, "* [Aviso]: Para voltar na última posição de onde saiu pela última vez digite ({FFFFFF}/irposicao{33ccff})!");
+    SendClientMessage(playerid, COLOR_LIGHTBLUE, "* [Aviso]: Retire suas dúvidas usando ({FFFFFF}/relato{33ccff}) ou com o chat de dúvidas ({FFFFFF}/nchat{33ccff}).");
+    if (PlayerData_GetAdmin(playerid) >= HELPER)
+    {
+        format(string, sizeof(string), "[{FFFFFF}ADMIN{33ccff}]: Você Logou Como Admin: [{FFFFFF}%s{33ccff}].", Admin_GetRole(PlayerData_GetAdmin(playerid)));
+        SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
+    }
     format(string, sizeof(string), (PlayerData_GetAdmin(playerid) < HELPER_OWNER ? "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [%s]!" : "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [N/A]!"), Player_GetName(playerid), playerid, PlayerData_GetLevel(playerid), Player_GetIP(playerid));
  	MensagemAdmin(COLOR_SKIN, string, HELPER);
 
     SpawnPlayer(playerid);
-    return 1;
-}
-
-function:BeforeSaveOnDisconnect(playerid)
-{
     return 1;
 }

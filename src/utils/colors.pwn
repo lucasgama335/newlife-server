@@ -53,6 +53,7 @@
 #define   	COLOR_BABYBLUE   0xCCCCFFFF
 #define   	COLOR_RADIO      0x6666CCFF
 #define		COLOR_NCHAT		 0x009999FF
+#define     COLOR_CYAN       0x00e7c6FF
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 

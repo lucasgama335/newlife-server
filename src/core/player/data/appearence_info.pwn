@@ -99,7 +99,7 @@ stock Database_SaveAppearenceInfo(playerid)
 
     inline OnSaveData()
     {
-        print("Informações de Aparência Salvas.");
+        print("[debug]: Appearence data saved.");
     }
     MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
     %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d",
