@@ -189,7 +189,7 @@ YCMD:trabalhar(playerid, params[], help)
         format(string, sizeof(string), "[STAFF]: O Administrador %s(%d) está Trabalhando!", Player_GetName(playerid), playerid);
         SendClientMessageToAll(COLOR_GRAD1, string);
    	}
-    SetPlayerToTeamColor(playerid, PlayerData_GetAdmin(playerid), Admin_IsWorking(playerid), 0);
+    SetPlayerToTeamColor(playerid);
     Admin_ChangeWorkMode(playerid);
     return 1;
 }

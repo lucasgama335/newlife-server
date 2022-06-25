@@ -142,7 +142,6 @@ hook OnPlayerConnect(playerid)
             PlayerData_SetWantedLevel(playerid, wanted_level);
             
             isRegistered[playerid] = true;
-            SetSpawnInfo(playerid, -1, PlayerData_GetSkin(playerid), SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA, 0, 0, 0, 0, 0, 0);
         }
         else
         {
@@ -367,6 +366,7 @@ function:OnPlayerLogin(playerid)
     SetPlayerScore(playerid, PlayerData_GetLevel(playerid));
     SetPlayerWantedLevel(playerid, PlayerData_GetWantedLevel(playerid));
     Server_SetPlayerMoney(playerid, PlayerData_GetMoney(playerid));
+    SetSpawnInfo(playerid, -1, PlayerData_GetSkin(playerid), SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA, 0, 0, 0, 0, 0, 0);
     switch(PlayerData_GetFightStyle(playerid))
     {
         case 0: SetPlayerFightingStyle(playerid, FIGHT_STYLE_NORMAL);

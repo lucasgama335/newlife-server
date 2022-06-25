@@ -42,16 +42,6 @@ stock bool:IsValidPlayer(playerid, bool:loggedStatus)
     return false;
 }
 
-function:SetPlayerToTeamColor(playerid, admin, bool:workMode, org)
-{
-    SetPlayerColor(playerid, COLOR_WHITE);
-	if (workMode)
-	{
-		SetPlayerColor(playerid, COLOR_ADMIN);
-	}
-	return 1;
-}
-
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
