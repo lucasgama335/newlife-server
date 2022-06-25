@@ -149,10 +149,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 8:
 					{
-					    /*if (playerInfo[playerid][pOrgRole] != 6)
+					    if (PlayerData_GetOrgRole(playerid) != 6)
 						{
 						    return SendClientMessage(playerid, COLOR_INVALID, "Você não é um líder.");
-						}*/
+						}
 						//
 						new helpMessage[664];
 					    strcat(helpMessage, "{0080ff}Comandos destinados aos líderes:\n");
@@ -177,10 +177,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 9:
 					{
-					    /*if (playerInfo[playerid][pOrgRole] != 5)
+					    if (PlayerData_GetOrgRole(playerid) != 5)
 						{
 						    return SendClientMessage(playerid, COLOR_INVALID, "Você não é um sub-líder.");
-						}*/
+						}
 						//
 					    new helpMessage[664];
 					    strcat(helpMessage, "{0080ff}Comandos destinados aos líderes:\n");

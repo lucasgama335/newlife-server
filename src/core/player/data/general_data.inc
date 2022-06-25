@@ -120,6 +120,13 @@ stock PlayerData_GetOrg(playerid)
     return Player_GeneralInfo[playerid][pOrg];
 }
 
+stock PlayerData_GetOrgRole(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_GeneralInfo[playerid][pOrgRole];
+}
+
 // Setters
 stock PlayerData_SetOrg(playerid, orgid, role)
 {
