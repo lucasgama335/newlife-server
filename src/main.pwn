@@ -29,7 +29,7 @@
 #define	DEV_MODE				true
 
 #define	MYSQL_DEBUG				true
-#define	MYSQL_SETUP_TABLES		true
+#define	MYSQL_SETUP_TABLES		false
 
 #define SERVER_NAME				"NewLife"
 #define	SERVER_TAG				"NL"
@@ -38,7 +38,7 @@
 #define	SCRIPT_VERSION_MAJOR 	"0"
 #define	SCRIPT_VERSION_MINOR 	"0"
 #define	SCRIPT_VERSION_PATCH 	"1"
-#define	SERVER_LANGUAGE			"Portugues BR/PT"
+#define	SERVER_LANGUAGE			"Português BR/PT"
 #define	SERVER_WEBSITE			"www.newlife.com"
 #define	SERVER_OWNER			"Lucas Gama"
 
@@ -79,63 +79,22 @@ enum
 	DIALOG_REGISTER
 }
 
-// Admin Levels
-enum
-{
-	NO_ADMIN,
-	HELPER,
-	ASPIRANT,
-	BEGINNER,
-	AUXILIAR,
-	MASTER,
-	MASTERP,
-	MASTERPP,
-	HELPER_OWNER,
-	SUB_OWNER,
-	OWNER
-}
-
 /*==============================================================================
 	Gamemode Scripts
 ==============================================================================*/
 // UTILS
-#include "utils/delayed_kick.pwn"
-#include "utils/colors.pwn"
-#include "utils/chat.pwn"
-#include "utils/player.pwn"
-#include "utils/admin.pwn"
+#include <utils>
 
 // SERVER CORE
-#include "core/server/database/connect.pwn"
-#include "core/server/database/tables/players_table.pwn"
-#if MYSQL_SETUP_TABLES
-	#include "core/server/database/create_tables.pwn"
-#endif
-#include "core/server/anticheat/money.pwn"
+#include <database>
+#include <anticheat>
 
 // EXTRA CORE
-#include "core/extra/textdraws/loading_screen.pwn"
-#include "core/extra/textdraws/login_screen.pwn"
-#include "core/extra/maps/spawn.pwn"
+#include <maps>
+#include <textdraws>
 
 // PLAYER CORE
-#include "core/player/data/general_info.pwn"
-#include "core/player/data/appearence_info.pwn"
-#include "core/player/data/money_info.pwn"
-#include "core/player/data/score_info.pwn"
-#include "core/player/player_auth.pwn"
-#include "core/player/player_spawn.pwn"
-#include "core/player/player_cmds.pwn"
-#include "core/player/admin/admin_cmds_lvl1.pwn"
-#include "core/player/admin/admin_cmds_lvl2.pwn"
-#include "core/player/admin/admin_cmds_lvl3.pwn"
-#include "core/player/admin/admin_cmds_lvl4.pwn"
-#include "core/player/admin/admin_cmds_lvl5.pwn"
-#include "core/player/admin/admin_cmds_lvl6.pwn"
-#include "core/player/admin/admin_cmds_lvl7.pwn"
-#include "core/player/admin/admin_cmds_lvl8.pwn"
-#include "core/player/admin/admin_cmds_lvl9.pwn"
-#include "core/player/admin/admin_cmds_lvl10.pwn"
+#include <player>
 
 // FEATURES CORE
 

@@ -161,7 +161,7 @@ hook OnPlayerConnect(playerid)
         SelectTextDraw(playerid, COLOR_ORANGE);
     }
     // Verify if player exists in database
-    MySQL_TQueryInline(Database_GetConnection(), using inline OnPlayerDataLoaded, "SELECT * FROM %s WHERE %s = '%s'", PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, Player_GetName(playerid));
+    MySQL_TQueryInline(Database_GetConnection(), using inline OnPlayerDataLoaded, "SELECT * FROM %s WHERE %s = '%e'", PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, Player_GetName(playerid));
     return 1;
 }
 
@@ -266,7 +266,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         {
             if (!response) 
 			{
-				return ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,  "Ajuda", "{FFFFFF}Bem Vindo Ao NewLife RPG!\n\n{0080ff}Dificuldade para logar em sua conta ? Siga os passos abaixo:\n{FFFFFF}Aviso 1: {6e6e6e}Confira se seu nick realmente estï¿½ registrado no servidor.\n{FFFFFF}Aviso 2: {6e6e6e}Verifique sua conexï¿½o com a internet, talvez o lag possa estar atrapalhando a comunicaï¿½ï¿½o com nosso servidor.\n{FFFFFF}Aviso 3: {6e6e6e}Verifique se vocï¿½ estï¿½ usando a tecla CAPS LOCK e se sua senha possui caracteres em maiï¿½sculos.\n{FFFFFF}Aviso 4: {6e6e6e}Para fechar o jogo, feche esse menu no botï¿½o 'SAIR', ou digite no chat '/q'.", "Fechar", "");
+				return ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,  "Ajuda", "{FFFFFF}Bem Vindo Ao NewLife RPG!\n\n{0080ff}Dificuldade para logar em sua conta ? Siga os passos abaixo:\n{FFFFFF}Aviso 1: {6e6e6e}Confira se seu nick realmente está registrado no servidor.\n{FFFFFF}Aviso 2: {6e6e6e}Verifique sua conexão com a internet, talvez o lag possa estar atrapalhando a comunicação com nosso servidor.\n{FFFFFF}Aviso 3: {6e6e6e}Verifique se você está usando a tecla CAPS LOCK e se sua senha possui caracteres em maiúsculos.\n{FFFFFF}Aviso 4: {6e6e6e}Para fechar o jogo, feche esse menu no botão 'SAIR', ou digite no chat '/q'.", "Fechar", "");
 			}
             if (response)
 	        {
@@ -321,7 +321,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                 }
                 // Get the hashed password from db
-                MySQL_TQueryInline(Database_GetConnection(), using inline OnPasswordRetrivedFromDB, "SELECT %s FROM %s WHERE %s = '%s' LIMIT 1", PLAYER_FIELD_PASSWORD, PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, Player_GetName(playerid));
+                MySQL_TQueryInline(Database_GetConnection(), using inline OnPasswordRetrivedFromDB, "SELECT %s FROM %s WHERE %s = '%e' LIMIT 1", PLAYER_FIELD_PASSWORD, PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, Player_GetName(playerid));
 	        }
         }
         case DIALOG_REGISTER:

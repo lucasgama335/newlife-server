@@ -6,7 +6,6 @@
 	"dependencies": [
 		"pawn-lang/samp-stdlib",
 		"pawn-lang/YSI-Includes:v5.06.1932",
-		"Zeex/samp-plugin-crashdetect:v4.20",
 		"pBlueG/SA-MP-MySQL:R41-4",
 		"Y-Less/sscanf:v2.11.4",
 		"samp-incognito/samp-streamer-plugin:v2.9.5",
@@ -62,7 +61,18 @@
 				"-Z"
 			],
 			"includes": [
-				"legacy"
+				"legacy",
+				"src/utils",
+				"src/core/extra",
+				"src/core/extra/maps",
+				"src/core/extra/textdraws",
+				"src/core/player",
+				"src/core/player/admin",
+				"src/core/player/data",
+				"src/core/server",
+				"src/core/server/anticheat",
+				"src/core/server/database",
+				"src/core/server/database/tables"
 			],
 			"constants": {
 				"MAX_PLAYERS": "10"
@@ -78,7 +88,18 @@
 				"-Z+"
 			],
 			"includes": [
-				"legacy"
+				"legacy",
+				"src/utils",
+				"src/core/extra",
+				"src/core/extra/maps",
+				"src/core/extra/textdraws",
+				"src/core/player",
+				"src/core/player/admin",
+				"src/core/player/data",
+				"src/core/server",
+				"src/core/server/anticheat",
+				"src/core/server/database",
+				"src/core/server/database/tables"
 			],
 			"constants": {
 				"MAX_PLAYERS": "250"
