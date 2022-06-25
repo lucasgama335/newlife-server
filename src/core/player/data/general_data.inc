@@ -7,6 +7,10 @@ enum pGeneralInfo
 {
     pId,
     pAdmin,
+    pJob,
+    pOrg,
+    pOrgRole,
+    bool:pTutorial,
     pLastLoginDate,
     pLastLoginHour,
     pLastConnectedTime,
@@ -15,6 +19,7 @@ enum pGeneralInfo
     Float:pLastPosZ,
     Float:pLastPosA,
     pLastInterior,
+    pLastInteriorLocale,
     pLastVw,
 }
 static Player_GeneralInfo[MAX_PLAYERS][pGeneralInfo];
@@ -32,9 +37,13 @@ stock Database_SaveGeneralInfo(playerid)
         print("[debug]: General data saved.");
     }
     MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
-    %s = %d, %s = %d, %s = %d, %s = %d, %s = %f, %s = %f, %s = %f, %s = %f, %s = %d, %s = %d WHERE id = %d", 
+    %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %f, %s = %f, %s = %f, %s = %f, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME,
     PLAYER_FIELD_ADMIN, Player_GeneralInfo[playerid][pAdmin],
+    PLAYER_FIELD_JOB, Player_GeneralInfo[playerid][pJob],
+    PLAYER_FIELD_ORG, Player_GeneralInfo[playerid][pOrg],
+    PLAYER_FIELD_ORG_ROLE, Player_GeneralInfo[playerid][pOrgRole],
+    PLAYER_FIELD_TUTORIAL, (Player_GeneralInfo[playerid][pTutorial] == true ? 1 : 0),
     PLAYER_FIELD_LAST_LOGIN_DATE, Player_GeneralInfo[playerid][pLastLoginDate],
     PLAYER_FIELD_LAST_LOGIN_HOUR, Player_GeneralInfo[playerid][pLastLoginHour],
     PLAYER_FIELD_LAST_CONNECTED_TIME, Player_GeneralInfo[playerid][pLastConnectedTime],
@@ -44,6 +53,7 @@ stock Database_SaveGeneralInfo(playerid)
     PLAYER_FIELD_LAST_POSA, Player_GeneralInfo[playerid][pLastPosA],
     PLAYER_FIELD_LAST_INTERIOR, Player_GeneralInfo[playerid][pLastInterior],
     PLAYER_FIELD_LAST_VW, Player_GeneralInfo[playerid][pLastVw],
+    PLAYER_FIELD_LAST_LOCALE, Player_GeneralInfo[playerid][pLastInteriorLocale],
     Player_GeneralInfo[playerid][pId]);
     return 1;
 }
@@ -83,6 +93,43 @@ stock PlayerData_SetAdmin(playerid, level, bool:save)
     if (save) Database_SaveGeneralInfo(playerid);
     return 1;
 }
+
+// ============== JOB ACCESSORS ============== //
+// Getters
+stock PlayerData_GetJob(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_GeneralInfo[playerid][pJob];
+}
+
+// Setters
+stock PlayerData_SetJob(playerid, jobid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_GeneralInfo[playerid][pJob] = jobid;
+}
+
+// ============== ORG ACCESSORS ============== //
+// Getters
+stock PlayerData_GetOrg(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_GeneralInfo[playerid][pOrg];
+}
+
+// Setters
+stock PlayerData_SetOrg(playerid, orgid, role)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    Player_GeneralInfo[playerid][pOrg] = orgid;
+    Player_GeneralInfo[playerid][pOrgRole] = role;
+    return 1;
+}
+
 
 // ============== LAST LOGIN ACCESSORS ============== //
 // Getters

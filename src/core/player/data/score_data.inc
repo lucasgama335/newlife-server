@@ -6,6 +6,7 @@
 enum pScoreInfo
 {
     pLevel,
+    pExperience,
     pDeaths,
     pKills,
     pWantedLevel,
@@ -23,9 +24,10 @@ stock Database_SaveScoreInfo(playerid)
         print("[debug]: Score data saved.");
     }
     MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
-    %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d",
+    %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d",
     PLAYER_TABLE_NAME,
     PLAYER_FIELD_LEVEL, Player_ScoreInfo[playerid][pLevel],
+    PLAYER_FIELD_EXP, Player_ScoreInfo[playerid][pExperience],
     PLAYER_FIELD_DEATHS, Player_ScoreInfo[playerid][pDeaths],
     PLAYER_FIELD_KILLS, Player_ScoreInfo[playerid][pKills],
     PLAYER_FIELD_WANTED_LEVEL, Player_ScoreInfo[playerid][pWantedLevel],
@@ -48,6 +50,23 @@ stock PlayerData_SetLevel(playerid, level)
     if (!IsPlayerConnected(playerid)) return false;
 
     return Player_ScoreInfo[playerid][pLevel] = level;
+}
+
+// ============== EXPERIENCE ACCESSORS ============== //
+// Getters
+stock PlayerData_GetExperience(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_ScoreInfo[playerid][pExperience];
+}
+
+// Setters
+stock PlayerData_SetExperience(playerid, xp)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_ScoreInfo[playerid][pExperience] = xp;
 }
 
 // ============== DEATHS ACCESSORS ============== //

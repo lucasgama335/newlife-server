@@ -85,9 +85,12 @@ hook OnPlayerConnect(playerid)
         if(cache_num_rows() > 0)
         {
             // General Info
-            new id, admin, last_login_date, last_login_hour, last_connected_time, Float:pos_x, Float:pos_y, Float:pos_z, Float:pos_a, interior, vw;
+            new id, admin, job, org, org_role, last_login_date, last_login_hour, last_connected_time, Float:pos_x, Float:pos_y, Float:pos_z, Float:pos_a, interior, vw;
             cache_get_value_name_int(0, PLAYER_FIELD_ID, id);
             cache_get_value_name_int(0, PLAYER_FIELD_ADMIN, admin);
+            cache_get_value_name_int(0, PLAYER_FIELD_JOB, job);
+            cache_get_value_name_int(0, PLAYER_FIELD_ORG, org);
+            cache_get_value_name_int(0, PLAYER_FIELD_ORG_ROLE, org_role);
             cache_get_value_name_int(0, PLAYER_FIELD_LAST_LOGIN_DATE, last_login_date);
             cache_get_value_name_int(0, PLAYER_FIELD_LAST_LOGIN_HOUR, last_login_hour);
             cache_get_value_name_int(0, PLAYER_FIELD_LAST_CONNECTED_TIME, last_connected_time);
@@ -100,6 +103,8 @@ hook OnPlayerConnect(playerid)
 
             PlayerData_SetID(playerid, id);
             PlayerData_SetAdmin(playerid, admin, false);
+            PlayerData_SetJob(playerid, job);
+            PlayerData_SetOrg(playerid, org, org_role);
             PlayerData_SetLastLoginDate(playerid, last_login_date);
             PlayerData_SetLastLoginHour(playerid, last_login_hour);
             PlayerData_SetLastConnectedTime(playerid, last_connected_time);
@@ -130,18 +135,23 @@ hook OnPlayerConnect(playerid)
             PlayerData_SetCoins(playerid, coins);
 
             // Score Info
-            new level, deaths, kills, wanted_level;
+            new level, experience, deaths, kills, wanted_level;
             cache_get_value_name_int(0, PLAYER_FIELD_LEVEL, level);
+            cache_get_value_name_int(0, PLAYER_FIELD_EXP, experience);
             cache_get_value_name_int(0, PLAYER_FIELD_DEATHS, deaths);
             cache_get_value_name_int(0, PLAYER_FIELD_KILLS, kills);
             cache_get_value_name_int(0, PLAYER_FIELD_WANTED_LEVEL, wanted_level);
 
             PlayerData_SetLevel(playerid, level);
+            PlayerData_SetExperience(playerid, experience);
             PlayerData_SetDeaths(playerid, deaths);
             PlayerData_SetKills(playerid, kills);
             PlayerData_SetWantedLevel(playerid, wanted_level);
             
             isRegistered[playerid] = true;
+
+            ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
+            SendClientMessage(playerid, COLOR_SOFTGREY, "* Dados Carregados com sucesso, pressione em 'Fazer Login'.");
         }
         else
         {
@@ -149,7 +159,7 @@ hook OnPlayerConnect(playerid)
         }
 
         ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
-        SendClientMessage(playerid, COLOR_SOFTGREY, "* Dados Carregados com sucesso, pressione em 'Fazer Login'!");
+        SendClientMessage(playerid, COLOR_SOFTGREY, "* Aguarde enquanto carregamos os seus dados...");
 
         InterpolateCameraPos(playerid, 1205.1385, -1022.0357, 98.2310, 1323.6675, -920.1975, 92.3793, CAMERA_SPEED, CAMERA_MOVE);
         InterpolateCameraLookAt(playerid, 1205.7915, -1021.2730, 98.0759, 1324.2585, -919.3865, 92.3142, CAMERA_SPEED, CAMERA_MOVE);

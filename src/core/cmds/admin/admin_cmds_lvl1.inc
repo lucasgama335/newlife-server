@@ -140,7 +140,7 @@ YCMD:aa(playerid, params[], help)
 {
 	if (PlayerData_GetAdmin(playerid) < HELPER)
 	{
-		return true;
+		return 0;
 	}
     if (Admin_IsWorking(playerid) == false && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
 	{

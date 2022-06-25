@@ -36,7 +36,7 @@
 		"onfoot_rate": 30,
 		"incar_rate": 30,
 		"weapon_rate": 30,
-		"chatlogging": true,
+		"chatlogging": false,
 		"timestamp": true,
 		"messageholelimit": 3000,
 		"messageslimit": 500,

@@ -29,7 +29,7 @@
 #define	DEV_MODE				true
 
 #define	MYSQL_DEBUG				true
-#define	MYSQL_SETUP_TABLES		false
+#define	MYSQL_SETUP_TABLES		true
 
 #define SERVER_NAME				"NewLife"
 #define	SERVER_TAG				"NL"
@@ -79,7 +79,13 @@ enum
 	DIALOG_LOGIN,
 	DIALOG_REGISTER,
 	DIALOG_ADMIN_CMDS,
-	DIALOG_ADMIN_CMDS2
+	DIALOG_ADMIN_CMDS2,
+	DIALOG_FAQ_LIST,
+	DIALOG_FAQ_ITEM,
+	DIALOG_HELP_LIST,
+	DIALOG_HELP_ITEM,
+	DIALOG_HELP_CMDS1,
+	DIALOG_HELP_CMDS2,
 }
 
 /*==============================================================================

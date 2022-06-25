@@ -53,3 +53,15 @@ public e_COMMAND_ERRORS:OnPlayerCommandReceived(playerid, cmdtext[], e_COMMAND_E
 	cmd_Cooldown[playerid] = gettime() + 2;
     return COMMAND_OK;
 }
+
+public e_COMMAND_ERRORS:OnPlayerCommandPerformed(playerid, cmdtext[], e_COMMAND_ERRORS:success)
+{
+	if (success != COMMAND_OK) 
+    {
+		Command_SetDeniedReturn(true);
+		return COMMAND_DENIED;
+    }
+	
+	cmd_Cooldown[playerid] = gettime() + 2;
+    return COMMAND_OK;
+}

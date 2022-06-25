@@ -1,4 +1,6 @@
 #include <maps_spawn>
+#include <maps_city_hall>
+#include <maps_city_hall_square>
 
 #include <YSI_Coding\y_hooks>
 

@@ -12,10 +12,9 @@ static spawnActor[3];
 hook OnGameModeInit()
 {
 	//=====================================[ 3DTEXT ]====================================||
-	// Faq Spawn Civil LS
 	Create3DTextLabel("{00e7c6}AJUDA PARA NOVATOS\n{FFFFFF}Aperte '{00e7c6}F{FFFFFF}'\n{FFFFFF}Em caso de dúvidas ou use o {00e7c6}/faq{FFFFFF}.", COLOR_CYAN, 809.5279,-1341.4880,13.5405, 20.0,0);
 
-	//=====================================[ 3DTEXT ]====================================||
+	//=====================================[ PICKUPS ]====================================||
 	AddStaticPickup(18749, 23, 809.5279,-1341.4880,13.5405); // Faq Civil
 
 	//=====================================[ OBJECTS ]====================================||
@@ -92,4 +91,6 @@ hook OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 962, 827.5078, -1353.7266, 13.6016, 0.25);
 	RemoveBuildingForPlayer(playerid, 1297, 855.3047, -1331.9219, 15.6406, 0.25);
 	RemoveBuildingForPlayer(playerid, 1297, 895.3047, -1331.8828, 15.6406, 0.25);
+
+	//=====================================[ MAP ICONS ]====================================||
 }
