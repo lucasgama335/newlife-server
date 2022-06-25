@@ -4,6 +4,7 @@
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static bool:workMode[MAX_PLAYERS];
+
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock bool:Admin_IsWorking(playerid)
 {
