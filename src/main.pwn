@@ -85,8 +85,6 @@ enum
 /*==============================================================================
 	Gamemode Scripts
 ==============================================================================*/
-DEFINE_HOOK_REPLACEMENT(CommandPerformed, CmdWork);
-
 // UTILS
 #include <utils>
 
@@ -105,6 +103,9 @@ DEFINE_HOOK_REPLACEMENT(CommandPerformed, CmdWork);
 
 // COMMANDS
 #include <cmds>
+
+// CHAT
+#include <chat>
 
 main() 
 {

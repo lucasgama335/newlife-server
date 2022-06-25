@@ -9,7 +9,8 @@
 		"pBlueG/SA-MP-MySQL:R41-4",
 		"Y-Less/sscanf:v2.11.4",
 		"samp-incognito/samp-streamer-plugin:v2.9.5",
-		"Sreyas-Sreelal/samp-bcrypt:0.3.4"
+		"Sreyas-Sreelal/samp-bcrypt:0.3.4",
+		"Zeex/samp-plugin-crashdetect:v4.20"
 	],
 	"local": true,
 	"runtime": {
@@ -70,6 +71,7 @@
 				"src/core/player/data",
 				"src/core/cmds",
 				"src/core/cmds/admin",
+				"src/core/chat",
 				"src/core/server",
 				"src/core/server/anticheat",
 				"src/core/server/database",
@@ -98,6 +100,7 @@
 				"src/core/player/data",
 				"src/core/cmds",
 				"src/core/cmds/admin",
+				"src/core/chat",
 				"src/core/server",
 				"src/core/server/anticheat",
 				"src/core/server/database",

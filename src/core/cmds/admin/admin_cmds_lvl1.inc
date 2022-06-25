@@ -7,6 +7,17 @@
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+static stock ShowCommandsListDialog(playerid)
+{
+	new stringDialog[471], string[47];
+	for (new i = 1; i <= PlayerData_GetAdmin(playerid); i++)
+	{
+		format(string, sizeof(string), "{ff61f3}Administrador » {FFFFFF}%s\n", Admin_GetRole(i));
+		strcat(stringDialog, string);
+	}
+	ShowPlayerDialog(playerid, DIALOG_ADMIN_CMDS, DIALOG_STYLE_LIST, "Comandos da Administração", stringDialog, "Selecionar", "Cancelar");
+	return 1;
+}
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
@@ -118,8 +129,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			if (response)
 			{
-                return 1;
-				// return ReCommand:aa(playerid);
+                return ShowCommandsListDialog(playerid);
 			}
 		}
     }
@@ -137,13 +147,7 @@ YCMD:aa(playerid, params[], help)
  		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
 	}
 
-	new stringDialog[471], string[47];
-	for (new i = 1; i <= PlayerData_GetAdmin(playerid); i++)
-	{
-		format(string, sizeof(string), "{ff61f3}Administrador » {FFFFFF}%s\n", Admin_GetRole(i));
-		strcat(stringDialog, string);
-	}
-	ShowPlayerDialog(playerid, DIALOG_ADMIN_CMDS, DIALOG_STYLE_LIST, "Comandos da Administração", stringDialog, "Selecionar", "Cancelar");
+	ShowCommandsListDialog(playerid);
     return 1;
 }
 

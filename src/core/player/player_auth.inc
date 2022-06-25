@@ -99,7 +99,7 @@ hook OnPlayerConnect(playerid)
             cache_get_value_name_int(0, PLAYER_FIELD_LAST_VW, vw);
 
             PlayerData_SetID(playerid, id);
-            PlayerData_SetAdmin(playerid, admin);
+            PlayerData_SetAdmin(playerid, admin, false);
             PlayerData_SetLastLoginDate(playerid, last_login_date);
             PlayerData_SetLastLoginHour(playerid, last_login_hour);
             PlayerData_SetLastConnectedTime(playerid, last_connected_time);
@@ -232,8 +232,15 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid)
 	// Login Screen: Credits Button
 	else if (clickedid == LoginTextDraw_GetByIndex(7))
 	{
-        return SendClientMessage(playerid, -1, "Você clicou nos créditos.");
-		// return ReCommand:creditos(playerid);
+        new MEGAString[93], string[67];
+        if (PlayerData_GetAdmin(playerid) < HELPER)
+        {
+            format(string, sizeof(string), "Admin-Aviso: %s viu os créditos do servidor.", Player_GetName(playerid));
+            MensagemAdmin(COLOR_YELLOW, string, HELPER);
+        }
+        strcat(MEGAString, "{FFFFFF}»  RhaegarX: {696969}(Fundador/Scripter)\n");
+        strcat(MEGAString, "{FFFFFF}»  Rick_M: {696969}(Beta Tester)\n");
+        ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX, "Créditos do Servidor", MEGAString, "Fechar", "");
 	}
 	// Login Screen: Exit Button
 	else if (clickedid == LoginTextDraw_GetByIndex(8))

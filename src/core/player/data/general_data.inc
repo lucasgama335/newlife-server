@@ -75,12 +75,12 @@ stock PlayerData_GetAdmin(playerid)
 }
 
 // Setters
-stock PlayerData_SetAdmin(playerid, level)
+stock PlayerData_SetAdmin(playerid, level, bool:save)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
     Player_GeneralInfo[playerid][pAdmin] = level;
-    Database_SaveGeneralInfo(playerid);
+    if (save) Database_SaveGeneralInfo(playerid);
     return 1;
 }
 

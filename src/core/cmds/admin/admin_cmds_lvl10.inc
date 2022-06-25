@@ -34,7 +34,7 @@ YCMD:daradmin(playerid, params[], help)
 	}
 
 	new string[100];
-	PlayerData_SetAdmin(id, level);
+	PlayerData_SetAdmin(id, level, true);
 	format(string, sizeof(string), "Você foi promovido para level %d de Admin - Por %s.", level, Player_GetName(playerid));
     SendClientMessage(id, COLOR_LIGHTBLUE, string);
 	format(string, sizeof(string), "Você promoveu %s para o level %d de Admin.", Player_GetName(id), level);
@@ -64,7 +64,7 @@ YCMD:retiraradmin(playerid, params[], help)
 	}
 
 	new string[68];
-	PlayerData_SetAdmin(id, 0);
+	PlayerData_SetAdmin(id, 0, true);
 	format(string, sizeof(string), "Seu Admin foi retirado pelo Administrador: %s.", Player_GetName(playerid));
     SendClientMessage(id, COLOR_LIGHTBLUE, string);
 	format(string, sizeof(string), "Você retirou o Admin de %s.", Player_GetName(id));

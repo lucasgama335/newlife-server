@@ -15,53 +15,52 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static cmd_Cooldown[MAX_PLAYERS], cmd_Count[MAX_PLAYERS];
+static cmd_Cooldown[MAX_PLAYERS];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
-public OnPlayerCommandReceived(playerid, cmd[])
+public e_COMMAND_ERRORS:OnPlayerCommandReceived(playerid, cmdtext[], e_COMMAND_ERRORS:success)
 {
 	// if player is not spawned, do not allow him to use commands.
-	if(!PlayerData_GetIsLogged(playerid)) return 0;
-    
-    // anti command spam
+	if(!PlayerData_GetIsLogged(playerid))
+	{
+		SendClientMessage(playerid, COLOR_INVALID, "Você não está logado.");
+		return COMMAND_ZERO_RET;
+	}    
+
+	// anti command spam
 	if(gettime() < cmd_Cooldown[playerid]) 
     {
-		cmd_Count[playerid] ++;
-
-		if(cmd_Count[playerid] >= 2) 
-        {
-	 		SendClientMessage(playerid, COLOR_GRAD1, "Aguarde 2 segundos para digitar novamente um comando!");
-	 		return 0;
-		}
-	}
-	else 
-    {
-		if(cmd_Count[playerid] > 0) 
-        {
-			cmd_Count[playerid] --;
-		}
+		SendClientMessage(playerid, COLOR_GRAD1, "Aguarde 2 segundos para digitar novamente um comando!");
+		return COMMAND_ZERO_RET;
 	}
 
 	//get time data everytime a command is recieved.
 	cmd_Cooldown[playerid] = gettime() + 2;
-    return 1;
+    return COMMAND_OK;
 }
 
-public OnPlayerCmdWork(playerid, cmd[], success) 
+public e_COMMAND_ERRORS:OnPlayerCommandPerformed(playerid, cmdtext[], e_COMMAND_ERRORS:success)
 {
-    if (!success) 
+    // if player is not spawned, do not allow him to use commands.
+	if(!PlayerData_GetIsLogged(playerid))
+	{
+		SendClientMessage(playerid, COLOR_INVALID, "Você não está logado.");
+		return COMMAND_ZERO_RET;
+	}    
+
+	if (success != COMMAND_OK) 
     {
         static string[134];
-		format(string, sizeof(string), "[ALERTA]: O comando que você digitou ({33CCFF}%s{FFFFFF}) não foi reconhecido, use {33CCFF}/ajuda{FFFFFF}.", cmd);
+		format(string, sizeof(string), "[ALERTA]: O comando que você digitou ({33CCFF}%s{FFFFFF}) não foi reconhecido, use {33CCFF}/ajuda{FFFFFF}.", cmdtext);
 		SendClientMessage(playerid, COLOR_WHITE, string);
-		return 1;
+		return COMMAND_ZERO_RET;
     }
 
     //get time data everytime a command is performed.
-    cmd_Cooldown[playerid] = gettime() + 3;
-    return 1;
+    cmd_Cooldown[playerid] = gettime() + 2;
+    return COMMAND_OK;
 }
