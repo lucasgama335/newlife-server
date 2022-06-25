@@ -75,7 +75,9 @@
 				"src/core/server",
 				"src/core/server/anticheat",
 				"src/core/server/database",
-				"src/core/server/database/tables"
+				"src/core/server/database/tables",
+				"src/core/features",
+				"src/core/vehicles"
 			],
 			"constants": {
 				"MAX_PLAYERS": "10"
@@ -104,7 +106,9 @@
 				"src/core/server",
 				"src/core/server/anticheat",
 				"src/core/server/database",
-				"src/core/server/database/tables"
+				"src/core/server/database/tables",
+				"src/core/features",
+				"src/core/vehicles"
 			],
 			"constants": {
 				"MAX_PLAYERS": "250"

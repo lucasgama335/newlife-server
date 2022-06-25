@@ -102,16 +102,20 @@ enum
 #include <maps>
 #include <textdraws>
 
+// VEHICLES CORE
+#include <vehicles>
+
 // PLAYER CORE
 #include <player>
 
 // FEATURES CORE
-
-// COMMANDS
-#include <cmds>
+#include <features>
 
 // CHAT
 #include <chat>
+
+// COMMANDS
+#include <cmds>
 
 main() 
 {
