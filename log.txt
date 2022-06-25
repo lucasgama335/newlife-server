@@ -258,3 +258,127 @@
 [2022-06-22T14:09:30Z] [Info]  ===============================
 
 [2022-06-22T14:09:30Z] [Info] plugin.mysql: Unloading plugin...
+[2022-06-25T10:02:39Z] [Info] Loading plugin: mysql
+[2022-06-25T10:02:39Z] [Info]  >> plugin.mysql: R41-4 successfully loaded.
+[2022-06-25T10:02:39Z] [Info] Loading plugin: sscanf
+[2022-06-25T10:02:39Z] [Info] 
+
+[2022-06-25T10:02:39Z] [Info]  ===============================
+
+[2022-06-25T10:02:39Z] [Info]       sscanf plugin loaded.     
+
+[2022-06-25T10:02:39Z] [Info]         Version:  2.11.4        
+
+[2022-06-25T10:02:39Z] [Info]    (c) 2022 Alex "Y_Less" Cole  
+
+[2022-06-25T10:02:39Z] [Info]  ===============================
+
+[2022-06-25T10:02:39Z] [Info] Loading plugin: streamer
+[2022-06-25T10:02:39Z] [Info] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[2022-06-25T10:02:39Z] [Info] Loading plugin: samp_bcrypt
+[2022-06-25T10:02:39Z] [Info] [SampBcrypt] [info]: Version: 0.3.4
+[2022-06-25T10:02:39Z] [Info] Loading plugin: crashdetect
+[2022-06-25T10:02:39Z] [Info]   CrashDetect must be loaded before 'streamer.DLL'
+[2022-06-25T10:02:39Z] [Info]  
+[2022-06-25T10:02:39Z] [Info]  
+[2022-06-25T10:02:39Z] [Info]          ==============================================================
+[2022-06-25T10:02:39Z] [Info]          |                                                            |
+[2022-06-25T10:02:39Z] [Info]          |                                                            |
+[2022-06-25T10:02:39Z] [Info]          |    YYYYYYY       YYYYYYY    SSSSSSSSSSSSSSS  IIIIIIIIII    |
+[2022-06-25T10:02:39Z] [Info]          |    Y:::::Y       Y:::::Y  SS:::::::::::::::S I::::::::I    |
+[2022-06-25T10:02:39Z] [Info]          |    Y:::::Y       Y:::::Y S:::::SSSSSS::::::S I::::::::I    |
+[2022-06-25T10:02:39Z] [Info]          |    Y::::::Y     Y::::::Y S:::::S     SSSSSSS II::::::II    |
+[2022-06-25T10:02:39Z] [Info]          |    YYY:::::Y   Y:::::YYY S:::::S               I::::I      |
+[2022-06-25T10:02:39Z] [Info]          |       Y:::::Y Y:::::Y    S:::::S               I::::I      |
+[2022-06-25T10:02:39Z] [Info]          |        Y:::::Y:::::Y      S::::SSSS            I::::I      |
+[2022-06-25T10:02:39Z] [Info]          |         Y:::::::::Y        SS::::::SSSSS       I::::I      |
+[2022-06-25T10:02:39Z] [Info]          |          Y:::::::Y           SSS::::::::SS     I::::I      |
+[2022-06-25T10:02:39Z] [Info]          |           Y:::::Y               SSSSSS::::S    I::::I      |
+[2022-06-25T10:02:39Z] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2022-06-25T10:02:39Z] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2022-06-25T10:02:39Z] [Info]          |           Y:::::Y        SSSSSSS     S:::::S II::::::II    |
+[2022-06-25T10:02:39Z] [Info]          |        YYYY:::::YYYY     S::::::SSSSSS:::::S I::::::::I    |
+[2022-06-25T10:02:39Z] [Info]          |        Y:::::::::::Y     S:::::::::::::::SS  I::::::::I    |
+[2022-06-25T10:02:39Z] [Info]          |        YYYYYYYYYYYYY      SSSSSSSSSSSSSSS    IIIIIIIIII    |
+[2022-06-25T10:02:39Z] [Info]          |                                                            |
+[2022-06-25T10:02:39Z] [Info]          |                                                            |
+[2022-06-25T10:02:39Z] [Info]          |                      (c) 2021 MPL v1.1                     |
+[2022-06-25T10:02:39Z] [Info]          |            Alex "Y_Less" Cole and contributors.            |
+[2022-06-25T10:02:39Z] [Info]          |                                                            |
+[2022-06-25T10:02:39Z] [Info]          |                                                            |
+[2022-06-25T10:02:39Z] [Info]          ==============================================================
+[2022-06-25T10:02:39Z] [Info]  
+[2022-06-25T10:02:39Z] [Info]  
+[2022-06-25T10:02:39Z] [Info]  ========================================== 
+[2022-06-25T10:02:39Z] [Info]  |                                        | 
+[2022-06-25T10:02:39Z] [Info]  |   Generating code, this may take a     | 
+[2022-06-25T10:02:39Z] [Info]  |  little bit of time.  Note that this   | 
+[2022-06-25T10:02:39Z] [Info]  |  code generation works best with the   | 
+[2022-06-25T10:02:39Z] [Info]  |     JIT plugin, which you are not      | 
+[2022-06-25T10:02:39Z] [Info]  |     currently using.  Get it here:     | 
+[2022-06-25T10:02:39Z] [Info]  |                                        | 
+[2022-06-25T10:02:39Z] [Info]  |       https://git.io/jit-plugin        | 
+[2022-06-25T10:02:39Z] [Info]  |                                        | 
+[2022-06-25T10:02:39Z] [Info]  |             Please wait...             | 
+[2022-06-25T10:02:39Z] [Info]  |                                        | 
+[2022-06-25T10:02:39Z] [Info]  |                 Done!                  | 
+[2022-06-25T10:02:39Z] [Info]  |                                        | 
+[2022-06-25T10:02:39Z] [Info]  ========================================== 
+[2022-06-25T10:02:39Z] [Info]  |                                        | 
+[2022-06-25T10:02:39Z] [Info]  | Server:      0.3DL - Windows           | 
+[2022-06-25T10:02:39Z] [Info]  | Compiler:    3.10.10 - Windows         | 
+[2022-06-25T10:02:39Z] [Info]  | Codepage:    <none>                    | 
+[2022-06-25T10:02:39Z] [Info]  | YSI:         5.06.1932                 | 
+[2022-06-25T10:02:39Z] [Info]  | Started:     1656162159                | 
+[2022-06-25T10:02:39Z] [Info]  | JIT:         <none>                    | 
+[2022-06-25T10:02:39Z] [Info]  | Crashdetect: <none>                    | 
+[2022-06-25T10:02:39Z] [Info]  |                                        | 
+[2022-06-25T10:02:39Z] [Info]  ========================================== 
+[2022-06-25T10:02:39Z] [Info]  
+[2022-06-25T10:02:39Z] [Info] Filterscript '../scriptfiles/callbackfix' loaded.
+[2022-06-25T10:02:39Z] [Info] *** YSI Info: YSI Script ID: 1
+[2022-06-25T10:02:39Z] [Info]  
+[2022-06-25T10:02:39Z] [Info] [DATABASE]: Database connection established.
+[2022-06-25T10:02:39Z] [Info] [DATABASE]: TABLE SETUP BEGIN.
+[2022-06-25T10:02:39Z] [Info] [DATABASE]: Setting up 'players' table...
+[2022-06-25T10:02:39Z] [Info] Setting server language to: "Português BR/PT"
+[2022-06-25T10:02:39Z] [Info] 
+==========================================
+[2022-06-25T10:02:39Z] [Info] |                                    	 |
+[2022-06-25T10:02:39Z] [Info] |    *** ***       ***   *** 	 	 |
+[2022-06-25T10:02:39Z] [Info] |    ***  ***      ***   *** 	 	 |
+[2022-06-25T10:02:39Z] [Info] |    ***   ***     ***   *** 	 	 |
+[2022-06-25T10:02:39Z] [Info] |    ***    ***    ***   *** 	 	 |
+[2022-06-25T10:02:39Z] [Info] |    ***     ***   ***   *** 	 	 |
+[2022-06-25T10:02:39Z] [Info] |    ***      ***  ***   *************   |
+[2022-06-25T10:02:39Z] [Info] |    ***       *** ***   *************   |
+[2022-06-25T10:02:39Z] [Info] |                                    	 |
+[2022-06-25T10:02:39Z] [Info] ==========================================
+[2022-06-25T10:02:39Z] [Info] |                                    	 |
+[2022-06-25T10:02:39Z] [Info] | Server:       NewLife RPG          	 |
+[2022-06-25T10:02:39Z] [Info] | Version:      v0.0.1           	 |
+[2022-06-25T10:02:39Z] [Info] | Players:      10          		 |
+[2022-06-25T10:02:39Z] [Info] | Author:       Lucas Gama           	 |
+[2022-06-25T10:02:39Z] [Info] | Status:       Initalized (MODE: Dev)   |
+[2022-06-25T10:02:39Z] [Info] |                                    	 |
+[2022-06-25T10:02:39Z] [Info] ==========================================
+
+[2022-06-25T10:02:39Z] [Info] Legacy Network started on port 7777
+[2022-06-25T10:02:39Z] [Info] [DATABASE]: Player's table created.
+[2022-06-25T10:02:40Z] [Info] Failed to announce legacy network to open.mp list
+[2022-06-25T10:03:54Z] [Info] 
+
+*** Streamer Plugin v2.9.5 by Incognito unloaded ***
+
+[2022-06-25T10:03:54Z] [Info] 
+
+[2022-06-25T10:03:54Z] [Info]  ===============================
+
+[2022-06-25T10:03:54Z] [Info]      sscanf plugin unloaded.    
+
+[2022-06-25T10:03:54Z] [Info]  ===============================
+
+[2022-06-25T10:03:54Z] [Info] plugin.mysql: Unloading plugin...
