@@ -31,7 +31,7 @@ hook OnPlayerSpawn(playerid)
     SetPlayerSkin(playerid, PlayerData_GetSkin(playerid));
 	SetPlayerPos(playerid, SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ);
     SetPlayerFacingAngle(playerid, SPAWN_POSA);
-    SetPlayerToTeamColor(playerid, PlayerData_GetAdmin(playerid), 0);
+    SetPlayerToTeamColor(playerid, PlayerData_GetAdmin(playerid), Admin_IsWorking(playerid), 0);
     return 1;
 }
 

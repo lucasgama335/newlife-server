@@ -13,6 +13,26 @@ enum pAppearance
 static Player_AppearanceInfo[MAX_PLAYERS][pAppearance];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+// ============== SAVE DB INFO ============== //
+stock Database_SaveAppearenceInfo(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    inline OnSaveData()
+    {
+        print("[debug]: Appearence data saved.");
+    }
+    MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
+    %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d",
+    PLAYER_TABLE_NAME,
+    PLAYER_FIELD_GENDER, Player_AppearanceInfo[playerid][pGender],
+    PLAYER_FIELD_FIGHT_STYLE, Player_AppearanceInfo[playerid][pFightStyle],
+    PLAYER_FIELD_SKIN, Player_AppearanceInfo[playerid][pSkin],
+    PLAYER_FIELD_OLDSKIN, Player_AppearanceInfo[playerid][pOldSkin],
+    PlayerData_GetID(playerid));
+    return 1;
+}
+
 // ============== GENDER ACCESSORS ============== //
 // Getters
 stock PlayerData_GetGender(playerid)
@@ -90,26 +110,6 @@ stock PlayerData_ResetAppearenceInfo(playerid)
     Player_AppearanceInfo[playerid][pGender] = GENDER_MALE;
     Player_AppearanceInfo[playerid][pSkin] = DEFAULT_SKIN;
     return Player_AppearanceInfo[playerid];
-}
-
-// ============== SAVE DB INFO ============== //
-stock Database_SaveAppearenceInfo(playerid)
-{
-    if (!IsPlayerConnected(playerid)) return false;
-
-    inline OnSaveData()
-    {
-        print("[debug]: Appearence data saved.");
-    }
-    MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
-    %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d",
-    PLAYER_TABLE_NAME,
-    PLAYER_FIELD_GENDER, Player_AppearanceInfo[playerid][pGender],
-    PLAYER_FIELD_FIGHT_STYLE, Player_AppearanceInfo[playerid][pFightStyle],
-    PLAYER_FIELD_SKIN, Player_AppearanceInfo[playerid][pSkin],
-    PLAYER_FIELD_OLDSKIN, Player_AppearanceInfo[playerid][pOldSkin],
-    PlayerData_GetID(playerid));
-    return 1;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

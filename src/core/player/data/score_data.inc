@@ -13,6 +13,26 @@ enum pScoreInfo
 static Player_ScoreInfo[MAX_PLAYERS][pScoreInfo];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+// ============== SAVE DB INFO ============== //
+stock Database_SaveScoreInfo(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    inline OnSaveData()
+    {
+        print("[debug]: Score data saved.");
+    }
+    MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
+    %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d",
+    PLAYER_TABLE_NAME,
+    PLAYER_FIELD_LEVEL, Player_ScoreInfo[playerid][pLevel],
+    PLAYER_FIELD_DEATHS, Player_ScoreInfo[playerid][pDeaths],
+    PLAYER_FIELD_KILLS, Player_ScoreInfo[playerid][pKills],
+    PLAYER_FIELD_WANTED_LEVEL, Player_ScoreInfo[playerid][pWantedLevel],
+    PlayerData_GetID(playerid));
+    return 1;
+}
+
 // ============== LEVEL ACCESSORS ============== //
 // Getters
 stock PlayerData_GetLevel(playerid)
@@ -88,25 +108,6 @@ stock PlayerData_ResetScoreInfo(playerid)
     Player_ScoreInfo[playerid] = empty_data;
     Player_ScoreInfo[playerid][pLevel] = 1;
     return Player_ScoreInfo[playerid];
-}
-
-stock Database_SaveScoreInfo(playerid)
-{
-    if (!IsPlayerConnected(playerid)) return false;
-
-    inline OnSaveData()
-    {
-        print("[debug]: Score data saved.");
-    }
-    MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
-    %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d",
-    PLAYER_TABLE_NAME,
-    PLAYER_FIELD_LEVEL, Player_ScoreInfo[playerid][pLevel],
-    PLAYER_FIELD_DEATHS, Player_ScoreInfo[playerid][pDeaths],
-    PLAYER_FIELD_KILLS, Player_ScoreInfo[playerid][pKills],
-    PLAYER_FIELD_WANTED_LEVEL, Player_ScoreInfo[playerid][pWantedLevel],
-    PlayerData_GetID(playerid));
-    return 1;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

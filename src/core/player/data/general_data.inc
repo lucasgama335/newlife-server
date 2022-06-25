@@ -22,6 +22,32 @@ static bool:isUsingAndroid[MAX_PLAYERS];
 static bool:isLogged[MAX_PLAYERS];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+// ============== SAVE DB INFO ============== //
+stock Database_SaveGeneralInfo(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    inline OnSaveData()
+    {
+        print("[debug]: General data saved.");
+    }
+    MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
+    %s = %d, %s = %d, %s = %d, %s = %d, %s = %f, %s = %f, %s = %f, %s = %f, %s = %d, %s = %d WHERE id = %d", 
+    PLAYER_TABLE_NAME,
+    PLAYER_FIELD_ADMIN, Player_GeneralInfo[playerid][pAdmin],
+    PLAYER_FIELD_LAST_LOGIN_DATE, Player_GeneralInfo[playerid][pLastLoginDate],
+    PLAYER_FIELD_LAST_LOGIN_HOUR, Player_GeneralInfo[playerid][pLastLoginHour],
+    PLAYER_FIELD_LAST_CONNECTED_TIME, Player_GeneralInfo[playerid][pLastConnectedTime],
+    PLAYER_FIELD_LAST_POSX, Player_GeneralInfo[playerid][pLastPosX],
+    PLAYER_FIELD_LAST_POSY, Player_GeneralInfo[playerid][pLastPosY],
+    PLAYER_FIELD_LAST_POSZ, Player_GeneralInfo[playerid][pLastPosZ],
+    PLAYER_FIELD_LAST_POSA, Player_GeneralInfo[playerid][pLastPosA],
+    PLAYER_FIELD_LAST_INTERIOR, Player_GeneralInfo[playerid][pLastInterior],
+    PLAYER_FIELD_LAST_VW, Player_GeneralInfo[playerid][pLastVw],
+    Player_GeneralInfo[playerid][pId]);
+    return 1;
+}
+
 // ============== ID ACCESSORS ============== //
 // Getters
 stock PlayerData_GetID(playerid)
@@ -53,7 +79,9 @@ stock PlayerData_SetAdmin(playerid, level)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    return Player_GeneralInfo[playerid][pAdmin] = level;
+    Player_GeneralInfo[playerid][pAdmin] = level;
+    Database_SaveGeneralInfo(playerid);
+    return 1;
 }
 
 // ============== LAST LOGIN ACCESSORS ============== //
@@ -174,32 +202,6 @@ stock PlayerData_ResetGeneralInfo(playerid)
     Player_GeneralInfo[playerid][pLastInterior] = SPAWN_INTERIOR;
     Player_GeneralInfo[playerid][pLastVw] = SPAWN_VW;
     return Player_GeneralInfo[playerid];
-}
-
-// ============== SAVE DB INFO ============== //
-stock Database_SaveGeneralInfo(playerid)
-{
-    if (!IsPlayerConnected(playerid)) return false;
-
-    inline OnSaveData()
-    {
-        print("[debug]: General data saved.");
-    }
-    MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
-    %s = %d, %s = %d, %s = %d, %s = %d, %s = %f, %s = %f, %s = %f, %s = %f, %s = %d, %s = %d WHERE id = %d", 
-    PLAYER_TABLE_NAME,
-    PLAYER_FIELD_ADMIN, Player_GeneralInfo[playerid][pAdmin],
-    PLAYER_FIELD_LAST_LOGIN_DATE, Player_GeneralInfo[playerid][pLastLoginDate],
-    PLAYER_FIELD_LAST_LOGIN_HOUR, Player_GeneralInfo[playerid][pLastLoginHour],
-    PLAYER_FIELD_LAST_CONNECTED_TIME, Player_GeneralInfo[playerid][pLastConnectedTime],
-    PLAYER_FIELD_LAST_POSX, Player_GeneralInfo[playerid][pLastPosX],
-    PLAYER_FIELD_LAST_POSY, Player_GeneralInfo[playerid][pLastPosY],
-    PLAYER_FIELD_LAST_POSZ, Player_GeneralInfo[playerid][pLastPosZ],
-    PLAYER_FIELD_LAST_POSA, Player_GeneralInfo[playerid][pLastPosA],
-    PLAYER_FIELD_LAST_INTERIOR, Player_GeneralInfo[playerid][pLastInterior],
-    PLAYER_FIELD_LAST_VW, Player_GeneralInfo[playerid][pLastVw],
-    Player_GeneralInfo[playerid][pId]);
-    return 1;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

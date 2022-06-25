@@ -44,6 +44,7 @@
 
 // Macros
 #define function:%0(%1)			forward %0(%1); public %0(%1)
+#define ReCommand:%0(%1)    	cmd_%0(%1)
 
 // Configuration
 #define	INVALID_VALUE			-1
@@ -76,7 +77,9 @@ enum
 	DIALOG_ONLY_READ,
 	DIALOG_CHECK_ANDROID,
 	DIALOG_LOGIN,
-	DIALOG_REGISTER
+	DIALOG_REGISTER,
+	DIALOG_ADMIN_CMDS,
+	DIALOG_ADMIN_CMDS2
 }
 
 /*==============================================================================

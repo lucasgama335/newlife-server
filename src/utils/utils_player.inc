@@ -19,9 +19,36 @@ stock Player_GetIP(playerid)
     return str;
 }
 
-function:SetPlayerToTeamColor(playerid, admin, org)
+Float:Player_GetHealth(playerid)
+{
+	static Float:player_Health;
+	GetPlayerHealth(playerid, player_Health);
+	return player_Health;
+}
+
+Float:Player_GetArmour(playerid)
+{
+	static Float:player_Armour;
+	GetPlayerArmour(playerid, player_Armour);
+	return player_Armour;
+}
+
+stock bool:IsValidPlayer(playerid, bool:loggedStatus)
+{
+    if (IsPlayerConnected(playerid) && playerid != INVALID_PLAYER_ID && loggedStatus == true)
+	{
+		return true;
+	}
+    return false;
+}
+
+function:SetPlayerToTeamColor(playerid, admin, bool:workMode, org)
 {
     SetPlayerColor(playerid, COLOR_WHITE);
+	if (workMode)
+	{
+		SetPlayerColor(playerid, COLOR_ADMIN);
+	}
 	return 1;
 }
 

@@ -1,14 +1,17 @@
-// Player Data
+// Database Player Data
 #include <general_data>
 #include <appearence_data>
 #include <money_data>
 #include <score_data>
 #include <vip_data>
 
-// Player Properties
-#include <player_admin>
-#include <player_auth>
-#include <player_spawn>
+// InGame Player Data
+#include <admin_data>
+
+#include <player_admin> // First Hook of (OnPlayerConnect, OnDialogResponse)
+#include <player_auth> // First Hook of (OnPlayerDisconnect, OnPlayerRequestClass, OnPlayerClickTextDraw) / Second Hook of (OnPlayerConnect, OnDialogResponse)
+#include <player_spawn> // First Hook of (OnPlayerSpawn, OnPlayerRequestSpawn, SaveOnDisconnect)
+#include <player_anims> // Second Hook of (OnPlayerSpawn)
 #include <player_cmds>
 
 #include <YSI_Coding\y_hooks>
