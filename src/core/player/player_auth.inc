@@ -69,7 +69,7 @@ static stock ShowRegisterDialog(playerid)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerConnect(playerid)
 {
-    Database_IncrementRaceCheck(playerid);
+    new race_check = Database_IncrementRaceCheck(playerid);
 
     // Reset Player Data
     Player_ClearInfoVars(playerid);
@@ -78,7 +78,6 @@ hook OnPlayerConnect(playerid)
     ShowLoadingScreen(playerid);
     SetPlayerColor(playerid, COLOR_GRAD2);
 
-    new race_check = Database_GetRaceCheck(playerid);
     inline const OnPlayerDataLoaded()
     {
         if (race_check != Database_GetRaceCheck(playerid)) return Kick(playerid);

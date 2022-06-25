@@ -21,7 +21,7 @@ stock MySQL:Database_GetConnection()
 
 stock Database_IncrementRaceCheck(playerid)
 {
-    g_MysqlRaceCheck[playerid]++;
+    return ++g_MysqlRaceCheck[playerid];
 }
 
 stock Database_GetRaceCheck(playerid)
