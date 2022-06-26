@@ -58,6 +58,24 @@ stock GetPlayerSpeed(playerid, bool:kmh2)
     return kmh2?floatround(rtn * 100 * 1.61):floatround(rtn * 100);
 }
 
+stock PlayerToPoint(Float:radi, playerid, Float:x, Float:y, Float:z)
+{
+    if (IsPlayerConnected(playerid))
+	{
+		new Float:oldposx, Float:oldposy, Float:oldposz;
+		new Float:tempposx, Float:tempposy, Float:tempposz;
+		GetPlayerPos(playerid, oldposx, oldposy, oldposz);
+		tempposx = (oldposx -x);
+		tempposy = (oldposy -y);
+		tempposz = (oldposz -z);
+		if (((tempposx < radi) && (tempposx > -radi)) && ((tempposy < radi) && (tempposy > -radi)) && ((tempposz < radi) && (tempposz > -radi)))
+		{
+			return 1;
+		}
+	}
+	return 0;
+}
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------

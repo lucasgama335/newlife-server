@@ -71,7 +71,10 @@ public OnQueryError(errorid, const error[], const callback[], const query[], MyS
 		case 1045: printf("[MySQL] Error 1045 | Access denied");
 		case ER_SYNTAX_ERROR: printf("[MySQL] Syntax Error => \"%s\"",query);
 
-		default : printf("[MySQL] Error %d | Callback: %s | \"%s\"", errorid, callback, query);
+		default: printf("[MySQL] Error %d | Callback: %s | \"%s\"", errorid, callback, query);
 	}
+    new string[150];
+    format(string, sizeof(string), "[MySQL]: Houve um erro ao realizar uma operação no banco de dados. Error %d | Callback: %s", errorid, callback);
+    MensagemAdmin(COLOR_RED, string, OWNER);
 	return 1;
 }

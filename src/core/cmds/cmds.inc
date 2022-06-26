@@ -1,5 +1,6 @@
 #include <cmds_general>
 #include <cmds_vehicles>
+#include <cmds_anims>
 #include <admin_cmds_lvl1>
 #include <admin_cmds_lvl2>
 #include <admin_cmds_lvl3>
@@ -65,4 +66,19 @@ public e_COMMAND_ERRORS:OnPlayerCommandPerformed(playerid, cmdtext[], e_COMMAND_
 	
 	cmd_Cooldown[playerid] = gettime() + 2;
     return COMMAND_OK;
+}
+
+hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
+{
+	switch (newkeys)
+	{
+		case KEY_F: 
+		{
+			if (PlayerToPoint(2, playerid, 809.5279,-1341.4880,13.5405))
+			{
+				ShowPlayerFaqList(playerid);
+			}
+		}
+	}
+	return 1;
 }

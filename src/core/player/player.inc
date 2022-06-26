@@ -9,6 +9,7 @@
 #include <admin_data>
 
 #include <player_admin>
+#include <player_tutorial>
 #include <player_auth>
 #include <player_spawn>
 #include <player_anims>

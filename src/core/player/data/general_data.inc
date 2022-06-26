@@ -137,6 +137,22 @@ stock PlayerData_SetOrg(playerid, orgid, role)
     return 1;
 }
 
+// ============== TUTORIAL ACCESSORS ============== //
+// Getters
+stock bool:PlayerData_GetTutorial(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_GeneralInfo[playerid][pTutorial];
+}
+
+// Setters
+stock bool:PlayerData_SetTutorial(playerid, bool:status)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_GeneralInfo[playerid][pTutorial] = status;
+}
 
 // ============== LAST LOGIN ACCESSORS ============== //
 // Getters

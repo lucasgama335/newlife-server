@@ -1,19 +1,3 @@
-// Admin Levels
-enum
-{
-	NO_ADMIN,
-	HELPER,
-	ASPIRANT,
-	BEGINNER,
-	AUXILIAR,
-	MASTER,
-	MASTERP,
-	MASTERPP,
-	HELPER_OWNER,
-	SUB_OWNER,
-	OWNER
-}
-
 #include <admin_cmds_lvl1>
 #include <admin_cmds_lvl2>
 #include <admin_cmds_lvl3>

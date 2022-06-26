@@ -8,6 +8,7 @@
 stock DelayedKick(playerid)
 {
     SetTimerEx("_KickTimer", 100, false, "i", playerid);
+    return 1;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

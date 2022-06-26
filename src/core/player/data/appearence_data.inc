@@ -108,7 +108,7 @@ stock PlayerData_ResetAppearenceInfo(playerid)
     static const empty_data[pAppearance];
     Player_AppearanceInfo[playerid] = empty_data;
     Player_AppearanceInfo[playerid][pGender] = GENDER_MALE;
-    Player_AppearanceInfo[playerid][pSkin] = DEFAULT_SKIN;
+    Player_AppearanceInfo[playerid][pSkin] = DEFAULT_SKIN_MALE;
     return Player_AppearanceInfo[playerid];
 }
 

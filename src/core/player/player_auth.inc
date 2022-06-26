@@ -7,18 +7,27 @@ static loginAttempts[MAX_PLAYERS],
        bool:recentlyLogged[MAX_PLAYERS],
        bool:isRegistered[MAX_PLAYERS];
 
-//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+static Timer:timerToKickPlayer[MAX_PLAYERS];
 
-//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock IsPlayerLogged(playerid)
 {
     if (PlayerData_GetIsLogged(playerid))
     {
         SetPlayerInterior(playerid, 0);
         SetCameraBehindPlayer(playerid);
-        SetSpawnInfo(playerid, -1, DEFAULT_SKIN, SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA, 0, 0, 0, 0, 0, 0);
+        SetSpawnInfo(playerid, -1, (PlayerData_GetGender(playerid) == 1 ? DEFAULT_SKIN_MALE : DEFAULT_SKIN_FEMALE), SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA, 0, 0, 0, 0, 0, 0);
         SpawnPlayer(playerid);
     }
+    return 1;
+}
+
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+timer OnLoginTimeout[60000](playerid)
+{
+    if (Timer_IsRunning(timerToKickPlayer[playerid])) stop timerToKickPlayer[playerid];
+    ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX, "Fazer Login ", "{FFFFFF}Você foi kickado automaticamente por ficar\nmuito tempo no processo de login sem realizar tentativas válidas.\nPor favor, logue novamente!.", "Okay", "");
+    DelayedKick(playerid);
     return 1;
 }
 
@@ -84,12 +93,13 @@ hook OnPlayerConnect(playerid)
         if(cache_num_rows() > 0)
         {
             // General Info
-            new id, admin, job, org, org_role, last_login_date, last_login_hour, last_connected_time, Float:pos_x, Float:pos_y, Float:pos_z, Float:pos_a, interior, vw;
+            new id, admin, job, org, org_role, tutorial, last_login_date, last_login_hour, last_connected_time, Float:pos_x, Float:pos_y, Float:pos_z, Float:pos_a, interior, vw;
             cache_get_value_name_int(0, PLAYER_FIELD_ID, id);
             cache_get_value_name_int(0, PLAYER_FIELD_ADMIN, admin);
             cache_get_value_name_int(0, PLAYER_FIELD_JOB, job);
             cache_get_value_name_int(0, PLAYER_FIELD_ORG, org);
             cache_get_value_name_int(0, PLAYER_FIELD_ORG_ROLE, org_role);
+            cache_get_value_name_int(0, PLAYER_FIELD_TUTORIAL, tutorial);
             cache_get_value_name_int(0, PLAYER_FIELD_LAST_LOGIN_DATE, last_login_date);
             cache_get_value_name_int(0, PLAYER_FIELD_LAST_LOGIN_HOUR, last_login_hour);
             cache_get_value_name_int(0, PLAYER_FIELD_LAST_CONNECTED_TIME, last_connected_time);
@@ -104,6 +114,7 @@ hook OnPlayerConnect(playerid)
             PlayerData_SetAdmin(playerid, admin, false);
             PlayerData_SetJob(playerid, job);
             PlayerData_SetOrg(playerid, org, org_role);
+            PlayerData_SetTutorial(playerid, (tutorial == 0 ? false : true));
             PlayerData_SetLastLoginDate(playerid, last_login_date);
             PlayerData_SetLastLoginHour(playerid, last_login_hour);
             PlayerData_SetLastConnectedTime(playerid, last_connected_time);
@@ -156,7 +167,8 @@ hook OnPlayerConnect(playerid)
         {
             isRegistered[playerid] = false;
         }
-
+        if (Timer_IsRunning(timerToKickPlayer[playerid])) stop timerToKickPlayer[playerid];
+        timerToKickPlayer[playerid] = defer OnLoginTimeout(playerid);
         InterpolateCameraPos(playerid, 1205.1385, -1022.0357, 98.2310, 1323.6675, -920.1975, 92.3793, CAMERA_SPEED, CAMERA_MOVE);
         InterpolateCameraLookAt(playerid, 1205.7915, -1021.2730, 98.0759, 1324.2585, -919.3865, 92.3142, CAMERA_SPEED, CAMERA_MOVE);
 
@@ -263,6 +275,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
     switch(dialogid)
     {
+        // Auth
         case DIALOG_CHECK_ANDROID:
 		{
 			if (!response) 
@@ -369,7 +382,8 @@ function:OnPlayerLogin(playerid)
 {
     recentlyLogged[playerid] = false;
     isRegistered[playerid] = true;
-    
+    if (Timer_IsRunning(timerToKickPlayer[playerid])) stop timerToKickPlayer[playerid];
+
     if (PlayerData_GetAdmin(playerid) > OWNER)
 	{
 		SendClientMessage(playerid, COLOR_ADMIN, "Nível de Administração Inválido!"); 
@@ -392,34 +406,40 @@ function:OnPlayerLogin(playerid)
         case 5: SetPlayerFightingStyle(playerid, FIGHT_STYLE_ELBOW);
         default: SetPlayerFightingStyle(playerid, FIGHT_STYLE_NORMAL);
     }
-    HideLoginScreen(playerid);
-    CancelSelectTextDraw(playerid);
-	TogglePlayerSpectating(playerid, false);
     ClearChatBox(playerid, 15);
 	StopAudioStreamForPlayer(playerid);
-
-    if (PlayerData_GetAdmin(playerid) >= HELPER && PlayerData_GetAdmin(playerid) < SUB_OWNER)
-    {
-        new adminName[35];
-        format(adminName, sizeof(adminName), "~w~%s ~g~ON", Player_GetName(playerid));
-        GameTextForAll(adminName, 5000, 1);
-    }
+	HideLoginScreen(playerid);
+    CancelSelectTextDraw(playerid);
+	TogglePlayerSpectating(playerid, false);
+    
     new string[150];
-    format(string, sizeof(string), "~w~Bem Vindo ~n~~y~%s", Player_GetName(playerid));
-    GameTextForPlayer(playerid, string, 5000, 1);
-    SendClientMessage(playerid, COLOR_WHITE, "________________________________________________________________________________________________");
-    format(string, sizeof(string), "* [Aviso]: Seja Bem Vindo(a): {FFFFFF}%s{33ccff}.", Player_GetName(playerid));
-    SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
-    SendClientMessage(playerid, COLOR_LIGHTBLUE, "* [Aviso]: Para voltar na última posição de onde saiu pela última vez digite ({FFFFFF}/irposicao{33ccff})!");
-    SendClientMessage(playerid, COLOR_LIGHTBLUE, "* [Aviso]: Retire suas dúvidas usando ({FFFFFF}/relato{33ccff}) ou com o chat de dúvidas ({FFFFFF}/nchat{33ccff}).");
-    if (PlayerData_GetAdmin(playerid) >= HELPER)
+    if (!PlayerData_GetTutorial(playerid))
     {
-        format(string, sizeof(string), "[{FFFFFF}ADMIN{33ccff}]: Você Logou Como Admin: [{FFFFFF}%s{33ccff}].", Admin_GetRole(PlayerData_GetAdmin(playerid)));
+        ShowGenderDialog(playerid);
+    }
+    else
+    {
+        SendClientMessage(playerid, COLOR_WHITE, "________________________________________________________________________________________________");
+        format(string, sizeof(string), "* [Aviso]: Seja Bem Vindo(a): {FFFFFF}%s{33ccff}.", Player_GetName(playerid));
         SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
+        SendClientMessage(playerid, COLOR_LIGHTBLUE, "* [Aviso]: Para voltar na última posição de onde saiu pela última vez digite ({FFFFFF}/irposicao{33ccff})!");
+        SendClientMessage(playerid, COLOR_LIGHTBLUE, "* [Aviso]: Retire suas dúvidas usando ({FFFFFF}/relato{33ccff}) ou com o chat de dúvidas ({FFFFFF}/nchat{33ccff}).");
+        if (PlayerData_GetAdmin(playerid) >= HELPER)
+        {
+            format(string, sizeof(string), "[{FFFFFF}ADMIN{33ccff}]: Você Logou Como Admin: [{FFFFFF}%s{33ccff}].", Admin_GetRole(PlayerData_GetAdmin(playerid)));
+            SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
+        }
+		if (PlayerData_GetAdmin(playerid) >= HELPER && PlayerData_GetAdmin(playerid) < SUB_OWNER)
+		{
+			new adminName[35];
+			format(adminName, sizeof(adminName), "~w~%s ~g~ON", Player_GetName(playerid));
+			GameTextForAll(adminName, 5000, 1);
+		}
+        format(string, sizeof(string), "~w~Bem Vindo ~n~~y~%s", Player_GetName(playerid));
+        GameTextForPlayer(playerid, string, 5000, 1);
+        SpawnPlayer(playerid);
     }
     format(string, sizeof(string), (PlayerData_GetAdmin(playerid) < HELPER_OWNER ? "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [%s]!" : "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [N/A]!"), Player_GetName(playerid), playerid, PlayerData_GetLevel(playerid), Player_GetIP(playerid));
  	MensagemAdmin(COLOR_SKIN, string, HELPER);
-
-    SpawnPlayer(playerid);
     return 1;
 }
