@@ -48,3 +48,11 @@ samp.ban
 #
 
 *.sublime-workspace
+
+#
+# OPENMP files
+#
+components/
+bans.json
+logs.txt
+omp-server.pdb
