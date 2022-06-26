@@ -54,5 +54,5 @@ samp.ban
 #
 components/
 bans.json
-logs.txt
+log.txt
 omp-server.pdb
