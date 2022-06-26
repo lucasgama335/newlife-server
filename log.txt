@@ -382,3 +382,140 @@
 [2022-06-25T10:03:54Z] [Info]  ===============================
 
 [2022-06-25T10:03:54Z] [Info] plugin.mysql: Unloading plugin...
+[2022-06-25T10:04:14Z] [Info] Legacy Network started on port 7777
+[2022-06-25T10:04:15Z] [Info] Failed to announce legacy network to open.mp list
+[2022-06-25T10:04:57Z] [Info] Legacy Network started on port 7777
+[2022-06-25T10:04:57Z] [Info] Failed to announce legacy network to open.mp list
+[2022-06-25T10:05:29Z] [Info] Loading plugin: mysql
+[2022-06-25T10:05:29Z] [Info]  >> plugin.mysql: R41-4 successfully loaded.
+[2022-06-25T10:05:29Z] [Info] Loading plugin: sscanf
+[2022-06-25T10:05:29Z] [Info] 
+
+[2022-06-25T10:05:29Z] [Info]  ===============================
+
+[2022-06-25T10:05:29Z] [Info]       sscanf plugin loaded.     
+
+[2022-06-25T10:05:29Z] [Info]         Version:  2.11.4        
+
+[2022-06-25T10:05:29Z] [Info]    (c) 2022 Alex "Y_Less" Cole  
+
+[2022-06-25T10:05:29Z] [Info]  ===============================
+
+[2022-06-25T10:05:29Z] [Info] Loading plugin: crashdetect
+[2022-06-25T10:05:29Z] [Info]   CrashDetect plugin 4.20
+[2022-06-25T10:05:29Z] [Info] Loading plugin: streamer
+[2022-06-25T10:05:29Z] [Info] 
+
+*** Streamer Plugin v2.9.5 by Incognito loaded ***
+
+[2022-06-25T10:05:29Z] [Info] Loading plugin: samp_bcrypt
+[2022-06-25T10:05:29Z] [Info] [SampBcrypt] [info]: Version: 0.3.4
+[2022-06-25T10:05:29Z] [Info]  
+[2022-06-25T10:05:29Z] [Info]  
+[2022-06-25T10:05:29Z] [Info]          ==============================================================
+[2022-06-25T10:05:29Z] [Info]          |                                                            |
+[2022-06-25T10:05:29Z] [Info]          |                                                            |
+[2022-06-25T10:05:29Z] [Info]          |    YYYYYYY       YYYYYYY    SSSSSSSSSSSSSSS  IIIIIIIIII    |
+[2022-06-25T10:05:29Z] [Info]          |    Y:::::Y       Y:::::Y  SS:::::::::::::::S I::::::::I    |
+[2022-06-25T10:05:29Z] [Info]          |    Y:::::Y       Y:::::Y S:::::SSSSSS::::::S I::::::::I    |
+[2022-06-25T10:05:29Z] [Info]          |    Y::::::Y     Y::::::Y S:::::S     SSSSSSS II::::::II    |
+[2022-06-25T10:05:29Z] [Info]          |    YYY:::::Y   Y:::::YYY S:::::S               I::::I      |
+[2022-06-25T10:05:29Z] [Info]          |       Y:::::Y Y:::::Y    S:::::S               I::::I      |
+[2022-06-25T10:05:29Z] [Info]          |        Y:::::Y:::::Y      S::::SSSS            I::::I      |
+[2022-06-25T10:05:29Z] [Info]          |         Y:::::::::Y        SS::::::SSSSS       I::::I      |
+[2022-06-25T10:05:29Z] [Info]          |          Y:::::::Y           SSS::::::::SS     I::::I      |
+[2022-06-25T10:05:29Z] [Info]          |           Y:::::Y               SSSSSS::::S    I::::I      |
+[2022-06-25T10:05:29Z] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2022-06-25T10:05:29Z] [Info]          |           Y:::::Y                    S:::::S   I::::I      |
+[2022-06-25T10:05:29Z] [Info]          |           Y:::::Y        SSSSSSS     S:::::S II::::::II    |
+[2022-06-25T10:05:29Z] [Info]          |        YYYY:::::YYYY     S::::::SSSSSS:::::S I::::::::I    |
+[2022-06-25T10:05:29Z] [Info]          |        Y:::::::::::Y     S:::::::::::::::SS  I::::::::I    |
+[2022-06-25T10:05:29Z] [Info]          |        YYYYYYYYYYYYY      SSSSSSSSSSSSSSS    IIIIIIIIII    |
+[2022-06-25T10:05:29Z] [Info]          |                                                            |
+[2022-06-25T10:05:29Z] [Info]          |                                                            |
+[2022-06-25T10:05:29Z] [Info]          |                      (c) 2021 MPL v1.1                     |
+[2022-06-25T10:05:29Z] [Info]          |            Alex "Y_Less" Cole and contributors.            |
+[2022-06-25T10:05:29Z] [Info]          |                                                            |
+[2022-06-25T10:05:29Z] [Info]          |                                                            |
+[2022-06-25T10:05:29Z] [Info]          ==============================================================
+[2022-06-25T10:05:29Z] [Info]  
+[2022-06-25T10:05:29Z] [Info]  
+[2022-06-25T10:05:29Z] [Info]  ========================================== 
+[2022-06-25T10:05:29Z] [Info]  |                                        | 
+[2022-06-25T10:05:29Z] [Info]  |   Generating code, this may take a     | 
+[2022-06-25T10:05:29Z] [Info]  |  little bit of time.  Note that this   | 
+[2022-06-25T10:05:29Z] [Info]  |  code generation works best with the   | 
+[2022-06-25T10:05:29Z] [Info]  |     JIT plugin, which you are not      | 
+[2022-06-25T10:05:29Z] [Info]  |     currently using.  Get it here:     | 
+[2022-06-25T10:05:29Z] [Info]  |                                        | 
+[2022-06-25T10:05:29Z] [Info]  |       https://git.io/jit-plugin        | 
+[2022-06-25T10:05:29Z] [Info]  |                                        | 
+[2022-06-25T10:05:29Z] [Info]  |             Please wait...             | 
+[2022-06-25T10:05:29Z] [Info]  |                                        | 
+[2022-06-25T10:05:29Z] [Info]  |                 Done!                  | 
+[2022-06-25T10:05:29Z] [Info]  |                                        | 
+[2022-06-25T10:05:29Z] [Info]  ========================================== 
+[2022-06-25T10:05:29Z] [Info]  |                                        | 
+[2022-06-25T10:05:29Z] [Info]  | Server:      0.3DL - Windows           | 
+[2022-06-25T10:05:29Z] [Info]  | Compiler:    3.10.10 - Windows         | 
+[2022-06-25T10:05:29Z] [Info]  | Codepage:    <none>                    | 
+[2022-06-25T10:05:29Z] [Info]  | YSI:         5.06.1932                 | 
+[2022-06-25T10:05:29Z] [Info]  | Started:     1656162329                | 
+[2022-06-25T10:05:29Z] [Info]  | JIT:         <none>                    | 
+[2022-06-25T10:05:29Z] [Info]  | Crashdetect: <found>                   | 
+[2022-06-25T10:05:29Z] [Info]  |                                        | 
+[2022-06-25T10:05:29Z] [Info]  ========================================== 
+[2022-06-25T10:05:29Z] [Info]  
+[2022-06-25T10:05:29Z] [Info] Filterscript '../scriptfiles/callbackfix' loaded.
+[2022-06-25T10:05:29Z] [Info] *** YSI Info: YSI Script ID: 1
+[2022-06-25T10:05:29Z] [Info] [debug] Long callback execution detected (hang or performance issue)
+[2022-06-25T10:05:29Z] [Info] [debug] AMX backtrace:
+[2022-06-25T10:05:29Z] [Info] [debug] #0 0001baf0 in Iter_Clear_InternalC (array[]=@000336d0 "", size=1913, entries=1, 218644) at C:\Users\lucas\Desktop\NewLife\dependencies\YSI-Includes\YSI_Data\y_foreach\y_foreach_impl.inc:809
+[2022-06-25T10:05:29Z] [Info] [debug] #1 00026b98 in @yH_OnYSIInit@001 () at C:\Users\lucas\Desktop\NewLife\dependencies\YSI-Includes\YSI_Data\y_foreach\y_foreach_iterators.inc:374
+[2022-06-25T10:05:29Z] [Info] [debug] #2 0001d27c in public Master_OnYSIInit () at C:\Users\lucas\Desktop\NewLife\dependencies\YSI-Includes\YSI_Data\y_foreach\..\..\YSI_Coding\y_hooks\..\y_cgen\y_cgen.inc:133
+[2022-06-25T10:05:29Z] [Info] [debug] #3 000350fc in public Android_OnYSIInit () at C:\Users\lucas\Desktop\NewLife\dependencies\YSI-Includes\YSI_Visual\y_commands\..\..\YSI_Core\y_master\y_master_once.inc:497
+[2022-06-25T10:05:29Z] [Info] [debug] #4 000079b0 in public ScriptInit_OnYSIInit ()  at C:\Users\lucas\Desktop\NewLife\dependencies\YSI-Includes\YSI_Data\y_foreach\..\..\YSI_Core\y_core\..\..\YSI_Players\y_android\y_android_entry.inc:180
+[2022-06-25T10:05:29Z] [Info] [debug] #5 00003858 in public SSCANF_OnGameModeInit ()  at C:\Users\lucas\Desktop\NewLife\dependencies\YSI-Includes\YSI_Data\y_foreach\..\..\YSI_Core\y_core\y_scriptinit_impl.inc:1115
+[2022-06-25T10:05:29Z] [Info] [debug] #6 00001124 in public _Inline_BCryptCheckDone () at C:\Users\lucas\Desktop\NewLife\dependencies\.resources\sscanf-019253\sscanf2.inc:975
+[2022-06-25T10:05:29Z] [Info]  
+[2022-06-25T10:05:29Z] [Info] [DATABASE]: Database connection established.
+[2022-06-25T10:05:29Z] [Info] [DATABASE]: TABLE SETUP BEGIN.
+[2022-06-25T10:05:29Z] [Info] [DATABASE]: Setting up 'players' table...
+[2022-06-25T10:05:29Z] [Info] Setting server language to: "Português BR/PT"
+[2022-06-25T10:05:29Z] [Info] 
+==========================================
+[2022-06-25T10:05:29Z] [Info] |                                    	 |
+[2022-06-25T10:05:29Z] [Info] |    *** ***       ***   *** 	 	 |
+[2022-06-25T10:05:29Z] [Info] |    ***  ***      ***   *** 	 	 |
+[2022-06-25T10:05:29Z] [Info] |    ***   ***     ***   *** 	 	 |
+[2022-06-25T10:05:29Z] [Info] |    ***    ***    ***   *** 	 	 |
+[2022-06-25T10:05:29Z] [Info] |    ***     ***   ***   *** 	 	 |
+[2022-06-25T10:05:29Z] [Info] |    ***      ***  ***   *************   |
+[2022-06-25T10:05:29Z] [Info] |    ***       *** ***   *************   |
+[2022-06-25T10:05:29Z] [Info] |                                    	 |
+[2022-06-25T10:05:29Z] [Info] ==========================================
+[2022-06-25T10:05:29Z] [Info] |                                    	 |
+[2022-06-25T10:05:29Z] [Info] | Server:       NewLife RPG          	 |
+[2022-06-25T10:05:29Z] [Info] | Version:      v0.0.1           	 |
+[2022-06-25T10:05:29Z] [Info] | Players:      10          		 |
+[2022-06-25T10:05:29Z] [Info] | Author:       Lucas Gama           	 |
+[2022-06-25T10:05:29Z] [Info] | Status:       Initalized (MODE: Dev)   |
+[2022-06-25T10:05:29Z] [Info] |                                    	 |
+[2022-06-25T10:05:29Z] [Info] ==========================================
+
+[2022-06-25T10:05:30Z] [Info] Legacy Network started on port 7777
+[2022-06-25T10:05:30Z] [Info] [DATABASE]: Player's table created.
+[2022-06-25T10:05:30Z] [Info] Failed to announce legacy network to open.mp list
+[2022-06-25T10:05:41Z] [Info] 
+
+*** Streamer Plugin v2.9.5 by Incognito unloaded ***
+
+[2022-06-25T10:05:41Z] [Info] 
+
+[2022-06-25T10:05:41Z] [Info]  ===============================
+
+[2022-06-25T10:05:41Z] [Info]      sscanf plugin unloaded.    
+
+[2022-06-25T10:05:41Z] [Info]  ===============================
+
+[2022-06-25T10:05:41Z] [Info] plugin.mysql: Unloading plugin...

@@ -12,6 +12,7 @@
 #include <player_auth>
 #include <player_spawn>
 #include <player_anims>
+#include <player_vehicle>
 
 #include <YSI_Coding\y_hooks>
 

@@ -98,12 +98,12 @@ enum
 #include <database>
 #include <anticheat>
 
+// VEHICLES CORE
+#include <vehicles>
+
 // EXTRA CORE
 #include <maps>
 #include <textdraws>
-
-// VEHICLES CORE
-#include <vehicles>
 
 // PLAYER CORE
 #include <player>
@@ -135,19 +135,7 @@ main()
 	print("|                                    	 |");
 	printf("| Server:       %s %s          	 |", SERVER_NAME, SERVER_MODE_ABBR);
 	printf("| Version:      v%s.%s.%s           	 |", SCRIPT_VERSION_MAJOR, SCRIPT_VERSION_MINOR, SCRIPT_VERSION_PATCH);
-
-	/*#if MAX_VEHICLES > 0 && MAX_VEHICLES < 10
-		printf("| Vehicles:     %d          		 |", MAX_VEHICLES);
-	#elseif MAX_VEHICLES >= 10 && MAX_VEHICLES < 100
-		printf("| Vehicles:     %d          		 |", MAX_VEHICLES);
-	#elseif MAX_VEHICLES >= 100 && MAX_VEHICLES < 1000
-		printf("| Vehicles:     %d          		 |", MAX_VEHICLES);
-	#else
-		printf("| Vehicles:     %d          		 |", MAX_VEHICLES);
-	#endif*/
-
 	printf("| Players:      %d          		 |", MAX_PLAYERS);
-
 	printf("| Author:       %s           	 |", SERVER_OWNER);
 	#if DEV_MODE
 		print("| Status:       Initalized (MODE: Dev)   |");

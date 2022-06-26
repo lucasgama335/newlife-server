@@ -157,9 +157,6 @@ hook OnPlayerConnect(playerid)
             isRegistered[playerid] = false;
         }
 
-        ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
-        SendClientMessage(playerid, COLOR_SOFTGREY, "* Aguarde enquanto carregamos os seus dados...");
-
         InterpolateCameraPos(playerid, 1205.1385, -1022.0357, 98.2310, 1323.6675, -920.1975, 92.3793, CAMERA_SPEED, CAMERA_MOVE);
         InterpolateCameraLookAt(playerid, 1205.7915, -1021.2730, 98.0759, 1324.2585, -919.3865, 92.3142, CAMERA_SPEED, CAMERA_MOVE);
 
@@ -168,6 +165,8 @@ hook OnPlayerConnect(playerid)
 
         SelectTextDraw(playerid, COLOR_ORANGE);
     }
+    ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
+    SendClientMessage(playerid, COLOR_SOFTGREY, "* Aguarde enquanto carregamos os seus dados...");
     // Verify if player exists in database
     MySQL_TQueryInline(Database_GetConnection(), using inline OnPlayerDataLoaded, "SELECT * FROM %s WHERE %s = '%e'", PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, Player_GetName(playerid));
     return 1;

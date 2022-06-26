@@ -1,3 +1,6 @@
+#include <vehicles_data>
+#include <vehicles_spawn_civil>
+
 #include <YSI_Coding\y_hooks>
 
 //------------------------- Definitions and constants -------------------------

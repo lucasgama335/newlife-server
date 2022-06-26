@@ -3,6 +3,7 @@
 #include <utils_player>
 #include <utils_admin>
 #include <utils_chat>
+#include <utils_vehicles>
 
 #include <YSI_Coding\y_hooks>
 

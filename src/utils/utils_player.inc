@@ -42,6 +42,22 @@ stock bool:IsValidPlayer(playerid, bool:loggedStatus)
     return false;
 }
 
+stock GetPlayerSpeed(playerid, bool:kmh2)
+{
+    new Float:Vx, Float:Vy, Float:Vz, Float:rtn;
+    if (IsPlayerInAnyVehicle(playerid))
+	{
+		GetVehicleVelocity(GetPlayerVehicleID(playerid), Vx, Vy, Vz);
+		rtn = floatsqroot(floatpower(floatabs(Vx),2)+floatpower(floatabs(Vy),2)+floatpower(floatabs(Vz),2));
+	}
+	else
+	{
+		GetPlayerVelocity(playerid, Vx, Vy, Vz);
+		rtn = floatsqroot(floatpower(floatabs(Vx),2)+floatpower(floatabs(Vy),2)+floatpower(floatabs(Vz),2));
+	}
+    return kmh2?floatround(rtn * 100 * 1.61):floatround(rtn * 100);
+}
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
