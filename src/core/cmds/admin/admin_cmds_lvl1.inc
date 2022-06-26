@@ -3,6 +3,7 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
+static skinAdmin[MAX_PLAYERS];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
@@ -187,11 +188,14 @@ YCMD:trabalhar(playerid, params[], help)
    	{
        	format(string, sizeof(string), "[STAFF]: O Administrador %s(%d) está Jogando!", Player_GetName(playerid), playerid);
        	SendClientMessageToAll(COLOR_GRAD1, string);
+		SetPlayerSkin(playerid, skinAdmin[playerid]);
    	}
    	else
    	{
         format(string, sizeof(string), "[STAFF]: O Administrador %s(%d) está Trabalhando!", Player_GetName(playerid), playerid);
         SendClientMessageToAll(COLOR_GRAD1, string);
+		skinAdmin[playerid] = GetPlayerSkin(playerid);
+		SetPlayerSkin(playerid, (PlayerData_GetGender(playerid) == 1 ? DEFAULT_SKIN_ADMIN_M : DEFAULT_SKIN_ADMIN_F));
    	}
     SetPlayerToTeamColor(playerid);
     Admin_ChangeWorkMode(playerid);
