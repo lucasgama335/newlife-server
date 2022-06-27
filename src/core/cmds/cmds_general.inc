@@ -566,6 +566,20 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 			}
 		}
+		// Plataform
+        case DIALOG_CHECK_ANDROID:
+        {
+            if (!response) 
+            {
+                PlayerData_SetIsUsingAndroid(playerid, false);
+                return 1;
+            }
+            if (response) 
+            {
+                PlayerData_SetIsUsingAndroid(playerid, true);
+                return 1;
+            }
+        }
     }
     return 1;
 }
@@ -646,6 +660,13 @@ YCMD:creditos(playerid, params[], help)
 	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX, "Créditos do Servidor", MEGAString, "Fechar", "");
     return 1;
 }
+
+YCMD:plataforma(playerid, params[], help) 
+{
+    ShowPlayerDialog(playerid, DIALOG_CHECK_ANDROID, DIALOG_STYLE_MSGBOX, "Checagem de Plataforma - Servidor", "{FFFFFF}Olá jogador, detectamos uma mudança de plataforma e precisamos colher algumas informações.\nVocê deve informar em qual plataforma você está se conectando ao servidor (Android ou PC) corretamente.\n\n{9fa19e}Se você estiver se conectando pelo Android (Celular), Selecine '{03a9fd}Android{9fa19e}'.\n{9fa19e}Se você estiver se conectando pelo Computador, Selecione '{00b100}PC{9fa19e}'.\n\n{f2664d}Importante: {FFFFFF}Caso marque a opção 'Android' algumas coisas do servidor funcionarão de uma forma diferente,\npor questões de compatibilidade com a plataforma.\n\nSelecione abaixo corretamente, por qual meio você está acessando o servidor:", "Android", "PC");
+    return 1;
+}
+
 
 YCMD:lucasefoda(playerid, params[], help)
 {
