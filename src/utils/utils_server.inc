@@ -152,6 +152,18 @@ stock Server_GetWeaponName(gun)
     return armatext;
 }
 
+stock Server_GetWeaponAmmo(playerid, weaponid)
+{
+    new wd[2][13];
+    for(new i; i<13; i++) GetPlayerWeaponData(playerid,i,wd[0][i],wd[1][i]);
+    for(new i; i<13; i++)
+    {
+
+        if (weaponid == wd[0][i]) return wd[1][i];
+    }
+    return 0;
+}
+
 stock Server_PlayersInSameIp(const test_ip[])
 {
 	new against_ip[32+1];
@@ -165,6 +177,33 @@ stock Server_PlayersInSameIp(const test_ip[])
 		}
     }
     return ip_count;
+}
+
+stock TentouDivulgar(const string[])
+{
+	new x = 0;
+	for (new i = 0, j = strlen(string); i <= j; i++)
+	{
+		if (string[i] >= 46 && string[i] <= 58)
+		{
+		    x+=1;
+		}
+	}
+	if (x >= 8) return 1;
+	if (strfind(string, "189.", true) != -1 || strfind(string, "201.", true) != -1 || strfind(string, "200.", true) != -1 || strfind(string, "75.", true) != -1 || strfind(string, "91.", true) != -1 || strfind(string, "67.", true) != -1 || strfind(string, "69.", true) != -1 || strfind(string, "205.", true) != -1 || strfind(string, ":7717", true) != -1 || strfind(string, ":7777", true) != -1 || strfind(string, ":1122", true) != -1 ||
+	strfind(string, "168.", true) != -1 || strfind(string, "1 8 9", true) != -1 || strfind(string, "2 0 1", true) != -1 || strfind(string, "192.", true) != -1 || strfind(string, "254.", true) != -1 || strfind(string, "7 7 7 7.", true) != -1 || strfind(string, "169.", true) != -1 || strfind(string, ":8780", true) != -1 ||
+    strfind(string, "2 0 0", true) != -1 || strfind(string, "1 6 9", true) != -1 || strfind(string, "63.", true) != -1 || strfind(string, "1 6 8", true) != -1 || strfind(string, ":7779", true) != -1 || strfind(string, "64.120.47.79:3700", true) != -1 || strfind(string, "@hotmail.com", true) != -1  || strfind(string, "@yahoo.com.br", true) != -1 || strfind(string, "Play Games", true) != -1 ||
+	strfind(string, "B P G", true) != -1 || strfind(string, "Forever", true) != -1 || strfind(string, "Brasil Play Vício", true) != -1 || strfind(string, "2 0 0 . 2 5 5 . 1 6 6 . 1 9 9 : 2 7 7 7 8", true) != -1 || strfind(string, "Play Facil", true) != -1 || strfind(string, "Play ", true) != -1 || strfind(string, "BPG", true) != -1  || strfind(string, "Hot mail", true) != -1 ||
+	strfind(string, "BSG", true) != -1 || strfind(string, "BPG", true) != -1 || strfind(string, "Play Online", true) != -1 || strfind(string, ".com", true) != -1 || strfind(string, "BPO", true) != -1 || strfind(string, "BPV", true) != -1 || strfind(string, "Brasil Play Vicio", true) != -1 || strfind(string, "Play Vicio", true) != -1 ||
+    strfind(string, "BP G", true) != -1  || strfind(string, "BP V", true) != -1 || strfind(string, "BP O", true) != -1 || strfind(string, "bp-g", true) != -1 || strfind(string, "bp.g", true) != -1)
+    {
+	     return 1;
+	}
+	else if (strfind(string, ".", true) != -1 && strfind(string, ":", true) != -1)
+	{
+		return 1;
+	}
+	return 0;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

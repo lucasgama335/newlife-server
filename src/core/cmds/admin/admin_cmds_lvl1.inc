@@ -189,6 +189,8 @@ YCMD:trabalhar(playerid, params[], help)
        	format(string, sizeof(string), "[STAFF]: O Administrador %s(%d) está Jogando!", Player_GetName(playerid), playerid);
        	SendClientMessageToAll(COLOR_GRAD1, string);
 		SetPlayerSkin(playerid, skinAdmin[playerid]);
+		ResetPlayerWeapons(playerid);
+       	SetPlayerHealth(playerid, 100);
    	}
    	else
    	{
@@ -200,4 +202,466 @@ YCMD:trabalhar(playerid, params[], help)
     SetPlayerToTeamColor(playerid);
     Admin_ChangeWorkMode(playerid);
     return 1;
+}
+
+YCMD:kitadm(playerid, params[], help)
+{
+	if (PlayerData_GetAdmin(playerid) < HELPER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+
+	new string[51];
+	GivePlayerWeapon(playerid, 46, 1);
+	GivePlayerWeapon(playerid, 35, 999);
+	GivePlayerWeapon(playerid, 24, 299);
+	GivePlayerWeapon(playerid, 31, 999);
+	GivePlayerWeapon(playerid, 29, 999);
+	GivePlayerWeapon(playerid, 25, 999);
+	GivePlayerWeapon(playerid, 4, 1);
+	GivePlayerWeapon(playerid, 34, 999);
+	GivePlayerWeapon(playerid, 43, 999);
+	GivePlayerWeapon(playerid, 17, 49);
+	GivePlayerWeapon(playerid, 42, 1999);
+	SetPlayerArmour(playerid, 100);
+	SetPlayerHealth(playerid, 100);
+	SendClientMessage(playerid, COLOR_LIGHTBLUE, "ADM: {B4B5B7}Você pegou o seu KitAdmin!");
+	format(string, sizeof(string), "Admin: %s Pegou Seu KitAdmin.", Player_GetName(playerid));
+	SendMessageInRange(30.0, playerid, string, COLOR_LIGHTPU, COLOR_LIGHTPU, COLOR_LIGHTPU, COLOR_LIGHTPU, COLOR_LIGHTPU);
+    return 1;
+}
+
+CMD:tvon(playerid, params[])
+{
+	if (PlayerData_GetAdmin(playerid) < HELPER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new id;
+	if (sscanf(params, "u", id))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /tvon [id]");
+	}
+	if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+	}
+	if (PlayerData_GetAdmin(id) >= HELPER_OWNER && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode ficar de TV em um admin Dono.");
+	}
+	if (id == playerid)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode ficar de TV em si mesmo.");
+	}
+	if (Admin_GetWatchStatus(id))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode ficar de TV em outro jogador de TV.");
+	}
+
+	// Execução do Comando
+	if (Admin_GetPlayerSpectated(playerid) == INVALID_PLAYER_ID)
+	{
+		new Float:pos_x, Float:pos_y, Float:pos_z, int, world;
+		GetPlayerPos(playerid, pos_x, pos_y, pos_z);
+		int = GetPlayerInterior(playerid);
+		world = GetPlayerVirtualWorld(playerid);
+		Spectate_SetCoords(playerid, pos_x, pos_y, pos_z, int, world);
+	}
+	Admin_SetPlayerSpectated(playerid, id);
+	Admin_SetWatchStatus(playerid, true);
+	SetPlayerInterior(playerid, GetPlayerInterior(id));
+	SetPlayerVirtualWorld(playerid, GetPlayerVirtualWorld(id));
+	TogglePlayerSpectating(playerid, 1);
+	if (IsPlayerInAnyVehicle(id)) PlayerSpectateVehicle(playerid, GetPlayerVehicleID(id));
+	else PlayerSpectatePlayer(playerid, id);
+	Admin_StartSpectate(playerid);
+	ShowSpectatePlayer(playerid, id);
+	return 1;
+}
+
+YCMD:tvoff(playerid, params[], help)
+{
+	if (PlayerData_GetAdmin(playerid) < HELPER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	if (!Admin_GetWatchStatus(playerid))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está de TV em jogador nenhum.");
+	}
+
+	new Float:pos_x, Float:pos_y, Float:pos_z, int, world;
+	Spectate_GetCoords(playerid, pos_x, pos_y, pos_z, int, world);
+
+	Admin_SetPlayerSpectated(playerid, INVALID_PLAYER_ID);
+	Admin_SetWatchStatus(playerid, false);
+	TogglePlayerControllable(playerid, true);
+	TogglePlayerSpectating(playerid, 0);
+	SetPlayerInterior(playerid, int);
+	SetPlayerVirtualWorld(playerid, world);
+	SetSpawnInfo(playerid, -1, PlayerData_GetSkin(playerid), pos_x,  pos_y, pos_z-1.0, 1.0, -1, -1, -1, -1, -1, -1);
+	SetPlayerToTeamColor(playerid);
+	HideSpectatePlayer(playerid);
+	Admin_StopSpectate(playerid);
+	SpawnPlayer(playerid);
+	return 1;
+}
+
+YCMD:par(playerid, params[], help)
+{
+	if (PlayerData_GetAdmin(playerid) < HELPER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new id, result[150];
+	if (sscanf(params, "us[150]", id, result))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /par [id] [mensagem]");
+	}
+	if (!strlen(result))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /par [id] [mensagem]");
+	}
+	if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+	}
+
+	new string[200];
+	format(string, sizeof(string), "%s[%d] particular: %s.", Player_GetName(playerid), playerid, (result));
+	Admin_SendParMessage(playerid, id, COLOR_YELLOW, string);
+	Server_PrintLog(FOLDER_ADMIN_PAR, string);
+	format(string, sizeof(string), "PM enviada para %s(ID: %d).", Player_GetName(id), id, result);
+	SendClientMessage(playerid, COLOR_YELLOW, string);
+	return 1;
+}
+
+YCMD:kick(playerid, params[], help)
+{
+	if (PlayerData_GetAdmin(playerid) < HELPER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new id, reason[100];
+	if (sscanf(params, "us[100]", id, reason))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /kick [id] [motivo]");
+	}
+	if (!strlen(reason))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /kick [id] [motivo]");
+	}
+	if (id == playerid)
+	{
+	    return SendClientMessage(playerid, COLOR_INVALID, "Você não pode dar um kick em si mesmo.");
+	}
+	if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+	}
+
+	new string[190];
+	format(string, sizeof(string), "ADMIN CMD: %s foi kickado por %s. [Motivo]: %s.", Player_GetName(id), Player_GetName(playerid), (reason));
+	SendClientMessageToAll(COLOR_LIGHTRED, string);
+	DelayedKick(id);
+	return 1;
+}
+
+YCMD:ir(playerid, params[], help)
+{
+	if (PlayerData_GetAdmin(playerid) < HELPER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	/*if (spectatePlayer[playerid] != UNDEFINED_PLAYER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode teleportar estando de TV.");
+	}*/
+	new id;
+	if (sscanf(params, "u", id))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /ir [id]");
+	}
+	if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+	}
+
+	new string[66];
+	new Float:x, Float:y, Float:z, Float:a;
+	GetPlayerPos(id, x, y, z);
+	GetPlayerFacingAngle(id, a);
+	StopAudioStreamForPlayer(playerid);
+	PlayerData_SetInteriorLocale(playerid, PlayerData_GetInteriorLocale(id));
+	TeleportPlayer(playerid, x, y+4, z, a, GetPlayerInterior(id), GetPlayerVirtualWorld(id));
+	SendClientMessage(playerid, 0x33FF00FF, "Você foi teleportado pelo Administrador !");
+    format(string, sizeof(string), "O Admin %s Foi Até %s.", Player_GetName(playerid), Player_GetName(id));
+	SendMessageInRange(30.0, playerid, string, 0x33FF00FF, 0x33FF00FF, 0x33FF00FF, 0x33FF00FF, 0x33FF00FF);
+	return 1;
+}
+
+YCMD:trazer(playerid, params[], help)
+{
+	if (PlayerData_GetAdmin(playerid) < HELPER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new id;
+	if (sscanf(params, "u", id))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /trazer [id]");
+	}
+	if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+	}
+
+	new string[63];
+	new Float:x, Float:y, Float:z, Float:a;
+	GetPlayerPos(playerid, x, y, z);
+	GetPlayerFacingAngle(playerid, a);
+	StopAudioStreamForPlayer(playerid);
+	PlayerData_SetInteriorLocale(id, PlayerData_GetInteriorLocale(playerid));
+	TeleportPlayer(id, x, (y+4), z, a, GetPlayerInterior(playerid), GetPlayerVirtualWorld(playerid));
+	SendClientMessage(id, 0x33FF00FF, "Você foi teleportado pelo Admin !");
+	format(string, sizeof(string), "Admin %s Trouxe %s.", Player_GetName(playerid), Player_GetName(id));
+	SendMessageInRange(30.0, playerid, string, COLOR_NEONGREEN, COLOR_NEONGREEN, COLOR_NEONGREEN, COLOR_NEONGREEN, COLOR_NEONGREEN);
+	return 1;
+}
+
+YCMD:voar(playerid, params[], help)
+{
+	if (PlayerData_GetAdmin(playerid) < HELPER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+
+	new Float:px, Float:py, Float:pz, Float:pa;
+	GetPlayerFacingAngle(playerid,pa);
+	if (pa >= 0.0 && pa <= 22.5) //n1
+	{
+		GetPlayerPos(playerid, px, py, pz);
+		SetPlayerPos(playerid, px, py+30, pz+5);
+	}
+	else if (pa >= 332.5 && pa < 0.0) //n2
+	{
+		GetPlayerPos(playerid, px, py, pz);
+		SetPlayerPos(playerid, px, py+30, pz+5);
+	}
+	else if (pa >= 22.5 && pa <= 67.5) //nw
+	{
+		GetPlayerPos(playerid, px, py, pz);
+		SetPlayerPos(playerid, px-15, py+15, pz+5);
+	}
+	else if (pa >= 67.5 && pa <= 112.5) //w
+	{
+		GetPlayerPos(playerid, px, py, pz);
+		SetPlayerPos(playerid, px-30, py, pz+5);
+	}
+	else if (pa >= 112.5 && pa <= 157.5) //sw
+	{
+		GetPlayerPos(playerid, px, py, pz);
+		SetPlayerPos(playerid, px-15, py-15, pz+5);
+	}
+	else if (pa >= 157.5 && pa <= 202.5) //s
+	{
+		GetPlayerPos(playerid, px, py, pz);
+		SetPlayerPos(playerid, px, py-30, pz+5);
+	}
+	else if (pa >= 202.5 && pa <= 247.5)//se
+	{
+		GetPlayerPos(playerid, px, py, pz);
+		SetPlayerPos(playerid, px+15, py-15, pz+5);
+	}
+	else if (pa >= 247.5 && pa <= 292.5)//e
+	{
+		GetPlayerPos(playerid, px, py, pz);
+		SetPlayerPos(playerid, px+30, py, pz+5);
+	}
+	else if (pa >= 292.5 && pa <= 332.5)//e
+	{
+		GetPlayerPos(playerid, px, py, pz);
+		SetPlayerPos(playerid, px+15, py+15, pz+5);
+	}
+	else
+	{
+	    GetPlayerPos(playerid, px, py, pz);
+	    SetPlayerPos(playerid, px+15, py+15, pz+5);
+	}
+    return 1;
+}
+
+YCMD:tapa(playerid, params[], help)
+{
+	if (PlayerData_GetAdmin(playerid) < HELPER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new id;
+	if (sscanf(params, "u", id))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /tapa [id]");
+	}
+	if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+	}
+	if (PlayerData_GetAdmin(id) >= HELPER_OWNER && PlayerData_GetAdmin(id) != OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode dar tapa em um Admin Dono !");
+	}
+
+	new string[80];
+	new Float:x, Float:y, Float:z;
+	GetPlayerPos(id, x, y, z);
+	SetPlayerPos(id, x, y, z+12);
+	PlayerPlaySound(id, 1130, x, y, z+12);
+	format(string, sizeof(string), "ADMIN CMD: %s ganhou um tapa de: %s.", Player_GetName(id), Player_GetName(playerid));
+	MensagemAdmin(COLOR_LIGHTRED, string, HELPER);
+	return 1;
+}
+
+YCMD:tapao(playerid, params[], help)
+{
+    if (PlayerData_GetAdmin(playerid) < HELPER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new id;
+	if (sscanf(params, "u", id))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /tapao [id]");
+	}
+	if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+	}
+	if (PlayerData_GetAdmin(id) >= HELPER_OWNER && PlayerData_GetAdmin(id) != OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode dar tapão em um Admin Dono !");
+	}
+
+	new string[81];
+	new Float:x, Float:y, Float:z;
+	GetPlayerPos(id, x, y, z);
+	SetPlayerPos(id, x, y, z+130);
+	SetPlayerHealth(id, 100.0);
+	PlayerPlaySound(id, 1130, x, y, z+130);
+	format(string, sizeof(string), "ADMIN CMD: %s ganhou um tapao de: %s.", Player_GetName(id), Player_GetName(playerid));
+	MensagemAdmin(COLOR_LIGHTRED, string, HELPER);
+	return 1;
+}
+
+YCMD:av(playerid, params[], help) = avisar;
+YCMD:avisar(playerid, params[], help)
+{
+	if (PlayerData_GetAdmin(playerid) < HELPER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	new text[150];
+	if (sscanf(params, "s[150]", text))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: (/av)isar [texto]");
+	}
+	if (!strlen(text))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: (/av)isar [texto]");
+	}
+    if (TentouDivulgar(text))
+	{
+	    new stringd[215];
+		format(stringd, sizeof(stringd), "[ADMIN ALERTA]: %s[%d] tentou divulgar: %s.", Player_GetName(playerid), playerid, text);
+		MensagemAdmin(COLOR_YELLOW, stringd, HELPER);
+		Server_PrintLog(FOLDER_ANTICHEAT_ADVERTISING, stringd);
+		return 1;
+	}
+
+	new string[182];
+	SendClientMessageToAll(COLOR_DBLUE, "|__________________[ Aviso dos Admins ]__________________|");
+	format(string, sizeof(string), "Admin {FFFFFF}%s{f04b87}: %s", Player_GetName(playerid), text);
+	SendClientMessageToAll(COLOR_PINK, string);
+    return 1;
+}
+
+YCMD:testegod(playerid, params[], help)
+{
+    if (PlayerData_GetAdmin(playerid) < HELPER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new id;
+	if (sscanf(params, "u", id))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /testegod [id]");
+	}
+	if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+	}
+	if (PlayerData_GetAdmin(id) >= HELPER_OWNER && PlayerData_GetAdmin(id) != OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode dar testegod em um Admin Dono !");
+	}
+
+	new string[82];
+	new Float:x, Float:y, Float:z;
+	new Float:boomx, Float:boomy, Float:boomz;
+	GetPlayerPos(id, x, y, z);
+	SetPlayerPos(id, x, y, z+12);
+	GetPlayerPos(id, boomx, boomy, boomz);
+	CreateExplosion(boomx, boomy , boomz, 7, 10);
+	PlayerPlaySound(id, 1130, x, y, z+12);
+    if (Admin_IsWorking(playerid) && Admin_GetHideStatus(playerid))
+    {
+		format(string, sizeof(string), "Adm-Cmd: %s ganhou um Teste God de: Anônimo.", Player_GetName(id));
+	}
+    else
+    {
+		format(string, sizeof(string), "Adm-Cmd: %s ganhou um Teste God By: %s.", Player_GetName(id), Player_GetName(playerid));
+	}
+	MensagemAdmin(COLOR_LIGHTRED, string, HELPER);
+    SendClientMessage(playerid, COLOR_LIGHTRED, "[ATENÇÃO] Verifique se o player não está com o relógio travado.");
+	return 1;
 }

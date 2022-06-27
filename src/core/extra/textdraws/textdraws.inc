@@ -1,5 +1,6 @@
-#include <textdraws_loading>
-#include <textdraws_login>
+#include <textdraw_loading>
+#include <textdraw_login>
+#include <textdraw_spectate>
 
 #include <YSI_Coding\y_hooks>
 

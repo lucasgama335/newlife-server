@@ -14,6 +14,26 @@ stock Admin_GetRole(role)
     return string;
 }
 
+stock TeleportPlayer(playerid, Float:x, Float:y, Float:z, Float:a, interior, world)
+{
+	SetPlayerInterior(playerid, interior);
+	SetPlayerVirtualWorld(playerid, world);
+	if (IsPlayerInAnyVehicle(playerid) && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
+	{
+	    new vid = GetPlayerVehicleID(playerid);
+	    LinkVehicleToInterior(vid, GetPlayerInterior(playerid));
+		SetVehicleVirtualWorld(vid, GetPlayerVirtualWorld(playerid));
+		SetVehiclePos(vid, x, y, z);
+		SetVehicleZAngle(vid, a);
+	}
+	else
+	{
+	    SetPlayerPos(playerid, x, y, z);
+		SetPlayerFacingAngle(playerid, a);
+	}
+	return 1;
+}
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------

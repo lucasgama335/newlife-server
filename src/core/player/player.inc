@@ -4,10 +4,7 @@
 #include <money_data>
 #include <score_data>
 #include <vip_data>
-
-// InGame Player Data
-#include <admin_data>
-
+//
 #include <player_admin>
 #include <player_tutorial>
 #include <player_vehicle>
@@ -25,7 +22,7 @@
 stock SetPlayerToTeamColor(playerid)
 {
     SetPlayerColor(playerid, COLOR_WHITE);
-	if (Admin_IsWorking(playerid))
+	if (Admin_IsWorking(playerid) && !Admin_GetHideStatus(playerid))
 	{
 		SetPlayerColor(playerid, COLOR_ADMIN);
 	}

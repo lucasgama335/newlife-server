@@ -370,6 +370,56 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 BCrypt_HashInline(inputtext, BCRYPT_COST, using inline OnPassswordHash);
             }
         }
+        // Admin
+        case DIALOG_AUTH_ADMIN:
+		{
+			if (!response)
+			{
+				SendClientMessage(playerid, COLOR_LIGHTRED, "Você não informou a senha da administração e foi kickado!");
+				DelayedKick(playerid);
+				return 1;
+			}
+			if (response)
+			{
+				if (!strlen(inputtext))
+	            {
+					new admPassDialog[300];
+					format(admPassDialog, sizeof(admPassDialog), "{FFFFFF}Conta: {0080ff}%s\n{FFFFFF}Você logou com Admin ({0080ff}%s{FFFFFF})\n\n{FFFFFF}Você precisa autenticar a senha de segurança para poder\n{FFFFFF}logar em sua conta!\n\n{ff6347}OBS: {FFFFFF}Você só tem uma tentativa ou será desconectado do servidor.\n\n\n{6e6e6e}Insira abaixo a senha da administração:", Player_GetName(playerid), Admin_GetRole(PlayerData_GetAdmin(playerid)));
+					ShowPlayerDialog(playerid, DIALOG_AUTH_ADMIN, DIALOG_STYLE_PASSWORD, "Proteção de Conta", admPassDialog, "Validar", "");
+					return SendClientMessage(playerid, COLOR_INVALID, "Você precisa autenticar a sua administração.");
+				}
+				if (strcmp(inputtext, SERVER_ADMIN_PASS) == 0)
+				{
+					if (PlayerData_GetAdmin(playerid) >= HELPER_OWNER)
+					{
+						ShowPlayerDialog(playerid, DIALOG_ADMIN_HIDE, DIALOG_STYLE_MSGBOX, "Menu Admin Dono", "Escolha qual modo deseja ficar.", "Oculto", "Exibido");
+					}
+					return SendClientMessage(playerid, COLOR_LIGHTBLUE, "Você autenticou o seu nível de administrador com sucesso.");
+				}
+				else
+				{
+					new string[126];
+					format(string, sizeof(string), "[AVISO]: %s errou a senha da administração e foi kickado, pode ser outra pessoa logando na conta dele.", Player_GetName(playerid));
+					MensagemAdmin(COLOR_LIGHTRED, string, HELPER);
+					SendClientMessage(playerid, COLOR_LIGHTRED, "Você errou a senha da administração e foi kickado.");
+					DelayedKick(playerid);
+					return 1;
+				}
+			}
+		}
+        case DIALOG_ADMIN_HIDE:
+        {
+            if (!response)
+            {
+                Admin_SetHideStatus(playerid, false);
+                return SendClientMessage(playerid, COLOR_LIGHTRED, "INFO: {AFAFAF}Você está no modo exibido, todos poderão ver você no /admins.");
+            }
+            if (response)
+            {
+                Admin_SetHideStatus(playerid, true);
+                return SendClientMessage(playerid, COLOR_LIGHTRED, "INFO: {AFAFAF}Você está no modo oculto, ninguém verá você no /admins.");
+            }
+        }
     }
     return 1;
 }
@@ -438,9 +488,15 @@ function:OnPlayerLogin(playerid)
 		}
         format(string, sizeof(string), "~w~Bem Vindo ~n~~y~%s", Player_GetName(playerid));
         GameTextForPlayer(playerid, string, 5000, 1);
-        SpawnPlayer(playerid);
+        if (PlayerData_GetAdmin(playerid) >= HELPER_OWNER)
+        {
+            new admPassDialog[300];
+            format(admPassDialog, sizeof(admPassDialog), "{FFFFFF}Conta: {0080ff}%s\n{FFFFFF}Você logou com Admin ({0080ff}%s{FFFFFF})\n\n{FFFFFF}Você precisa autenticar a senha de segurança para poder\n{FFFFFF}logar em sua conta!\n\n{ff6347}OBS: {FFFFFF}Você só tem uma tentativa ou será desconectado do servidor.\n\n\n{6e6e6e}Insira abaixo a senha da administração:", Player_GetName(playerid), Admin_GetRole(PlayerData_GetAdmin(playerid)));
+            ShowPlayerDialog(playerid, DIALOG_AUTH_ADMIN, DIALOG_STYLE_PASSWORD, "Proteção de Conta", admPassDialog, "Validar", "");
+        }
     }
     format(string, sizeof(string), (PlayerData_GetAdmin(playerid) < HELPER_OWNER ? "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [%s]!" : "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [N/A]!"), Player_GetName(playerid), playerid, PlayerData_GetLevel(playerid), Player_GetIP(playerid));
  	MensagemAdmin(COLOR_SKIN, string, HELPER);
+    SpawnPlayer(playerid);
     return 1;
 }
