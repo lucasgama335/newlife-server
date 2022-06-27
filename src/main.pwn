@@ -18,6 +18,7 @@
 #include <samp_bcrypt>					// By LassiR				https://github.com/LassiR/bcrypt-samp
 #include <sscanf2>						// By Y_Less:				https://github.com/Y-Less/sscanf
 #include <streamer>						// By Incognito:			https://github.com/samp-incognito/samp-streamer-plugin
+#include <YSI_Players\y_android>       	// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 #include <YSI_Data\y_iterate>       	// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 #include <YSI_Extra\y_inline_mysql>		// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 #include <YSI_Extra\y_inline_bcrypt>	// By Y_Less:				https://github.com/pawn-lang/YSI-Includes

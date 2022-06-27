@@ -42,6 +42,7 @@ static stock Player_ClearInfoVars(playerid)
     loginAttempts[playerid] = 0;
     recentlyLogged[playerid] = true;
     isRegistered[playerid] = false;
+    PlayerData_SetIsLogged(playerid, false);
     PlayerData_SetIsUsingAndroid(playerid, false);
     return 1;
 }
@@ -60,7 +61,7 @@ static stock InsertPlayerInDataBase(playerid, const password[])
 static stock ShowLoginDialog(playerid)
 {
     static string[256];
-    SendClientMessage(playerid, 0xffcc99FF, "[CONTA]: Sua conta está registrada, digite sua senha para logar!");
+    SendClientMessage(playerid, 0xffcc99FF, "[CONTA]: Sua conta está registrada, digite sua senha para logar.");
     format(string, sizeof(string), "{FFFFFF}Bem Vindo ao {33CCFF}%s{FFFFFF}!\n\nSua Conta: {33CCFF}%s{FFFFFF}.\nStatus: {00FF00}Registrada{FFFFFF}.\n\n{B4B5B7}Insira a senha abaixo para logar.", SERVER_NAME, Player_GetName(playerid));
     ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Fazer Login", string, "Entrar", "Ajuda");
     return 1;
@@ -188,6 +189,7 @@ hook OnPlayerConnect(playerid)
 hook OnPlayerDisconnect(playerid, reason)
 {
     Database_IncrementRaceCheck(playerid);
+    Player_ClearInfoVars(playerid);
     PlayerData_SetIsLogged(playerid, false);
     
     new string[150], Float:PacketLoss;
@@ -218,11 +220,6 @@ hook OnPlayerRequestClass(playerid, classid)
         TogglePlayerSpectating(playerid, true);
         InterpolateCameraPos(playerid, 1430.3030, -1222.7921, 153.7742, 1430.2842, -1227.1599, 153.6056, CAMERA_SPEED, CAMERA_MOVE);
 		InterpolateCameraLookAt(playerid, 1430.7921, -1223.6633, 153.5791, 1431.1718, -1227.6151, 153.3904, CAMERA_SPEED, CAMERA_MOVE);
-        if (PlayerData_GetIsUsingAndroid(playerid))
-        {
-            HideLoginScreen(playerid);
-            ShowPlayerDialog(playerid, DIALOG_CHECK_ANDROID, DIALOG_STYLE_MSGBOX, "Checagem de Plataforma - Servidor", "{FFFFFF}Olá jogador, detectamos uma mudança de plataforma e precisamos colher algumas informações.\nVocê deve informar em qual plataforma você está se conectando ao servidor (Android ou PC) corretamente.\n\n{9fa19e}Se você estiver se conectando pelo Android (Celular), Selecine '{03a9fd}Android{9fa19e}'.\n{9fa19e}Se você estiver se conectando pelo Computador, Selecione '{00b100}PC{9fa19e}'.\n\n{f2664d}Importante: {FFFFFF}Caso marque a opção 'Android' algumas coisas do servidor funcionarão de uma forma diferente,\npor questões de compatibilidade com a plataforma.\n\nSelecione abaixo corretamente, por qual meio você está acessando o servidor:", "Android", "PC");
-        }
     }
     else
     {
@@ -236,7 +233,7 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid)
     // Login Screen: Login Button
 	if (clickedid == LoginTextDraw_GetByIndex(5))
 	{
-		if (isRegistered[playerid])
+        if (isRegistered[playerid])
         {
             ShowLoginDialog(playerid);
         }
@@ -277,19 +274,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
     switch(dialogid)
     {
         // Auth
-        case DIALOG_CHECK_ANDROID:
-		{
-			if (!response) 
-            {
-                PlayerData_SetIsUsingAndroid(playerid, false);
-                return ShowLoginDialog(playerid);
-            }
-            if (response) 
-            {
-                PlayerData_SetIsUsingAndroid(playerid, true);
-                return ShowRegisterDialog(playerid);                
-            }
-        }
         case DIALOG_LOGIN:
         {
             if (!response) 
@@ -430,6 +414,8 @@ function:OnPlayerLogin(playerid)
 {
     recentlyLogged[playerid] = false;
     isRegistered[playerid] = true;
+    PlayerData_SetIsLogged(playerid, true);
+
     if (Timer_IsRunning(timerToKickPlayer[playerid])) stop timerToKickPlayer[playerid];
 
     if (PlayerData_GetAdmin(playerid) > OWNER)
@@ -439,7 +425,6 @@ function:OnPlayerLogin(playerid)
         return 1;
     }
 
-    PlayerData_SetIsLogged(playerid, true);
     SetPlayerScore(playerid, PlayerData_GetLevel(playerid));
     SetPlayerWantedLevel(playerid, PlayerData_GetWantedLevel(playerid));
     Server_SetPlayerMoney(playerid, PlayerData_GetMoney(playerid));
