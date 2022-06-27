@@ -426,11 +426,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
     return 1;
 }
 
-hook OnAndroidCheck(playerid, bool:isDisgustingThiefToBeBanned)
-{
-	if (isDisgustingThiefToBeBanned) PlayerData_SetIsUsingAndroid(playerid, true);
-}
-
 function:OnPlayerLogin(playerid) 
 {
     recentlyLogged[playerid] = false;

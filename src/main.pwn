@@ -17,7 +17,6 @@
 #include <sscanf2>						// By Y_Less:				https://github.com/Y-Less/sscanf
 #include <streamer>						// By Incognito:			https://github.com/samp-incognito/samp-streamer-plugin
 #include <YSI_Data\y_iterate>       	// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
-#include <YSI_Players\y_android>		// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 #include <YSI_Extra\y_inline_mysql>		// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 #include <YSI_Extra\y_inline_bcrypt>	// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 #include <YSI_Visual\y_commands> 		// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
