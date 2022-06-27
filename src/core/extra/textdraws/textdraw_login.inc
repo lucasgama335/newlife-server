@@ -56,9 +56,9 @@ hook OnGameModeInit()
 	TextDrawColor(textDrawLogin[0], -1);
 	TextDrawBackgroundColor(textDrawLogin[0], 255);
 	TextDrawBoxColor(textDrawLogin[0], 215);
-	TextDrawUseBox(textDrawLogin[0], 1);
-	TextDrawSetProportional(textDrawLogin[0], 1);
-	TextDrawSetSelectable(textDrawLogin[0], 0);
+	TextDrawUseBox(textDrawLogin[0], true);
+	TextDrawSetProportional(textDrawLogin[0], true);
+	TextDrawSetSelectable(textDrawLogin[0], false);
 
 	textDrawLogin[1] = TextDrawCreate(18.000000, 126.000000, "New Life RPG");
 	TextDrawFont(textDrawLogin[1], 0);
@@ -70,9 +70,9 @@ hook OnGameModeInit()
 	TextDrawColor(textDrawLogin[1], -1);
 	TextDrawBackgroundColor(textDrawLogin[1], 255);
 	TextDrawBoxColor(textDrawLogin[1], 50);
-	TextDrawUseBox(textDrawLogin[1], 0);
-	TextDrawSetProportional(textDrawLogin[1], 1);
-	TextDrawSetSelectable(textDrawLogin[1], 0);
+	TextDrawUseBox(textDrawLogin[1], false);
+	TextDrawSetProportional(textDrawLogin[1], true);
+	TextDrawSetSelectable(textDrawLogin[1], false);
 
 	textDrawLogin[2] = TextDrawCreate(51.000000, 141.000000, "Seja bem vindo a sua nova vida");
 	TextDrawFont(textDrawLogin[2], 1);
@@ -84,9 +84,9 @@ hook OnGameModeInit()
 	TextDrawColor(textDrawLogin[2], -1);
 	TextDrawBackgroundColor(textDrawLogin[2], 255);
 	TextDrawBoxColor(textDrawLogin[2], 50);
-	TextDrawUseBox(textDrawLogin[2], 0);
-	TextDrawSetProportional(textDrawLogin[2], 1);
-	TextDrawSetSelectable(textDrawLogin[2], 0);
+	TextDrawUseBox(textDrawLogin[2], false);
+	TextDrawSetProportional(textDrawLogin[2], true);
+	TextDrawSetSelectable(textDrawLogin[2], false);
 
 	textDrawLogin[3] = TextDrawCreate(200.000000, 153.000000, "I");
 	TextDrawFont(textDrawLogin[3], 1);
@@ -98,9 +98,9 @@ hook OnGameModeInit()
 	TextDrawColor(textDrawLogin[3], -1);
 	TextDrawBackgroundColor(textDrawLogin[3], 255);
 	TextDrawBoxColor(textDrawLogin[3], 50);
-	TextDrawUseBox(textDrawLogin[3], 0);
-	TextDrawSetProportional(textDrawLogin[3], 1);
-	TextDrawSetSelectable(textDrawLogin[3], 0);
+	TextDrawUseBox(textDrawLogin[3], false);
+	TextDrawSetProportional(textDrawLogin[3], true);
+	TextDrawSetSelectable(textDrawLogin[3], false);
 
 	textDrawLogin[4] = TextDrawCreate(27.000000, 158.000000, "ESTAMOS SEMPRE TRABALHANDO PARA A SUA DIVERSAO");
 	TextDrawFont(textDrawLogin[4], 1);
@@ -112,9 +112,9 @@ hook OnGameModeInit()
 	TextDrawColor(textDrawLogin[4], -1);
 	TextDrawBackgroundColor(textDrawLogin[4], 255);
 	TextDrawBoxColor(textDrawLogin[4], 50);
-	TextDrawUseBox(textDrawLogin[4], 0);
-	TextDrawSetProportional(textDrawLogin[4], 1);
-	TextDrawSetSelectable(textDrawLogin[4], 0);
+	TextDrawUseBox(textDrawLogin[4], false);
+	TextDrawSetProportional(textDrawLogin[4], true);
+	TextDrawSetSelectable(textDrawLogin[4], false);
 
 	textDrawLogin[5] = TextDrawCreate(87.000000, 222.000000, "FAZER LOGIN");
 	TextDrawFont(textDrawLogin[5], 3);
@@ -126,9 +126,9 @@ hook OnGameModeInit()
 	TextDrawColor(textDrawLogin[5], -1);
 	TextDrawBackgroundColor(textDrawLogin[5], 255);
 	TextDrawBoxColor(textDrawLogin[5], 1296911706);
-	TextDrawUseBox(textDrawLogin[5], 1);
-	TextDrawSetProportional(textDrawLogin[5], 1);
-	TextDrawSetSelectable(textDrawLogin[5], 1);
+	TextDrawUseBox(textDrawLogin[5], true);
+	TextDrawSetProportional(textDrawLogin[5], true);
+	TextDrawSetSelectable(textDrawLogin[5], true);
 
 	textDrawLogin[6] = TextDrawCreate(87.000000, 247.000000, "INFORMACOES");
 	TextDrawFont(textDrawLogin[6], 3);
@@ -140,9 +140,9 @@ hook OnGameModeInit()
 	TextDrawColor(textDrawLogin[6], -1);
 	TextDrawBackgroundColor(textDrawLogin[6], 255);
 	TextDrawBoxColor(textDrawLogin[6], 1296911706);
-	TextDrawUseBox(textDrawLogin[6], 1);
-	TextDrawSetProportional(textDrawLogin[6], 1);
-	TextDrawSetSelectable(textDrawLogin[6], 1);
+	TextDrawUseBox(textDrawLogin[6], true);
+	TextDrawSetProportional(textDrawLogin[6], true);
+	TextDrawSetSelectable(textDrawLogin[6], true);
 
 	textDrawLogin[7] = TextDrawCreate(87.000000, 272.000000, "CREDITOS");
 	TextDrawFont(textDrawLogin[7], 3);
@@ -154,9 +154,9 @@ hook OnGameModeInit()
 	TextDrawColor(textDrawLogin[7], -1);
 	TextDrawBackgroundColor(textDrawLogin[7], 255);
 	TextDrawBoxColor(textDrawLogin[7], 1296911706);
-	TextDrawUseBox(textDrawLogin[7], 1);
-	TextDrawSetProportional(textDrawLogin[7], 1);
-	TextDrawSetSelectable(textDrawLogin[7], 1);
+	TextDrawUseBox(textDrawLogin[7], true);
+	TextDrawSetProportional(textDrawLogin[7], true);
+	TextDrawSetSelectable(textDrawLogin[7], true);
 
 	textDrawLogin[8] = TextDrawCreate(87.000000, 297.000000, "SAIR");
 	TextDrawFont(textDrawLogin[8], 3);
@@ -168,9 +168,9 @@ hook OnGameModeInit()
 	TextDrawColor(textDrawLogin[8], -1);
 	TextDrawBackgroundColor(textDrawLogin[8], 255);
 	TextDrawBoxColor(textDrawLogin[8], 1296911706);
-	TextDrawUseBox(textDrawLogin[8], 1);
-	TextDrawSetProportional(textDrawLogin[8], 1);
-	TextDrawSetSelectable(textDrawLogin[8], 1);
+	TextDrawUseBox(textDrawLogin[8], true);
+	TextDrawSetProportional(textDrawLogin[8], true);
+	TextDrawSetSelectable(textDrawLogin[8], true);
     return 1;
 }
 

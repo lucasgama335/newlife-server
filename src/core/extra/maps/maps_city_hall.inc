@@ -249,7 +249,7 @@ hook OnGameModeInit()
     cityHallActor[1] = CreateActor(164, 358.2496,177.5590,1008.3828, 267.0439);
 	for (new i; i < sizeof(cityHallActor); i++)
 	{
-		ApplyActorAnimation(cityHallActor[i], "COP_AMBIENT", "Coplook_loop", 4.1, 1, 0, 0, 0, 0);
+		ApplyActorAnimation(cityHallActor[i], "COP_AMBIENT", "Coplook_loop", 4.1, true, false, false, false, 0);
 	}
     return 1;
 }

@@ -22,64 +22,78 @@ static SpectateInfo[MAX_PLAYERS][aSpectate];
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock bool:Admin_IsWorking(playerid)
 {
+    if (!IsPlayerConnected(playerid)) return false;
+
     return workMode[playerid];
 }
 
 stock bool:Admin_SetWorkMode(playerid, bool:status)
 {
+    if (!IsPlayerConnected(playerid)) return false;
+
     return workMode[playerid] = status;
-}
-
-stock bool:Admin_ChangeWorkMode(playerid)
-{
-    if (workMode[playerid] == true) workMode[playerid] = false;
-    else workMode[playerid] = true;
-
-    return workMode[playerid];
 }
 
 stock bool:Admin_GetHideStatus(playerid)
 {
+    if (!IsPlayerConnected(playerid)) return false;
+
     return hideAdmin[playerid];
 }
 
 stock bool:Admin_SetHideStatus(playerid, bool:status)
 {
+    if (!IsPlayerConnected(playerid)) return false;
+
     return hideAdmin[playerid] = status;
 }
 
 stock bool:Admin_GetWatchStatus(playerid)
 {
+    if (!IsPlayerConnected(playerid)) return false;
+
     return watchingPlayer[playerid];
 }
 
 stock bool:Admin_SetWatchStatus(playerid, bool:status)
 {
+    if (!IsPlayerConnected(playerid)) return false;
+
     return watchingPlayer[playerid] = status;
 }
 
 stock Admin_GetPlayerSpectated(playerid)
 {
+    if (!IsPlayerConnected(playerid)) return false;
+
     return spectatePlayer[playerid];
 }
 
 stock Admin_SetPlayerSpectated(playerid, id)
 {
+    if (!IsPlayerConnected(playerid)) return false;
+
     return spectatePlayer[playerid] = id;
 }
 
 stock bool:Admin_GetViewAllPars(playerid)
 {
+    if (!IsPlayerConnected(playerid)) return false;
+
 	return viewAllPars[playerid];
 }
 
 stock bool:Admin_SetViewAllPars(playerid, bool:status)
 {
+    if (!IsPlayerConnected(playerid)) return false;
+
 	return viewAllPars[playerid] = status;
 }
 
 stock Spectate_GetCoords(playerid, &Float:x, &Float:y, &Float:z, &interior, &world)
 {
+    if (!IsPlayerConnected(playerid)) return false;
+    
     x = SpectateInfo[playerid][aPx];
     y = SpectateInfo[playerid][aPy];
     z = SpectateInfo[playerid][aPz];

@@ -10,7 +10,8 @@
 		"Y-Less/sscanf:v2.11.4",
 		"Zeex/samp-plugin-crashdetect:v4.20",
 		"samp-incognito/samp-streamer-plugin:v2.9.5",
-		"Sreyas-Sreelal/samp-bcrypt:0.3.4"
+		"Sreyas-Sreelal/samp-bcrypt:0.3.4",
+		"pawn-lang/sa-mp-fixes"
 	],
 	"local": true,
 	"runtime": {

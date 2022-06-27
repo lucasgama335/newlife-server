@@ -191,6 +191,9 @@ YCMD:trabalhar(playerid, params[], help)
 		SetPlayerSkin(playerid, skinAdmin[playerid]);
 		ResetPlayerWeapons(playerid);
        	SetPlayerHealth(playerid, 100);
+		RemovePlayerAttachedObject(playerid, PLAYER_OBJECT_9);
+    	RemovePlayerAttachedObject(playerid, PLAYER_OBJECT_10);
+		Admin_SetWorkMode(playerid, false);
    	}
    	else
    	{
@@ -198,9 +201,11 @@ YCMD:trabalhar(playerid, params[], help)
         SendClientMessageToAll(COLOR_GRAD1, string);
 		skinAdmin[playerid] = GetPlayerSkin(playerid);
 		SetPlayerSkin(playerid, (PlayerData_GetGender(playerid) == 1 ? DEFAULT_SKIN_ADMIN_M : DEFAULT_SKIN_ADMIN_F));
+		SetPlayerAttachedObject(playerid, PLAYER_OBJECT_9, 2992, 2, 0.306000, -0.012000, 0.009000, 0.000000, -95.299942, -1.399999, 1.000000, 1.000000, 1.000000);
+    	SetPlayerAttachedObject(playerid, PLAYER_OBJECT_10, 2992, 2, 0.313000, -0.007000, 0.032999, -0.299999, 83.700019, 0.000000, 1.000000, 1.000000, 1.000000);
+		Admin_SetWorkMode(playerid, true);
    	}
     SetPlayerToTeamColor(playerid);
-    Admin_ChangeWorkMode(playerid);
     return 1;
 }
 
@@ -276,7 +281,7 @@ CMD:tvon(playerid, params[])
 	Admin_SetWatchStatus(playerid, true);
 	SetPlayerInterior(playerid, GetPlayerInterior(id));
 	SetPlayerVirtualWorld(playerid, GetPlayerVirtualWorld(id));
-	TogglePlayerSpectating(playerid, 1);
+	TogglePlayerSpectating(playerid, true);
 	if (IsPlayerInAnyVehicle(id)) PlayerSpectateVehicle(playerid, GetPlayerVehicleID(id));
 	else PlayerSpectatePlayer(playerid, id);
 	Admin_StartSpectate(playerid);
@@ -305,7 +310,7 @@ YCMD:tvoff(playerid, params[], help)
 	Admin_SetPlayerSpectated(playerid, INVALID_PLAYER_ID);
 	Admin_SetWatchStatus(playerid, false);
 	TogglePlayerControllable(playerid, true);
-	TogglePlayerSpectating(playerid, 0);
+	TogglePlayerSpectating(playerid, false);
 	SetPlayerInterior(playerid, int);
 	SetPlayerVirtualWorld(playerid, world);
 	SetSpawnInfo(playerid, -1, PlayerData_GetSkin(playerid), pos_x,  pos_y, pos_z-1.0, 1.0, -1, -1, -1, -1, -1, -1);

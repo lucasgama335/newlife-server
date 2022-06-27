@@ -412,11 +412,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if (!response)
             {
                 Admin_SetHideStatus(playerid, false);
+                SetPlayerToTeamColor(playerid);
                 return SendClientMessage(playerid, COLOR_LIGHTRED, "INFO: {AFAFAF}Você está no modo exibido, todos poderão ver você no /admins.");
             }
             if (response)
             {
                 Admin_SetHideStatus(playerid, true);
+                SetPlayerToTeamColor(playerid);
                 return SendClientMessage(playerid, COLOR_LIGHTRED, "INFO: {AFAFAF}Você está no modo oculto, ninguém verá você no /admins.");
             }
         }

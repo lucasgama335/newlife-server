@@ -167,7 +167,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 	            TogglePlayerControllable(playerid, false);
 	            PlayerPlaySound(playerid, 1058, 0.0, 0.0, 0.0);
-	            TogglePlayerSpectating(playerid, 1);
+	            TogglePlayerSpectating(playerid, true);
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS1, TUT_CAMERA_POS1, CAMERA_SPEED, CAMERA_MOVE);
 				InterpolateCameraLookAt(playerid, TUT_CAMERA_LOOK1, TUT_CAMERA_LOOK1, CAMERA_SPEED, CAMERA_MOVE);
 	            ShowPlayerDialog(playerid, DIALOG_STEP_TUT_1, DIALOG_STYLE_MSGBOX, TUTORIAL_STEP1TILE, TUTORIAL_STEP1, "Avançar", "Cancelar");
@@ -516,7 +516,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				Database_SaveTutorial(playerid);
 	     		StopAudioStreamForPlayer(playerid);
 	            TogglePlayerControllable(playerid, true);
-				TogglePlayerSpectating(playerid, 0);
+				TogglePlayerSpectating(playerid, false);
 				SetCameraBehindPlayer(playerid);
 				SendClientMessage(playerid, COLOR_LIGHTBLUE, "Tutorial finalizado. Tenha um bom jogo!");
 				SpawnPlayer(playerid);

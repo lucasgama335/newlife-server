@@ -11,6 +11,7 @@
 /*==============================================================================
 	Libraries and respective links to their release pages
 ==============================================================================*/
+#include <fixes>						// By Y_Less:				https://github.com/pawn-lang/sa-mp-fixes
 #include <a_mysql>						// By pBlueG:				https://github.com/pBlueG/SA-MP-MySQL
 #include <samp_bcrypt>					// By LassiR				https://github.com/LassiR/bcrypt-samp
 #include <sscanf2>						// By Y_Less:				https://github.com/Y-Less/sscanf
@@ -77,12 +78,23 @@
 
 #define	MAX_ADMIN_ROLES			11
 
-#define KEY_F           16
-#define KEY_Y           65536
-#define KEY_N           131072
-#define KEY_H           262144
-#define KEY_LALT        1024
-#define KEY_LSHIFT      32
+#define KEY_F           		16
+#define KEY_Y           		65536
+#define KEY_N           		131072
+#define KEY_H           		262144
+#define KEY_LALT        		1024
+#define KEY_LSHIFT      		32
+
+#define	PLAYER_OBJECT_1			0
+#define	PLAYER_OBJECT_2			1
+#define	PLAYER_OBJECT_3			2
+#define	PLAYER_OBJECT_4			3
+#define	PLAYER_OBJECT_5			4
+#define	PLAYER_OBJECT_6			5
+#define	PLAYER_OBJECT_7			6
+#define	PLAYER_OBJECT_8			7
+#define	PLAYER_OBJECT_9			8
+#define	PLAYER_OBJECT_10		9
 
 // Admin Levels
 enum
@@ -217,9 +229,9 @@ public OnGameModeInit()
 	//=====================================[ GAMEMODE CONFIGURATION ]====================================||
 	UsePlayerPedAnims(); // Use walking animation of CJ to all skins
     ShowPlayerMarkers(0);
-    ShowNameTags(1);
+    ShowNameTags(true);
 	DisableInteriorEnterExits();
-	EnableStuntBonusForAll(0);
+	EnableStuntBonusForAll(false);
     SetNameTagDrawDistance(100.0);
     ManualVehicleEngineAndLights();
 	return 1;

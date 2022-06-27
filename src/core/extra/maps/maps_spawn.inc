@@ -74,7 +74,7 @@ hook OnGameModeInit()
 
     //=====================================[ ACTORS ]====================================||
     spawnActor[0] = CreateActor(211, 808.8286,-1341.5260,13.5417,265.2473);
-    ApplyActorAnimation(spawnActor[0], "PED", "IDLE_CHAT", 4.1, 1, 0, 0, 0, 0);
+    ApplyActorAnimation(spawnActor[0], "PED", "IDLE_CHAT", 4.1, true, false, false, false, 0);
 	spawnActor[1] = CreateActor(11, 815.7498,-1355.5166,13.5414,357.1111);
 	spawnActor[2] = CreateActor(189, 811.8927,-1355.5170,13.5414,0.5015);
     return 1;

@@ -83,6 +83,11 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		{
 			if (newkeys == KEY_F && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
 			{
+				if (Player_GetAnimationStatus(playerid) && IsValidPlayer(playerid, PlayerData_GetIsLogged(playerid)))
+				{
+					Player_SetAnimationStatus(playerid, false);
+					ClearAnimations(playerid);
+				}
 				CallLocalFunction("CheckEntrances", "i", playerid);
 				if (PlayerToPoint(2, playerid, 809.5279,-1341.4880,13.5405))
 				{

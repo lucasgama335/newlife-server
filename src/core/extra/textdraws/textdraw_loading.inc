@@ -45,9 +45,9 @@ hook OnGameModeInit()
 	TextDrawColor(textLoadingConnect[0], -1);
 	TextDrawBackgroundColor(textLoadingConnect[0], 255);
 	TextDrawBoxColor(textLoadingConnect[0], 255);
-	TextDrawUseBox(textLoadingConnect[0], 1);
-	TextDrawSetProportional(textLoadingConnect[0], 1);
-	TextDrawSetSelectable(textLoadingConnect[0], 0);
+	TextDrawUseBox(textLoadingConnect[0], true);
+	TextDrawSetProportional(textLoadingConnect[0], true);
+	TextDrawSetSelectable(textLoadingConnect[0], false);
 
 	textLoadingConnect[1] = TextDrawCreate(236.000000, 162.000000, "Newlife RPG");
 	TextDrawFont(textLoadingConnect[1], 0);
@@ -59,9 +59,9 @@ hook OnGameModeInit()
 	TextDrawColor(textLoadingConnect[1], -1);
 	TextDrawBackgroundColor(textLoadingConnect[1], 255);
 	TextDrawBoxColor(textLoadingConnect[1], -16777166);
-	TextDrawUseBox(textLoadingConnect[1], 0);
-	TextDrawSetProportional(textLoadingConnect[1], 1);
-	TextDrawSetSelectable(textLoadingConnect[1], 0);
+	TextDrawUseBox(textLoadingConnect[1], false);
+	TextDrawSetProportional(textLoadingConnect[1], true);
+	TextDrawSetSelectable(textLoadingConnect[1], false);
 
 	textLoadingConnect[2] = TextDrawCreate(239.000000, 193.000000, "CARREGANDO, AGUARDE...");
 	TextDrawFont(textLoadingConnect[2], 2);
@@ -73,9 +73,9 @@ hook OnGameModeInit()
 	TextDrawColor(textLoadingConnect[2], -1);
 	TextDrawBackgroundColor(textLoadingConnect[2], 255);
 	TextDrawBoxColor(textLoadingConnect[2], 50);
-	TextDrawUseBox(textLoadingConnect[2], 1);
-	TextDrawSetProportional(textLoadingConnect[2], 1);
-	TextDrawSetSelectable(textLoadingConnect[2], 0);
+	TextDrawUseBox(textLoadingConnect[2], true);
+	TextDrawSetProportional(textLoadingConnect[2], true);
+	TextDrawSetSelectable(textLoadingConnect[2], false);
 
 	textLoadingConnect[3] = TextDrawCreate(259.000000, 236.000000, "AGUARDE UM INSTANTE...");
 	TextDrawFont(textLoadingConnect[3], 1);
@@ -87,9 +87,9 @@ hook OnGameModeInit()
 	TextDrawColor(textLoadingConnect[3], -1);
 	TextDrawBackgroundColor(textLoadingConnect[3], 255);
 	TextDrawBoxColor(textLoadingConnect[3], 50);
-	TextDrawUseBox(textLoadingConnect[3], 0);
-	TextDrawSetProportional(textLoadingConnect[3], 1);
-	TextDrawSetSelectable(textLoadingConnect[3], 0);
+	TextDrawUseBox(textLoadingConnect[3], false);
+	TextDrawSetProportional(textLoadingConnect[3], true);
+	TextDrawSetSelectable(textLoadingConnect[3], false);
 
 	textLoadingConnect[4] = TextDrawCreate(207.000000, 425.000000, "Todos os Direitos Reservados - 2021. Por: RhaegarX");
 	TextDrawFont(textLoadingConnect[4], 0);
@@ -101,9 +101,9 @@ hook OnGameModeInit()
 	TextDrawColor(textLoadingConnect[4], -1);
 	TextDrawBackgroundColor(textLoadingConnect[4], 255);
 	TextDrawBoxColor(textLoadingConnect[4], 50);
-	TextDrawUseBox(textLoadingConnect[4], 0);
-	TextDrawSetProportional(textLoadingConnect[4], 1);
-	TextDrawSetSelectable(textLoadingConnect[4], 0);
+	TextDrawUseBox(textLoadingConnect[4], false);
+	TextDrawSetProportional(textLoadingConnect[4], true);
+	TextDrawSetSelectable(textLoadingConnect[4], false);
     return 1;
 }
 
