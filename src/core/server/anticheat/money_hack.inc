@@ -26,8 +26,12 @@ stock Server_ResetPlayerMoney(playerid)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerUpdate(playerid)
 {
-    if (GetPlayerMoney(playerid) != PlayerData_GetMoney(playerid)) {
+    new hacked_money = GetPlayerMoney(playerid); 
+    if (hacked_money != PlayerData_GetMoney(playerid)) {
         Server_SetPlayerMoney(playerid, PlayerData_GetMoney(playerid));
+        new string[MAX_LOG_STRING];
+        format(string, sizeof(string), "Anti-Cheat: %s possivelmente usou money hack R$ [%s], ou o seu dinheiro bugou.", Player_GetName(playerid), Server_FormatToMoney((hacked_money - PlayerData_GetMoney(playerid))));
+        Server_PrintLog(PASTA_ANTICHEAT_MONEY, string);
     }
     return 1;
 }

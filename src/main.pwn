@@ -147,6 +147,7 @@ enum
 #include <utils>
 
 // SERVER CORE
+#include <server>
 #include <database>
 #include <anticheat>
 
