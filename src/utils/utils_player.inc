@@ -19,14 +19,14 @@ stock Player_GetIP(playerid)
     return str;
 }
 
-Float:Player_GetHealth(playerid)
+stock Float:Player_GetHealth(playerid)
 {
 	static Float:player_Health;
 	GetPlayerHealth(playerid, player_Health);
 	return player_Health;
 }
 
-Float:Player_GetArmour(playerid)
+stock Float:Player_GetArmour(playerid)
 {
 	static Float:player_Armour;
 	GetPlayerArmour(playerid, player_Armour);

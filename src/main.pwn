@@ -3,6 +3,8 @@
 /*==============================================================================
 	Library Predefinitions
 ==============================================================================*/
+#define FIXES_Single 1
+#define FIXES_ServerVarMsg 0
 #define YSI_NO_VERSION_CHECK
 #define YSI_NO_OPTIMISATION_MESSAGE
 #define YSI_NO_MODE_CACHE
@@ -11,7 +13,7 @@
 /*==============================================================================
 	Libraries and respective links to their release pages
 ==============================================================================*/
-#include <fixes>						// By Y_Less:				https://github.com/pawn-lang/sa-mp-fixes
+#include <fixes>						// By Y_Less:				https://github.com/pawn-lang/sa-mp-fixes (have a bug on android, show a empty dialog)
 #include <a_mysql>						// By pBlueG:				https://github.com/pBlueG/SA-MP-MySQL
 #include <samp_bcrypt>					// By LassiR				https://github.com/LassiR/bcrypt-samp
 #include <sscanf2>						// By Y_Less:				https://github.com/Y-Less/sscanf
