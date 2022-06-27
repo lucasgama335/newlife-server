@@ -11,6 +11,11 @@ stock bool:Admin_IsWorking(playerid)
     return workMode[playerid];
 }
 
+stock bool:Admin_SetWorkMode(playerid, bool:status)
+{
+    return workMode[playerid] = status;
+}
+
 stock bool:Admin_ChangeWorkMode(playerid)
 {
     if (workMode[playerid] == true) workMode[playerid] = false;

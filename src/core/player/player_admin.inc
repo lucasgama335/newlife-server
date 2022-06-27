@@ -22,6 +22,6 @@
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerConnect(playerid)
 {
-	Admin_ChangeWorkMode(playerid);
+	Admin_SetWorkMode(playerid, false);
 	return 1;
 }
