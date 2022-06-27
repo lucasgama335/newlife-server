@@ -100,6 +100,13 @@ enum
 	OWNER
 }
 
+// Interiors Locales
+enum
+{
+	NO_INTERIOR,
+	CITY_HALL_INTERIOR,
+}
+
 // Dialogs
 enum 
 {

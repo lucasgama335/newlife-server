@@ -65,6 +65,11 @@ stock ShowGenderDialog(playerid)
     return 1;
 }
 
+stock bool:Player_IsInTutorial(playerid)
+{
+	return NoTuto[playerid];
+}
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 timer NextStepTutorial[1000](playerid)
 {

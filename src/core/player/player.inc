@@ -10,10 +10,10 @@
 
 #include <player_admin>
 #include <player_tutorial>
+#include <player_vehicle>
+#include <player_anims>
 #include <player_auth>
 #include <player_spawn>
-#include <player_anims>
-#include <player_vehicle>
 
 #include <YSI_Coding\y_hooks>
 

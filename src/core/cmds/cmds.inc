@@ -32,12 +32,19 @@ public e_COMMAND_ERRORS:OnPlayerCommandReceived(playerid, cmdtext[], e_COMMAND_E
 		SendClientMessage(playerid, COLOR_INVALID, "Você não está logado.");
 		Command_SetDeniedReturn(true);
 		return COMMAND_DENIED;
+	}
+
+	if (Player_IsInTutorial(playerid))
+	{
+		SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar comandos durante o tutorial.");
+		Command_SetDeniedReturn(true);
+		return COMMAND_DENIED;
 	}    
 
 	// anti command spam
 	if(gettime() < cmd_Cooldown[playerid]) 
     {
-		SendClientMessage(playerid, COLOR_GRAD1, "Aguarde 2 segundos para digitar novamente um comando!");
+		SendClientMessage(playerid, COLOR_GRAD1, "Aguarde 2 segundos para digitar novamente um comando.");
 		Command_SetDeniedReturn(true);
 		return COMMAND_DENIED;
 	}
@@ -74,9 +81,21 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	{
 		case KEY_F: 
 		{
-			if (PlayerToPoint(2, playerid, 809.5279,-1341.4880,13.5405))
+			if (newkeys == KEY_F && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
 			{
-				ShowPlayerFaqList(playerid);
+				CallLocalFunction("CheckEntrances", "i", playerid);
+				if (PlayerToPoint(2, playerid, 809.5279,-1341.4880,13.5405))
+				{
+					ShowPlayerFaqList(playerid);
+				}
+			}
+		}
+		case KEY_N: 
+		{
+			new vehicleid = GetPlayerVehicleID(playerid);
+			if (vehicleid != INVALID_VEHICLE_ID && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
+			{
+				Vehicle_SetEngineToPlayer(playerid, vehicleid, (Vehicle_GetEngineStatus(vehicleid) ? false : true));
 			}
 		}
 	}

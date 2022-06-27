@@ -3,12 +3,25 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
+static lastCar[MAX_PLAYERS];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+static stock ShowActualVehicleName(playerid, vehicleid)
+{
+	new string[100];
+	format(string, sizeof(string), "~g~%s[%d]", Vehicle_GetName(GetVehicleModel(vehicleid)), GetVehicleModel(vehicleid));
+	GameTextForPlayer(playerid, string, 6000, 1);
+	return 1;
+}
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+hook OnPlayerConnect(playerid)
+{
+	lastCar[playerid] = INVALID_VEHICLE_ID;
+}
+
 hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
 	new Float:Pos[3];
@@ -24,13 +37,8 @@ hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
     {
     	if (Vehicle_IsCivilVehicle(vehicleid))
         {
-        	StartVehicleEngineToPlayer(playerid, vehicleid);
-         	if (Vehicle_IsCivilVehicle(vehicleid))
-			{
-			 	SendClientMessage(playerid, COLOR_NEONGREEN, "Novato, você pode chegar aos locais digitando /gps ou falando com um admin /relatorio.");
-	    		SendClientMessage(playerid, COLOR_NEONGREEN, "Consiga Seu Emprego /gps - Prefeitura | Digite /faq para tirar todas as suas dúvidas.");
-			}
-		}
+			SendClientMessage(playerid, COLOR_NEONGREEN, "Novato, você pode chegar aos locais digitando /gps ou falando com um admin /relatorio.");
+	    	SendClientMessage(playerid, COLOR_NEONGREEN, "Consiga Seu Emprego /gps - Prefeitura | Digite /faq para tirar todas as suas dúvidas.");		}
         else
 		{
 		    SendClientMessage(playerid, COLORDGREEN, "[VEÍCULO]: Para dirigir em primeira pessoa digite {FFFFFF}/camera{228b22} ou {FFFFFF}/ajuda{228b22} para ver os comandos!");
@@ -38,5 +46,26 @@ hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 		}
         return 1;
     }
+
+	lastCar[playerid] = vehicleid;
 	return 1;
+}
+
+hook OnPlayerStateChange(playerid, newstate, oldstate)
+{
+	if (newstate == PLAYER_STATE_DRIVER || newstate == PLAYER_STATE_PASSENGER)
+	{
+		new vehicleid = GetPlayerVehicleID(playerid);
+		if (newstate == PLAYER_STATE_DRIVER)
+		{
+			if (Vehicle_IsCivilVehicle(vehicleid) && !Vehicle_GetEngineStatus(vehicleid))
+			{
+				Vehicle_SetEngineToPlayer(playerid, vehicleid, true);
+			}
+		}
+		if (lastCar[playerid] != vehicleid)
+		{
+			ShowActualVehicleName(playerid, vehicleid);
+		}
+	}
 }

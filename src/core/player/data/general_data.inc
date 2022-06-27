@@ -231,6 +231,23 @@ stock PlayerData_UpdateLastPosition(playerid)
     return 1;
 }
 
+// ============== INTERIOR LOCALE ACCESSORS ============== //
+// Getters
+stock PlayerData_GetInteriorLocale(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_GeneralInfo[playerid][pLastInteriorLocale];
+}
+
+// Setters
+stock PlayerData_SetInteriorLocale(playerid, interiorid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_GeneralInfo[playerid][pLastInteriorLocale] = interiorid;
+}
+
 // ============== TEMPORARY ACCESSORS ============== //
 stock bool:PlayerData_GetIsUsingAndroid(playerid)
 {
