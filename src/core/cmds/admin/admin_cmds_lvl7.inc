@@ -9,3 +9,29 @@
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+YCMD:setpos(playerid, params[], help)
+{
+	// Verificações
+    if (PlayerData_GetAdmin(playerid) < MASTERPP)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+    if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new id, Float:x, Float:y, Float:z;
+	if (sscanf(params, "ufff", id, x, y, z))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /setpos [id] [X] [Y] [Z]");
+	}
+    if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+	}
+
+	// Execução do Comando
+	SetPlayerPos(id, x, y, z);
+	SendClientMessage(playerid, COLOR_LIGHTBLUE, "Posição setada!");
+    return 1;
+}

@@ -169,8 +169,8 @@ hook OnPlayerConnect(playerid)
         }
         if (Timer_IsRunning(timerToKickPlayer[playerid])) stop timerToKickPlayer[playerid];
         timerToKickPlayer[playerid] = defer OnLoginTimeout(playerid);
-        InterpolateCameraPos(playerid, 1205.1385, -1022.0357, 98.2310, 1323.6675, -920.1975, 92.3793, CAMERA_SPEED, CAMERA_MOVE);
-        InterpolateCameraLookAt(playerid, 1205.7915, -1021.2730, 98.0759, 1324.2585, -919.3865, 92.3142, CAMERA_SPEED, CAMERA_MOVE);
+        InterpolateCameraPos(playerid, 1430.3030, -1222.7921, 153.7742, 1430.2842, -1227.1599, 153.6056, CAMERA_SPEED, CAMERA_MOVE);
+		InterpolateCameraLookAt(playerid, 1430.7921, -1223.6633, 153.5791, 1431.1718, -1227.6151, 153.3904, CAMERA_SPEED, CAMERA_MOVE);
 
         HideLoadingScreen(playerid);
         ShowLoginScreen(playerid);
@@ -216,8 +216,8 @@ hook OnPlayerRequestClass(playerid, classid)
     if (recentlyLogged[playerid]) 
 	{
         TogglePlayerSpectating(playerid, true);
-        InterpolateCameraPos(playerid, 1205.1385, -1022.0357, 98.2310, 1323.6675, -920.1975, 92.3793, CAMERA_SPEED, CAMERA_MOVE);
-		InterpolateCameraLookAt(playerid, 1205.7915, -1021.2730, 98.0759, 1324.2585, -919.3865, 92.3142, CAMERA_SPEED, CAMERA_MOVE);
+        InterpolateCameraPos(playerid, 1430.3030, -1222.7921, 153.7742, 1430.2842, -1227.1599, 153.6056, CAMERA_SPEED, CAMERA_MOVE);
+		InterpolateCameraLookAt(playerid, 1430.7921, -1223.6633, 153.5791, 1431.1718, -1227.6151, 153.3904, CAMERA_SPEED, CAMERA_MOVE);
         if (PlayerData_GetIsUsingAndroid(playerid))
         {
             HideLoginScreen(playerid);
