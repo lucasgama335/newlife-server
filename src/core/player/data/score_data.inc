@@ -19,12 +19,9 @@ stock Database_SaveScoreInfo(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    inline OnSaveData()
-    {
-        print("[debug]: Score data saved.");
-    }
-    MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
-    %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d",
+    new query_string[134];
+    mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
+    %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME,
     PLAYER_FIELD_LEVEL, Player_ScoreInfo[playerid][pLevel],
     PLAYER_FIELD_EXP, Player_ScoreInfo[playerid][pExperience],
@@ -32,6 +29,7 @@ stock Database_SaveScoreInfo(playerid)
     PLAYER_FIELD_KILLS, Player_ScoreInfo[playerid][pKills],
     PLAYER_FIELD_WANTED_LEVEL, Player_ScoreInfo[playerid][pWantedLevel],
     PlayerData_GetID(playerid));
+    mysql_tquery(Database_GetConnection(), query_string);
     return 1;
 }
 

@@ -95,17 +95,14 @@ static stock Database_SaveTutorial(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    inline OnSaveData()
-    {
-        print("[debug]: Tutorial data saved.");
-    }
-    MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
-    %s = %d, %s = %d, %s = %d WHERE id = %d", 
+	new query_string[76];
+    mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME,
     PLAYER_FIELD_TUTORIAL, (PlayerData_GetTutorial(playerid) == true ? 1 : 0),
     PLAYER_FIELD_SKIN, PlayerData_GetSkin(playerid),
     PLAYER_FIELD_OLDSKIN, PlayerData_GetOldSkin(playerid),
     PlayerData_GetID(playerid));
+    mysql_tquery(Database_GetConnection(), query_string);
     return 1;
 }
 

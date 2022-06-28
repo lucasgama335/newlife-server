@@ -32,11 +32,8 @@ stock Database_SaveGeneralInfo(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    inline OnSaveData()
-    {
-        print("[debug]: General data saved.");
-    }
-    MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
+    new query_string[381];
+    mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
     %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %f, %s = %f, %s = %f, %s = %f, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME,
     PLAYER_FIELD_ADMIN, Player_GeneralInfo[playerid][pAdmin],
@@ -55,6 +52,7 @@ stock Database_SaveGeneralInfo(playerid)
     PLAYER_FIELD_LAST_VW, Player_GeneralInfo[playerid][pLastVw],
     PLAYER_FIELD_LAST_LOCALE, Player_GeneralInfo[playerid][pLastInteriorLocale],
     Player_GeneralInfo[playerid][pId]);
+    mysql_tquery(Database_GetConnection(), query_string);
     return 1;
 }
 

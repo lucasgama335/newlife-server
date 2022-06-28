@@ -18,18 +18,17 @@ stock Database_SaveAppearenceInfo(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    inline OnSaveData()
-    {
-        print("[debug]: Appearence data saved.");
-    }
-    MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
-    %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d",
+    new query_string[90];
+    mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
+    %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME,
     PLAYER_FIELD_GENDER, Player_AppearanceInfo[playerid][pGender],
     PLAYER_FIELD_FIGHT_STYLE, Player_AppearanceInfo[playerid][pFightStyle],
     PLAYER_FIELD_SKIN, Player_AppearanceInfo[playerid][pSkin],
     PLAYER_FIELD_OLDSKIN, Player_AppearanceInfo[playerid][pOldSkin],
     PlayerData_GetID(playerid));
+    mysql_tquery(Database_GetConnection(), query_string);
+    return 1;
 }
 
 // ============== GENDER ACCESSORS ============== //

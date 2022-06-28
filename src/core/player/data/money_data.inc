@@ -19,11 +19,8 @@ stock Database_SaveMoneyInfo(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    inline OnSaveData()
-    {
-        print("[debug]: Money data saved.");
-    }
-    MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
+    new query_string[155];
+    mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
     %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME, 
     PLAYER_FIELD_MONEY, Player_MoneyInfo[playerid][pMoney], 
@@ -32,6 +29,7 @@ stock Database_SaveMoneyInfo(playerid)
     PLAYER_FIELD_SALARY, Player_MoneyInfo[playerid][pSalary], 
     PLAYER_FIELD_COINS, Player_MoneyInfo[playerid][pCoins],
     PlayerData_GetID(playerid));
+    mysql_tquery(Database_GetConnection(), query_string);
     return 1;
 }
 

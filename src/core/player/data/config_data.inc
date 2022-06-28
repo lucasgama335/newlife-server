@@ -26,11 +26,8 @@ stock Database_SaveConfigInfo(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    inline OnSaveData()
-    {
-        print("[debug]: Config data saved.");
-    }
-    MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
+    new query_string[314];
+    mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
     %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME, 
     PLAYER_FIELD_CONFIG_TAG, Player_ConfigInfo[playerid][pTag], 
@@ -47,6 +44,7 @@ stock Database_SaveConfigInfo(playerid)
     PLAYER_FIELD_CONFIG_LEADER_CHAT, (Player_ConfigInfo[playerid][pLeaderChat] ? 1 : 0), 
     PLAYER_FIELD_CONFIG_STREAM, (Player_ConfigInfo[playerid][pStreamMusic] ? 1 : 0), 
     PlayerData_GetID(playerid));
+    mysql_tquery(Database_GetConnection(), query_string);
     return 1;
 }
 
