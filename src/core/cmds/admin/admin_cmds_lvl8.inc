@@ -48,3 +48,22 @@ YCMD:verpars(playerid, params[], help)
 	}
 	return 1;
 }
+
+YCMD:gmx(playerid, params[], help)
+{
+	if (PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+
+    new gmx[55];
+    format(gmx,sizeof(gmx),"Admin: %s Reiniciou o Servidor !", Player_GetName(playerid));
+	SendClientMessageToAll(COLOR_YELLOW, gmx);
+	foreach(new i: Player)
+	{
+        StopAudioStreamForPlayer(i);
+	}
+	print("[Server]: Server is restarting...");
+	SendRconCommand("gmx");
+    return 1;
+}

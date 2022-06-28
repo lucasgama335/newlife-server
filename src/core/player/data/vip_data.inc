@@ -36,7 +36,7 @@ stock PlayerData_GetVip(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    return Player_MoneyInfo[playerid][pVip];
+    return Player_VipInfo[playerid][pVip];
 }
 
 // Setters
@@ -44,7 +44,7 @@ stock PlayerData_SetVip(playerid, level)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    return Player_MoneyInfo[playerid][pVip] = level;
+    return Player_VipInfo[playerid][pVip] = level;
 }
 
 // ============== SOCIO ACCESSORS ============== //
@@ -53,7 +53,7 @@ stock PlayerData_GetSocio(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    return Player_MoneyInfo[playerid][pSocio];
+    return Player_VipInfo[playerid][pSocio];
 }
 
 // Setters
@@ -61,7 +61,7 @@ stock PlayerData_SetSocio(playerid, level)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    return Player_MoneyInfo[playerid][pSocio] = level;
+    return Player_VipInfo[playerid][pSocio] = level;
 }
 
 // ============== VIP DAYS ACCESSORS ============== //
@@ -70,7 +70,7 @@ stock PlayerData_GetVipDays(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    return Player_MoneyInfo[playerid][pVipDays];
+    return Player_VipInfo[playerid][pVipDays];
 }
 
 // Setters
@@ -78,7 +78,7 @@ stock PlayerData_SetVipDays(playerid, days)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    return Player_MoneyInfo[playerid][pVipDays] = days;
+    return Player_VipInfo[playerid][pVipDays] = days;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

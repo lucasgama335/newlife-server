@@ -107,7 +107,7 @@ hook OnGameModeInit()
     return 1;
 }
 
-hook OnGameModeExit()
+hook CallLocalFunction()
 {
 	DestroyLoadingScreen();
 }

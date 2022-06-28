@@ -32,7 +32,7 @@
 #define	DEV_MODE				true
 
 #define	MYSQL_DEBUG				true
-#define	MYSQL_SETUP_TABLES		true
+#define	MYSQL_SETUP_TABLES		false
 
 #define SERVER_NAME				"NewLife"
 #define	SERVER_TAG				"NL"
@@ -111,14 +111,14 @@ enum
 	HELPER_OWNER,
 	SUB_OWNER,
 	OWNER
-}
+};
 
 // Interiors Locales
 enum
 {
 	NO_INTERIOR,
 	CITY_HALL_INTERIOR,
-}
+};
 
 // Dialogs
 enum 
@@ -153,7 +153,26 @@ enum
 	DIALOG_STEP_TUT_8,
 	DIALOG_STEP_TUT_9,
 	DIALOG_STEP_TUT_10,
-}
+	// Config
+	DIALOG_CONFIG_LIST,
+	DIALOG_MENU_HIT,
+	DIALOG_MENU_LOCATE,
+	DIALOG_MANAGE_TAG
+};
+
+// TAGS
+enum
+{
+	TAG_NONE,
+	TAG_SCRIPTER,
+	TAG_ADMIN,
+	TAG_LEADER,
+	TAG_SUBLEADER,
+	TAG_VIP,
+	TAG_SOCIO,
+	TAG_NOOB,
+	TAG_KILLER
+};
 
 /*==============================================================================
 	Gamemode Scripts
@@ -204,6 +223,7 @@ main()
 	printf("| Server:       %s %s          	 |", SERVER_NAME, SERVER_MODE_ABBR);
 	printf("| Version:      v%s.%s.%s           	 |", SCRIPT_VERSION_MAJOR, SCRIPT_VERSION_MINOR, SCRIPT_VERSION_PATCH);
 	printf("| Players:      %d          		 |", MAX_PLAYERS);
+	printf("| Vehicles:     %d          		 |", (MAX_VEHICLES - 1));
 	printf("| Author:       %s           	 |", SERVER_OWNER);
 	#if DEV_MODE
 		print("| Status:       Initalized (MODE: Dev)   |");

@@ -30,7 +30,6 @@ stock Database_SaveAppearenceInfo(playerid)
     PLAYER_FIELD_SKIN, Player_AppearanceInfo[playerid][pSkin],
     PLAYER_FIELD_OLDSKIN, Player_AppearanceInfo[playerid][pOldSkin],
     PlayerData_GetID(playerid));
-    return 1;
 }
 
 // ============== GENDER ACCESSORS ============== //

@@ -35,11 +35,10 @@ hook OnPlayerSpawn(playerid)
 
 hook OnPlayerRequestSpawn(playerid)
 {
-	return IsPlayerLogged(playerid);
+	IsPlayerLogged(playerid);
 }
 
 hook BeforeSaveOnDisconnect(playerid)
 {
     PlayerData_UpdateLastPosition(playerid);
-    return 1;
 }

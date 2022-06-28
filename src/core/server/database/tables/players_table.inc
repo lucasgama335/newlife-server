@@ -42,6 +42,21 @@
 #define PLAYER_FIELD_KILLS                      "kills"
 #define PLAYER_FIELD_WANTED_LEVEL               "wanted_level"
 
+#define PLAYER_FIELD_CONFIG_TAG                 "config_tag"
+#define PLAYER_FIELD_CONFIG_CITY                "config_city"
+#define PLAYER_FIELD_CONFIG_SPAWN               "config_spawn"
+#define PLAYER_FIELD_CONFIG_DOCUMENT            "config_document"
+#define PLAYER_FIELD_CONFIG_SPEED               "config_speedometer"
+#define PLAYER_FIELD_CONFIG_TRACKER             "config_tracker"
+#define PLAYER_FIELD_CONFIG_HITSOUND            "config_hitsound"
+
+#define PLAYER_FIELD_CONFIG_TERRITORIAL_CHAT    "config_territorial_chat"
+#define PLAYER_FIELD_CONFIG_VIP_CHAT            "config_vip_chat"
+#define PLAYER_FIELD_CONFIG_SOCIO_CHAT          "config_socio_chat"
+#define PLAYER_FIELD_CONFIG_NOOB_CHAT           "config_noob_chat"
+#define PLAYER_FIELD_CONFIG_LEADER_CHAT         "config_leader_chat"
+#define PLAYER_FIELD_CONFIG_STREAM              "config_stream"
+
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
@@ -89,10 +104,22 @@ stock Database_CreatePlayersTable()
         "PLAYER_FIELD_LAST_INTERIOR" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_LAST_VW" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_LAST_LOCALE" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_CONFIG_TAG" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_CONFIG_CITY" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_CONFIG_SPAWN" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_CONFIG_DOCUMENT" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_CONFIG_SPEED" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_CONFIG_TRACKER" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_CONFIG_HITSOUND" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_CONFIG_TERRITORIAL_CHAT" tinyint DEFAULT 1 NOT NULL, \
+        "PLAYER_FIELD_CONFIG_VIP_CHAT" tinyint DEFAULT 1 NOT NULL, \
+        "PLAYER_FIELD_CONFIG_SOCIO_CHAT" tinyint DEFAULT 1 NOT NULL, \
+        "PLAYER_FIELD_CONFIG_NOOB_CHAT" tinyint DEFAULT 1 NOT NULL, \
+        "PLAYER_FIELD_CONFIG_LEADER_CHAT" tinyint DEFAULT 1 NOT NULL, \
+        "PLAYER_FIELD_CONFIG_STREAM" tinyint DEFAULT 1 NOT NULL, \
         created_at timestamp DEFAULT CURRENT_TIMESTAMP, \
         updated_at timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP \
     )", MAX_PLAYER_NAME, BCRYPT_HASH_LENGTH, DEFAULT_SKIN_MALE, DEFAULT_SKIN_MALE, SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA);
-    return 1;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

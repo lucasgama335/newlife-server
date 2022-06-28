@@ -40,7 +40,7 @@ hook OnGameModeInit()
     mysql_set_option(option_id, SERVER_PORT, MYSQL_PORT);
 
     #if MYSQL_DEBUG == true
-        mysql_log(ERROR | WARNING);
+        mysql_log(ALL);
     #endif
 
     DBConnection = mysql_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE);
@@ -57,6 +57,7 @@ hook OnGameModeInit()
 
 hook OnGameModeExit()
 {
+    CallLocalFunction("BeforeCloseConnection", "");
     mysql_close(DBConnection);
 }
 
@@ -75,6 +76,6 @@ public OnQueryError(errorid, const error[], const callback[], const query[], MyS
 	}
     new string[150];
     format(string, sizeof(string), "[MySQL]: Houve um erro ao realizar uma operação no banco de dados. Error %d | Callback: %s", errorid, callback);
-    MensagemAdmin(COLOR_RED, string, OWNER);
+    Server_PrintLog(FOLDER_MYSQL_LOG, string);
 	return 1;
 }

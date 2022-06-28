@@ -25,7 +25,6 @@ stock IsPlayerLogged(playerid)
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 timer OnLoginTimeout[60000](playerid)
 {
-    if (Timer_IsRunning(timerToKickPlayer[playerid])) stop timerToKickPlayer[playerid];
     ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX, "Fazer Login ", "{FFFFFF}Você foi kickado automaticamente por ficar\nmuito tempo no processo de login sem realizar tentativas válidas.\nPor favor, logue novamente!.", "Okay", "");
     DelayedKick(playerid);
     return 1;
@@ -55,7 +54,6 @@ static stock InsertPlayerInDataBase(playerid, const password[])
         OnPlayerLogin(playerid);
     }
     MySQL_TQueryInline(Database_GetConnection(), using inline OnPlayerRegister, "INSERT INTO %s (%s, %s) VALUES ('%s', '%s')", PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, PLAYER_FIELD_PASSWORD, Player_GetName(playerid), password);
-    return 1;
 }
 
 static stock ShowLoginDialog(playerid)
@@ -158,7 +156,26 @@ hook OnPlayerConnect(playerid)
             PlayerData_SetDeaths(playerid, deaths);
             PlayerData_SetKills(playerid, kills);
             PlayerData_SetWantedLevel(playerid, wanted_level);
-            
+
+            // Config Info
+            new tag, city, spawn, document, speedometer, tracker, hitsound, territorial_chat, vip_chat, socio_chat, noob_chat, leader_chat, stream;
+            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_TAG, tag);
+            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_CITY, city);
+            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_SPAWN, spawn);
+            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_DOCUMENT, document);
+            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_SPEED, speedometer);
+            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_TRACKER, tracker);
+            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_HITSOUND, hitsound);
+            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_TERRITORIAL_CHAT, territorial_chat);
+            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_VIP_CHAT, vip_chat);
+            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_SOCIO_CHAT, socio_chat);
+            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_NOOB_CHAT, noob_chat);
+            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_LEADER_CHAT, leader_chat);
+            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_STREAM, stream);
+
+            Player_UpdateConfigTypes(playerid, tag, city, spawn, document, speedometer, tracker, hitsound);
+            Player_UpdateConfigChats(playerid, (territorial_chat ? true : false), (vip_chat ? true : false), (socio_chat ? true : false), (noob_chat ? true : false), (leader_chat ? true : false), (stream ? true : false));
+
             isRegistered[playerid] = true;
 
             ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
@@ -189,7 +206,6 @@ hook OnPlayerConnect(playerid)
 hook OnPlayerDisconnect(playerid, reason)
 {
     Database_IncrementRaceCheck(playerid);
-    Player_ClearInfoVars(playerid);
     PlayerData_SetIsLogged(playerid, false);
     
     new string[150], Float:PacketLoss;
@@ -470,15 +486,16 @@ function:OnPlayerLogin(playerid)
 		}
         format(string, sizeof(string), "~w~Bem Vindo ~n~~y~%s", Player_GetName(playerid));
         GameTextForPlayer(playerid, string, 5000, 1);
-        if (PlayerData_GetAdmin(playerid) >= HELPER_OWNER)
+        /*if (PlayerData_GetAdmin(playerid) >= HELPER_OWNER)
         {
             new admPassDialog[300];
             format(admPassDialog, sizeof(admPassDialog), "{FFFFFF}Conta: {0080ff}%s\n{FFFFFF}Você logou com Admin ({0080ff}%s{FFFFFF})\n\n{FFFFFF}Você precisa autenticar a senha de segurança para poder\n{FFFFFF}logar em sua conta!\n\n{ff6347}OBS: {FFFFFF}Você só tem uma tentativa ou será desconectado do servidor.\n\n\n{6e6e6e}Insira abaixo a senha da administração:", Player_GetName(playerid), Admin_GetRole(PlayerData_GetAdmin(playerid)));
             ShowPlayerDialog(playerid, DIALOG_AUTH_ADMIN, DIALOG_STYLE_PASSWORD, "Proteção de Conta", admPassDialog, "Validar", "");
-        }
+        }*/
     }
     format(string, sizeof(string), (PlayerData_GetAdmin(playerid) < HELPER_OWNER ? "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [%s]!" : "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [N/A]!"), Player_GetName(playerid), playerid, PlayerData_GetLevel(playerid), Player_GetIP(playerid));
  	MensagemAdmin(COLOR_SKIN, string, HELPER);
+    CallLocalFunction("BeforeSpawnPlayer", "i", playerid);
     SpawnPlayer(playerid);
     return 1;
 }
