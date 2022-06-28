@@ -489,7 +489,8 @@ function:OnPlayerLogin(playerid)
             ShowPlayerDialog(playerid, DIALOG_AUTH_ADMIN, DIALOG_STYLE_PASSWORD, "Proteção de Conta", admPassDialog, "Validar", "");
         }
     }
-    format(string, sizeof(string), (PlayerData_GetAdmin(playerid) < HELPER_OWNER ? "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [%s]!" : "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [N/A]!"), Player_GetName(playerid), playerid, PlayerData_GetLevel(playerid), Player_GetIP(playerid));
+    if (PlayerData_GetAdmin(playerid) < HELPER_OWNER) format(string, sizeof(string), "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [%s]!", Player_GetName(playerid), playerid, PlayerData_GetLevel(playerid), Player_GetIP(playerid));
+    else format(string, sizeof(string), "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [N/A]!", Player_GetName(playerid), playerid, PlayerData_GetLevel(playerid));
  	MensagemAdmin(COLOR_SKIN, string, HELPER);
     CallLocalFunction("BeforeSpawnPlayer", "i", playerid);
     SpawnPlayer(playerid);
