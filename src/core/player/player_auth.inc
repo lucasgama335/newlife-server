@@ -216,11 +216,6 @@ hook OnPlayerDisconnect(playerid, reason)
         case 2: format(string, sizeof(string), "%s saiu do servidor por ter sido kickado ou banido (ID: %d - Ping: %d - PL: %.01f).", Player_GetName(playerid), playerid, GetPlayerPing(playerid), PacketLoss);
 	}
     SendMessageInRange(100.0, playerid, string, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE);
-    
-    CallLocalFunction("BeforeSaveOnDisconnect", "i", playerid);
-    Database_SaveGeneralInfo(playerid);
-    Database_SaveMoneyInfo(playerid);
-    Database_SaveScoreInfo(playerid);
     return 1;
 }
 
@@ -486,12 +481,12 @@ function:OnPlayerLogin(playerid)
 		}
         format(string, sizeof(string), "~w~Bem Vindo ~n~~y~%s", Player_GetName(playerid));
         GameTextForPlayer(playerid, string, 5000, 1);
-        /*if (PlayerData_GetAdmin(playerid) >= HELPER_OWNER)
+        if (PlayerData_GetAdmin(playerid) >= HELPER_OWNER)
         {
             new admPassDialog[300];
             format(admPassDialog, sizeof(admPassDialog), "{FFFFFF}Conta: {0080ff}%s\n{FFFFFF}Você logou com Admin ({0080ff}%s{FFFFFF})\n\n{FFFFFF}Você precisa autenticar a senha de segurança para poder\n{FFFFFF}logar em sua conta!\n\n{ff6347}OBS: {FFFFFF}Você só tem uma tentativa ou será desconectado do servidor.\n\n\n{6e6e6e}Insira abaixo a senha da administração:", Player_GetName(playerid), Admin_GetRole(PlayerData_GetAdmin(playerid)));
             ShowPlayerDialog(playerid, DIALOG_AUTH_ADMIN, DIALOG_STYLE_PASSWORD, "Proteção de Conta", admPassDialog, "Validar", "");
-        }*/
+        }
     }
     format(string, sizeof(string), (PlayerData_GetAdmin(playerid) < HELPER_OWNER ? "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [%s]!" : "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [N/A]!"), Player_GetName(playerid), playerid, PlayerData_GetLevel(playerid), Player_GetIP(playerid));
  	MensagemAdmin(COLOR_SKIN, string, HELPER);

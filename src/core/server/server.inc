@@ -7,8 +7,18 @@
 #define FOLDER_MYSQL_LOG                "ServerLogs/Admins/mysql_log.log"
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
+static bool:IsRestartingServer = false;
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+stock bool:Server_IsRestarting()
+{
+    return IsRestartingServer;
+}
+
+stock bool:Server_SetIsRestarting(bool:status)
+{
+    return IsRestartingServer = status;
+}
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 

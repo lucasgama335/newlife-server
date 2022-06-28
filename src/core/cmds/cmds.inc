@@ -34,6 +34,13 @@ public e_COMMAND_ERRORS:OnPlayerCommandReceived(playerid, cmdtext[], e_COMMAND_E
 		return COMMAND_DENIED;
 	}
 
+	if (Server_IsRestarting())
+	{
+		SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar comandos durante a reinicizalização do servidor.");
+		Command_SetDeniedReturn(true);
+		return COMMAND_DENIED;
+	}
+
 	if (Player_IsInTutorial(playerid))
 	{
 		SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar comandos durante o tutorial.");

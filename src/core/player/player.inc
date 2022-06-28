@@ -86,4 +86,9 @@ hook BeforeSpawnPlayer(playerid)
 hook OnPlayerDisconnect(playerid, reason)
 {
     if (Timer_IsRunning(updateStats[playerid])) stop updateStats[playerid];
+
+    CallLocalFunction("BeforeSaveOnDisconnect", "i", playerid);
+    Database_SaveGeneralInfo(playerid);
+    Database_SaveMoneyInfo(playerid);
+    Database_SaveScoreInfo(playerid);
 }

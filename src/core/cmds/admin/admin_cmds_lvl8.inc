@@ -7,8 +7,30 @@
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+timer RestartServer[5000]()
+{
+	SendClientMessageToAll(COLOR_YELLOW, "[SERVIDOR]: Salvamento de dados concluído.");
+	SendClientMessageToAll(COLOR_YELLOW, "[SERVIDOR]: Reinicialização iniciada.");
+	print("[Server]: Server is restarting...");
+	SendRconCommand("gmx");
+	return 1;
+}
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
+{
+	switch (dialogid)
+	{
+		case DIALOG_GMX:
+		{
+			if (response)
+			{
+				return ShowPlayerDialog(playerid, DIALOG_GMX, DIALOG_STYLE_MSGBOX, "GMX", "Reinicialização em andamento...\n\nIsso pode demorar alguns segundos\npor favor aguarde!\n\nAgradecemos sua compreensão.", "AGUARDE", "");
+			}
+		}
+	}
+	return 1;
+}
 
 YCMD:hideadmin(playerid, params[], help)
 {
@@ -56,14 +78,16 @@ YCMD:gmx(playerid, params[], help)
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
 
-    new gmx[55];
-    format(gmx,sizeof(gmx),"Admin: %s Reiniciou o Servidor !", Player_GetName(playerid));
-	SendClientMessageToAll(COLOR_YELLOW, gmx);
+    new gmx[84];
+	Server_SetIsRestarting(true);
 	foreach(new i: Player)
 	{
         StopAudioStreamForPlayer(i);
+		ShowPlayerDialog(i, DIALOG_GMX, DIALOG_STYLE_MSGBOX, "GMX", "Reinicialização em andamento...\n\nIsso pode demorar alguns segundos\npor favor aguarde!\n\nAgradecemos sua compreensão.", "AGUARDE", "");
 	}
-	print("[Server]: Server is restarting...");
-	SendRconCommand("gmx");
+    format(gmx,sizeof(gmx),"Admin: %s está reinicializando o servidor, por favor aguarde!", Player_GetName(playerid));
+	SendClientMessageToAll(COLOR_YELLOW, gmx);
+	SendClientMessageToAll(COLOR_YELLOW, "[SERVIDOR]: Salvamento de dados iniciados...");
+	defer RestartServer();
     return 1;
 }

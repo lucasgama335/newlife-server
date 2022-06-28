@@ -123,6 +123,7 @@ enum
 // Dialogs
 enum 
 {
+	DIALOG_GMX,
 	DIALOG_ONLY_READ,
 	// Auth
 	DIALOG_CHECK_ANDROID,
