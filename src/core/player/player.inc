@@ -16,6 +16,7 @@
 #include <YSI_Coding\y_hooks>
 
 //------------------------- Definitions and constants -------------------------
+#define MAX_CONNECTIONS_FROM_IP     3
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static Timer:updateStats[MAX_PLAYERS];
@@ -83,6 +84,18 @@ hook BeforeSpawnPlayer(playerid)
 	return 1;
 }
 
+hook OnPlayerConnect(playerid)
+{
+    new num_players_on_ip = Server_PlayersInSameIp(Player_GetIP(playerid));
+    if (num_players_on_ip > MAX_CONNECTIONS_FROM_IP)
+	{
+        printf("MAXIPs: O Jogador[%d] excedeu o número de conexões [%d] por IP: [%s].", playerid, MAX_CONNECTIONS_FROM_IP, Player_GetIP(playerid));
+        Kick(playerid);
+        return ~1; // Ended Hooks Calls
+    }
+    return 1;
+}
+
 public OnPlayerDisconnect(playerid, reason)
 {
     if (Timer_IsRunning(updateStats[playerid])) stop updateStats[playerid];
@@ -91,4 +104,5 @@ public OnPlayerDisconnect(playerid, reason)
     Database_SaveGeneralInfo(playerid);
     Database_SaveMoneyInfo(playerid);
     Database_SaveScoreInfo(playerid);
+    return 1;
 }
