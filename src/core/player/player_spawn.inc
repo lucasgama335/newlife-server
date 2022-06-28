@@ -17,7 +17,7 @@ hook OnPlayerSpawn(playerid)
 		format(string, sizeof(string), "[AVISO]: O jogador %s foi kickado por ter spawnado ser ter realizado o login.", Player_GetName(playerid));
 		MensagemAdmin(COLOR_LIGHTRED, string, HELPER);
 		SendClientMessage(playerid, COLOR_LIGHTRED, "[AVISO]: Você foi kickado porque spawnou sem realizar o login.");
-		DelayedKick(playerid);
+		KickPlayer(playerid);
 		return 1;
     }
     ClearAnimations(playerid);

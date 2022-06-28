@@ -177,7 +177,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    if (!response)
 		    {
 	     		SendClientMessage(playerid, COLOR_LIGHTBLUE, "Você cancelou o tutorial e foi kickado!");
-	     		return DelayedKick(playerid);
+	     		return KickPlayer(playerid);
 		    }
 		    if (response)
 		    {

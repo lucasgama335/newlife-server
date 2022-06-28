@@ -26,7 +26,7 @@ stock IsPlayerLogged(playerid)
 timer OnLoginTimeout[60000](playerid)
 {
     ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX, "Fazer Login ", "{FFFFFF}Você foi kickado automaticamente por ficar\nmuito tempo no processo de login sem realizar tentativas válidas.\nPor favor, logue novamente!.", "Okay", "");
-    DelayedKick(playerid);
+    KickPlayer(playerid);
     return 1;
 }
 
@@ -276,7 +276,7 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid)
 	else if (clickedid == LoginTextDraw_GetByIndex(8))
 	{
 		SendClientMessage(playerid, COLOR_YELLOW, "[Servidor]: Você optou por sair do servidor.");
-		DelayedKick(playerid);
+		KickPlayer(playerid);
 	}
 	return 1;
 }
@@ -323,7 +323,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                                 if (loginAttempts[playerid] > 5)
                                 {
                                     SendClientMessage(playerid, COLOR_INVALID, "Você errou sua senha várias vezes, por isso foi kickado do servidor!");
-                                    DelayedKick(playerid);
+                                    KickPlayer(playerid);
                                 }
                                 else
                                 {
@@ -372,7 +372,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (!response)
 			{
 				SendClientMessage(playerid, COLOR_LIGHTRED, "Você não informou a senha da administração e foi kickado!");
-				DelayedKick(playerid);
+				KickPlayer(playerid);
 				return 1;
 			}
 			if (response)
@@ -398,7 +398,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					format(string, sizeof(string), "[AVISO]: %s errou a senha da administração e foi kickado, pode ser outra pessoa logando na conta dele.", Player_GetName(playerid));
 					MensagemAdmin(COLOR_LIGHTRED, string, HELPER);
 					SendClientMessage(playerid, COLOR_LIGHTRED, "Você errou a senha da administração e foi kickado.");
-					DelayedKick(playerid);
+					KickPlayer(playerid);
 					return 1;
 				}
 			}
@@ -433,7 +433,7 @@ function:OnPlayerLogin(playerid)
     if (PlayerData_GetAdmin(playerid) > OWNER)
 	{
 		SendClientMessage(playerid, COLOR_ADMIN, "Nível de Administração Inválido!"); 
-		DelayedKick(playerid);
+		KickPlayer(playerid);
         return 1;
     }
 

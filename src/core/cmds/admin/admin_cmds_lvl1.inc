@@ -385,7 +385,7 @@ YCMD:kick(playerid, params[], help)
 	new string[190];
 	format(string, sizeof(string), "ADMIN CMD: %s foi kickado por %s. [Motivo]: %s.", Player_GetName(id), Player_GetName(playerid), (reason));
 	SendClientMessageToAll(COLOR_LIGHTRED, string);
-	DelayedKick(id);
+	KickPlayer(id);
 	return 1;
 }
 
