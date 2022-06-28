@@ -20,6 +20,7 @@ static stock ShowActualVehicleName(playerid, vehicleid)
 hook OnPlayerConnect(playerid)
 {
 	lastCar[playerid] = INVALID_VEHICLE_ID;
+	return 1;
 }
 
 hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
@@ -68,4 +69,5 @@ hook OnPlayerStateChange(playerid, newstate, oldstate)
 			ShowActualVehicleName(playerid, vehicleid);
 		}
 	}
+	return 1;
 }

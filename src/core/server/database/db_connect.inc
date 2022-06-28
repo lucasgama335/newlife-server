@@ -40,7 +40,7 @@ hook OnGameModeInit()
     mysql_set_option(option_id, SERVER_PORT, MYSQL_PORT);
 
     #if MYSQL_DEBUG == true
-        mysql_log(ALL);
+        mysql_log(INFO | ERROR | WARNING);
     #endif
 
     DBConnection = mysql_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE);
@@ -55,15 +55,17 @@ hook OnGameModeInit()
     return 1;
 }
 
-hook OnGameModeExit()
+public OnGameModeExit()
 {
     CallLocalFunction("BeforeCloseConnection", "");
     mysql_close(DBConnection);
+    return 1;
 }
 
 public OnQueryError(errorid, const error[], const callback[], const query[], MySQL:handle)
 {
-	switch(errorid) {
+	switch(errorid) 
+    {
 		case 1136: printf("[MySQL] Error 1136 | Column count does not match value count => \"%s\"", query);
 		case 1054: printf("[MySQL] Error 1054 | Invalid field name => \"%s\"", query);
 		case 1065: printf("[MySQL] Error 1065 | Query was empty (variable's size too small?) => \"%s\" from \"%s\"", query, callback);

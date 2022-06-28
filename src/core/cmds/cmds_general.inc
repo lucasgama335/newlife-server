@@ -77,6 +77,7 @@ static stock ShowPlayerConfig(playerid)
 	format(string, sizeof(string), "{FFFFFF}Configurações da Conta: ({0080ff}%s{FFFFFF})", SERVER_TAG);
 	return ShowPlayerDialog(playerid, DIALOG_CONFIG_LIST, DIALOG_STYLE_TABLIST_HEADERS, string, configDialog, "Selecionar", "Fechar");
 }
+
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {

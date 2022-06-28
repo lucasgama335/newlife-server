@@ -12,6 +12,7 @@ stock ShowSpectateScreen(playerid)
 	{
 		PlayerTextDrawShow(playerid, spectateTextDraw[playerid][i]);
 	}
+    return 1;
 }
 
 stock HideSpectateScreen(playerid)
@@ -20,6 +21,7 @@ stock HideSpectateScreen(playerid)
 	{
 		PlayerTextDrawHide(playerid, spectateTextDraw[playerid][i]);
 	}
+    return 1;
 }
 
 stock DestroySpectateScreen(playerid)
@@ -28,6 +30,7 @@ stock DestroySpectateScreen(playerid)
 	{
         PlayerTextDrawDestroy(playerid, spectateTextDraw[playerid][i]);
 	}
+    return 1;
 }
 
 stock PlayerText:SpectateTextDraw_GetByIndex(playerid, index)

@@ -260,5 +260,6 @@ hook OnPlayerConnect(playerid)
 
     //=====================================[ MAP ICONS ]====================================||
     SetPlayerMapIcon(playerid, 8, 1480.9403,-1770.8481,18.7958, 44 , 0xE6E6E6E6);
+	return 1;
     
 }

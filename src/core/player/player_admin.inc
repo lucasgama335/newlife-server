@@ -63,7 +63,6 @@ timer AdminSpectatePlayer[1000](playerid)
 			UpdateSpectatePlayer(playerid, spectated_id);
 		}
 	}
-
 	return 1;
 }
 
@@ -111,6 +110,7 @@ stock UpdateSpectatePlayer(playerid, id)
 	PlayerTextDrawSetString(playerid, SpectateTextDraw_GetByIndex(playerid, 24), string);
 	format(string, sizeof(string), "%d", PlayerData_GetCoins(id));
 	PlayerTextDrawSetString(playerid, SpectateTextDraw_GetByIndex(playerid, 26), string);
+	return 1;
 }
 
 stock ShowSpectatePlayer(playerid, id)
@@ -118,12 +118,14 @@ stock ShowSpectatePlayer(playerid, id)
 	UpdateSpectatePlayer(playerid, id);
 	ShowSpectateScreen(playerid);
 	// SelectTextDraw(playerid, COLOR_ORANGE);
+	return 1;
 }
 
 stock HideSpectatePlayer(playerid)
 {
 	HideSpectateScreen(playerid);
 	CancelSelectTextDraw(playerid);
+	return 1;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

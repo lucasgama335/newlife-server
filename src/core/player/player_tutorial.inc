@@ -89,6 +89,7 @@ timer NextStepTutorial[1000](playerid)
     new string[100];
     format(string, sizeof(string), "time left: %d", TutTime[playerid]);
     SendClientMessage(playerid, -1, string);
+	return 1;
 }
 
 static stock Database_SaveTutorial(playerid)
@@ -111,6 +112,7 @@ hook OnPlayerConnect(playerid)
 {
     TutTime[playerid] = 0;
     NoTuto[playerid] = false;
+	return 1;
 }
 
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])

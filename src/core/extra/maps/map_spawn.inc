@@ -93,4 +93,5 @@ hook OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 1297, 895.3047, -1331.8828, 15.6406, 0.25);
 
 	//=====================================[ MAP ICONS ]====================================||
+	return 1;
 }

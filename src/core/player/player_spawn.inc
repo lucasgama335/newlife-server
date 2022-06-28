@@ -36,9 +36,11 @@ hook OnPlayerSpawn(playerid)
 hook OnPlayerRequestSpawn(playerid)
 {
 	IsPlayerLogged(playerid);
+    return 1;
 }
 
 hook BeforeSaveOnDisconnect(playerid)
 {
     PlayerData_UpdateLastPosition(playerid);
+    return 1;
 }

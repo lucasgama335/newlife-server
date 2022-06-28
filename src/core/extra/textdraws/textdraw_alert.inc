@@ -17,18 +17,21 @@ stock ShowClientAlert(playerid)
 {
 	PlayerTextDrawShow(playerid, alertMessage[playerid][0]);
 	PlayerTextDrawShow(playerid, alertMessage[playerid][1]);
+	return 1;
 }
 
 stock HideClientAlert(playerid)
 {
     PlayerTextDrawHide(playerid, alertMessage[playerid][0]);
 	PlayerTextDrawHide(playerid, alertMessage[playerid][1]);
+	return 1;
 }
 
 stock DestroyClientAlert(playerid)
 {
     PlayerTextDrawDestroy(playerid, alertMessage[playerid][0]);
 	PlayerTextDrawDestroy(playerid, alertMessage[playerid][1]);
+	return 1;
 }
 
 stock SendClientAlert(playerid, const title[], const message[])
@@ -85,4 +88,5 @@ hook OnPlayerDisconnect(playerid, reason)
 {
 	HideClientAlert(playerid);
 	DestroyClientAlert(playerid);
+	return 1;
 }

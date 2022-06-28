@@ -54,6 +54,7 @@ static stock InsertPlayerInDataBase(playerid, const password[])
         OnPlayerLogin(playerid);
     }
     MySQL_TQueryInline(Database_GetConnection(), using inline OnPlayerRegister, "INSERT INTO %s (%s, %s) VALUES ('%s', '%s')", PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, PLAYER_FIELD_PASSWORD, Player_GetName(playerid), password);
+    return 1;
 }
 
 static stock ShowLoginDialog(playerid)
@@ -75,7 +76,7 @@ static stock ShowRegisterDialog(playerid)
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
-hook OnPlayerConnect(playerid)
+public OnPlayerConnect(playerid)
 {
     new race_check = Database_IncrementRaceCheck(playerid);
 

@@ -22,9 +22,11 @@ stock bool:Player_SetAnimationStatus(playerid, bool:status)
 hook OnPlayerConnect(playerid)
 {
     inAnimation[playerid] = false;
+    return 1;
 }
 
 hook OnPlayerSpawn(playerid)
 {
     inAnimation[playerid] = false;
+    return 1;
 }

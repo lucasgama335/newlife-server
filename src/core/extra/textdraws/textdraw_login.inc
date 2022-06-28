@@ -174,7 +174,8 @@ hook OnGameModeInit()
     return 1;
 }
 
-hook CallLocalFunction()
+hook OnGameModeExit()
 {
 	DestroyLoginScreen();
+	return 1;
 }

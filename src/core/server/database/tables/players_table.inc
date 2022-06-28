@@ -120,6 +120,7 @@ stock Database_CreatePlayersTable()
         created_at timestamp DEFAULT CURRENT_TIMESTAMP, \
         updated_at timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP \
     )", MAX_PLAYER_NAME, BCRYPT_HASH_LENGTH, DEFAULT_SKIN_MALE, DEFAULT_SKIN_MALE, SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA);
+    return 1;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

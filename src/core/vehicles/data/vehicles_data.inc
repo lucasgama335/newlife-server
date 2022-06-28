@@ -25,12 +25,16 @@ static VehicleInfo[MAX_VEHICLES][vInfo];
 // Getters
 stock bool:Vehicle_GetEngineStatus(vehicleid)
 {
+    if (!IsValidVehicle(vehicleid)) return false;
+
     return VehicleInfo[vehicleid][vEngine];
 }
 
 // Setters
 stock bool:Vehicle_SetEngineStatus(vehicleid, bool:status)
 {
+    if (!IsValidVehicle(vehicleid)) return false;
+
     return VehicleInfo[vehicleid][vEngine] = status;
 }
 
@@ -38,12 +42,16 @@ stock bool:Vehicle_SetEngineStatus(vehicleid, bool:status)
 // Getters
 stock Vehicle_GetFuel(vehicleid)
 {
+    if (!IsValidVehicle(vehicleid)) return 0;
+
     return VehicleInfo[vehicleid][vFuel];
 }
 
 // Setters
 stock Vehicle_SetFuel(vehicleid, quantity)
 {
+    if (!IsValidVehicle(vehicleid)) return 0;
+
     return VehicleInfo[vehicleid][vFuel] = quantity;
 }
 
@@ -51,12 +59,16 @@ stock Vehicle_SetFuel(vehicleid, quantity)
 // Getters
 stock Vehicle_GetShield(vehicleid)
 {
+    if (!IsValidVehicle(vehicleid)) return 0;
+
     return VehicleInfo[vehicleid][vShield];
 }
 
 // Setters
 stock Vehicle_SetShield(vehicleid, quantity)
 {
+    if (!IsValidVehicle(vehicleid)) return 0;
+
     return VehicleInfo[vehicleid][vShield] = quantity;
 }
 
@@ -64,12 +76,16 @@ stock Vehicle_SetShield(vehicleid, quantity)
 // Getters
 stock bool:Vehicle_GetLockedStatus(vehicleid)
 {
+    if (!IsValidVehicle(vehicleid)) return false;
+
     return VehicleInfo[vehicleid][vLocked];
 }
 
 // Setters
 stock bool:Vehicle_SetLockedStatus(vehicleid, bool:status)
 {
+    if (!IsValidVehicle(vehicleid)) return false;
+
     return VehicleInfo[vehicleid][vLocked] = status;
 }
 
@@ -77,6 +93,8 @@ stock bool:Vehicle_SetLockedStatus(vehicleid, bool:status)
 // Getters
 stock Vehicle_GetPlate(vehicleid)
 {
+    if (!IsValidVehicle(vehicleid)) return 0;
+
     new string[MAX_PLATE_STRING];
     format(string, sizeof(string), "%s", VehicleInfo[vehicleid][vPlate]);
     return string;
@@ -85,6 +103,8 @@ stock Vehicle_GetPlate(vehicleid)
 // Setters
 stock Vehicle_SetPlate(vehicleid, const string[])
 {
+    if (!IsValidVehicle(vehicleid)) return 0;
+
     format(VehicleInfo[vehicleid][vPlate], MAX_PLATE_STRING, "%s", string);
     return 1;
 }
@@ -93,12 +113,16 @@ stock Vehicle_SetPlate(vehicleid, const string[])
 // Getters
 stock Vehicle_GetMoney(vehicleid)
 {
+    if (!IsValidVehicle(vehicleid)) return 0;
+
     return VehicleInfo[vehicleid][vMoney];
 }
 
 // Setters
 stock Vehicle_SetMoney(vehicleid, quantity)
 {
+    if (!IsValidVehicle(vehicleid)) return 0;
+
     return VehicleInfo[vehicleid][vMoney] = quantity;
 }
 
@@ -106,12 +130,16 @@ stock Vehicle_SetMoney(vehicleid, quantity)
 // Getters
 stock bool:Vehicle_GetBrokenStatus(vehicleid)
 {
+    if (!IsValidVehicle(vehicleid)) return false;
+
     return VehicleInfo[vehicleid][vBroken];
 }
 
 // Setters
 stock bool:Vehicle_SetBrokenStatus(vehicleid, bool:status)
 {
+    if (!IsValidVehicle(vehicleid)) return false;
+
     return VehicleInfo[vehicleid][vBroken] = status;
 }
 

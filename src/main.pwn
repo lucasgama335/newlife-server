@@ -9,6 +9,9 @@
 #define YSI_NO_OPTIMISATION_MESSAGE
 #define YSI_NO_MODE_CACHE
 #define YSI_NO_HEAP_MALLOC
+#if !defined IsValidVehicle
+    native IsValidVehicle(vehicleid);
+#endif
 
 /*==============================================================================
 	Libraries and respective links to their release pages

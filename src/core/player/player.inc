@@ -83,7 +83,7 @@ hook BeforeSpawnPlayer(playerid)
 	return 1;
 }
 
-hook OnPlayerDisconnect(playerid, reason)
+public OnPlayerDisconnect(playerid, reason)
 {
     if (Timer_IsRunning(updateStats[playerid])) stop updateStats[playerid];
 

@@ -12,6 +12,7 @@ stock ShowLoadingScreen(playerid)
 	{
 		TextDrawShowForPlayer(playerid, textLoadingConnect[i]);
 	}
+	return 1;
 }
 
 stock HideLoadingScreen(playerid)
@@ -20,6 +21,7 @@ stock HideLoadingScreen(playerid)
 	{
 		TextDrawHideForPlayer(playerid, textLoadingConnect[i]);
 	}
+	return 1;
 }
 
 stock DestroyLoadingScreen()
@@ -28,6 +30,7 @@ stock DestroyLoadingScreen()
 	{
 		TextDrawDestroy(textLoadingConnect[i]);
 	}
+	return 1;
 }
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
@@ -107,7 +110,8 @@ hook OnGameModeInit()
     return 1;
 }
 
-hook CallLocalFunction()
+hook OnGameModeExit()
 {
 	DestroyLoadingScreen();
+	return 1;
 }
