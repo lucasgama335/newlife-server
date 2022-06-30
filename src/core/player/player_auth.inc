@@ -491,6 +491,7 @@ function:OnPlayerLogin(playerid)
 	HideLoginScreen(playerid);
     CancelSelectTextDraw(playerid);
 	TogglePlayerSpectating(playerid, false);
+    ShowTimeScreen(playerid);
     
     new string[150];
     if (!PlayerData_GetTutorial(playerid))

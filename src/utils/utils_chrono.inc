@@ -61,6 +61,15 @@ stock Server_FormatDate(Timestamp:tsTimezone)
 	return output;
 }
 
+stock Server_FormatDay(Timestamp:tsTimezone)
+{
+	CorrectTimezone(tsTimezone);
+
+	new output[3];
+	TimeFormat(tsTimezone, "%d", output);
+	return output;
+}
+
 stock Server_FormatHour(Timestamp:tsTimezone)
 {
 	CorrectTimezone(tsTimezone);
@@ -68,6 +77,54 @@ stock Server_FormatHour(Timestamp:tsTimezone)
 	new output[9];
 	TimeFormat(tsTimezone, "%H:%M:%S", output);
 	return output;
+}
+
+stock Server_FormatMonth(Timestamp:tsTimezone)
+{
+	CorrectTimezone(tsTimezone);
+
+	new output[10];
+	TimeFormat(tsTimezone, "%B", output);
+	if (!strcmp("January", output, true)) format(output, sizeof(output), "Janeiro");
+	else if (!strcmp("February", output, true)) format(output, sizeof(output), "Fevereiro");
+	else if (!strcmp("March", output, true)) format(output, sizeof(output), "Março");
+	else if (!strcmp("April", output, true)) format(output, sizeof(output), "Abril");
+	else if (!strcmp("May", output, true)) format(output, sizeof(output), "Maio");
+	else if (!strcmp("June", output, true)) format(output, sizeof(output), "Junho");
+	else if (!strcmp("July", output, true)) format(output, sizeof(output), "Julho");
+	else if (!strcmp("August", output, true)) format(output, sizeof(output), "Agosto");
+	else if (!strcmp("September", output, true)) format(output, sizeof(output), "Setembro");
+	else if (!strcmp("October", output, true)) format(output, sizeof(output), "Outubro");
+	else if (!strcmp("November", output, true)) format(output, sizeof(output), "Novembro");
+	else if (!strcmp("December", output, true)) format(output, sizeof(output), "Dezembro");
+	return output;
+}
+
+stock Server_FormatHourDigit(Timestamp:tsTimezone)
+{
+	CorrectTimezone(tsTimezone);
+
+	new output[3];
+	TimeFormat(tsTimezone, "%H", output);
+	return strval(output);
+}
+
+stock Server_FormatMinuteDigit(Timestamp:tsTimezone)
+{
+	CorrectTimezone(tsTimezone);
+
+	new output[3];
+	TimeFormat(tsTimezone, "%M", output);
+	return strval(output);
+}
+
+stock Server_FormatSecondDigit(Timestamp:tsTimezone)
+{
+	CorrectTimezone(tsTimezone);
+
+	new output[3];
+	TimeFormat(tsTimezone, "%S", output);
+	return strval(output);
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

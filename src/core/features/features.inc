@@ -1,3 +1,5 @@
+#include <real_time>
+
 #include <YSI_Coding\y_hooks>
 
 //------------------------- Definitions and constants -------------------------

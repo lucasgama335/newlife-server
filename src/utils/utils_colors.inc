@@ -49,6 +49,7 @@
 #define   	COLOR_SOCIO      0xa86db4FF
 #define     COLOR_TITLE      0xffff00FF
 #define		COLOR_ORANGE	 0xf68e00FF
+#define     COLOR_ORANGE2    0xFFA500FF
 #define     COLOR_NEWS       0xFFA500AA
 #define   	COLOR_BABYBLUE   0xCCCCFFFF
 #define   	COLOR_RADIO      0x6666CCFF
