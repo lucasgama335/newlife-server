@@ -56,6 +56,7 @@
 #define	INVALID_VALUE			-1
 
 #define	MAX_PASS_LEN			15
+#define	MIN_PASS_LEN			8
 
 #define DEFAULT_SKIN_MALE		23
 #define DEFAULT_SKIN_FEMALE		41

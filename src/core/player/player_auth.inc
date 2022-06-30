@@ -326,10 +326,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
             if (response)
 	        {
-	            if (strlen(inputtext) < 8 || strlen(inputtext) > MAX_PASS_LEN)
+	            if (strlen(inputtext) < MIN_PASS_LEN || strlen(inputtext) > MAX_PASS_LEN)
 	            {
-                    SendClientMessage(playerid, COLOR_INVALID, "[AVISO]: A senha deve conter de 8 a 15 caracteres.");
-			        return ShowLoginDialog(playerid);
+                    new string[52];
+                    format(string, sizeof(string), "[AVISO]: A senha deve conter de %d a %d caracteres.", MIN_PASS_LEN, MAX_PASS_LEN);
+                    SendClientMessage(playerid, COLOR_INVALID, string);
+	                return ShowLoginDialog(playerid);
 	            }
 
                 // BcryptInline cannot access the parameters of the calling function directly, only the variables of the function body, so we need to create a copy of the inputtext
@@ -385,9 +387,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if (!response) return SendClientMessage(playerid, COLOR_YELLOW, "Ok, Caso queira registrar-se posteriormente, clique em 'Fazer Login' novamente!");
             if (response)
             {
-                if (!strlen(inputtext) || strlen(inputtext) < 8 || strlen(inputtext) > MAX_PASS_LEN)
+                if (strlen(inputtext) < MIN_PASS_LEN || strlen(inputtext) > MAX_PASS_LEN)
 				{
-                    SendClientMessage(playerid, COLOR_INVALID, "[AVISO]: A senha deve conter de 8 a 15 caracteres.");
+                    new string[52];
+                    format(string, sizeof(string), "[AVISO]: A senha deve conter de %d a %d caracteres.", MIN_PASS_LEN, MAX_PASS_LEN);
+                    SendClientMessage(playerid, COLOR_INVALID, string);
 	                return ShowRegisterDialog(playerid);
 				}
 
