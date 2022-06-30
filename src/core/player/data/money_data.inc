@@ -21,7 +21,7 @@ stock Database_SaveMoneyInfo(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    new query_string[221];
+    new query_string[207 + 1];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
     %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME, 

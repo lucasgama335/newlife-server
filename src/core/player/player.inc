@@ -104,6 +104,7 @@ public OnPlayerDisconnect(playerid, reason)
 
     CallLocalFunction("BeforeSaveOnDisconnect", "i", playerid);
     Database_SaveGeneralInfo(playerid);
+    Database_SaveStatusInfo(playerid);
     Database_SaveMoneyInfo(playerid);
     Database_SaveScoreInfo(playerid);
     return 1;

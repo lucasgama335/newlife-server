@@ -16,17 +16,15 @@ stock Database_SaveVipInfo(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    inline OnSaveData()
-    {
-        print("[debug]: Vip data saved.");
-    }
-    MySQL_TQueryInline(Database_GetConnection(), using inline OnSaveData, "UPDATE %s SET \
+    new query_string[71];
+    mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
     %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME, 
     PLAYER_FIELD_VIP, Player_VipInfo[playerid][pVip], 
     PLAYER_FIELD_SOCIO, Player_VipInfo[playerid][pSocio], 
     PLAYER_FIELD_VIP_DAYS, Player_VipInfo[playerid][pVipDays], 
     PlayerData_GetID(playerid));
+    mysql_tquery(Database_GetConnection(), query_string);
     return 1;
 }
 

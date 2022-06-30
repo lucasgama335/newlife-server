@@ -32,7 +32,7 @@ stock Database_SaveGeneralInfo(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    new query_string[473];
+    new query_string[417];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
     %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %f, %s = %f, %s = %f, %s = %f, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME,
