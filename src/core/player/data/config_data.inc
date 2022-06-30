@@ -318,6 +318,14 @@ stock Player_UpdateAutoConfigChats(playerid)
     return 1;
 }
 
+// ============== RESET INFO ============== //
+stock PlayerData_ResetConfigInfo(playerid)
+{
+    static const empty_data[pConfigInfo];
+    Player_ConfigInfo[playerid] = empty_data;
+    return Player_ConfigInfo[playerid];
+}
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------

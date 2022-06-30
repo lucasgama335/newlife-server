@@ -33,9 +33,13 @@ timer OnLoginTimeout[60000](playerid)
 static stock Player_ClearInfoVars(playerid) 
 {
     PlayerData_ResetGeneralInfo(playerid);
+    PlayerData_ResetJobInfo(playerid);
     PlayerData_ResetAppearenceInfo(playerid);
     PlayerData_ResetMoneyInfo(playerid);
     PlayerData_ResetScoreInfo(playerid);
+    PlayerData_ResetStatusInfo(playerid);
+    PlayerData_ResetVipInfo(playerid);
+    PlayerData_ResetConfigInfo(playerid);
 
     // Temporary Vars
     loginAttempts[playerid] = 0;
@@ -93,12 +97,12 @@ public OnPlayerConnect(playerid)
         if(cache_num_rows() > 0)
         {
             // General Info
-            new id, admin, job, org, org_role, tutorial, last_login_date, last_login_hour, last_connected_time, Float:pos_x, Float:pos_y, Float:pos_z, Float:pos_a, interior, vw;
+            new id, admin, attendances, rating, number_rating, tutorial, last_login_date, last_login_hour, last_connected_time, Float:pos_x, Float:pos_y, Float:pos_z, Float:pos_a, interior, vw;
             cache_get_value_name_int(0, PLAYER_FIELD_ID, id);
             cache_get_value_name_int(0, PLAYER_FIELD_ADMIN, admin);
-            cache_get_value_name_int(0, PLAYER_FIELD_JOB, job);
-            cache_get_value_name_int(0, PLAYER_FIELD_ORG, org);
-            cache_get_value_name_int(0, PLAYER_FIELD_ORG_ROLE, org_role);
+            cache_get_value_name_int(0, PLAYER_FIELD_ATTENDANCES, attendances);
+            cache_get_value_name_int(0, PLAYER_FIELD_RATING, rating);
+            cache_get_value_name_int(0, PLAYER_FIELD_NUMBERRANTING, number_rating);
             cache_get_value_name_int(0, PLAYER_FIELD_TUTORIAL, tutorial);
             cache_get_value_name_int(0, PLAYER_FIELD_LAST_LOGIN_DATE, last_login_date);
             cache_get_value_name_int(0, PLAYER_FIELD_LAST_LOGIN_HOUR, last_login_hour);
@@ -112,13 +116,23 @@ public OnPlayerConnect(playerid)
 
             PlayerData_SetID(playerid, id);
             PlayerData_SetAdmin(playerid, admin, false);
-            PlayerData_SetJob(playerid, job);
-            PlayerData_SetOrg(playerid, org, org_role);
+            PlayerData_SetAttendances(playerid, attendances);
+            PlayerData_SetRating(playerid, rating);
+            PlayerData_SetNumberRating(playerid, number_rating);
             PlayerData_SetTutorial(playerid, (tutorial == 0 ? false : true));
             PlayerData_SetLastLoginDate(playerid, last_login_date);
             PlayerData_SetLastLoginHour(playerid, last_login_hour);
             PlayerData_SetLastConnectedTime(playerid, last_connected_time);
             PlayerData_SetLastPosition(playerid, pos_x, pos_y, pos_z, pos_a, interior, vw);
+
+            // Job
+            new job, org, org_role;
+            cache_get_value_name_int(0, PLAYER_FIELD_JOB, job);
+            cache_get_value_name_int(0, PLAYER_FIELD_ORG, org);
+            cache_get_value_name_int(0, PLAYER_FIELD_ORG_ROLE, org_role);
+
+            PlayerData_SetJob(playerid, job);
+            PlayerData_SetOrg(playerid, org, org_role);
 
             // Appearence
             new gender, fight_style, skin, old_skin;
@@ -133,13 +147,17 @@ public OnPlayerConnect(playerid)
             PlayerData_SetOldSkin(playerid, old_skin);
 
             // Money Info
-            new money, bank_status, bank_money, coins;
+            new money, illegal_money, illegal_safe_money, bank_status, bank_money, coins;
             cache_get_value_name_int(0, PLAYER_FIELD_MONEY, money);
+            cache_get_value_name_int(0, PLAYER_FIELD_ILLEGAL_MONEY, illegal_money);
+            cache_get_value_name_int(0, PLAYER_FIELD_ILLEGAL_SAFE_MONEY, illegal_safe_money);
             cache_get_value_name_int(0, PLAYER_FIELD_BANK_ACCOUNT, bank_status);
             cache_get_value_name_int(0, PLAYER_FIELD_BANK_MONEY, bank_money);
             cache_get_value_name_int(0, PLAYER_FIELD_COINS, coins);
 
             PlayerData_SetMoney(playerid, money);
+            PlayerData_SetIllegalMoney(playerid, illegal_money);
+            PlayerData_SetIllegalSafeMoney(playerid, illegal_safe_money);
             PlayerData_SetBankStatus(playerid, bank_status == 0 ? false : true);
             PlayerData_SetBankMoney(playerid, bank_money);
             PlayerData_SetCoins(playerid, coins);
@@ -157,6 +175,20 @@ public OnPlayerConnect(playerid)
             PlayerData_SetDeaths(playerid, deaths);
             PlayerData_SetKills(playerid, kills);
             PlayerData_SetWantedLevel(playerid, wanted_level);
+
+            // Status Info
+            new jailed, jail_time, hungry, drink, warnings;
+            cache_get_value_name_int(0, PLAYER_FIELD_JAILED, jailed);
+            cache_get_value_name_int(0, PLAYER_FIELD_JAILTIME, jail_time);
+            cache_get_value_name_int(0, PLAYER_FIELD_HUNGRY, hungry);
+            cache_get_value_name_int(0, PLAYER_FIELD_DRINK, drink);
+            cache_get_value_name_int(0, PLAYER_FIELD_WARNINGS, warnings);
+
+            PlayerData_SetJailed(playerid, jailed);
+            PlayerData_SetJailTime(playerid, jail_time);
+            PlayerData_SetHungry(playerid, hungry);
+            PlayerData_SetDrink(playerid, drink);
+            PlayerData_SetWarnings(playerid, warnings);
 
             // Config Info
             new tag, city, spawn, document, speedometer, tracker, hitsound, territorial_chat, vip_chat, socio_chat, noob_chat, leader_chat, stream;

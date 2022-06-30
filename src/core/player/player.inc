@@ -1,9 +1,11 @@
 // Database Player Data
 #include <general_data>
+#include <job_data>
 #include <appearence_data>
 #include <money_data>
 #include <score_data>
 #include <vip_data>
+#include <status_data>
 #include <config_data>
 //
 #include <player_admin>

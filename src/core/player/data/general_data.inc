@@ -7,9 +7,9 @@ enum pGeneralInfo
 {
     pId,
     pAdmin,
-    pJob,
-    pOrg,
-    pOrgRole,
+    pAttendance,
+	pRating,
+	pNumberRating,
     bool:pTutorial,
     pLastLoginDate,
     pLastLoginHour,
@@ -32,14 +32,14 @@ stock Database_SaveGeneralInfo(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    new query_string[381];
+    new query_string[473];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
     %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %f, %s = %f, %s = %f, %s = %f, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME,
     PLAYER_FIELD_ADMIN, Player_GeneralInfo[playerid][pAdmin],
-    PLAYER_FIELD_JOB, Player_GeneralInfo[playerid][pJob],
-    PLAYER_FIELD_ORG, Player_GeneralInfo[playerid][pOrg],
-    PLAYER_FIELD_ORG_ROLE, Player_GeneralInfo[playerid][pOrgRole],
+    PLAYER_FIELD_ATTENDANCES, Player_GeneralInfo[playerid][pAttendance],
+    PLAYER_FIELD_RATING, Player_GeneralInfo[playerid][pRating],
+    PLAYER_FIELD_NUMBERRANTING, Player_GeneralInfo[playerid][pNumberRating],
     PLAYER_FIELD_TUTORIAL, (Player_GeneralInfo[playerid][pTutorial] == true ? 1 : 0),
     PLAYER_FIELD_LAST_LOGIN_DATE, Player_GeneralInfo[playerid][pLastLoginDate],
     PLAYER_FIELD_LAST_LOGIN_HOUR, Player_GeneralInfo[playerid][pLastLoginHour],
@@ -82,6 +82,27 @@ stock PlayerData_GetAdmin(playerid)
     return Player_GeneralInfo[playerid][pAdmin];
 }
 
+stock PlayerData_GetAttendances(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_GeneralInfo[playerid][pAttendance];
+}
+
+stock PlayerData_GetRating(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_GeneralInfo[playerid][pRating];
+}
+
+stock PlayerData_GetNumberRating(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_GeneralInfo[playerid][pNumberRating];
+}
+
 // Setters
 stock PlayerData_SetAdmin(playerid, level, bool:save)
 {
@@ -92,47 +113,25 @@ stock PlayerData_SetAdmin(playerid, level, bool:save)
     return 1;
 }
 
-// ============== JOB ACCESSORS ============== //
-// Getters
-stock PlayerData_GetJob(playerid)
+stock PlayerData_SetAttendances(playerid, value)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    return Player_GeneralInfo[playerid][pJob];
+    return Player_GeneralInfo[playerid][pAttendance] = value;
 }
 
-// Setters
-stock PlayerData_SetJob(playerid, jobid)
+stock PlayerData_SetRating(playerid, value)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    return Player_GeneralInfo[playerid][pJob] = jobid;
+    return Player_GeneralInfo[playerid][pRating] = value;
 }
 
-// ============== ORG ACCESSORS ============== //
-// Getters
-stock PlayerData_GetOrg(playerid)
+stock PlayerData_SetNumberRating(playerid, value)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    return Player_GeneralInfo[playerid][pOrg];
-}
-
-stock PlayerData_GetOrgRole(playerid)
-{
-    if (!IsPlayerConnected(playerid)) return false;
-
-    return Player_GeneralInfo[playerid][pOrgRole];
-}
-
-// Setters
-stock PlayerData_SetOrg(playerid, orgid, role)
-{
-    if (!IsPlayerConnected(playerid)) return false;
-
-    Player_GeneralInfo[playerid][pOrg] = orgid;
-    Player_GeneralInfo[playerid][pOrgRole] = role;
-    return 1;
+    return Player_GeneralInfo[playerid][pNumberRating] = value;
 }
 
 // ============== TUTORIAL ACCESSORS ============== //

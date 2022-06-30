@@ -6,6 +6,8 @@
 enum pMoneyInfo
 {
     pMoney,
+    pIllegalMoney,
+    pIllegalSafeMoney,
     bool:pBankAccount,
     pBankMoney,
     pSalary,
@@ -19,11 +21,13 @@ stock Database_SaveMoneyInfo(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    new query_string[155];
+    new query_string[221];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
-    %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
+    %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME, 
     PLAYER_FIELD_MONEY, Player_MoneyInfo[playerid][pMoney], 
+    PLAYER_FIELD_ILLEGAL_MONEY, Player_MoneyInfo[playerid][pIllegalMoney], 
+    PLAYER_FIELD_ILLEGAL_SAFE_MONEY, Player_MoneyInfo[playerid][pIllegalSafeMoney], 
     PLAYER_FIELD_BANK_ACCOUNT, (Player_MoneyInfo[playerid][pBankAccount] ? 1 : 0), 
     PLAYER_FIELD_BANK_MONEY, Player_MoneyInfo[playerid][pBankMoney], 
     PLAYER_FIELD_SALARY, Player_MoneyInfo[playerid][pSalary], 
@@ -48,6 +52,37 @@ stock PlayerData_SetMoney(playerid, money)
     if (!IsPlayerConnected(playerid)) return false;
 
     return Player_MoneyInfo[playerid][pMoney] = money;
+}
+
+// ============== ILLEGAL MONEY ACCESSORS ============== //
+// Getters
+stock PlayerData_GetIllegalMoney(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_MoneyInfo[playerid][pIllegalMoney];
+}
+
+stock PlayerData_GetIllegalSafeMoney(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_MoneyInfo[playerid][pIllegalSafeMoney];
+}
+
+// Setters
+stock PlayerData_SetIllegalMoney(playerid, money)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_MoneyInfo[playerid][pIllegalMoney] = money;
+}
+
+stock PlayerData_SetIllegalSafeMoney(playerid, money)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_MoneyInfo[playerid][pIllegalSafeMoney] = money;
 }
 
 // ============== BANK STATUS ACCESSORS ============== //

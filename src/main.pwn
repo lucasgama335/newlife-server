@@ -35,7 +35,7 @@
 #define	DEV_MODE				true
 
 #define	MYSQL_DEBUG				true
-#define	MYSQL_SETUP_TABLES		false
+#define	MYSQL_SETUP_TABLES		true
 
 #define SERVER_NAME				"NewLife"
 #define	SERVER_TAG				"NL"

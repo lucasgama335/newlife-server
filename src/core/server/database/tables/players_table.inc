@@ -6,9 +6,9 @@
 #define PLAYER_FIELD_NAME                       "name"
 #define PLAYER_FIELD_PASSWORD                   "password"
 #define PLAYER_FIELD_ADMIN                      "admin"
-#define PLAYER_FIELD_JOB                        "job"
-#define PLAYER_FIELD_ORG                        "org"
-#define PLAYER_FIELD_ORG_ROLE                   "org_role"
+#define PLAYER_FIELD_ATTENDANCES                "admin_attendances"
+#define PLAYER_FIELD_RATING                     "admin_rating"
+#define PLAYER_FIELD_NUMBERRANTING              "admin_numer_rating"
 #define PLAYER_FIELD_TUTORIAL                   "tutorial"
 #define PLAYER_FIELD_LAST_POSX                  "last_pos_x"
 #define PLAYER_FIELD_LAST_POSY                  "last_pos_y"
@@ -21,11 +21,17 @@
 #define PLAYER_FIELD_LAST_CONNECTED_TIME        "last_connected_time"
 #define PLAYER_FIELD_LAST_LOCALE                "last_interior_locale"
 
+#define PLAYER_FIELD_JOB                        "job"
+#define PLAYER_FIELD_ORG                        "org"
+#define PLAYER_FIELD_ORG_ROLE                   "org_role"
+
 #define PLAYER_FIELD_VIP                        "vip"
 #define PLAYER_FIELD_SOCIO                      "socio"
 #define PLAYER_FIELD_VIP_DAYS                   "vip_days"
 
 #define PLAYER_FIELD_MONEY                      "money"
+#define PLAYER_FIELD_ILLEGAL_MONEY              "illegal_money"
+#define PLAYER_FIELD_ILLEGAL_SAFE_MONEY         "illegal_safe_money"
 #define PLAYER_FIELD_BANK_ACCOUNT               "bank_account"
 #define PLAYER_FIELD_BANK_MONEY                 "bank_money"
 
@@ -41,6 +47,12 @@
 #define PLAYER_FIELD_DEATHS                     "deaths"
 #define PLAYER_FIELD_KILLS                      "kills"
 #define PLAYER_FIELD_WANTED_LEVEL               "wanted_level"
+
+#define PLAYER_FIELD_JAILED                     "jailed"
+#define PLAYER_FIELD_JAILTIME                   "jail_time"
+#define PLAYER_FIELD_HUNGRY                     "hungry"
+#define PLAYER_FIELD_DRINK                      "drink"
+#define PLAYER_FIELD_WARNINGS                   "warnings"
 
 #define PLAYER_FIELD_CONFIG_TAG                 "config_tag"
 #define PLAYER_FIELD_CONFIG_CITY                "config_city"
@@ -73,9 +85,14 @@ stock Database_CreatePlayersTable()
         "PLAYER_FIELD_NAME" varchar(%d) NOT NULL UNIQUE, \
         "PLAYER_FIELD_PASSWORD" varchar(%d) NOT NULL, \
         "PLAYER_FIELD_ADMIN" int NOT NULL DEFAULT 0, \
+        "PLAYER_FIELD_ATTENDANCES" int NOT NULL DEFAULT 0, \
+        "PLAYER_FIELD_RATING" int NOT NULL DEFAULT 0, \
+        "PLAYER_FIELD_NUMBERRANTING" int NOT NULL DEFAULT 0, \
         "PLAYER_FIELD_LEVEL" int NOT NULL DEFAULT 1, \
         "PLAYER_FIELD_EXP" int NOT NULL DEFAULT 0, \
         "PLAYER_FIELD_MONEY" int NOT NULL DEFAULT 0, \
+        "PLAYER_FIELD_ILLEGAL_MONEY" int NOT NULL DEFAULT 0, \
+        "PLAYER_FIELD_ILLEGAL_SAFE_MONEY" int NOT NULL DEFAULT 0, \
         "PLAYER_FIELD_SALARY" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_BANK_ACCOUNT" tinyint NOT NULL DEFAULT 0, \
         "PLAYER_FIELD_BANK_MONEY" int NOT NULL DEFAULT 0, \
@@ -93,6 +110,11 @@ stock Database_CreatePlayersTable()
         "PLAYER_FIELD_DEATHS" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_KILLS" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_WANTED_LEVEL" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_JAILED" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_JAILTIME" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_HUNGRY" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_DRINK" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_WARNINGS" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_TUTORIAL" tinyint NOT NULL DEFAULT 0, \
         "PLAYER_FIELD_LAST_LOGIN_DATE" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_LAST_LOGIN_HOUR" int DEFAULT 0 NOT NULL, \

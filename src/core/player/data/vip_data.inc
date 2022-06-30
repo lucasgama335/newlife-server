@@ -81,6 +81,14 @@ stock PlayerData_SetVipDays(playerid, days)
     return Player_VipInfo[playerid][pVipDays] = days;
 }
 
+// ============== RESET INFO ============== //
+stock PlayerData_ResetVipInfo(playerid)
+{
+    static const empty_data[pVipInfo];
+    Player_VipInfo[playerid] = empty_data;
+    return Player_VipInfo[playerid];
+}
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
