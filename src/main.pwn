@@ -21,6 +21,7 @@
 #include <samp_bcrypt>					// By LassiR				https://github.com/LassiR/bcrypt-samp
 #include <sscanf2>						// By Y_Less:				https://github.com/Y-Less/sscanf
 #include <streamer>						// By Incognito:			https://github.com/samp-incognito/samp-streamer-plugin
+#include <chrono>						// By Southclaws:			https://github.com/Southclaws/pawn-chrono
 #include <YSI_Data\y_foreach>       	// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 #include <YSI_Visual\y_commands> 		// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 #include <YSI_Coding\y_timers> 			// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
@@ -45,12 +46,11 @@
 #define	SCRIPT_VERSION_MINOR 	"0"
 #define	SCRIPT_VERSION_PATCH 	"1"
 #define	SERVER_LANGUAGE			"Português BR/PT"
-#define	SERVER_WEBSITE			"nlrpg.forumeiros.com"
+#define	SERVER_WEBSITE			"www.nlrpg.forumeiros.com"
 #define	SERVER_OWNER			"Lucas Gama"
 
 // Macros
 #define function:%0(%1)			forward %0(%1); public %0(%1)
-#define ReCommand:%0(%1)    	cmd_%0(%1)
 
 // Configuration
 #define	INVALID_VALUE			-1
@@ -211,6 +211,15 @@ enum
 
 main() 
 {
+	new Timestamp:now = Now();
+	new Timestamp:addOne = Server_TimeAddDays(now, 1);
+	new Timestamp:subOne = Server_TimeSubtractDays(now, 1);
+
+	printf("%s", Server_FormatFullDate(now));
+	printf("%s", Server_FormatFullDate(addOne));
+	printf("%s", Server_FormatFullDate(subOne));
+
+
 	// write code here and run "sampctl package build" to compile
 	// then run "sampctl package run" to run it
 	print("\n==========================================");
