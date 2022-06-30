@@ -97,15 +97,14 @@ public OnPlayerConnect(playerid)
         if(cache_num_rows() > 0)
         {
             // General Info
-            new id, admin, attendances, rating, number_rating, tutorial, last_login_date, last_login_hour, last_connected_time, Float:pos_x, Float:pos_y, Float:pos_z, Float:pos_a, interior, vw;
+            new id, admin, attendances, rating, number_rating, tutorial, last_login, last_connected_time, Float:pos_x, Float:pos_y, Float:pos_z, Float:pos_a, interior, vw;
             cache_get_value_name_int(0, PLAYER_FIELD_ID, id);
             cache_get_value_name_int(0, PLAYER_FIELD_ADMIN, admin);
             cache_get_value_name_int(0, PLAYER_FIELD_ATTENDANCES, attendances);
             cache_get_value_name_int(0, PLAYER_FIELD_RATING, rating);
             cache_get_value_name_int(0, PLAYER_FIELD_NUMBERRANTING, number_rating);
             cache_get_value_name_int(0, PLAYER_FIELD_TUTORIAL, tutorial);
-            cache_get_value_name_int(0, PLAYER_FIELD_LAST_LOGIN_DATE, last_login_date);
-            cache_get_value_name_int(0, PLAYER_FIELD_LAST_LOGIN_HOUR, last_login_hour);
+            cache_get_value_name_int(0, PLAYER_FIELD_LAST_LOGIN, last_login);
             cache_get_value_name_int(0, PLAYER_FIELD_LAST_CONNECTED_TIME, last_connected_time);
             cache_get_value_name_float(0, PLAYER_FIELD_LAST_POSX, pos_x);
             cache_get_value_name_float(0, PLAYER_FIELD_LAST_POSY, pos_y);
@@ -120,8 +119,7 @@ public OnPlayerConnect(playerid)
             PlayerData_SetRating(playerid, rating);
             PlayerData_SetNumberRating(playerid, number_rating);
             PlayerData_SetTutorial(playerid, (tutorial == 0 ? false : true));
-            PlayerData_SetLastLoginDate(playerid, last_login_date);
-            PlayerData_SetLastLoginHour(playerid, last_login_hour);
+            PlayerData_SetLastLogin(playerid, Server_ConvertIntToChrono(last_login));
             PlayerData_SetLastConnectedTime(playerid, last_connected_time);
             PlayerData_SetLastPosition(playerid, pos_x, pos_y, pos_z, pos_a, interior, vw);
 
@@ -228,6 +226,7 @@ public OnPlayerConnect(playerid)
 
         SelectTextDraw(playerid, COLOR_ORANGE);
     }
+    PlayerData_UpdateLastLoginTemp(playerid);
 	PlayAudioStreamForPlayer(playerid, "https://www.dropbox.com/s/ocpam5bletkz3j8/intro.mp3?dl=1");
     ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
     SendClientMessage(playerid, COLOR_SOFTGREY, "* Aguarde enquanto carregamos os seus dados...");
@@ -505,6 +504,8 @@ function:OnPlayerLogin(playerid)
         SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
         SendClientMessage(playerid, COLOR_LIGHTBLUE, "* [Aviso]: Para voltar na última posição de onde saiu pela última vez digite ({FFFFFF}/irposicao{33ccff})!");
         SendClientMessage(playerid, COLOR_LIGHTBLUE, "* [Aviso]: Retire suas dúvidas usando ({FFFFFF}/relato{33ccff}) ou com o chat de dúvidas ({FFFFFF}/nchat{33ccff}).");
+        format(string, sizeof(string), "* [Aviso]: Último login no dia: {FFFFFF}%s {33ccff}durante {FFFFFF}%d{33ccff} hora(s).", PlayerData_GetLastLoginFormated(playerid), PlayerData_GetLastConnectedTime(playerid));
+ 		SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
         if (PlayerData_GetAdmin(playerid) >= HELPER)
         {
             format(string, sizeof(string), "[{FFFFFF}ADMIN{33ccff}]: Você Logou Como Admin: [{FFFFFF}%s{33ccff}].", Admin_GetRole(PlayerData_GetAdmin(playerid)));

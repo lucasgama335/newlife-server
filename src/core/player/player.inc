@@ -103,6 +103,7 @@ public OnPlayerDisconnect(playerid, reason)
     if (Timer_IsRunning(updateStats[playerid])) stop updateStats[playerid];
 
     CallLocalFunction("BeforeSaveOnDisconnect", "i", playerid);
+    PlayerData_SetLastLogin(playerid, PlayerData_GetLastLoginTemp(playerid));
     Database_SaveGeneralInfo(playerid);
     Database_SaveStatusInfo(playerid);
     Database_SaveMoneyInfo(playerid);

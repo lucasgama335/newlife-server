@@ -16,8 +16,7 @@
 #define PLAYER_FIELD_LAST_POSA                  "last_pos_a"
 #define PLAYER_FIELD_LAST_INTERIOR              "last_interior"
 #define PLAYER_FIELD_LAST_VW                    "last_virtual_world"
-#define PLAYER_FIELD_LAST_LOGIN_DATE            "last_login_date"
-#define PLAYER_FIELD_LAST_LOGIN_HOUR            "last_login_hour"
+#define PLAYER_FIELD_LAST_LOGIN                 "last_login"
 #define PLAYER_FIELD_LAST_CONNECTED_TIME        "last_connected_time"
 #define PLAYER_FIELD_LAST_LOCALE                "last_interior_locale"
 
@@ -116,8 +115,7 @@ stock Database_CreatePlayersTable()
         "PLAYER_FIELD_DRINK" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_WARNINGS" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_TUTORIAL" tinyint NOT NULL DEFAULT 0, \
-        "PLAYER_FIELD_LAST_LOGIN_DATE" int DEFAULT 0 NOT NULL, \
-        "PLAYER_FIELD_LAST_LOGIN_HOUR" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_LAST_LOGIN" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_LAST_CONNECTED_TIME" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_LAST_POSX" float DEFAULT %f NOT NULL, \
         "PLAYER_FIELD_LAST_POSY" float DEFAULT %f NOT NULL, \

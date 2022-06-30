@@ -211,18 +211,9 @@ enum
 
 main() 
 {
-	new Timestamp:now = Now();
-	new Timestamp:addOne = Server_TimeAddDays(now, 1);
-	new Timestamp:subOne = Server_TimeSubtractDays(now, 1);
-
-	printf("%s", Server_FormatFullDate(now));
-	printf("%s", Server_FormatFullDate(addOne));
-	printf("%s", Server_FormatFullDate(subOne));
-
-
 	// write code here and run "sampctl package build" to compile
 	// then run "sampctl package run" to run it
-	print("\n==========================================");
+	print("==========================================");
 	print("|                                    	 |");
 	print("|    *** ***       ***   *** 	 	 |");
 	print("|    ***  ***      ***   *** 	 	 |");

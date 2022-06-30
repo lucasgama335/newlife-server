@@ -11,6 +11,17 @@ static stock Timestamp:CorrectTimezone(&Timestamp:time)
 }
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+stock Timestamp:Server_ConvertIntToChrono(ts)
+{
+	new Timestamp:timestamp = Timestamp:ts;
+	return timestamp;
+}
+
+stock Server_ConvertChronoToInt(Timestamp:ts)
+{
+	return _:ts;
+}
+
 stock Timestamp:Server_GetTimeNow()
 {
 	new Timestamp:now = Now();

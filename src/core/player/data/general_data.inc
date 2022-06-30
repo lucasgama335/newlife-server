@@ -11,8 +11,7 @@ enum pGeneralInfo
 	pRating,
 	pNumberRating,
     bool:pTutorial,
-    pLastLoginDate,
-    pLastLoginHour,
+    pLastLogin,
     pLastConnectedTime,
     Float:pLastPosX,
     Float:pLastPosY,
@@ -25,6 +24,7 @@ enum pGeneralInfo
 static Player_GeneralInfo[MAX_PLAYERS][pGeneralInfo];
 static bool:isUsingAndroid[MAX_PLAYERS];
 static bool:isLogged[MAX_PLAYERS];
+static Timestamp:lastLoginTemporary[MAX_PLAYERS];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 // ============== SAVE DB INFO ============== //
@@ -34,15 +34,14 @@ stock Database_SaveGeneralInfo(playerid)
 
     new query_string[417];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
-    %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %f, %s = %f, %s = %f, %s = %f, %s = %d, %s = %d, %s = %d WHERE id = %d", 
+    %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %f, %s = %f, %s = %f, %s = %f, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME,
     PLAYER_FIELD_ADMIN, Player_GeneralInfo[playerid][pAdmin],
     PLAYER_FIELD_ATTENDANCES, Player_GeneralInfo[playerid][pAttendance],
     PLAYER_FIELD_RATING, Player_GeneralInfo[playerid][pRating],
     PLAYER_FIELD_NUMBERRANTING, Player_GeneralInfo[playerid][pNumberRating],
     PLAYER_FIELD_TUTORIAL, (Player_GeneralInfo[playerid][pTutorial] == true ? 1 : 0),
-    PLAYER_FIELD_LAST_LOGIN_DATE, Player_GeneralInfo[playerid][pLastLoginDate],
-    PLAYER_FIELD_LAST_LOGIN_HOUR, Player_GeneralInfo[playerid][pLastLoginHour],
+    PLAYER_FIELD_LAST_LOGIN, Player_GeneralInfo[playerid][pLastLogin],
     PLAYER_FIELD_LAST_CONNECTED_TIME, Player_GeneralInfo[playerid][pLastConnectedTime],
     PLAYER_FIELD_LAST_POSX, Player_GeneralInfo[playerid][pLastPosX],
     PLAYER_FIELD_LAST_POSY, Player_GeneralInfo[playerid][pLastPosY],
@@ -153,27 +152,52 @@ stock bool:PlayerData_SetTutorial(playerid, bool:status)
 
 // ============== LAST LOGIN ACCESSORS ============== //
 // Getters
+stock PlayerData_GetLastLoginFormated(playerid)
+{
+    new date[20];
+    if (Player_GeneralInfo[playerid][pLastLogin] == 0)
+    {
+        format(date, sizeof(date), "%s", Server_FormatFullDate(Server_GetTimeNow()));
+    }
+    else
+    {
+        format(date, sizeof(date), "%s", Server_FormatFullDate(Server_ConvertIntToChrono(Player_GeneralInfo[playerid][pLastLogin])));
+    }
+    return date;
+}
+
+stock Timestamp:PlayerData_GetLastLoginTemp(playerid)
+{
+    return lastLoginTemporary[playerid];
+}
+
+stock PlayerData_GetLastConnectedTime(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_GeneralInfo[playerid][pLastConnectedTime];
+}
 
 // Setters
-stock PlayerData_SetLastLoginDate(playerid, timestamp)
+stock PlayerData_SetLastLogin(playerid, Timestamp:timestamp)
 {
     if (!IsPlayerConnected(playerid)) return false;
-
-    return Player_GeneralInfo[playerid][pLastLoginDate] = timestamp;
+    Player_GeneralInfo[playerid][pLastLogin] = Server_ConvertChronoToInt(timestamp);
+    return 1;
 }
 
-stock PlayerData_SetLastLoginHour(playerid, timestamp)
+stock PlayerData_UpdateLastLoginTemp(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
-
-    return Player_GeneralInfo[playerid][pLastLoginHour] = timestamp;
+    lastLoginTemporary[playerid] = Server_GetTimeNow();
+    return 1;
 }
 
-stock PlayerData_SetLastConnectedTime(playerid, time)
+stock PlayerData_SetLastConnectedTime(playerid, timestamp)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    return Player_GeneralInfo[playerid][pLastConnectedTime] = time;
+    return Player_GeneralInfo[playerid][pLastConnectedTime] = timestamp;
 }
 
 // ============== LAST POSITION ACCESSORS ============== //

@@ -125,8 +125,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				new string[165];
 			    PlayerData_SetGender(playerid, 2);
-                PlayerData_SetSkin(playerid, DEFAULT_SKIN_MALE);
-                PlayerData_SetOldSkin(playerid, DEFAULT_SKIN_MALE);
+                PlayerData_SetSkin(playerid, DEFAULT_SKIN_FEMALE);
+                PlayerData_SetOldSkin(playerid, DEFAULT_SKIN_FEMALE);
 			    SetPlayerSkin(playerid, PlayerData_GetSkin(playerid));
 				ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 			    SendClientMessage(playerid, COLOR_LIGHTBLUE, "[Tutorial]: Você escolheu o sexo feminino!");
