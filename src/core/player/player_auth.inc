@@ -175,18 +175,22 @@ public OnPlayerConnect(playerid)
             PlayerData_SetWantedLevel(playerid, wanted_level);
 
             // Status Info
-            new jailed, jail_time, hungry, drink, warnings;
+            new jailed, jail_time, hungry, drink, warnings, muted, muted_noob;
             cache_get_value_name_int(0, PLAYER_FIELD_JAILED, jailed);
             cache_get_value_name_int(0, PLAYER_FIELD_JAILTIME, jail_time);
             cache_get_value_name_int(0, PLAYER_FIELD_HUNGRY, hungry);
             cache_get_value_name_int(0, PLAYER_FIELD_DRINK, drink);
             cache_get_value_name_int(0, PLAYER_FIELD_WARNINGS, warnings);
+            cache_get_value_name_int(0, PLAYER_FIELD_MUTED, muted);
+            cache_get_value_name_int(0, PLAYER_FIELD_MUTED_NOOB, muted_noob);
 
             PlayerData_SetJailed(playerid, jailed);
             PlayerData_SetJailTime(playerid, jail_time);
             PlayerData_SetHungry(playerid, hungry);
             PlayerData_SetDrink(playerid, drink);
             PlayerData_SetWarnings(playerid, warnings);
+            PlayerData_SetMutedStatus(playerid, (muted == 0 ? false : true));
+            PlayerData_SetMutedNoobTime(playerid, muted_noob);
 
             // Config Info
             new tag, city, spawn, document, speedometer, tracker, hitsound, territorial_chat, vip_chat, socio_chat, noob_chat, leader_chat, stream;

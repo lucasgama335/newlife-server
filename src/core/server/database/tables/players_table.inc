@@ -52,6 +52,8 @@
 #define PLAYER_FIELD_HUNGRY                     "hungry"
 #define PLAYER_FIELD_DRINK                      "drink"
 #define PLAYER_FIELD_WARNINGS                   "warnings"
+#define PLAYER_FIELD_MUTED                      "muted"
+#define PLAYER_FIELD_MUTED_NOOB                 "muted_noob"
 
 #define PLAYER_FIELD_CONFIG_TAG                 "config_tag"
 #define PLAYER_FIELD_CONFIG_CITY                "config_city"
@@ -114,6 +116,8 @@ stock Database_CreatePlayersTable()
         "PLAYER_FIELD_HUNGRY" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_DRINK" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_WARNINGS" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_MUTED" tinyint DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_MUTED_NOOB" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_TUTORIAL" tinyint NOT NULL DEFAULT 0, \
         "PLAYER_FIELD_LAST_LOGIN" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_LAST_CONNECTED_TIME" int DEFAULT 0 NOT NULL, \

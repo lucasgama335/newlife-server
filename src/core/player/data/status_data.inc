@@ -10,6 +10,8 @@ enum pStatusInfo
     pHungry,
     pDrink,
     pWarnings,
+    bool:pMuted,
+    pMutedNoob
 }
 static Player_StatusInfo[MAX_PLAYERS][pStatusInfo];
 
@@ -21,13 +23,15 @@ stock Database_SaveStatusInfo(playerid)
 
     new query_string[112 + 1];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
-    %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
+    %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME,
     PLAYER_FIELD_JAILED, Player_StatusInfo[playerid][pJailed],
     PLAYER_FIELD_JAILTIME, Player_StatusInfo[playerid][pJailTime],
     PLAYER_FIELD_HUNGRY, Player_StatusInfo[playerid][pHungry],
     PLAYER_FIELD_DRINK, Player_StatusInfo[playerid][pDrink],
     PLAYER_FIELD_WARNINGS, Player_StatusInfo[playerid][pWarnings],
+    PLAYER_FIELD_MUTED, (Player_StatusInfo[playerid][pMuted] ? 1 : 0),
+    PLAYER_FIELD_MUTED_NOOB, Player_StatusInfo[playerid][pMutedNoob],
     PlayerData_GetID(playerid));
     mysql_tquery(Database_GetConnection(), query_string);
     return 1;
@@ -113,6 +117,40 @@ stock PlayerData_SetWarnings(playerid, value)
     if (!IsPlayerConnected(playerid)) return false;
     
     return Player_StatusInfo[playerid][pWarnings] = value;
+}
+
+// ============== MUTED ACCESSORS ============== //
+// Getters
+stock bool:PlayerData_GetMutedStatus(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_StatusInfo[playerid][pMuted];
+}
+
+// Setters
+stock bool:PlayerData_SetMutedStatus(playerid, bool:status)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_StatusInfo[playerid][pMuted] = status;
+}
+
+// ============== MUTED NOOB ACCESSORS ============== //
+// Getters
+stock PlayerData_GetMutedNoobTime(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_StatusInfo[playerid][pMutedNoob];
+}
+
+// Setters
+stock PlayerData_SetMutedNoobTime(playerid, time)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_StatusInfo[playerid][pMutedNoob] = time;
 }
 
 // ============== RESET INFO ============== //

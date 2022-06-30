@@ -20,6 +20,11 @@ static changedWeather = 7200; // this is for change weather each 2 hour
 static bool:weatherForecastActive;
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+stock Server_SetWeatherForecast(bool:status)
+{
+	weatherForecastActive = status;
+	return 1;
+}
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 task SyncRealTime[1000]()
@@ -31,7 +36,7 @@ task SyncRealTime[1000]()
     
     new minutes = Server_FormatMinuteDigit(timeNow), seconds = Server_FormatSecondDigit(timeNow);
     if (changedWeather > 0) changedWeather--;
-    if (minutes == 0 && seconds == 0) ChangeWorldTimeAndWeather(timeNow);
+    if (minutes == 0 && seconds == 0) ChangeWorldTime(timeNow);
 }
 
 static stock Server_UpdateTimeString()
@@ -42,7 +47,7 @@ static stock Server_UpdateTimeString()
     return 1;
 }
 
-static stock ChangeWorldTimeAndWeather(Timestamp:time)
+static stock ChangeWorldTime(Timestamp:time)
 {
     new hour = Server_FormatHourDigit(time);
     switch (hour)
