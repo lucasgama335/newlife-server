@@ -134,6 +134,7 @@ stock HideSpectatePlayer(playerid)
 hook OnPlayerConnect(playerid)
 {
 	Admin_SetWorkMode(playerid, false);
+	Admin_SetAfkMode(playerid, false);
 	Admin_SetHideStatus(playerid, false);
 	Admin_SetWatchStatus(playerid, false);
 	Admin_SetPlayerSpectated(playerid, INVALID_PLAYER_ID);

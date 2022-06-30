@@ -181,8 +181,11 @@ YCMD:trabalhar(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
+	if (Admin_IsAFK(playerid))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode entrar em modo de trabalho estando em modo afk.");
+	}
 
-	// Execução do Comando
 	new string[150];
 	if (Admin_IsWorking(playerid) == true)
    	{
@@ -207,6 +210,48 @@ YCMD:trabalhar(playerid, params[], help)
    	}
     SetPlayerToTeamColor(playerid);
     return 1;
+}
+
+YCMD:afk(playerid, params[], help)
+{
+	if (PlayerData_GetAdmin(playerid) < HELPER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (Admin_IsWorking(playerid))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode entrar em modo afk estando em modo trabalho.");
+	}
+	new converted_reason[120];
+	if (isnull(params))
+	{
+		converted_reason = "Desconhecido";
+	}
+	else
+	{
+		if (strlen(params) > 60)
+		{
+			return SendClientMessage(playerid, COLOR_INVALID, "Digite no máximo 60 dígitos para o motivo.");
+		}
+		strmid(converted_reason, params, 0, 120, 120);
+	}
+
+	new string[142 + 1];
+	switch(Admin_IsAFK(playerid))
+	{
+		case 0:
+		{
+			Admin_SetAfkMode(playerid, true);
+			format(string, sizeof(string), "[Ausência]: O Admin %s entrou em modo ausência por motivo: %s.", Player_GetName(playerid), converted_reason);
+		}
+		case 1:
+		{
+			Admin_SetAfkMode(playerid, false);
+			format(string, sizeof(string), "[Ausência]: O Admin %s não está mais em modo ausência.", Player_GetName(playerid), converted_reason);
+		}
+	}
+	SendClientMessageToAll(COLOR_SOFTGREY, string);
+	return 1;
 }
 
 YCMD:kitadm(playerid, params[], help)
@@ -236,7 +281,11 @@ YCMD:kitadm(playerid, params[], help)
     return 1;
 }
 
-CMD:tvon(playerid, params[])
+// TO-DO
+// /idcasa
+// /idempresa
+
+YCMD:tvon(playerid, params[], help)
 {
 	if (PlayerData_GetAdmin(playerid) < HELPER)
 	{
@@ -268,7 +317,6 @@ CMD:tvon(playerid, params[])
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode ficar de TV em outro jogador de TV.");
 	}
 
-	// Execução do Comando
 	if (Admin_GetPlayerSpectated(playerid) == INVALID_PLAYER_ID)
 	{
 		new Float:pos_x, Float:pos_y, Float:pos_z, int, world;
@@ -399,10 +447,10 @@ YCMD:ir(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
 	}
-	/*if (spectatePlayer[playerid] != UNDEFINED_PLAYER)
+	if (Admin_GetWatchStatus(playerid))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode teleportar estando de TV.");
-	}*/
+	}
 	new id;
 	if (sscanf(params, "u", id))
 	{
@@ -670,3 +718,151 @@ YCMD:testegod(playerid, params[], help)
     SendClientMessage(playerid, COLOR_LIGHTRED, "[ATENÇÃO] Verifique se o player não está com o relógio travado.");
 	return 1;
 }
+
+// TO-DO
+// /paredao
+// /rparedao
+// /teles
+
+YCMD:setspawn(playerid, params[], help)
+{
+	if (PlayerData_GetAdmin(playerid) < HELPER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new id;
+	if (sscanf(params, "u", id))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /setspawn [id]");
+	}
+	if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+	}
+
+	new string[85 + 1];
+	SpawnPlayer(id);
+	format(string, sizeof(string), "ADMIN CMD: %s setou: %s para o seu spawn.", Player_GetName(playerid), Player_GetName(id));
+	MensagemAdmin(COLOR_LIGHTRED, string, HELPER);
+	return 1;
+}
+
+// TO-DO
+// /orgvips
+
+YCMD:infoplayer(playerid, params[], help)
+{
+	if (PlayerData_GetAdmin(playerid) < HELPER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new id;
+	if (sscanf(params, "u", id))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /infoplayer [id]");
+	}
+	if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+	}
+	if (PlayerData_GetAdmin(id) >= HELPER_OWNER && PlayerData_GetAdmin(playerid) != OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode dar tapa em um Admin Dono !");
+	}
+
+	new infoPlayer[150], string[80];
+	format(string, sizeof(string), "Nome: %s\n", Player_GetName(id));
+	strcat(infoPlayer, string);
+	format(string, sizeof(string), "Level: %d\n", PlayerData_GetLevel(id));
+	strcat(infoPlayer, string);
+	format(string, sizeof(string), "IP: %s\n", Player_GetIP(id));
+	strcat(infoPlayer, string);
+	format(string, sizeof(string), "Moedas VIP: %s\n", Server_FormatToMoney(PlayerData_GetCoins(id)));
+	strcat(infoPlayer, string);
+	format(string, sizeof(string), "Arma: %s\n", Server_GetWeaponName(GetPlayerWeapon(id)));
+	strcat(infoPlayer, string);
+	format(string, sizeof(string), "Munição: %d\n", Server_GetWeaponAmmo(id, GetPlayerWeapon(id)));
+	strcat(infoPlayer, string);
+	format(string, sizeof(string), "Vida: %.0f\n", Player_GetHealth(id));
+	strcat(infoPlayer, string);
+	format(string, sizeof(string), "Colete: %.0f\n", Player_GetArmour(id));
+	strcat(infoPlayer, string);
+	strcat(infoPlayer, (!PlayerData_GetIsUsingAndroid(id) ? "Plataforma: PC" : "Plataforma: Android"));
+	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_LIST, "Informações do Jogador", infoPlayer, "Fechar", "");
+	return 1;
+}
+
+YCMD:android(playerid, params[], help)
+{
+	if (PlayerData_GetAdmin(playerid) < HELPER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+
+	new string[39 + 1];
+	SendClientMessage(playerid, COLOR_NEONGREEN, "Jogadores Android (Possivelmente):");
+	foreach (new i : Player)
+	{
+		if (PlayerData_GetIsUsingAndroid(i))
+		{	format(string, sizeof(string), "Jogador: %s[%d]", Player_GetName(i), i);
+			SendClientMessage(playerid, COLOR_GRAD2, string);
+		}
+	}
+	return 1;
+}
+
+YCMD:novatos(playerid, params[], help)
+{
+	if (PlayerData_GetAdmin(playerid) < HELPER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+
+	new string[60];
+	SendClientMessage(playerid, COLOR_NEONGREEN, "Jogadores Novatos:");
+	foreach (new i : Player)
+	{
+		if (PlayerData_GetLevel(i) < 5)
+		{	format(string, sizeof(string), "Jogador: %s[%d] - Level [%d]", Player_GetName(i), i, PlayerData_GetLevel(i));
+			SendClientMessage(playerid, COLOR_GRAD2, string);
+		}
+	}
+	return 1;
+}
+
+YCMD:flip(playerid, params[], help)
+{
+	if (PlayerData_GetAdmin(playerid) < HELPER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!IsPlayerInAnyVehicle(playerid))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em um veículo.");
+	}
+
+	new currentveh = GetPlayerVehicleID(playerid), Float:angle;
+	GetVehicleZAngle(currentveh, angle);
+	SetVehicleZAngle(currentveh, angle);
+	SendClientMessage(playerid, COLOR_LIGHTBLUE, "Você desvirou seu veículo.");
+	return 1;
+}
+
+// TO-DO
+// /irincendio
+// /dincendio
+// /menuadm
+// /playersevento
+// /expulsararena
+// /fila
+// /atender
+// /finalizarat
+// /finalizar

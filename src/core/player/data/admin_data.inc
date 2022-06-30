@@ -4,6 +4,7 @@
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static bool:workMode[MAX_PLAYERS];
+static bool:afkMode[MAX_PLAYERS];
 static bool:hideAdmin[MAX_PLAYERS];
 static bool:watchingPlayer[MAX_PLAYERS];
 static spectatePlayer[MAX_PLAYERS];
@@ -32,6 +33,20 @@ stock bool:Admin_SetWorkMode(playerid, bool:status)
     if (!IsPlayerConnected(playerid)) return false;
 
     return workMode[playerid] = status;
+}
+
+stock bool:Admin_IsAFK(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return afkMode[playerid];
+}
+
+stock bool:Admin_SetAfkMode(playerid, bool:status)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return afkMode[playerid] = status;
 }
 
 stock bool:Admin_GetHideStatus(playerid)
