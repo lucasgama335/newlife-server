@@ -11,7 +11,7 @@ enum p_GENERAL_DATA
 	p_RATING,
 	p_NUMBER_RATING,
     bool:p_TUTORIAL,
-    p_LAST_LOGIN_TIME,
+    Timestamp:p_LAST_LOGIN_TIME,
     p_LAST_CONNECTED_TIME,
     Float:p_LAST_POSX,
     Float:p_LAST_POSY,
@@ -42,7 +42,7 @@ stock Player_SaveGeneralData(playerid)
     PLAYER_FIELD_RATING, gsGeneralInfo[playerid][p_RATING],
     PLAYER_FIELD_NUMBERRANTING, gsGeneralInfo[playerid][p_NUMBER_RATING],
     PLAYER_FIELD_TUTORIAL, (gsGeneralInfo[playerid][p_TUTORIAL] == true ? 1 : 0),
-    PLAYER_FIELD_LAST_LOGIN, gsGeneralInfo[playerid][p_LAST_LOGIN_TIME],
+    PLAYER_FIELD_LAST_LOGIN, Chrono_ConvertToInt(gsGeneralInfo[playerid][p_LAST_LOGIN_TIME]),
     PLAYER_FIELD_LAST_CONNECTED_TIME, gsGeneralInfo[playerid][p_LAST_CONNECTED_TIME],
     PLAYER_FIELD_LAST_POSX, gsGeneralInfo[playerid][p_LAST_POSX],
     PLAYER_FIELD_LAST_POSY, gsGeneralInfo[playerid][p_LAST_POSY],
@@ -170,14 +170,7 @@ stock bool:Player_SetTutorialStatus(playerid, bool:status)
 stock Player_GetLastLoginFormated(playerid)
 {
     new date[20];
-    if (gsGeneralInfo[playerid][p_LAST_LOGIN_TIME] == 0)
-    {
-        format(date, sizeof(date), "%s", Chrono_GetFullDate(Chrono_GetTimeNow()));
-    }
-    else
-    {
-        format(date, sizeof(date), "%s", Chrono_GetFullDate(Chrono_ConvertToTimestamp(gsGeneralInfo[playerid][p_LAST_LOGIN_TIME])));
-    }
+    format(date, sizeof(date), "%s", Chrono_GetFullDate(gsGeneralInfo[playerid][p_LAST_LOGIN_TIME]));
     return date;
 }
 
@@ -197,13 +190,15 @@ stock Player_GetLastConnectedTime(playerid)
 stock Player_SetLastLogin(playerid, Timestamp:timestamp)
 {
     if (!IsPlayerConnected(playerid)) return 0;
-    gsGeneralInfo[playerid][p_LAST_LOGIN_TIME] = Chrono_ConvertToInt(timestamp);
+
+    gsGeneralInfo[playerid][p_LAST_LOGIN_TIME] = timestamp;
     return 1;
 }
 
 stock Player_UpdateLastLoginTemp(playerid)
 {
     if (!IsPlayerConnected(playerid)) return 0;
+    
     gsLastLoginTimeTemp[playerid] = Chrono_GetTimeNow();
     return 1;
 }
