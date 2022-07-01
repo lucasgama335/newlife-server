@@ -54,7 +54,6 @@
 
 // Configuration
 #define	INVALID_VALUE			-1
-#define	MAX_INT_INTERVAL		32767
 
 #define	MAX_PASS_LEN			15
 #define	MIN_PASS_LEN			8

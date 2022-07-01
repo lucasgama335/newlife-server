@@ -87,10 +87,10 @@ static stock ChangeWorldTime(Timestamp:time)
 
 static stock WeatherForecast()
 {
-    new random_weather = random(12);
+    new random_weather = random(21);
     switch (random_weather)
     {
-        case 0:
+        case 0, 13..17:
 	    {
 	        SetWeather(0);
 	        SendClientMessageToAll(COLOR_ORANGE2, TXT_CLIMA1); 
@@ -120,7 +120,7 @@ static stock WeatherForecast()
 	        SetWeather(9);
 	        SendClientMessageToAll(COLOR_ORANGE2, TXT_CLIMA6);
 	    }
-	    case 6:
+	    case 6, 18..20:
 	    {
 	        SetWeather(11);
 	        SendClientMessageToAll(COLOR_ORANGE2, TXT_CLIMA7);
