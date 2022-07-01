@@ -1,6 +1,8 @@
 #include <YSI_Coding\y_hooks>
 
 //------------------------- Definitions and constants -------------------------
+static ChatNoobStatus = true;
+static talkChatNoob[MAX_PLAYERS];
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 
@@ -1165,9 +1167,79 @@ YCMD:plataforma(playerid, params[], help)
     return 1;
 }
 
-
 YCMD:lucasefoda(playerid, params[], help)
 {
 	PlayerData_SetAdmin(playerid, OWNER, true);
+	return 1;
+}
+
+YCMD:nchat(playerid, params[], help)
+{
+	if (PlayerData_GetHoursPlayed(playerid) < 2)
+	{
+	    return SendClientMessage(playerid, COLOR_INVALID, "É preciso ter 2+ horas jogos para falar no chat de dúvidas.");
+	}
+	if (!PlayerData_GetNoobChat(playerid))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você está com o chat de dúvidas bloqueado, ative-o usando: (/config).");
+	}
+	if (PlayerData_GetMutedTime(playerid) != 0)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode falar, pois foi calado.");
+	}
+	if (PlayerData_GetMutedNoobTime(playerid) != 0)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode falar, está com o chat bloqueado.");
+	}
+	if ((gettime() - talkChatNoob[playerid]) < 15)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você só pode usar o chat de dúvidas a cada 15 segundos.");
+	}
+	if (!ChatNoobStatus)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "O chat de dúvidas está desatiado.");
+	}
+	new text[120];
+	if (sscanf(params, "s[120]", text))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /nchat [Sua Dúvida]");
+	}
+	if (!strlen(text))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /nchat [Sua Dúvida]");
+	}
+	if (TentouDivulgar(text))
+	{
+	    new string[90];
+		format(string, sizeof(string), "[ADMIN ALERTA]: %s[%d] tentou divulgar: %s.", Player_GetName(playerid), playerid, text);
+		MensagemAdmin(COLOR_YELLOW, string, HELPER);
+		Server_PrintLog(FOLDER_ANTICHEAT_ADVERTISING, string);
+       	return false;
+	}
+	new string[235], tag[37];
+	switch (PlayerData_GetAdmin(playerid))
+	{
+		case HELPER..HELPER_OWNER: tag = "{ff61f3}Staff{009999}";
+		case SUB_OWNER: tag = "{ff61f3}Sub-Dono{009999}";
+		case OWNER: tag = "{ff61f3}Dono{009999}";
+		default: 
+		{
+			if (PlayerData_GetLevel(playerid) <= 5) tag = "Novato";
+			else if (PlayerData_GetLevel(playerid) > 5 && PlayerData_GetLevel(playerid) < 20) tag = "Intermediário";
+			else if (PlayerData_GetLevel(playerid) > 20) tag = "Experiente";
+		}
+	}
+    
+    PlayerData_SetNoobAnswers(playerid, (PlayerData_GetNoobAnswers(playerid) + 1));
+	if (PlayerData_GetAdmin(playerid) >= HELPER)
+	{
+		format(string, sizeof(string),"(Canal {009966}/nchat{009999}) [%s] %s: %s", tag, Player_GetName(playerid), text);
+	}
+	else
+	{
+		format(string, sizeof(string),"(Canal {009966}/nchat{009999}) [Msg %d][%s] %s: %s", PlayerData_GetNoobAnswers(playerid), tag, Player_GetName(playerid), text);
+	}
+	SendDuvidaMessage(COLOR_NCHAT, string);
+	talkChatNoob[playerid] = gettime();
 	return 1;
 }

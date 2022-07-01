@@ -10,7 +10,7 @@ enum pStatusInfo
     pHungry,
     pDrink,
     pWarnings,
-    bool:pMuted,
+    pMuted,
     pMutedNoob
 }
 static Player_StatusInfo[MAX_PLAYERS][pStatusInfo];
@@ -21,7 +21,7 @@ stock Database_SaveStatusInfo(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    new query_string[112 + 1];
+    new query_string[139 + 1];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
     %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME,
@@ -30,7 +30,7 @@ stock Database_SaveStatusInfo(playerid)
     PLAYER_FIELD_HUNGRY, Player_StatusInfo[playerid][pHungry],
     PLAYER_FIELD_DRINK, Player_StatusInfo[playerid][pDrink],
     PLAYER_FIELD_WARNINGS, Player_StatusInfo[playerid][pWarnings],
-    PLAYER_FIELD_MUTED, (Player_StatusInfo[playerid][pMuted] ? 1 : 0),
+    PLAYER_FIELD_MUTED, Player_StatusInfo[playerid][pMuted],
     PLAYER_FIELD_MUTED_NOOB, Player_StatusInfo[playerid][pMutedNoob],
     PlayerData_GetID(playerid));
     mysql_tquery(Database_GetConnection(), query_string);
@@ -121,7 +121,7 @@ stock PlayerData_SetWarnings(playerid, value)
 
 // ============== MUTED ACCESSORS ============== //
 // Getters
-stock bool:PlayerData_GetMutedStatus(playerid)
+stock PlayerData_GetMutedTime(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
@@ -129,11 +129,11 @@ stock bool:PlayerData_GetMutedStatus(playerid)
 }
 
 // Setters
-stock bool:PlayerData_SetMutedStatus(playerid, bool:status)
+stock PlayerData_SetMutedTime(playerid, quantity)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    return Player_StatusInfo[playerid][pMuted] = status;
+    return Player_StatusInfo[playerid][pMuted] = quantity;
 }
 
 // ============== MUTED NOOB ACCESSORS ============== //

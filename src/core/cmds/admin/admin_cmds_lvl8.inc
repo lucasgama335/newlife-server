@@ -23,10 +23,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	{
 		case DIALOG_GMX:
 		{
-			if (response)
-			{
-				return ShowPlayerDialog(playerid, DIALOG_GMX, DIALOG_STYLE_MSGBOX, "GMX", "Reinicialização em andamento...\n\nIsso pode demorar alguns segundos\npor favor aguarde!\n\nAgradecemos sua compreensão.", "AGUARDE", "");
-			}
+			if (!response) return ShowPlayerDialog(playerid, DIALOG_GMX, DIALOG_STYLE_MSGBOX, "GMX", "Reinicialização em andamento...\n\nIsso pode demorar alguns segundos\npor favor aguarde!\n\nAgradecemos sua compreensão.", "AGUARDE", "");
+			if (response) return ShowPlayerDialog(playerid, DIALOG_GMX, DIALOG_STYLE_MSGBOX, "GMX", "Reinicialização em andamento...\n\nIsso pode demorar alguns segundos\npor favor aguarde!\n\nAgradecemos sua compreensão.", "AGUARDE", "");
 		}
 	}
 	return 1;

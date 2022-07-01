@@ -23,6 +23,11 @@ public OnPlayerText(playerid, text[])
         SendClientMessage(playerid, COLOR_INVALID,"Você não está logado.");
         return 0;
     }
+    if (PlayerData_GetMutedTime(playerid) > 0)
+    {
+        SendClientMessage(playerid, COLOR_INVALID, "Você não pode falar, pois está mutado.");
+        return 0;
+    }
     if (strlen(text) > 100) 
     {
         SendClientMessage(playerid, COLOR_INVALID,"Não escreva um texto muito grande.");

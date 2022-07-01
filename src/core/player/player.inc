@@ -43,9 +43,22 @@ stock PlayAudioStreamForPlayerEx(playerid, const url[])
 	return 1;
 }
 
+stock SendDuvidaMessage(color, const string[])
+{
+	foreach(new i: Player)
+	{
+		if (PlayerData_GetNoobChat(i))
+	    {
+			SendClientMessage(i, color, string);
+		}
+	}
+	return 1;
+}
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 timer Player_UpdateStats[1000](playerid)
 {
+    // Tag System
     if (PlayerData_GetWantedLevel(playerid) > 0)
     {
         new string[100];
@@ -76,6 +89,10 @@ timer Player_UpdateStats[1000](playerid)
             case TAG_KILLER: SetPlayerChatBubble(playerid, "Matador", COLOR_TITLE, 100.0, 50000);
         }
     }
+
+    // Muted Time
+    if (PlayerData_GetMutedTime(playerid) > 0) PlayerData_SetMutedTime(playerid, (PlayerData_GetMutedTime(playerid) - 1));
+    if (PlayerData_GetMutedNoobTime(playerid) > 0) PlayerData_SetMutedNoobTime(playerid, (PlayerData_GetMutedNoobTime(playerid) - 1));
     return 1;
 }
 

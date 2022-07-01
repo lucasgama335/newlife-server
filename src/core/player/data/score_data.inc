@@ -6,10 +6,12 @@
 enum pScoreInfo
 {
     pLevel,
+    pHoursPlayed,
     pExperience,
     pDeaths,
     pKills,
     pWantedLevel,
+    pNoobAnswers
 }
 static Player_ScoreInfo[MAX_PLAYERS][pScoreInfo];
 
@@ -19,15 +21,17 @@ stock Database_SaveScoreInfo(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    new query_string[140 + 1];
+    new query_string[194 + 1];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
-    %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
+    %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME,
     PLAYER_FIELD_LEVEL, Player_ScoreInfo[playerid][pLevel],
+    PLAYER_FIELD_HOURS_PLAYED, Player_ScoreInfo[playerid][pHoursPlayed],
     PLAYER_FIELD_EXP, Player_ScoreInfo[playerid][pExperience],
     PLAYER_FIELD_DEATHS, Player_ScoreInfo[playerid][pDeaths],
     PLAYER_FIELD_KILLS, Player_ScoreInfo[playerid][pKills],
     PLAYER_FIELD_WANTED_LEVEL, Player_ScoreInfo[playerid][pWantedLevel],
+    PLAYER_FIELD_NOOB_ANSWERS, Player_ScoreInfo[playerid][pNoobAnswers],
     PlayerData_GetID(playerid));
     mysql_tquery(Database_GetConnection(), query_string);
     return 1;
@@ -48,6 +52,23 @@ stock PlayerData_SetLevel(playerid, level)
     if (!IsPlayerConnected(playerid)) return false;
 
     return Player_ScoreInfo[playerid][pLevel] = level;
+}
+
+// ============== HOURS PLAYED ACCESSORS ============== //
+// Getters
+stock PlayerData_GetHoursPlayed(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_ScoreInfo[playerid][pHoursPlayed];
+}
+
+// Setters
+stock PlayerData_SetHoursPlayed(playerid, quantity)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_ScoreInfo[playerid][pHoursPlayed] = quantity;
 }
 
 // ============== EXPERIENCE ACCESSORS ============== //
@@ -116,6 +137,23 @@ stock PlayerData_SetWantedLevel(playerid, level)
     if (!IsPlayerConnected(playerid)) return false;
     
     return Player_ScoreInfo[playerid][pWantedLevel] = level;
+}
+
+// ============== NOOB ANSERS ACCESSORS ============== //
+// Getters
+stock PlayerData_GetNoobAnswers(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+
+    return Player_ScoreInfo[playerid][pNoobAnswers];
+}
+
+// Setters
+stock PlayerData_SetNoobAnswers(playerid, quantity)
+{
+    if (!IsPlayerConnected(playerid)) return false;
+    
+    return Player_ScoreInfo[playerid][pNoobAnswers] = quantity;
 }
 
 // ============== RESET INFO ============== //

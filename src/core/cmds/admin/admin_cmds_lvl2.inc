@@ -172,9 +172,96 @@ YCMD:ativarprevisao(playerid, params[], help)
     return 1;
 }
 
-// TO-DO
-// /calar
-// /calarnoob
+YCMD:calar(playerid, params[], help)
+{
+	if (PlayerData_GetAdmin(playerid) < ASPIRANT)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new id, time;
+	if (sscanf(params, "ud", id, time))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /calar [id] [minutos]");
+	}
+	if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+	}
+	if (PlayerData_GetAdmin(id) >= HELPER_OWNER && PlayerData_GetAdmin(id) != OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode calar um Admin Dono !");
+	}
+	if (time < 0)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Tempo inválido.");
+	}
+
+    // Execução do Comando
+	if (time > 0)
+	{
+		new string[103];
+		PlayerData_SetMutedTime(id, (time * 60));
+		format(string, sizeof(string), "ADMIN CMD: %s foi calado por %s durante [%d] minutos.", Player_GetName(id), Player_GetName(playerid), time);
+		MensagemAdmin(COLOR_LIGHTRED, string, HELPER);
+	}
+	else
+	{
+		new string[80];
+		PlayerData_SetMutedTime(id, 0);
+		format(string, sizeof(string), "ADMIN CMD: %s foi descalado por %s.", Player_GetName(id), Player_GetName(playerid));
+		MensagemAdmin(COLOR_LIGHTRED, string, HELPER);
+	}
+	return 1;
+}
+
+YCMD:calarn(playerid, params[], help)
+{
+	if (PlayerData_GetAdmin(playerid) < ASPIRANT)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new id, time;
+	if (sscanf(params, "ud", id, time))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /calarn [id] [minutos]");
+	}
+	if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+	}
+	if (PlayerData_GetAdmin(id) >= HELPER_OWNER && PlayerData_GetAdmin(id) != OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode bloquear o chat dúvida de um Admin Dono !");
+	}
+	if (time < 0)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Tempo inválido.");
+	}
+
+	if (time > 0)
+	{
+		new string[113];
+		PlayerData_SetMutedTime(id, (time * 60));
+		format(string, sizeof(string), "ADMIN CMD: %s bloqueou o chat dúvida de %s durante [%d] minuto(s).", Player_GetName(id), Player_GetName(playerid), time);
+		SendClientMessageToAll(COLOR_LIGHTRED, string);
+	}
+	else
+	{
+		new string[91];
+		PlayerData_SetMutedTime(id, 0);
+		format(string, sizeof(string), "ADMIN CMD: %s desbloqueou o chat dúvida de %s.", Player_GetName(id), Player_GetName(playerid));
+		SendClientMessageToAll(COLOR_LIGHTRED, string);
+	}
+	return 1;
+}
 
 YCMD:congelar(playerid, params[], help)
 {

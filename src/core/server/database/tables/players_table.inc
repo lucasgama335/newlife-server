@@ -42,6 +42,8 @@
 #define PLAYER_FIELD_COINS                      "coins"
 
 #define PLAYER_FIELD_LEVEL                      "level"
+#define PLAYER_FIELD_HOURS_PLAYED               "hours_played"
+#define PLAYER_FIELD_NOOB_ANSWERS               "noob_answers"
 #define PLAYER_FIELD_EXP                        "experience"
 #define PLAYER_FIELD_DEATHS                     "deaths"
 #define PLAYER_FIELD_KILLS                      "kills"
@@ -90,6 +92,7 @@ stock Database_CreatePlayersTable()
         "PLAYER_FIELD_RATING" int NOT NULL DEFAULT 0, \
         "PLAYER_FIELD_NUMBERRANTING" int NOT NULL DEFAULT 0, \
         "PLAYER_FIELD_LEVEL" int NOT NULL DEFAULT 1, \
+        "PLAYER_FIELD_HOURS_PLAYED" int NOT NULL DEFAULT 0, \
         "PLAYER_FIELD_EXP" int NOT NULL DEFAULT 0, \
         "PLAYER_FIELD_MONEY" int NOT NULL DEFAULT 0, \
         "PLAYER_FIELD_ILLEGAL_MONEY" int NOT NULL DEFAULT 0, \
@@ -116,8 +119,9 @@ stock Database_CreatePlayersTable()
         "PLAYER_FIELD_HUNGRY" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_DRINK" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_WARNINGS" int DEFAULT 0 NOT NULL, \
-        "PLAYER_FIELD_MUTED" tinyint DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_MUTED" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_MUTED_NOOB" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_NOOB_ANSWERS" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_TUTORIAL" tinyint NOT NULL DEFAULT 0, \
         "PLAYER_FIELD_LAST_LOGIN" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_LAST_CONNECTED_TIME" int DEFAULT 0 NOT NULL, \

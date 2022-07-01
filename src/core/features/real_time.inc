@@ -164,7 +164,7 @@ hook OnGameModeInit()
 {
     weatherForecastActive = true;
     Server_UpdateTimeString();
-    ChangeWorldTimeAndWeather(Server_GetTimeNow());
+    ChangeWorldTime(Server_GetTimeNow());
     SetWeather(0);
     return 1;
 }

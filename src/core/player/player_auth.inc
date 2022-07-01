@@ -161,18 +161,22 @@ public OnPlayerConnect(playerid)
             PlayerData_SetCoins(playerid, coins);
 
             // Score Info
-            new level, experience, deaths, kills, wanted_level;
+            new level, hours_played, experience, deaths, kills, wanted_level, noob_answers;
             cache_get_value_name_int(0, PLAYER_FIELD_LEVEL, level);
+            cache_get_value_name_int(0, PLAYER_FIELD_HOURS_PLAYED, hours_played);
             cache_get_value_name_int(0, PLAYER_FIELD_EXP, experience);
             cache_get_value_name_int(0, PLAYER_FIELD_DEATHS, deaths);
             cache_get_value_name_int(0, PLAYER_FIELD_KILLS, kills);
             cache_get_value_name_int(0, PLAYER_FIELD_WANTED_LEVEL, wanted_level);
+            cache_get_value_name_int(0, PLAYER_FIELD_NOOB_ANSWERS, noob_answers);
 
             PlayerData_SetLevel(playerid, level);
+            PlayerData_SetHoursPlayed(playerid, hours_played);
             PlayerData_SetExperience(playerid, experience);
             PlayerData_SetDeaths(playerid, deaths);
             PlayerData_SetKills(playerid, kills);
             PlayerData_SetWantedLevel(playerid, wanted_level);
+            PlayerData_SetNoobAnswers(playerid, noob_answers);
 
             // Status Info
             new jailed, jail_time, hungry, drink, warnings, muted, muted_noob;
@@ -189,7 +193,7 @@ public OnPlayerConnect(playerid)
             PlayerData_SetHungry(playerid, hungry);
             PlayerData_SetDrink(playerid, drink);
             PlayerData_SetWarnings(playerid, warnings);
-            PlayerData_SetMutedStatus(playerid, (muted == 0 ? false : true));
+            PlayerData_SetMutedTime(playerid, muted);
             PlayerData_SetMutedNoobTime(playerid, muted_noob);
 
             // Config Info
