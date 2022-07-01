@@ -60,7 +60,7 @@ static Timer:tutorialTimer[MAX_PLAYERS];
 stock ShowGenderDialog(playerid)
 {
     new string[150];
-    format(string, sizeof(string),"{FFFFFF}Bem Vindo(a): {FFFF00}%s\n\n{FFFFFF}Escolha o seu Sexo Abaixo:\n", Player_GetName(playerid));
+    format(string, sizeof(string),"{FFFFFF}Bem Vindo(a): {FFFF00}%s\n\n{FFFFFF}Escolha o seu Sexo Abaixo:\n", GetPlayerNameCustom(playerid));
     ShowPlayerDialog(playerid, DIALOG_CHOOSE_SEX, DIALOG_STYLE_MSGBOX,"{FFFFFF}Servidor - Registro", string, "Masculino", "Feminino");
     return 1;
 }
@@ -99,10 +99,10 @@ static stock Database_SaveTutorial(playerid)
 	new query_string[76];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME,
-    PLAYER_FIELD_TUTORIAL, (PlayerData_GetTutorial(playerid) == true ? 1 : 0),
-    PLAYER_FIELD_SKIN, PlayerData_GetSkin(playerid),
-    PLAYER_FIELD_OLDSKIN, PlayerData_GetOldSkin(playerid),
-    PlayerData_GetID(playerid));
+    PLAYER_FIELD_TUTORIAL, (Player_GetTutorialStatus(playerid) == true ? 1 : 0),
+    PLAYER_FIELD_SKIN, Player_GetSkin(playerid),
+    PLAYER_FIELD_OLDSKIN, Player_GetOldSkin(playerid),
+    Player_GetId(playerid));
     mysql_tquery(Database_GetConnection(), query_string);
     return 1;
 }
@@ -124,25 +124,25 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    if (!response)
 			{
 				new string[165];
-			    PlayerData_SetGender(playerid, 2);
-                PlayerData_SetSkin(playerid, DEFAULT_SKIN_FEMALE);
-                PlayerData_SetOldSkin(playerid, DEFAULT_SKIN_FEMALE);
-			    SetPlayerSkin(playerid, PlayerData_GetSkin(playerid));
+			    Player_SetGender(playerid, 2);
+                Player_SetSkin(playerid, DEFAULT_SKIN_FEMALE);
+                Player_SetOldSkin(playerid, DEFAULT_SKIN_FEMALE);
+			    SetPlayerSkin(playerid, Player_GetSkin(playerid));
 				ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 			    SendClientMessage(playerid, COLOR_LIGHTBLUE, "[Tutorial]: Você escolheu o sexo feminino!");
-				format(string, sizeof(string), "{FFFFFF}Olá, {33CCFF}%s{FFFFFF}, deseja ler nosso tutorial para obter\nalguns conhecimentos básicos de como começar?\n\nEscolha uma opção abaixo:", Player_GetName(playerid));
+				format(string, sizeof(string), "{FFFFFF}Olá, {33CCFF}%s{FFFFFF}, deseja ler nosso tutorial para obter\nalguns conhecimentos básicos de como começar?\n\nEscolha uma opção abaixo:", GetPlayerNameCustom(playerid));
 			    ShowPlayerDialog(playerid, DIALOG_OPTION_TUT, DIALOG_STYLE_MSGBOX, "Tutorial", string, "Sim", "Não");
 		    }
 		    if (response)
 		    {
 				new string[165];
-                PlayerData_SetGender(playerid, 1);
-                PlayerData_SetSkin(playerid, DEFAULT_SKIN_MALE);
-                PlayerData_SetOldSkin(playerid, DEFAULT_SKIN_MALE);
-                SetPlayerSkin(playerid, PlayerData_GetSkin(playerid));
+                Player_SetGender(playerid, 1);
+                Player_SetSkin(playerid, DEFAULT_SKIN_MALE);
+                Player_SetOldSkin(playerid, DEFAULT_SKIN_MALE);
+                SetPlayerSkin(playerid, Player_GetSkin(playerid));
 			    ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 		        SendClientMessage(playerid, COLOR_LIGHTBLUE, "[Tutorial]: Você escolheu o sexo masculino!");
-		        format(string, sizeof(string), "{FFFFFF}Olá, {33CCFF}%s{FFFFFF}, deseja ler nosso tutorial para obter\nalguns conhecimentos básicos de como começar?\n\nEscolha uma opção abaixo:", Player_GetName(playerid));
+		        format(string, sizeof(string), "{FFFFFF}Olá, {33CCFF}%s{FFFFFF}, deseja ler nosso tutorial para obter\nalguns conhecimentos básicos de como começar?\n\nEscolha uma opção abaixo:", GetPlayerNameCustom(playerid));
 			    ShowPlayerDialog(playerid, DIALOG_OPTION_TUT, DIALOG_STYLE_MSGBOX, "Tutorial", string, "Sim", "Não");
 		    }
 		}
@@ -150,7 +150,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 		    if (!response)
 		    {
-                PlayerData_SetTutorial(playerid, true);
+                Player_SetTutorialStatus(playerid, true);
 				Database_SaveTutorial(playerid);
 				SendClientMessage(playerid, COLOR_LIGHTBLUE, "Você optou por não ver o tutorial!");
 				return 1;
@@ -511,7 +511,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	     		TutTime[playerid] = 0;
                 if (Timer_IsRunning(tutorialTimer[playerid])) stop tutorialTimer[playerid];
 
-                PlayerData_SetTutorial(playerid, true);
+                Player_SetTutorialStatus(playerid, true);
 				Database_SaveTutorial(playerid);
 	     		StopAudioStreamForPlayer(playerid);
 	            TogglePlayerControllable(playerid, true);

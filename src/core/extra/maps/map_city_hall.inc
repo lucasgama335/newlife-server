@@ -3,38 +3,12 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static cityHallActor[2];
+static gsCityHallActor[2];
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
-hook CheckEntrances(playerid)
-{
-	new Float:cx, Float:cy, Float:cz;
-	GetPlayerPos(playerid, cx, cy, cz);
-	// Entrance
-	if (PlayerToPoint(3.0, playerid,1481.0397,-1772.3135,18.7958))
-	{
-	    PlayAudioStreamForPlayer(playerid, "https://www.dropbox.com/s/53d0kb63zneqa1i/playstory%20PREFEITURA.mp3?dl=1");
-        GameTextForPlayer(playerid, "~w~bem vindo a prefeitura ls !", 5000, 1);
-        SetPlayerInterior(playerid, 3);
-		SetPlayerVirtualWorld(playerid, 0);
-		SetPlayerPos(playerid,390.7694,173.8226,1008.3828);
-		PlayerData_SetInteriorLocale(playerid, CITY_HALL_INTERIOR);
-   	}
-	// Exit
-	if (PlayerToPoint(3.0, playerid,390.7694,173.8226,1008.3828))
-	{//Saida Prefeitura LS
-	    StopAudioStreamForPlayer(playerid);
-	    SetPlayerInterior(playerid, 0);
-	    SetPlayerVirtualWorld(playerid, 0);
-		SetPlayerPos(playerid,1481.0397,-1772.3135,18.7958);
-        PlayerData_SetInteriorLocale(playerid, NO_INTERIOR);
-	}
-	return 1;
-}
-
 hook OnGameModeInit()
 {
 	//=====================================[ 3DTEXT ]====================================||
@@ -245,11 +219,11 @@ hook OnGameModeInit()
 	CreateDynamicObject(870, 1439.38538, -1746.89441, 13.03996,   0.00000, 0.00000, 0.00000);
 
     //=====================================[ ACTORS ]====================================||
-    cityHallActor[0] = CreateActor(163, 358.3519,169.2911,1008.3828, 273.3107);
-    cityHallActor[1] = CreateActor(164, 358.2496,177.5590,1008.3828, 267.0439);
-	for (new i; i < sizeof(cityHallActor); i++)
+    gsCityHallActor[0] = CreateActor(163, 358.3519,169.2911,1008.3828, 273.3107);
+    gsCityHallActor[1] = CreateActor(164, 358.2496,177.5590,1008.3828, 267.0439);
+	for (new i; i < sizeof(gsCityHallActor); i++)
 	{
-		ApplyActorAnimation(cityHallActor[i], "COP_AMBIENT", "Coplook_loop", 4.1, true, false, false, false, 0);
+		ApplyActorAnimation(gsCityHallActor[i], "COP_AMBIENT", "Coplook_loop", 4.1, true, false, false, false, 0);
 	}
     return 1;
 }

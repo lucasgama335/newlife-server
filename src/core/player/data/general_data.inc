@@ -3,313 +3,314 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-enum pGeneralInfo
+enum p_GENERAL_DATA
 {
-    pId,
-    pAdmin,
-    pAttendance,
-	pRating,
-	pNumberRating,
-    bool:pTutorial,
-    pLastLogin,
-    pLastConnectedTime,
-    Float:pLastPosX,
-    Float:pLastPosY,
-    Float:pLastPosZ,
-    Float:pLastPosA,
-    pLastInterior,
-    pLastInteriorLocale,
-    pLastVw,
+    p_ID,
+    e_ADMIN_LEVELS:p_ADMIN,
+    p_ATTENDANCE,
+	p_RATING,
+	p_NUMBER_RATING,
+    bool:p_TUTORIAL,
+    p_LAST_LOGIN_TIME,
+    p_LAST_CONNECTED_TIME,
+    Float:p_LAST_POSX,
+    Float:p_LAST_POSY,
+    Float:p_LAST_POSZ,
+    Float:p_LAST_POSA,
+    p_LAST_INTERIOR,
+    e_INTERIOR_LOCALES:p_LAST_INTERIOR_LOCALE,
+    p_LAST_VIRTUAL_WORLD
 }
-static Player_GeneralInfo[MAX_PLAYERS][pGeneralInfo];
-static bool:isUsingAndroid[MAX_PLAYERS];
-static bool:isLogged[MAX_PLAYERS];
-static Timestamp:lastLoginTemporary[MAX_PLAYERS];
+static gsGeneralInfo[MAX_PLAYERS][p_GENERAL_DATA];
+
+static bool:gsPlayerIsUsingAndroid[MAX_PLAYERS];
+static bool:gsPlayerIsLogged[MAX_PLAYERS];
+static Timestamp:gsLastLoginTimeTemp[MAX_PLAYERS];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 // ============== SAVE DB INFO ============== //
-stock Database_SaveGeneralInfo(playerid)
+stock Player_SaveGeneralData(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    new query_string[417];
+    new query_string[394];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
     %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %f, %s = %f, %s = %f, %s = %f, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME,
-    PLAYER_FIELD_ADMIN, Player_GeneralInfo[playerid][pAdmin],
-    PLAYER_FIELD_ATTENDANCES, Player_GeneralInfo[playerid][pAttendance],
-    PLAYER_FIELD_RATING, Player_GeneralInfo[playerid][pRating],
-    PLAYER_FIELD_NUMBERRANTING, Player_GeneralInfo[playerid][pNumberRating],
-    PLAYER_FIELD_TUTORIAL, (Player_GeneralInfo[playerid][pTutorial] == true ? 1 : 0),
-    PLAYER_FIELD_LAST_LOGIN, Player_GeneralInfo[playerid][pLastLogin],
-    PLAYER_FIELD_LAST_CONNECTED_TIME, Player_GeneralInfo[playerid][pLastConnectedTime],
-    PLAYER_FIELD_LAST_POSX, Player_GeneralInfo[playerid][pLastPosX],
-    PLAYER_FIELD_LAST_POSY, Player_GeneralInfo[playerid][pLastPosY],
-    PLAYER_FIELD_LAST_POSZ, Player_GeneralInfo[playerid][pLastPosZ],
-    PLAYER_FIELD_LAST_POSA, Player_GeneralInfo[playerid][pLastPosA],
-    PLAYER_FIELD_LAST_INTERIOR, Player_GeneralInfo[playerid][pLastInterior],
-    PLAYER_FIELD_LAST_VW, Player_GeneralInfo[playerid][pLastVw],
-    PLAYER_FIELD_LAST_LOCALE, Player_GeneralInfo[playerid][pLastInteriorLocale],
-    Player_GeneralInfo[playerid][pId]);
+    PLAYER_FIELD_ADMIN, gsGeneralInfo[playerid][p_ADMIN],
+    PLAYER_FIELD_ATTENDANCES, gsGeneralInfo[playerid][p_ATTENDANCE],
+    PLAYER_FIELD_RATING, gsGeneralInfo[playerid][p_RATING],
+    PLAYER_FIELD_NUMBERRANTING, gsGeneralInfo[playerid][p_NUMBER_RATING],
+    PLAYER_FIELD_TUTORIAL, (gsGeneralInfo[playerid][p_TUTORIAL] == true ? 1 : 0),
+    PLAYER_FIELD_LAST_LOGIN, gsGeneralInfo[playerid][p_LAST_LOGIN_TIME],
+    PLAYER_FIELD_LAST_CONNECTED_TIME, gsGeneralInfo[playerid][p_LAST_CONNECTED_TIME],
+    PLAYER_FIELD_LAST_POSX, gsGeneralInfo[playerid][p_LAST_POSX],
+    PLAYER_FIELD_LAST_POSY, gsGeneralInfo[playerid][p_LAST_POSY],
+    PLAYER_FIELD_LAST_POSZ, gsGeneralInfo[playerid][p_LAST_POSZ],
+    PLAYER_FIELD_LAST_POSA, gsGeneralInfo[playerid][p_LAST_POSA],
+    PLAYER_FIELD_LAST_INTERIOR, gsGeneralInfo[playerid][p_LAST_INTERIOR],
+    PLAYER_FIELD_LAST_VW, gsGeneralInfo[playerid][p_LAST_VIRTUAL_WORLD],
+    PLAYER_FIELD_LAST_LOCALE, gsGeneralInfo[playerid][p_LAST_INTERIOR_LOCALE],
+    gsGeneralInfo[playerid][p_ID]);
     mysql_tquery(Database_GetConnection(), query_string);
     return 1;
 }
 
+// ============== RESET INFO ============== //
+stock Player_ResetGeneralData(playerid)
+{
+    static const empty_data[p_GENERAL_DATA];
+    gsGeneralInfo[playerid] = empty_data;
+    gsGeneralInfo[playerid][p_LAST_POSX] = SPAWN_POSX;
+    gsGeneralInfo[playerid][p_LAST_POSY] = SPAWN_POSY;
+    gsGeneralInfo[playerid][p_LAST_POSZ] = SPAWN_POSZ;
+    gsGeneralInfo[playerid][p_LAST_POSA] = SPAWN_POSA;
+    gsGeneralInfo[playerid][p_LAST_INTERIOR] = SPAWN_INTERIOR;
+    gsGeneralInfo[playerid][p_LAST_VIRTUAL_WORLD] = SPAWN_VW;
+    return gsGeneralInfo[playerid];
+}
+
 // ============== ID ACCESSORS ============== //
 // Getters
-stock PlayerData_GetID(playerid)
+stock Player_GetId(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_GeneralInfo[playerid][pId];
+    return gsGeneralInfo[playerid][p_ID];
 }
 
 // Setters
-stock PlayerData_SetID(playerid, id)
+stock Player_SetId(playerid, id)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_GeneralInfo[playerid][pId] = id;
+    return gsGeneralInfo[playerid][p_ID] = id;
 }
 
 // ============== ADMIN ACCESSORS ============== //
 // Getters
-stock PlayerData_GetAdmin(playerid)
+stock e_ADMIN_LEVELS:Player_GetAdminLevel(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return NO_ADMIN;
 
-    return Player_GeneralInfo[playerid][pAdmin];
+    return gsGeneralInfo[playerid][p_ADMIN];
 }
 
-stock PlayerData_GetAttendances(playerid)
+stock Player_GetAdminAttendances(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return NO_ADMIN;
 
-    return Player_GeneralInfo[playerid][pAttendance];
+    return gsGeneralInfo[playerid][p_ATTENDANCE];
 }
 
-stock PlayerData_GetRating(playerid)
+stock Player_GetAdminRating(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_GeneralInfo[playerid][pRating];
+    return gsGeneralInfo[playerid][p_RATING];
 }
 
-stock PlayerData_GetNumberRating(playerid)
+stock Player_GetAdminNumberRating(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_GeneralInfo[playerid][pNumberRating];
+    return gsGeneralInfo[playerid][p_NUMBER_RATING];
 }
 
 // Setters
-stock PlayerData_SetAdmin(playerid, level, bool:save)
+stock Player_SetAdminLevel(playerid, e_ADMIN_LEVELS:level, bool:save)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    Player_GeneralInfo[playerid][pAdmin] = level;
-    if (save) Database_SaveGeneralInfo(playerid);
+    gsGeneralInfo[playerid][p_ADMIN] = level;
+    if (save) Player_SaveGeneralData(playerid);
     return 1;
 }
 
-stock PlayerData_SetAttendances(playerid, value)
+stock Player_SetAdminAttendances(playerid, value)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_GeneralInfo[playerid][pAttendance] = value;
+    return gsGeneralInfo[playerid][p_ATTENDANCE] = value;
 }
 
-stock PlayerData_SetRating(playerid, value)
+stock Player_SetAdminRating(playerid, value)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_GeneralInfo[playerid][pRating] = value;
+    return gsGeneralInfo[playerid][p_RATING] = value;
 }
 
-stock PlayerData_SetNumberRating(playerid, value)
+stock Player_SetAdminNumberRating(playerid, value)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_GeneralInfo[playerid][pNumberRating] = value;
+    return gsGeneralInfo[playerid][p_NUMBER_RATING] = value;
 }
 
 // ============== TUTORIAL ACCESSORS ============== //
 // Getters
-stock bool:PlayerData_GetTutorial(playerid)
+stock bool:Player_GetTutorialStatus(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    return Player_GeneralInfo[playerid][pTutorial];
+    return gsGeneralInfo[playerid][p_TUTORIAL];
 }
 
 // Setters
-stock bool:PlayerData_SetTutorial(playerid, bool:status)
+stock bool:Player_SetTutorialStatus(playerid, bool:status)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    return Player_GeneralInfo[playerid][pTutorial] = status;
+    return gsGeneralInfo[playerid][p_TUTORIAL] = status;
 }
 
 // ============== LAST LOGIN ACCESSORS ============== //
 // Getters
-stock PlayerData_GetLastLoginFormated(playerid)
+stock Player_GetLastLoginFormated(playerid)
 {
     new date[20];
-    if (Player_GeneralInfo[playerid][pLastLogin] == 0)
+    if (gsGeneralInfo[playerid][p_LAST_LOGIN_TIME] == 0)
     {
-        format(date, sizeof(date), "%s", Server_FormatFullDate(Server_GetTimeNow()));
+        format(date, sizeof(date), "%s", Chrono_GetFullDate(Chrono_GetTimeNow()));
     }
     else
     {
-        format(date, sizeof(date), "%s", Server_FormatFullDate(Server_ConvertIntToChrono(Player_GeneralInfo[playerid][pLastLogin])));
+        format(date, sizeof(date), "%s", Chrono_GetFullDate(Chrono_ConvertToTimestamp(gsGeneralInfo[playerid][p_LAST_LOGIN_TIME])));
     }
     return date;
 }
 
-stock Timestamp:PlayerData_GetLastLoginTemp(playerid)
+stock Timestamp:Player_GetLastLoginTemp(playerid)
 {
-    return lastLoginTemporary[playerid];
+    return gsLastLoginTimeTemp[playerid];
 }
 
-stock PlayerData_GetLastConnectedTime(playerid)
+stock Player_GetLastConnectedTime(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_GeneralInfo[playerid][pLastConnectedTime];
+    return gsGeneralInfo[playerid][p_LAST_CONNECTED_TIME];
 }
 
 // Setters
-stock PlayerData_SetLastLogin(playerid, Timestamp:timestamp)
+stock Player_SetLastLogin(playerid, Timestamp:timestamp)
 {
-    if (!IsPlayerConnected(playerid)) return false;
-    Player_GeneralInfo[playerid][pLastLogin] = Server_ConvertChronoToInt(timestamp);
+    if (!IsPlayerConnected(playerid)) return 0;
+    gsGeneralInfo[playerid][p_LAST_LOGIN_TIME] = Chrono_ConvertToInt(timestamp);
     return 1;
 }
 
-stock PlayerData_UpdateLastLoginTemp(playerid)
+stock Player_UpdateLastLoginTemp(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
-    lastLoginTemporary[playerid] = Server_GetTimeNow();
+    if (!IsPlayerConnected(playerid)) return 0;
+    gsLastLoginTimeTemp[playerid] = Chrono_GetTimeNow();
     return 1;
 }
 
-stock PlayerData_SetLastConnectedTime(playerid, timestamp)
+stock Player_SetLastConnectedTime(playerid, timestamp)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_GeneralInfo[playerid][pLastConnectedTime] = timestamp;
+    return gsGeneralInfo[playerid][p_LAST_CONNECTED_TIME] = timestamp;
 }
 
 // ============== LAST POSITION ACCESSORS ============== //
 // Getters
-stock Player_GetLastPosition(playerid, &Float:x, &Float:y, &Float:z, &interior, &vw)
+stock Player_GetLastPosition(playerid, &Float:x, &Float:y, &Float:z, &interior, &vW)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    x = Player_GeneralInfo[playerid][pLastPosX];
-    y = Player_GeneralInfo[playerid][pLastPosY];
-    z = Player_GeneralInfo[playerid][pLastPosZ];
-    interior = Player_GeneralInfo[playerid][pLastInterior];
-    vw = Player_GeneralInfo[playerid][pLastVw];
+    x = gsGeneralInfo[playerid][p_LAST_POSX];
+    y = gsGeneralInfo[playerid][p_LAST_POSY];
+    z = gsGeneralInfo[playerid][p_LAST_POSZ];
+    interior = gsGeneralInfo[playerid][p_LAST_INTERIOR];
+    vW = gsGeneralInfo[playerid][p_LAST_VIRTUAL_WORLD];
     return 1;
 }
 
-stock PlayerData_GetLastPosAngle(playerid, &Float:a)
+stock Player_GetLastPosAngle(playerid, &Float:a)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    a = Player_GeneralInfo[playerid][pLastPosA];
+    a = gsGeneralInfo[playerid][p_LAST_POSA];
     return 1;
 }
 
 // Setters
-stock PlayerData_SetLastPosition(playerid, Float:setX, Float:setY, Float:setZ, Float:setA, interiorid, vw)
+stock Player_SetLastPosition(playerid, Float:setX, Float:setY, Float:setZ, Float:setA, interiorId, vW)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    Player_GeneralInfo[playerid][pLastInterior] = interiorid;
-    Player_GeneralInfo[playerid][pLastVw] = vw;
-    Player_GeneralInfo[playerid][pLastPosX] = setX;
-    Player_GeneralInfo[playerid][pLastPosY] = setY;
-    Player_GeneralInfo[playerid][pLastPosZ] = setZ;
-    Player_GeneralInfo[playerid][pLastPosA] = setA;
+    gsGeneralInfo[playerid][p_LAST_INTERIOR] = interiorId;
+    gsGeneralInfo[playerid][p_LAST_VIRTUAL_WORLD] = vW;
+    gsGeneralInfo[playerid][p_LAST_POSX] = setX;
+    gsGeneralInfo[playerid][p_LAST_POSY] = setY;
+    gsGeneralInfo[playerid][p_LAST_POSZ] = setZ;
+    gsGeneralInfo[playerid][p_LAST_POSA] = setA;
     return 1;
 }
 
-stock PlayerData_UpdateLastPosition(playerid)
+stock Player_UpdateLastPosition(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
     new Float:pos_x, Float:pos_y, Float:pos_z, Float:pos_a;
     GetPlayerPos(playerid, pos_x, pos_y, pos_z);
     GetPlayerFacingAngle(playerid, pos_a);
-    Player_GeneralInfo[playerid][pLastInterior] = GetPlayerInterior(playerid);
-    Player_GeneralInfo[playerid][pLastVw] = GetPlayerVirtualWorld(playerid);
-    Player_GeneralInfo[playerid][pLastPosX] = pos_x;
-    Player_GeneralInfo[playerid][pLastPosY] = pos_y;
-    Player_GeneralInfo[playerid][pLastPosZ] = pos_z;
-    Player_GeneralInfo[playerid][pLastPosA] = pos_a;
+    gsGeneralInfo[playerid][p_LAST_INTERIOR] = GetPlayerInterior(playerid);
+    gsGeneralInfo[playerid][p_LAST_VIRTUAL_WORLD] = GetPlayerVirtualWorld(playerid);
+    gsGeneralInfo[playerid][p_LAST_POSX] = pos_x;
+    gsGeneralInfo[playerid][p_LAST_POSY] = pos_y;
+    gsGeneralInfo[playerid][p_LAST_POSZ] = pos_z;
+    gsGeneralInfo[playerid][p_LAST_POSA] = pos_a;
     return 1;
 }
 
 // ============== INTERIOR LOCALE ACCESSORS ============== //
 // Getters
-stock PlayerData_GetInteriorLocale(playerid)
+stock e_INTERIOR_LOCALES:Player_GetInteriorLocale(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return NO_INTERIOR;
 
-    return Player_GeneralInfo[playerid][pLastInteriorLocale];
+    return gsGeneralInfo[playerid][p_LAST_INTERIOR_LOCALE];
 }
 
 // Setters
-stock PlayerData_SetInteriorLocale(playerid, interiorid)
+stock e_INTERIOR_LOCALES:Player_SetInteriorLocale(playerid, e_INTERIOR_LOCALES:interiorId)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return NO_INTERIOR;
 
-    return Player_GeneralInfo[playerid][pLastInteriorLocale] = interiorid;
+    return gsGeneralInfo[playerid][p_LAST_INTERIOR_LOCALE] = interiorId;
 }
 
 // ============== TEMPORARY ACCESSORS ============== //
-stock bool:PlayerData_GetIsUsingAndroid(playerid)
+stock bool:Player_GetUsingAndroidStatus(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    return isUsingAndroid[playerid];
+    return gsPlayerIsUsingAndroid[playerid];
 }
 
-stock bool:PlayerData_GetIsLogged(playerid)
+stock bool:Player_GetLoggedStatus(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    return isLogged[playerid];
+    return gsPlayerIsLogged[playerid];
 }
 
-stock bool:PlayerData_SetIsUsingAndroid(playerid, bool:status)
+stock bool:Player_SetUsingAndroidStatus(playerid, bool:status)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    return isLogged[playerid] = status;
+    return gsPlayerIsLogged[playerid] = status;
 }
 
-stock bool:PlayerData_SetIsLogged(playerid, bool:status)
+stock bool:Player_SetLoggedStatus(playerid, bool:status)
 {
     if (!IsPlayerConnected(playerid)) return false;
     
-    return isLogged[playerid] = status;
-}
-
-// ============== RESET INFO ============== //
-stock PlayerData_ResetGeneralInfo(playerid)
-{
-    static const empty_data[pGeneralInfo];
-    Player_GeneralInfo[playerid] = empty_data;
-    Player_GeneralInfo[playerid][pLastPosX] = SPAWN_POSX;
-    Player_GeneralInfo[playerid][pLastPosY] = SPAWN_POSY;
-    Player_GeneralInfo[playerid][pLastPosZ] = SPAWN_POSZ;
-    Player_GeneralInfo[playerid][pLastPosA] = SPAWN_POSA;
-    Player_GeneralInfo[playerid][pLastInterior] = SPAWN_INTERIOR;
-    Player_GeneralInfo[playerid][pLastVw] = SPAWN_VW;
-    return Player_GeneralInfo[playerid];
+    return gsPlayerIsLogged[playerid] = status;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

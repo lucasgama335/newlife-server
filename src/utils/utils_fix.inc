@@ -5,7 +5,7 @@
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 /* Preload Animations */
-static const AnimData[][] = 
+static const gscAnimData[][] = 
 {
     "AIRPORT",      "ATTRACTORS",   "BAR",          "BASEBALL",     "BD_FIRE",
     "BEACH",        "BENCHPRESS",   "BF_INJECTION", "BIKE_DBZ",     "BIKED",
@@ -48,9 +48,9 @@ function:DelayedKick(playerid)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerConnect(playerid) 
 {
-	for(new i = 0; i < sizeof(AnimData); i++) 
+	for(new i = 0; i < sizeof(gscAnimData); i++) 
     {
-		ApplyAnimation(playerid, AnimData[i], "null", 4.0, false, false, false, false, 0, 1);
+		ApplyAnimation(playerid, gscAnimData[i], "null", 4.0, false, false, false, false, 0, 1);
 	}
 	return 1;
 }

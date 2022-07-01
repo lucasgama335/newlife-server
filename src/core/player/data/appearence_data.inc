@@ -3,111 +3,111 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-enum pAppearance
+enum p_APPEARANCE
 {
-    pGender,
-    pFightStyle,
-    pSkin,
-    pOldSkin,
+    p_GENDER,
+    p_FIGHT_STYLE,
+    p_SKIN,
+    p_OLD_SKIN
 }
-static Player_AppearanceInfo[MAX_PLAYERS][pAppearance];
+static gsAppearanceInfo[MAX_PLAYERS][p_APPEARANCE];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 // ============== SAVE DB INFO ============== //
-stock Database_SaveAppearenceInfo(playerid)
+stock Player_SaveAppearenceData(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
     new query_string[90];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
     %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME,
-    PLAYER_FIELD_GENDER, Player_AppearanceInfo[playerid][pGender],
-    PLAYER_FIELD_FIGHT_STYLE, Player_AppearanceInfo[playerid][pFightStyle],
-    PLAYER_FIELD_SKIN, Player_AppearanceInfo[playerid][pSkin],
-    PLAYER_FIELD_OLDSKIN, Player_AppearanceInfo[playerid][pOldSkin],
-    PlayerData_GetID(playerid));
+    PLAYER_FIELD_GENDER, gsAppearanceInfo[playerid][p_GENDER],
+    PLAYER_FIELD_FIGHT_STYLE, gsAppearanceInfo[playerid][p_FIGHT_STYLE],
+    PLAYER_FIELD_SKIN, gsAppearanceInfo[playerid][p_SKIN],
+    PLAYER_FIELD_OLDSKIN, gsAppearanceInfo[playerid][p_OLD_SKIN],
+    Player_GetId(playerid));
     mysql_tquery(Database_GetConnection(), query_string);
     return 1;
 }
 
+// ============== RESET INFO ============== //
+stock Player_ResetAppearenceData(playerid)
+{
+    static const scEmptyData[p_APPEARANCE];
+    gsAppearanceInfo[playerid] = scEmptyData;
+    gsAppearanceInfo[playerid][p_GENDER] = GENDER_MALE;
+    gsAppearanceInfo[playerid][p_SKIN] = DEFAULT_SKIN_MALE;
+    return gsAppearanceInfo[playerid];
+}
+
 // ============== GENDER ACCESSORS ============== //
 // Getters
-stock PlayerData_GetGender(playerid)
+stock Player_GetGender(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_AppearanceInfo[playerid][pGender];
+    return gsAppearanceInfo[playerid][p_GENDER];
 }
 
 // Setters
-stock PlayerData_SetGender(playerid, gender)
+stock Player_SetGender(playerid, gender)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
     if (gender < 1 || gender > 2) gender = 1;
 
-    return Player_AppearanceInfo[playerid][pGender] = gender;
+    return gsAppearanceInfo[playerid][p_GENDER] = gender;
 }
 
 // ============== FIGHT STYLE ACCESSORS ============== //
 // Getters
-stock PlayerData_GetFightStyle(playerid)
+stock Player_GetFightStyle(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_AppearanceInfo[playerid][pFightStyle];
+    return gsAppearanceInfo[playerid][p_FIGHT_STYLE];
 }
 
 // Setters
-stock PlayerData_SetFightStyle(playerid, style)
+stock Player_SetFightStyle(playerid, style)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_AppearanceInfo[playerid][pFightStyle] = style;
+    return gsAppearanceInfo[playerid][p_FIGHT_STYLE] = style;
 }
 
 // ============== ACTUAL SKIN ACCESSORS ============== //
 // Getters
-stock PlayerData_GetSkin(playerid)
+stock Player_GetSkin(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_AppearanceInfo[playerid][pSkin];
+    return gsAppearanceInfo[playerid][p_SKIN];
 }
 
 // Setters
-stock PlayerData_SetSkin(playerid, skinid)
+stock Player_SetSkin(playerid, skinId)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_AppearanceInfo[playerid][pSkin] = skinid;
+    return gsAppearanceInfo[playerid][p_SKIN] = skinId;
 }
 
 // ============== OLD SKIN ACCESSORS ============== //
 // Getters
-stock PlayerData_GetOldSkin(playerid)
+stock Player_GetOldSkin(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_AppearanceInfo[playerid][pOldSkin];
+    return gsAppearanceInfo[playerid][p_OLD_SKIN];
 }
 
 // Setters
-stock PlayerData_SetOldSkin(playerid, skinid)
+stock Player_SetOldSkin(playerid, skinId)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
     
-    return Player_AppearanceInfo[playerid][pOldSkin] = skinid;
-}
-
-// ============== RESET INFO ============== //
-stock PlayerData_ResetAppearenceInfo(playerid)
-{
-    static const empty_data[pAppearance];
-    Player_AppearanceInfo[playerid] = empty_data;
-    Player_AppearanceInfo[playerid][pGender] = GENDER_MALE;
-    Player_AppearanceInfo[playerid][pSkin] = DEFAULT_SKIN_MALE;
-    return Player_AppearanceInfo[playerid];
+    return gsAppearanceInfo[playerid][p_OLD_SKIN] = skinId;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

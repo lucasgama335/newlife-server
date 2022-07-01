@@ -4,13 +4,13 @@
 #define MAX_LOG_STRING  118
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static adminRole[MAX_ADMIN_ROLES][] = { "Nenhum", "Estagiário", "Ajudante", "Moderador", "Supervisor", "Master", "Master +", "Master ++", "Gerente", "Sub-Dono", "Dono" };
+static gsAdminRole[MAX_ADMIN_ROLES][] = { "Nenhum", "Estagiário", "Ajudante", "Moderador", "Supervisor", "Master", "Master +", "Master ++", "Gerente", "Sub-Dono", "Dono" };
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-stock Admin_GetRole(role)
+stock GetAdminRoleName(role)
 {
     new string[11];
-    format(string, sizeof(string), "%s", adminRole[role]);
+    format(string, sizeof(string), "%s", gsAdminRole[role]);
     return string;
 }
 

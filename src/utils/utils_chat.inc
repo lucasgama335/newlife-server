@@ -50,18 +50,6 @@ stock SendMessageInRange(Float:range, playerid, const string[], col1, col2, col3
 	return 1;
 }
 
-function:MensagemAdmin(COLOR, const string[], level)
-{
-	foreach(new i: Player)
-	{
-		if (PlayerData_GetAdmin(i) >= level)
-		{
-			SendClientMessage(i, COLOR, string);
-		}
-	}
-	return 1;
-}
-
 stock ClearChatBox(playerid, lines)
 {
     if (IsPlayerConnected(playerid))

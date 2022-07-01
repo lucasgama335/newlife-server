@@ -3,7 +3,7 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static lastCar[MAX_PLAYERS];
+static gsPlayerLastCarEntered[MAX_PLAYERS];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
@@ -11,7 +11,7 @@ static lastCar[MAX_PLAYERS];
 static stock ShowActualVehicleName(playerid, vehicleid)
 {
 	new string[100];
-	format(string, sizeof(string), "~g~%s[%d]", Vehicle_GetName(GetVehicleModel(vehicleid)), GetVehicleModel(vehicleid));
+	format(string, sizeof(string), "~g~%s[%d]", GetVehicleName(GetVehicleModel(vehicleid)), GetVehicleModel(vehicleid));
 	GameTextForPlayer(playerid, string, 6000, 1);
 	return 1;
 }
@@ -19,7 +19,7 @@ static stock ShowActualVehicleName(playerid, vehicleid)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerConnect(playerid)
 {
-	lastCar[playerid] = INVALID_VEHICLE_ID;
+	gsPlayerLastCarEntered[playerid] = INVALID_VEHICLE_ID;
 	return 1;
 }
 
@@ -48,7 +48,7 @@ hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
         return 1;
     }
 
-	lastCar[playerid] = vehicleid;
+	gsPlayerLastCarEntered[playerid] = vehicleid;
 	return 1;
 }
 
@@ -64,7 +64,7 @@ hook OnPlayerStateChange(playerid, newstate, oldstate)
 				Vehicle_SetEngineToPlayer(playerid, vehicleid, true);
 			}
 		}
-		if (lastCar[playerid] != vehicleid)
+		if (gsPlayerLastCarEntered[playerid] != vehicleid)
 		{
 			ShowActualVehicleName(playerid, vehicleid);
 		}

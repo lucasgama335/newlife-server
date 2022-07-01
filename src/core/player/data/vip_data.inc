@@ -3,88 +3,89 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-enum pVipInfo
+enum p_VIP_DATA
 {
-    pVip,
-    pSocio,
-    pVipDays,
+    p_VIP,
+    p_SOCIO,
+    p_VIP_DAYS,
 }
-static Player_VipInfo[MAX_PLAYERS][pVipInfo];
+static gsVipInfo[MAX_PLAYERS][p_VIP_DATA];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-stock Database_SaveVipInfo(playerid)
+// ============== SAVE DB INFO ============== //
+stock Player_SaveVipData(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
     new query_string[71];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
     %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME, 
-    PLAYER_FIELD_VIP, Player_VipInfo[playerid][pVip], 
-    PLAYER_FIELD_SOCIO, Player_VipInfo[playerid][pSocio], 
-    PLAYER_FIELD_VIP_DAYS, Player_VipInfo[playerid][pVipDays], 
-    PlayerData_GetID(playerid));
+    PLAYER_FIELD_VIP, gsVipInfo[playerid][p_VIP], 
+    PLAYER_FIELD_SOCIO, gsVipInfo[playerid][p_SOCIO], 
+    PLAYER_FIELD_VIP_DAYS, gsVipInfo[playerid][p_VIP_DAYS], 
+    Player_GetId(playerid));
     mysql_tquery(Database_GetConnection(), query_string);
     return 1;
 }
 
+// ============== RESET INFO ============== //
+stock Player_ResetVipData(playerid)
+{
+    static const scEmptyData[p_VIP_DATA];
+    gsVipInfo[playerid] = scEmptyData;
+    return gsVipInfo[playerid];
+}
+
 // ============== VIP ACCESSORS ============== //
 // Getters
-stock PlayerData_GetVip(playerid)
+stock Player_GetVipLevel(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_VipInfo[playerid][pVip];
+    return gsVipInfo[playerid][p_VIP];
 }
 
 // Setters
-stock PlayerData_SetVip(playerid, level)
+stock Player_SetVipLevel(playerid, level)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_VipInfo[playerid][pVip] = level;
+    return gsVipInfo[playerid][p_VIP] = level;
 }
 
 // ============== SOCIO ACCESSORS ============== //
 // Getters
-stock PlayerData_GetSocio(playerid)
+stock Player_GetSocioLevel(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_VipInfo[playerid][pSocio];
+    return gsVipInfo[playerid][p_SOCIO];
 }
 
 // Setters
-stock PlayerData_SetSocio(playerid, level)
+stock Player_SetSocioLevel(playerid, level)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_VipInfo[playerid][pSocio] = level;
+    return gsVipInfo[playerid][p_SOCIO] = level;
 }
 
 // ============== VIP DAYS ACCESSORS ============== //
 // Getters
-stock PlayerData_GetVipDays(playerid)
+stock Player_GetVipDays(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_VipInfo[playerid][pVipDays];
+    return gsVipInfo[playerid][p_VIP_DAYS];
 }
 
 // Setters
-stock PlayerData_SetVipDays(playerid, days)
+stock Player_SetVipDays(playerid, days)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_VipInfo[playerid][pVipDays] = days;
-}
-
-// ============== RESET INFO ============== //
-stock PlayerData_ResetVipInfo(playerid)
-{
-    static const empty_data[pVipInfo];
-    Player_VipInfo[playerid] = empty_data;
-    return Player_VipInfo[playerid];
+    return gsVipInfo[playerid][p_VIP_DAYS] = days;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

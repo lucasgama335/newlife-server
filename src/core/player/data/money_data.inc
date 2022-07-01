@@ -3,161 +3,161 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-enum pMoneyInfo
+enum p_MONEY_DATA
 {
-    pMoney,
-    pIllegalMoney,
-    pIllegalSafeMoney,
-    bool:pBankAccount,
-    pBankMoney,
-    pSalary,
-    pCoins,
+    p_MONEY,
+    p_ILLEGAL_MONEY,
+    p_ILLEGAL_SAFE_MONEY,
+    bool:p_BANK_ACCOUNT,
+    p_BANK_MONEY,
+    p_SALARY,
+    p_COINS
 }
-static Player_MoneyInfo[MAX_PLAYERS][pMoneyInfo];
+static gsMoneyInfo[MAX_PLAYERS][p_MONEY_DATA];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 // ============== SAVE DB INFO ============== //
-stock Database_SaveMoneyInfo(playerid)
+stock Player_SaveMoneyData(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    new query_string[207 + 1];
+    new query_string[193];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
     %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME, 
-    PLAYER_FIELD_MONEY, Player_MoneyInfo[playerid][pMoney], 
-    PLAYER_FIELD_ILLEGAL_MONEY, Player_MoneyInfo[playerid][pIllegalMoney], 
-    PLAYER_FIELD_ILLEGAL_SAFE_MONEY, Player_MoneyInfo[playerid][pIllegalSafeMoney], 
-    PLAYER_FIELD_BANK_ACCOUNT, (Player_MoneyInfo[playerid][pBankAccount] ? 1 : 0), 
-    PLAYER_FIELD_BANK_MONEY, Player_MoneyInfo[playerid][pBankMoney], 
-    PLAYER_FIELD_SALARY, Player_MoneyInfo[playerid][pSalary], 
-    PLAYER_FIELD_COINS, Player_MoneyInfo[playerid][pCoins],
-    PlayerData_GetID(playerid));
+    PLAYER_FIELD_MONEY, gsMoneyInfo[playerid][p_MONEY], 
+    PLAYER_FIELD_ILLEGAL_MONEY, gsMoneyInfo[playerid][p_ILLEGAL_MONEY], 
+    PLAYER_FIELD_ILLEGAL_SAFE_MONEY, gsMoneyInfo[playerid][p_ILLEGAL_SAFE_MONEY], 
+    PLAYER_FIELD_BANK_ACCOUNT, (gsMoneyInfo[playerid][p_BANK_ACCOUNT] ? 1 : 0), 
+    PLAYER_FIELD_BANK_MONEY, gsMoneyInfo[playerid][p_BANK_MONEY], 
+    PLAYER_FIELD_SALARY, gsMoneyInfo[playerid][p_SALARY], 
+    PLAYER_FIELD_COINS, gsMoneyInfo[playerid][p_COINS],
+    Player_GetId(playerid));
     mysql_tquery(Database_GetConnection(), query_string);
     return 1;
 }
 
+// ============== RESET INFO ============== //
+stock Player_ResetMoneyData(playerid)
+{
+    static const scEmptyData[p_MONEY_DATA];
+    return gsMoneyInfo[playerid] = scEmptyData;
+}
+
 // ============== MONEY ACCESSORS ============== //
 // Getters
-stock PlayerData_GetMoney(playerid)
+stock Player_GetMoney(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_MoneyInfo[playerid][pMoney];
+    return gsMoneyInfo[playerid][p_MONEY];
 }
 
 // Setters
-stock PlayerData_SetMoney(playerid, money)
+stock Player_SetMoney(playerid, money)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_MoneyInfo[playerid][pMoney] = money;
+    return gsMoneyInfo[playerid][p_MONEY] = money;
 }
 
 // ============== ILLEGAL MONEY ACCESSORS ============== //
 // Getters
-stock PlayerData_GetIllegalMoney(playerid)
+stock Player_GetIllegalMoney(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_MoneyInfo[playerid][pIllegalMoney];
+    return gsMoneyInfo[playerid][p_ILLEGAL_MONEY];
 }
 
-stock PlayerData_GetIllegalSafeMoney(playerid)
+stock Player_GetIllegalSafeMoney(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_MoneyInfo[playerid][pIllegalSafeMoney];
+    return gsMoneyInfo[playerid][p_ILLEGAL_SAFE_MONEY];
 }
 
 // Setters
-stock PlayerData_SetIllegalMoney(playerid, money)
+stock Player_SetIllegalMoney(playerid, money)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_MoneyInfo[playerid][pIllegalMoney] = money;
+    return gsMoneyInfo[playerid][p_ILLEGAL_MONEY] = money;
 }
 
-stock PlayerData_SetIllegalSafeMoney(playerid, money)
+stock Player_SetIllegalSafeMoney(playerid, money)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_MoneyInfo[playerid][pIllegalSafeMoney] = money;
+    return gsMoneyInfo[playerid][p_ILLEGAL_SAFE_MONEY] = money;
 }
 
 // ============== BANK STATUS ACCESSORS ============== //
 // Getters
-stock bool:PlayerData_GetBankStatus(playerid)
+stock bool:Player_GetBankStatus(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    return Player_MoneyInfo[playerid][pBankAccount];
+    return gsMoneyInfo[playerid][p_BANK_ACCOUNT];
 }
 
 // Setters
-stock bool:PlayerData_SetBankStatus(playerid, bool:status)
+stock bool:Player_SetBankStatus(playerid, bool:status)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    return Player_MoneyInfo[playerid][pBankAccount] = status;
+    return gsMoneyInfo[playerid][p_BANK_ACCOUNT] = status;
 }
 
 // ============== BANK MONEY ACCESSORS ============== //
 // Getters
-stock PlayerData_GetBankMoney(playerid)
+stock Player_GetBankMoney(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_MoneyInfo[playerid][pBankMoney];
+    return gsMoneyInfo[playerid][p_BANK_MONEY];
 }
 
 // Setters
-stock PlayerData_SetBankMoney(playerid, money)
+stock Player_SetBankMoney(playerid, money)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_MoneyInfo[playerid][pBankMoney] = money;
+    return gsMoneyInfo[playerid][p_BANK_MONEY] = money;
 }
 
 // ============== SALARY ACCESSORS ============== //
 // Getters
-stock PlayerData_GetSalary(playerid)
+stock Player_GetSalary(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_MoneyInfo[playerid][pSalary];
+    return gsMoneyInfo[playerid][p_SALARY];
 }
 
 // Setters
-stock PlayerData_SetSalary(playerid, money)
+stock Player_SetSalary(playerid, money)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_MoneyInfo[playerid][pSalary] = money;
+    return gsMoneyInfo[playerid][p_SALARY] = money;
 }
 
 // ============== COINS ACCESSORS ============== //
 // Getters
-stock PlayerData_GetCoins(playerid)
+stock Player_GetCoins(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_MoneyInfo[playerid][pCoins];
+    return gsMoneyInfo[playerid][p_COINS];
 }
 
 // Setters
-stock PlayerData_SetCoins(playerid, coins)
+stock Player_SetCoins(playerid, coins)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
     
-    return Player_MoneyInfo[playerid][pCoins] = coins;
-}
-
-// ============== RESET INFO ============== //
-stock PlayerData_ResetMoneyInfo(playerid)
-{
-    static const empty_data[pMoneyInfo];
-    return Player_MoneyInfo[playerid] = empty_data;
+    return gsMoneyInfo[playerid][p_COINS] = coins;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

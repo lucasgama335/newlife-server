@@ -3,17 +3,25 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-enum pJobInfo
+enum p_JOB_DATA
 {
-    pJob,
-    pOrg,
-    pOrgRole
+    p_JOB,
+    p_ORG,
+    p_ORG_ROLE
 }
-static Player_JobInfo[MAX_PLAYERS][pJobInfo];
+static gsJobInfo[MAX_PLAYERS][p_JOB_DATA];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+// ============== RESET INFO ============== //
+stock Player_ResetJobData(playerid)
+{
+    static const scEmptyData[p_JOB_DATA];
+    gsJobInfo[playerid] = scEmptyData;
+    return gsJobInfo[playerid];
+}
+
 // ============== SAVE DB INFO ============== //
-stock Database_SaveJobInfo(playerid)
+stock Player_SaveJobData(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
@@ -21,63 +29,55 @@ stock Database_SaveJobInfo(playerid)
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
     %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME,
-    PLAYER_FIELD_JOB, Player_JobInfo[playerid][pJob],
-    PLAYER_FIELD_ORG, Player_JobInfo[playerid][pOrg],
-    PLAYER_FIELD_ORG_ROLE, Player_JobInfo[playerid][pOrgRole],
-    PlayerData_GetID(playerid));
+    PLAYER_FIELD_JOB, gsJobInfo[playerid][p_JOB],
+    PLAYER_FIELD_ORG, gsJobInfo[playerid][p_ORG],
+    PLAYER_FIELD_ORG_ROLE, gsJobInfo[playerid][p_ORG_ROLE],
+    Player_GetId(playerid));
     mysql_tquery(Database_GetConnection(), query_string);
     return 1;
 }
 
 // ============== JOB ACCESSORS ============== //
 // Getters
-stock PlayerData_GetJob(playerid)
+stock Player_GetJob(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_JobInfo[playerid][pJob];
+    return gsJobInfo[playerid][p_JOB];
 }
 
 // Setters
-stock PlayerData_SetJob(playerid, jobid)
+stock Player_SetJob(playerid, jobId)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_JobInfo[playerid][pJob] = jobid;
+    return gsJobInfo[playerid][p_JOB] = jobId;
 }
 
 // ============== ORG ACCESSORS ============== //
 // Getters
-stock PlayerData_GetOrg(playerid)
+stock Player_GetOrg(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_JobInfo[playerid][pOrg];
+    return gsJobInfo[playerid][p_ORG];
 }
 
-stock PlayerData_GetOrgRole(playerid)
+stock Player_GetOrgRole(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_JobInfo[playerid][pOrgRole];
+    return gsJobInfo[playerid][p_ORG_ROLE];
 }
 
 // Setters
-stock PlayerData_SetOrg(playerid, orgid, role)
+stock Player_SetOrg(playerid, orgId, role)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    Player_JobInfo[playerid][pOrg] = orgid;
-    Player_JobInfo[playerid][pOrgRole] = role;
+    gsJobInfo[playerid][p_ORG] = orgId;
+    gsJobInfo[playerid][p_ORG_ROLE] = role;
     return 1;
-}
-
-// ============== RESET INFO ============== //
-stock PlayerData_ResetJobInfo(playerid)
-{
-    static const empty_data[pJobInfo];
-    Player_JobInfo[playerid] = empty_data;
-    return Player_JobInfo[playerid];
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

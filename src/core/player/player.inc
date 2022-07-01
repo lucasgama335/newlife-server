@@ -14,6 +14,7 @@
 #include <player_anims>
 #include <player_auth>
 #include <player_spawn>
+#include <player_entrances>
 
 #include <YSI_Coding\y_hooks>
 
@@ -21,13 +22,13 @@
 #define MAX_CONNECTIONS_FROM_IP     3
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static Timer:updateStats[MAX_PLAYERS];
+static Timer:gsPlayerUpdateStatusTimer[MAX_PLAYERS];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock SetPlayerToTeamColor(playerid)
 {
     SetPlayerColor(playerid, COLOR_WHITE);
-	if (Admin_IsWorking(playerid) && !Admin_GetHideStatus(playerid))
+	if (Admin_GetWorkStatus(playerid) && !Admin_GetHideStatus(playerid))
 	{
 		SetPlayerColor(playerid, COLOR_ADMIN);
 	}
@@ -36,7 +37,7 @@ stock SetPlayerToTeamColor(playerid)
 
 stock PlayAudioStreamForPlayerEx(playerid, const url[])
 {
-	if (PlayerData_GetStreamStatus(playerid))
+	if (Player_GetMusicStreamStatus(playerid))
 	{
 		PlayAudioStreamForPlayer(playerid, url);
 	}
@@ -47,7 +48,7 @@ stock SendDuvidaMessage(color, const string[])
 {
 	foreach(new i: Player)
 	{
-		if (PlayerData_GetNoobChat(i))
+		if (Player_GetNoobChatStatus(i))
 	    {
 			SendClientMessage(i, color, string);
 		}
@@ -56,25 +57,25 @@ stock SendDuvidaMessage(color, const string[])
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
-timer Player_UpdateStats[1000](playerid)
+timer PlayerUpdateStatus[1000](playerid)
 {
     // Tag System
-    if (PlayerData_GetWantedLevel(playerid) > 0)
+    if (Player_GetWantedLevel(playerid) > 0)
     {
         new string[100];
-        SetPlayerWantedLevel(playerid, PlayerData_GetWantedLevel(playerid));
-        format(string, sizeof(string), "Procurado [%d]", PlayerData_GetWantedLevel(playerid));
+        SetPlayerWantedLevel(playerid, Player_GetWantedLevel(playerid));
+        format(string, sizeof(string), "Procurado [%d]", Player_GetWantedLevel(playerid));
         SetPlayerChatBubble(playerid, string, COLOR_RED, 100.0, 50000);
     }
     else
     {
-        switch(PlayerData_GetTag(playerid))
+        switch(Player_GetTag(playerid))
         {
-            case TAG_NONE:
+            case NO_TAG:
             {
-                if (PlayerData_GetLevel(playerid) < 5)
+                if (Player_GetLevel(playerid) < 5)
                 {
-                    if (PlayerData_GetIsUsingAndroid(playerid)) SetPlayerChatBubble(playerid, "Novato Android", COLOR_TITLE, 100.0, 50000);
+                    if (Player_GetUsingAndroidStatus(playerid)) SetPlayerChatBubble(playerid, "Novato Android", COLOR_TITLE, 100.0, 50000);
                     else SetPlayerChatBubble(playerid, "Novato PC", COLOR_TITLE, 100.0, 50000);
                 }
                 else SetPlayerChatBubble(playerid, "", COLOR_TITLE, 100.0, 50000);
@@ -91,24 +92,24 @@ timer Player_UpdateStats[1000](playerid)
     }
 
     // Muted Time
-    if (PlayerData_GetMutedTime(playerid) > 0) PlayerData_SetMutedTime(playerid, (PlayerData_GetMutedTime(playerid) - 1));
-    if (PlayerData_GetMutedNoobTime(playerid) > 0) PlayerData_SetMutedNoobTime(playerid, (PlayerData_GetMutedNoobTime(playerid) - 1));
+    if (Player_GetMutedTime(playerid) > 0) Player_SetMutedTime(playerid, (Player_GetMutedTime(playerid) - 1));
+    if (Player_GetNoobMutedTime(playerid) > 0) Player_SetNoobMutedTime(playerid, (Player_GetNoobMutedTime(playerid) - 1));
     return 1;
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook BeforeSpawnPlayer(playerid)
 {
-	updateStats[playerid] = repeat Player_UpdateStats(playerid);
+	gsPlayerUpdateStatusTimer[playerid] = repeat PlayerUpdateStatus(playerid);
 	return 1;
 }
 
 hook OnPlayerConnect(playerid)
 {
-    new num_players_on_ip = Server_PlayersInSameIp(Player_GetIP(playerid));
-    if (num_players_on_ip > MAX_CONNECTIONS_FROM_IP)
+    new numPlayersInSameIp = GetPlayersInSameIp(GetPlayerIpCustom(playerid));
+    if (numPlayersInSameIp > MAX_CONNECTIONS_FROM_IP)
 	{
-        printf("MAXIPs: O Jogador[%d] excedeu o número de conexões [%d] por IP: [%s].", playerid, MAX_CONNECTIONS_FROM_IP, Player_GetIP(playerid));
+        printf("MAXIPs: O Jogador[%d] excedeu o número de conexões [%d] por IP: [%s].", playerid, MAX_CONNECTIONS_FROM_IP, GetPlayerIpCustom(playerid));
         Kick(playerid);
         return ~1; // Ended Hooks Calls
     }
@@ -117,13 +118,13 @@ hook OnPlayerConnect(playerid)
 
 public OnPlayerDisconnect(playerid, reason)
 {
-    if (Timer_IsRunning(updateStats[playerid])) stop updateStats[playerid];
+    if (Timer_IsRunning(gsPlayerUpdateStatusTimer[playerid])) stop gsPlayerUpdateStatusTimer[playerid];
 
     CallLocalFunction("BeforeSaveOnDisconnect", "i", playerid);
-    PlayerData_SetLastLogin(playerid, PlayerData_GetLastLoginTemp(playerid));
-    Database_SaveGeneralInfo(playerid);
-    Database_SaveStatusInfo(playerid);
-    Database_SaveMoneyInfo(playerid);
-    Database_SaveScoreInfo(playerid);
+    Player_SetLastLogin(playerid, Player_GetLastLoginTemp(playerid));
+    Player_SaveGeneralData(playerid);
+    Player_SaveStatusData(playerid);
+    Player_SaveMoneyData(playerid);
+    Player_SaveScoreData(playerid);
     return 1;
 }

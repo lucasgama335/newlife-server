@@ -10,13 +10,13 @@ static loginAttempts[MAX_PLAYERS],
 static Timer:timerToKickPlayer[MAX_PLAYERS];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-stock IsPlayerLogged(playerid)
+stock SpawnPlayerLogged(playerid)
 {
-    if (PlayerData_GetIsLogged(playerid))
+    if (Player_GetLoggedStatus(playerid))
     {
         SetPlayerInterior(playerid, 0);
         SetCameraBehindPlayer(playerid);
-        SetSpawnInfo(playerid, -1, (PlayerData_GetGender(playerid) == 1 ? DEFAULT_SKIN_MALE : DEFAULT_SKIN_FEMALE), SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA, 0, 0, 0, 0, 0, 0);
+        SetSpawnInfo(playerid, -1, (Player_GetGender(playerid) == 1 ? DEFAULT_SKIN_MALE : DEFAULT_SKIN_FEMALE), SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA, 0, 0, 0, 0, 0, 0);
         SpawnPlayer(playerid);
     }
     return 1;
@@ -32,21 +32,21 @@ timer OnLoginTimeout[60000](playerid)
 
 static stock Player_ClearInfoVars(playerid) 
 {
-    PlayerData_ResetGeneralInfo(playerid);
-    PlayerData_ResetJobInfo(playerid);
-    PlayerData_ResetAppearenceInfo(playerid);
-    PlayerData_ResetMoneyInfo(playerid);
-    PlayerData_ResetScoreInfo(playerid);
-    PlayerData_ResetStatusInfo(playerid);
-    PlayerData_ResetVipInfo(playerid);
-    PlayerData_ResetConfigInfo(playerid);
+    Player_ResetGeneralData(playerid);
+    Player_ResetJobData(playerid);
+    Player_ResetAppearenceData(playerid);
+    Player_ResetMoneyData(playerid);
+    Player_ResetScoreData(playerid);
+    Player_ResetStatusData(playerid);
+    Player_ResetVipData(playerid);
+    Player_ResetConfigData(playerid);
 
     // Temporary Vars
     loginAttempts[playerid] = 0;
     recentlyLogged[playerid] = true;
     isRegistered[playerid] = false;
-    PlayerData_SetIsLogged(playerid, false);
-    PlayerData_SetIsUsingAndroid(playerid, false);
+    Player_SetLoggedStatus(playerid, false);
+    Player_SetUsingAndroidStatus(playerid, false);
     return 1;
 }
 
@@ -54,10 +54,10 @@ static stock InsertPlayerInDataBase(playerid, const password[])
 {
     inline const OnPlayerRegister()
     {
-        PlayerData_SetID(playerid, cache_insert_id());
+        Player_SetId(playerid, cache_insert_id());
         OnPlayerLogin(playerid);
     }
-    MySQL_TQueryInline(Database_GetConnection(), using inline OnPlayerRegister, "INSERT INTO %s (%s, %s) VALUES ('%s', '%s')", PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, PLAYER_FIELD_PASSWORD, Player_GetName(playerid), password);
+    MySQL_TQueryInline(Database_GetConnection(), using inline OnPlayerRegister, "INSERT INTO %s (%s, %s) VALUES ('%s', '%s')", PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, PLAYER_FIELD_PASSWORD, GetPlayerNameCustom(playerid), password);
     return 1;
 }
 
@@ -65,7 +65,7 @@ static stock ShowLoginDialog(playerid)
 {
     static string[256];
     SendClientMessage(playerid, 0xffcc99FF, "[CONTA]: Sua conta está registrada, digite sua senha para logar.");
-    format(string, sizeof(string), "{FFFFFF}Bem Vindo ao {33CCFF}%s{FFFFFF}!\n\nSua Conta: {33CCFF}%s{FFFFFF}.\nStatus: {00FF00}Registrada{FFFFFF}.\n\n{B4B5B7}Insira a senha abaixo para logar.", SERVER_NAME, Player_GetName(playerid));
+    format(string, sizeof(string), "{FFFFFF}Bem Vindo ao {33CCFF}%s{FFFFFF}!\n\nSua Conta: {33CCFF}%s{FFFFFF}.\nStatus: {00FF00}Registrada{FFFFFF}.\n\n{B4B5B7}Insira a senha abaixo para logar.", SERVER_NAME, GetPlayerNameCustom(playerid));
     ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Fazer Login", string, "Entrar", "Ajuda");
     return 1;
 }
@@ -74,7 +74,7 @@ static stock ShowRegisterDialog(playerid)
 {
     static string[256];
     SendClientMessage(playerid, 0xffcc99FF, "[CONTA]: Sua conta não está registrada, digite uma senha para se registrar.");
-    format(string, sizeof(string), "{FFFFFF}Bem Vindo ao {33CCFF}%s{FFFFFF}!\n\nSua Conta: {33CCFF}%s{FFFFFF}.\nStatus: {FF0000}Não Registrada{FFFFFF}.\n\n{B4B5B7}Insira a senha abaixo para registrar.", SERVER_NAME, Player_GetName(playerid));
+    format(string, sizeof(string), "{FFFFFF}Bem Vindo ao {33CCFF}%s{FFFFFF}!\n\nSua Conta: {33CCFF}%s{FFFFFF}.\nStatus: {FF0000}Não Registrada{FFFFFF}.\n\n{B4B5B7}Insira a senha abaixo para registrar.", SERVER_NAME, GetPlayerNameCustom(playerid));
     ShowPlayerDialog(playerid, DIALOG_REGISTER, DIALOG_STYLE_PASSWORD, "Fazer Cadastro", string, "Registrar", "Cancelar");
     return 1;
 }
@@ -97,7 +97,7 @@ public OnPlayerConnect(playerid)
         if(cache_num_rows() > 0)
         {
             // General Info
-            new id, admin, attendances, rating, number_rating, tutorial, last_login, last_connected_time, Float:pos_x, Float:pos_y, Float:pos_z, Float:pos_a, interior, vw;
+            new id, e_ADMIN_LEVELS:admin, attendances, rating, number_rating, tutorial, last_login, last_connected_time, Float:pos_x, Float:pos_y, Float:pos_z, Float:pos_a, interior, vw;
             cache_get_value_name_int(0, PLAYER_FIELD_ID, id);
             cache_get_value_name_int(0, PLAYER_FIELD_ADMIN, admin);
             cache_get_value_name_int(0, PLAYER_FIELD_ATTENDANCES, attendances);
@@ -113,15 +113,15 @@ public OnPlayerConnect(playerid)
             cache_get_value_name_int(0, PLAYER_FIELD_LAST_INTERIOR, interior);
             cache_get_value_name_int(0, PLAYER_FIELD_LAST_VW, vw);
 
-            PlayerData_SetID(playerid, id);
-            PlayerData_SetAdmin(playerid, admin, false);
-            PlayerData_SetAttendances(playerid, attendances);
-            PlayerData_SetRating(playerid, rating);
-            PlayerData_SetNumberRating(playerid, number_rating);
-            PlayerData_SetTutorial(playerid, (tutorial == 0 ? false : true));
-            PlayerData_SetLastLogin(playerid, Server_ConvertIntToChrono(last_login));
-            PlayerData_SetLastConnectedTime(playerid, last_connected_time);
-            PlayerData_SetLastPosition(playerid, pos_x, pos_y, pos_z, pos_a, interior, vw);
+            Player_SetId(playerid, id);
+            Player_SetAdminLevel(playerid, admin, false);
+            Player_SetAdminAttendances(playerid, attendances);
+            Player_SetAdminRating(playerid, rating);
+            Player_SetAdminNumberRating(playerid, number_rating);
+            Player_SetTutorialStatus(playerid, (tutorial == 0 ? false : true));
+            Player_SetLastLogin(playerid, Chrono_ConvertToTimestamp(last_login));
+            Player_SetLastConnectedTime(playerid, last_connected_time);
+            Player_SetLastPosition(playerid, pos_x, pos_y, pos_z, pos_a, interior, vw);
 
             // Job
             new job, org, org_role;
@@ -129,8 +129,8 @@ public OnPlayerConnect(playerid)
             cache_get_value_name_int(0, PLAYER_FIELD_ORG, org);
             cache_get_value_name_int(0, PLAYER_FIELD_ORG_ROLE, org_role);
 
-            PlayerData_SetJob(playerid, job);
-            PlayerData_SetOrg(playerid, org, org_role);
+            Player_SetJob(playerid, job);
+            Player_SetOrg(playerid, org, org_role);
 
             // Appearence
             new gender, fight_style, skin, old_skin;
@@ -139,10 +139,10 @@ public OnPlayerConnect(playerid)
             cache_get_value_name_int(0, PLAYER_FIELD_SKIN, skin);
             cache_get_value_name_int(0, PLAYER_FIELD_OLDSKIN, old_skin);
 
-            PlayerData_SetGender(playerid, gender);
-            PlayerData_SetFightStyle(playerid, fight_style);
-            PlayerData_SetSkin(playerid, skin);
-            PlayerData_SetOldSkin(playerid, old_skin);
+            Player_SetGender(playerid, gender);
+            Player_SetFightStyle(playerid, fight_style);
+            Player_SetSkin(playerid, skin);
+            Player_SetOldSkin(playerid, old_skin);
 
             // Money Info
             new money, illegal_money, illegal_safe_money, bank_status, bank_money, coins;
@@ -153,12 +153,12 @@ public OnPlayerConnect(playerid)
             cache_get_value_name_int(0, PLAYER_FIELD_BANK_MONEY, bank_money);
             cache_get_value_name_int(0, PLAYER_FIELD_COINS, coins);
 
-            PlayerData_SetMoney(playerid, money);
-            PlayerData_SetIllegalMoney(playerid, illegal_money);
-            PlayerData_SetIllegalSafeMoney(playerid, illegal_safe_money);
-            PlayerData_SetBankStatus(playerid, bank_status == 0 ? false : true);
-            PlayerData_SetBankMoney(playerid, bank_money);
-            PlayerData_SetCoins(playerid, coins);
+            Player_SetMoney(playerid, money);
+            Player_SetIllegalMoney(playerid, illegal_money);
+            Player_SetIllegalSafeMoney(playerid, illegal_safe_money);
+            Player_SetBankStatus(playerid, bank_status == 0 ? false : true);
+            Player_SetBankMoney(playerid, bank_money);
+            Player_SetCoins(playerid, coins);
 
             // Score Info
             new level, hours_played, experience, deaths, kills, wanted_level, noob_answers;
@@ -170,13 +170,13 @@ public OnPlayerConnect(playerid)
             cache_get_value_name_int(0, PLAYER_FIELD_WANTED_LEVEL, wanted_level);
             cache_get_value_name_int(0, PLAYER_FIELD_NOOB_ANSWERS, noob_answers);
 
-            PlayerData_SetLevel(playerid, level);
-            PlayerData_SetHoursPlayed(playerid, hours_played);
-            PlayerData_SetExperience(playerid, experience);
-            PlayerData_SetDeaths(playerid, deaths);
-            PlayerData_SetKills(playerid, kills);
-            PlayerData_SetWantedLevel(playerid, wanted_level);
-            PlayerData_SetNoobAnswers(playerid, noob_answers);
+            Player_SetLevel(playerid, level);
+            Player_SetHoursPlayed(playerid, hours_played);
+            Player_SetExperience(playerid, experience);
+            Player_SetDeaths(playerid, deaths);
+            Player_SetKills(playerid, kills);
+            Player_SetWantedLevel(playerid, wanted_level);
+            Player_SetNoobAnswers(playerid, noob_answers);
 
             // Status Info
             new jailed, jail_time, hungry, drink, warnings, muted, muted_noob;
@@ -188,16 +188,16 @@ public OnPlayerConnect(playerid)
             cache_get_value_name_int(0, PLAYER_FIELD_MUTED, muted);
             cache_get_value_name_int(0, PLAYER_FIELD_MUTED_NOOB, muted_noob);
 
-            PlayerData_SetJailed(playerid, jailed);
-            PlayerData_SetJailTime(playerid, jail_time);
-            PlayerData_SetHungry(playerid, hungry);
-            PlayerData_SetDrink(playerid, drink);
-            PlayerData_SetWarnings(playerid, warnings);
-            PlayerData_SetMutedTime(playerid, muted);
-            PlayerData_SetMutedNoobTime(playerid, muted_noob);
+            Player_SetJailed(playerid, jailed);
+            Player_SetJailTime(playerid, jail_time);
+            Player_SetHungry(playerid, hungry);
+            Player_SetDrink(playerid, drink);
+            Player_SetWarnings(playerid, warnings);
+            Player_SetMutedTime(playerid, muted);
+            Player_SetNoobMutedTime(playerid, muted_noob);
 
             // Config Info
-            new tag, city, spawn, document, speedometer, tracker, hitsound, territorial_chat, vip_chat, socio_chat, noob_chat, leader_chat, stream;
+            new e_TAGS:tag, city, spawn, document, speedometer, tracker, hitsound, territorial_chat, vip_chat, socio_chat, noob_chat, leader_chat, stream;
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_TAG, tag);
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_CITY, city);
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_SPAWN, spawn);
@@ -234,26 +234,26 @@ public OnPlayerConnect(playerid)
 
         SelectTextDraw(playerid, COLOR_ORANGE);
     }
-    PlayerData_UpdateLastLoginTemp(playerid);
+    Player_UpdateLastLoginTemp(playerid);
 	PlayAudioStreamForPlayer(playerid, "https://www.dropbox.com/s/ocpam5bletkz3j8/intro.mp3?dl=1");
     ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
     SendClientMessage(playerid, COLOR_SOFTGREY, "* Aguarde enquanto carregamos os seus dados...");
     // Verify if player exists in database
-    MySQL_TQueryInline(Database_GetConnection(), using inline OnPlayerDataLoaded, "SELECT * FROM %s WHERE %s = '%e'", PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, Player_GetName(playerid));
+    MySQL_TQueryInline(Database_GetConnection(), using inline OnPlayerDataLoaded, "SELECT * FROM %s WHERE %s = '%e'", PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, GetPlayerNameCustom(playerid));
     return 1;
 }
 
 hook OnPlayerDisconnect(playerid, reason)
 {
     Database_IncrementRaceCheck(playerid);
-    PlayerData_SetIsLogged(playerid, false);
+    Player_SetLoggedStatus(playerid, false);
     
     new string[150], Float:PacketLoss;
     switch (reason)
     {
-        case 0: format(string, sizeof(string), "%s saiu do servidor por erro de conexão ou crash (ID: %d - Ping: %d - PL: %.01f).", Player_GetName(playerid), playerid, GetPlayerPing(playerid), PacketLoss);
-        case 1: format(string, sizeof(string), "%s saiu por vontade própria (ID: %d - Ping: %d - PL: %.01f).", Player_GetName(playerid), playerid, GetPlayerPing(playerid), PacketLoss);
-        case 2: format(string, sizeof(string), "%s saiu do servidor por ter sido kickado ou banido (ID: %d - Ping: %d - PL: %.01f).", Player_GetName(playerid), playerid, GetPlayerPing(playerid), PacketLoss);
+        case 0: format(string, sizeof(string), "%s saiu do servidor por erro de conexão ou crash (ID: %d - Ping: %d - PL: %.01f).", GetPlayerNameCustom(playerid), playerid, GetPlayerPing(playerid), PacketLoss);
+        case 1: format(string, sizeof(string), "%s saiu por vontade própria (ID: %d - Ping: %d - PL: %.01f).", GetPlayerNameCustom(playerid), playerid, GetPlayerPing(playerid), PacketLoss);
+        case 2: format(string, sizeof(string), "%s saiu do servidor por ter sido kickado ou banido (ID: %d - Ping: %d - PL: %.01f).", GetPlayerNameCustom(playerid), playerid, GetPlayerPing(playerid), PacketLoss);
 	}
     SendMessageInRange(100.0, playerid, string, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE);
     return 1;
@@ -274,7 +274,7 @@ hook OnPlayerRequestClass(playerid, classid)
     }
     else
     {
-        IsPlayerLogged(playerid);
+        SpawnPlayerLogged(playerid);
     }
     return 0;
 }
@@ -282,7 +282,7 @@ hook OnPlayerRequestClass(playerid, classid)
 hook OnPlayerClickTextDraw(playerid, Text:clickedid)
 {
     // Login Screen: Login Button
-	if (clickedid == LoginTextDraw_GetByIndex(5))
+	if (clickedid == GetLoginScreenTextdrawId(5))
 	{
         if (isRegistered[playerid])
         {
@@ -294,25 +294,25 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid)
         }
 	}
 	// Login Screen: Info Button
-	else if (clickedid == LoginTextDraw_GetByIndex(6))
+	else if (clickedid == GetLoginScreenTextdrawId(6))
 	{
 		ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,  "Informações Gerais", "{FFFFFF}O NewLife é um servidor RPG, que tem como principal objetivo a simulação da vida real.\n\nNele haverá guerra entre facções criminosas, operacções policiais, roubos, sequestro, assaltos, emboscadas dentre outras coisas.\n\nNo servidor também é possível adquirir propriedade privada, como: empresas, casas, mansões, veículo próprio, celular, itens e etc.\n\n{6e6e6e}De início, todos os jogadores deverão ir ao centro de licenças conseguir suas habilitações para veículos motorizados\ne depois devem seguir para a prefeitura para conseguir o seu primeiro emprego, de uma maneira bem simples. Caso não saiba\nonde fica localizado, basta digitar: /gps no chat.\nConseguir o seu primeiro emprego é de extrema importância, pois é aravés dele, que você conseguirá juntar seu primeiro dinheiro para adquirir suas coisas no servidor. \n\nNesse período que você estiver trabalhando em seu emprego, irá evoluindo de nível, após atingir o nível requisitdo pelos líderes, poderá participar de uma ORGANIZAÇÃO.\nNo servidor, possuímos organizações, criminosas, policiais e outros tipos variados.\nSaiba que os empregos são diferentes das organizações.\nEmpregos são adquiridos facilmente na prefeitura, organizações são diferentes.\nPara participar de uma é necessário cumprir os requisitos exigidos pelo líder e conhecer muito bem as regras do servidor e de cada organização.\nEm nosso servidor não é obrigatório o uso de programas de comunicação para entrar em uma organização, essa exigência ficará a encargo de cada líder.\n\n{FFFFFF}Para qualquer dúvida relacionada ao servidor, dificuldade para se registrar no servidor ou fórum, dicas, compra de VIP e etc,\nentre em contato através dos nossos meios de comunicação(/sites).", "Entendi", "");
 	}
 	// Login Screen: Credits Button
-	else if (clickedid == LoginTextDraw_GetByIndex(7))
+	else if (clickedid == GetLoginScreenTextdrawId(7))
 	{
         new MEGAString[93], string[67];
-        if (PlayerData_GetAdmin(playerid) < HELPER)
+        if (Player_GetAdminLevel(playerid) < HELPER)
         {
-            format(string, sizeof(string), "Admin-Aviso: %s viu os créditos do servidor.", Player_GetName(playerid));
-            MensagemAdmin(COLOR_YELLOW, string, HELPER);
+            format(string, sizeof(string), "Admin-Aviso: %s viu os créditos do servidor.", GetPlayerNameCustom(playerid));
+            SendAdminMessage(COLOR_YELLOW, string, HELPER);
         }
         strcat(MEGAString, "{FFFFFF}»  RhaegarX: {696969}(Fundador/Scripter)\n");
         strcat(MEGAString, "{FFFFFF}»  Rick_M: {696969}(Beta Tester)\n");
         ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX, "Créditos do Servidor", MEGAString, "Fechar", "");
 	}
 	// Login Screen: Exit Button
-	else if (clickedid == LoginTextDraw_GetByIndex(8))
+	else if (clickedid == GetLoginScreenTextdrawId(8))
 	{
 		SendClientMessage(playerid, COLOR_YELLOW, "[Servidor]: Você optou por sair do servidor.");
 		KickPlayer(playerid);
@@ -386,7 +386,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                 }
                 // Get the hashed password from db
-                MySQL_TQueryInline(Database_GetConnection(), using inline OnPasswordRetrivedFromDB, "SELECT %s FROM %s WHERE %s = '%e' LIMIT 1", PLAYER_FIELD_PASSWORD, PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, Player_GetName(playerid));
+                MySQL_TQueryInline(Database_GetConnection(), using inline OnPasswordRetrivedFromDB, "SELECT %s FROM %s WHERE %s = '%e' LIMIT 1", PLAYER_FIELD_PASSWORD, PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, GetPlayerNameCustom(playerid));
 	        }
         }
         case DIALOG_REGISTER:
@@ -423,13 +423,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (!strlen(inputtext))
 	            {
 					new admPassDialog[300];
-					format(admPassDialog, sizeof(admPassDialog), "{FFFFFF}Conta: {0080ff}%s\n{FFFFFF}Você logou com Admin ({0080ff}%s{FFFFFF})\n\n{FFFFFF}Você precisa autenticar a senha de segurança para poder\n{FFFFFF}logar em sua conta!\n\n{ff6347}OBS: {FFFFFF}Você só tem uma tentativa ou será desconectado do servidor.\n\n\n{6e6e6e}Insira abaixo a senha da administração:", Player_GetName(playerid), Admin_GetRole(PlayerData_GetAdmin(playerid)));
+					format(admPassDialog, sizeof(admPassDialog), "{FFFFFF}Conta: {0080ff}%s\n{FFFFFF}Você logou com Admin ({0080ff}%s{FFFFFF})\n\n{FFFFFF}Você precisa autenticar a senha de segurança para poder\n{FFFFFF}logar em sua conta!\n\n{ff6347}OBS: {FFFFFF}Você só tem uma tentativa ou será desconectado do servidor.\n\n\n{6e6e6e}Insira abaixo a senha da administração:", GetPlayerNameCustom(playerid), GetAdminRoleName(Player_GetAdminLevel(playerid)));
 					ShowPlayerDialog(playerid, DIALOG_AUTH_ADMIN, DIALOG_STYLE_PASSWORD, "Proteção de Conta", admPassDialog, "Validar", "");
 					return SendClientMessage(playerid, COLOR_INVALID, "Você precisa autenticar a sua administração.");
 				}
 				if (strcmp(inputtext, SERVER_ADMIN_PASS) == 0)
 				{
-					if (PlayerData_GetAdmin(playerid) >= HELPER_OWNER)
+					if (Player_GetAdminLevel(playerid) >= HELPER_OWNER)
 					{
 						ShowPlayerDialog(playerid, DIALOG_ADMIN_HIDE, DIALOG_STYLE_MSGBOX, "Menu Admin Dono", "Escolha qual modo deseja ficar.", "Oculto", "Exibido");
 					}
@@ -438,8 +438,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				else
 				{
 					new string[126];
-					format(string, sizeof(string), "[AVISO]: %s errou a senha da administração e foi kickado, pode ser outra pessoa logando na conta dele.", Player_GetName(playerid));
-					MensagemAdmin(COLOR_LIGHTRED, string, HELPER);
+					format(string, sizeof(string), "[AVISO]: %s errou a senha da administração e foi kickado, pode ser outra pessoa logando na conta dele.", GetPlayerNameCustom(playerid));
+					SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
 					SendClientMessage(playerid, COLOR_LIGHTRED, "Você errou a senha da administração e foi kickado.");
 					KickPlayer(playerid);
 					return 1;
@@ -469,22 +469,22 @@ function:OnPlayerLogin(playerid)
 {
     recentlyLogged[playerid] = false;
     isRegistered[playerid] = true;
-    PlayerData_SetIsLogged(playerid, true);
+    Player_SetLoggedStatus(playerid, true);
 
     if (Timer_IsRunning(timerToKickPlayer[playerid])) stop timerToKickPlayer[playerid];
 
-    if (PlayerData_GetAdmin(playerid) > OWNER)
+    if (Player_GetAdminLevel(playerid) > OWNER)
 	{
 		SendClientMessage(playerid, COLOR_ADMIN, "Nível de Administração Inválido!"); 
 		KickPlayer(playerid);
         return 1;
     }
 
-    SetPlayerScore(playerid, PlayerData_GetLevel(playerid));
-    SetPlayerWantedLevel(playerid, PlayerData_GetWantedLevel(playerid));
-    Server_SetPlayerMoney(playerid, PlayerData_GetMoney(playerid));
-    SetSpawnInfo(playerid, -1, PlayerData_GetSkin(playerid), SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA, 0, 0, 0, 0, 0, 0);
-    switch(PlayerData_GetFightStyle(playerid))
+    SetPlayerScore(playerid, Player_GetLevel(playerid));
+    SetPlayerWantedLevel(playerid, Player_GetWantedLevel(playerid));
+    SetPlayerMoneyCustom(playerid, Player_GetMoney(playerid));
+    SetSpawnInfo(playerid, -1, Player_GetSkin(playerid), SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA, 0, 0, 0, 0, 0, 0);
+    switch(Player_GetFightStyle(playerid))
     {
         case 0: SetPlayerFightingStyle(playerid, FIGHT_STYLE_NORMAL);
         case 1: SetPlayerFightingStyle(playerid, FIGHT_STYLE_BOXING);
@@ -502,42 +502,42 @@ function:OnPlayerLogin(playerid)
     ShowTimeScreen(playerid);
     
     new string[150];
-    if (!PlayerData_GetTutorial(playerid))
+    if (!Player_GetTutorialStatus(playerid))
     {
         ShowGenderDialog(playerid);
     }
     else
     {
         SendClientMessage(playerid, COLOR_WHITE, "________________________________________________________________________________________________");
-        format(string, sizeof(string), "* [Aviso]: Seja Bem Vindo(a): {FFFFFF}%s{33ccff}.", Player_GetName(playerid));
+        format(string, sizeof(string), "* [Aviso]: Seja Bem Vindo(a): {FFFFFF}%s{33ccff}.", GetPlayerNameCustom(playerid));
         SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
         SendClientMessage(playerid, COLOR_LIGHTBLUE, "* [Aviso]: Para voltar na última posição de onde saiu pela última vez digite ({FFFFFF}/irposicao{33ccff})!");
         SendClientMessage(playerid, COLOR_LIGHTBLUE, "* [Aviso]: Retire suas dúvidas usando ({FFFFFF}/relato{33ccff}) ou com o chat de dúvidas ({FFFFFF}/nchat{33ccff}).");
-        format(string, sizeof(string), "* [Aviso]: Último login no dia: {FFFFFF}%s {33ccff}durante {FFFFFF}%d{33ccff} hora(s).", PlayerData_GetLastLoginFormated(playerid), PlayerData_GetLastConnectedTime(playerid));
+        format(string, sizeof(string), "* [Aviso]: Último login no dia: {FFFFFF}%s {33ccff}durante {FFFFFF}%d{33ccff} hora(s).", Player_GetLastLoginFormated(playerid), Player_GetLastConnectedTime(playerid));
  		SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
-        if (PlayerData_GetAdmin(playerid) >= HELPER)
+        if (Player_GetAdminLevel(playerid) >= HELPER)
         {
-            format(string, sizeof(string), "[{FFFFFF}ADMIN{33ccff}]: Você Logou Como Admin: [{FFFFFF}%s{33ccff}].", Admin_GetRole(PlayerData_GetAdmin(playerid)));
+            format(string, sizeof(string), "[{FFFFFF}ADMIN{33ccff}]: Você Logou Como Admin: [{FFFFFF}%s{33ccff}].", GetAdminRoleName(Player_GetAdminLevel(playerid)));
             SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
         }
-		if (PlayerData_GetAdmin(playerid) >= HELPER && PlayerData_GetAdmin(playerid) < SUB_OWNER)
+		if (Player_GetAdminLevel(playerid) >= HELPER && Player_GetAdminLevel(playerid) < SUB_OWNER)
 		{
 			new adminName[35];
-			format(adminName, sizeof(adminName), "~w~%s ~g~ON", Player_GetName(playerid));
+			format(adminName, sizeof(adminName), "~w~%s ~g~ON", GetPlayerNameCustom(playerid));
 			GameTextForAll(adminName, 5000, 1);
 		}
-        format(string, sizeof(string), "~w~Bem Vindo ~n~~y~%s", Player_GetName(playerid));
+        format(string, sizeof(string), "~w~Bem Vindo ~n~~y~%s", GetPlayerNameCustom(playerid));
         GameTextForPlayer(playerid, string, 5000, 1);
-        if (PlayerData_GetAdmin(playerid) >= HELPER_OWNER)
+        if (Player_GetAdminLevel(playerid) >= HELPER_OWNER)
         {
             new admPassDialog[300];
-            format(admPassDialog, sizeof(admPassDialog), "{FFFFFF}Conta: {0080ff}%s\n{FFFFFF}Você logou com Admin ({0080ff}%s{FFFFFF})\n\n{FFFFFF}Você precisa autenticar a senha de segurança para poder\n{FFFFFF}logar em sua conta!\n\n{ff6347}OBS: {FFFFFF}Você só tem uma tentativa ou será desconectado do servidor.\n\n\n{6e6e6e}Insira abaixo a senha da administração:", Player_GetName(playerid), Admin_GetRole(PlayerData_GetAdmin(playerid)));
+            format(admPassDialog, sizeof(admPassDialog), "{FFFFFF}Conta: {0080ff}%s\n{FFFFFF}Você logou com Admin ({0080ff}%s{FFFFFF})\n\n{FFFFFF}Você precisa autenticar a senha de segurança para poder\n{FFFFFF}logar em sua conta!\n\n{ff6347}OBS: {FFFFFF}Você só tem uma tentativa ou será desconectado do servidor.\n\n\n{6e6e6e}Insira abaixo a senha da administração:", GetPlayerNameCustom(playerid), GetAdminRoleName(Player_GetAdminLevel(playerid)));
             ShowPlayerDialog(playerid, DIALOG_AUTH_ADMIN, DIALOG_STYLE_PASSWORD, "Proteção de Conta", admPassDialog, "Validar", "");
         }
     }
-    if (PlayerData_GetAdmin(playerid) < HELPER_OWNER) format(string, sizeof(string), "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [%s]!", Player_GetName(playerid), playerid, PlayerData_GetLevel(playerid), Player_GetIP(playerid));
-    else format(string, sizeof(string), "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [N/A]!", Player_GetName(playerid), playerid, PlayerData_GetLevel(playerid));
- 	MensagemAdmin(COLOR_SKIN, string, HELPER);
+    if (Player_GetAdminLevel(playerid) < HELPER_OWNER) format(string, sizeof(string), "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [%s]!", GetPlayerNameCustom(playerid), playerid, Player_GetLevel(playerid), GetPlayerIpCustom(playerid));
+    else format(string, sizeof(string), "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [N/A]!", GetPlayerNameCustom(playerid), playerid, Player_GetLevel(playerid));
+ 	SendAdminMessage(COLOR_SKIN, string, HELPER);
     CallLocalFunction("BeforeSpawnPlayer", "i", playerid);
     SpawnPlayer(playerid);
     return 1;

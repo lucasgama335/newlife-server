@@ -32,11 +32,11 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 YCMD:hideadmin(playerid, params[], help)
 {
-	if (PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	if (Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
-	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
 	}
@@ -47,23 +47,23 @@ YCMD:hideadmin(playerid, params[], help)
 
 YCMD:verpars(playerid, params[], help)
 {
-	if (PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	if (Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
-	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
 	}
 
-	if (Admin_GetViewAllPars(playerid))
+	if (Admin_GetViewAllPm(playerid))
 	{
-		Admin_SetViewAllPars(playerid, false);
+		Admin_SetViewAllPm(playerid, false);
 		SendClientMessage(playerid, COLOR_LIGHTBLUE, "Você não está mais vendo todos os particulares!");
 	}
 	else
 	{
-		Admin_SetViewAllPars(playerid, true);
+		Admin_SetViewAllPm(playerid, true);
 		SendClientMessage(playerid, COLOR_LIGHTBLUE, "Você está vendo todos os particulares!");
 	}
 	return 1;
@@ -71,7 +71,7 @@ YCMD:verpars(playerid, params[], help)
 
 YCMD:gmx(playerid, params[], help)
 {
-	if (PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	if (Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
@@ -83,7 +83,7 @@ YCMD:gmx(playerid, params[], help)
         StopAudioStreamForPlayer(i);
 		ShowPlayerDialog(i, DIALOG_GMX, DIALOG_STYLE_MSGBOX, "GMX", "Reinicialização em andamento...\n\nIsso pode demorar alguns segundos\npor favor aguarde!\n\nAgradecemos sua compreensão.", "AGUARDE", "");
 	}
-    format(gmx,sizeof(gmx),"Admin: %s está reinicializando o servidor, por favor aguarde!", Player_GetName(playerid));
+    format(gmx,sizeof(gmx),"Admin: %s está reinicializando o servidor, por favor aguarde!", GetPlayerNameCustom(playerid));
 	SendClientMessageToAll(COLOR_YELLOW, gmx);
 	SendClientMessageToAll(COLOR_YELLOW, "[SERVIDOR]: Salvamento de dados iniciados...");
 	defer RestartServer();

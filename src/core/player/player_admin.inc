@@ -6,15 +6,27 @@
 #define		SERVER_ADMIN_PASS   "serverteste"	
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static Timer:spectateTimer[MAX_PLAYERS];
+static Timer:gsSpectateTimer[MAX_PLAYERS];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) ------------------------
-stock Admin_SendParMessage(playerid, id, COLOR, const string[])
+stock Admin_SendPrivateMessage(playerid, id, COLOR, const string[])
 {
 	SendClientMessage(id, COLOR, string);
 	foreach(new i: Player)
 	{
-		if (PlayerData_GetAdmin(playerid) >= SUB_OWNER && Admin_GetViewAllPars(i) && playerid != i)
+		if (Player_GetAdminLevel(playerid) >= SUB_OWNER && Admin_GetViewAllPm(i) && playerid != i)
+		{
+			SendClientMessage(i, COLOR, string);
+		}
+	}
+	return 1;
+}
+
+stock SendAdminMessage(COLOR, const string[], e_ADMIN_LEVELS:level)
+{
+	foreach(new i: Player)
+	{
+		if (Player_GetAdminLevel(i) >= level)
 		{
 			SendClientMessage(i, COLOR, string);
 		}
@@ -29,14 +41,14 @@ stock GetOnlineAdmin(bool:work)
 	{
 		if (work)
 		{
-			if (PlayerData_GetAdmin(i) >= HELPER && Admin_IsWorking(playerid) && !Admin_GetHideStatus(playerid))
+			if (Player_GetAdminLevel(i) >= HELPER && Admin_GetWorkStatus(playerid) && !Admin_GetHideStatus(playerid))
 			{
 				total ++;
 			}
 		}
 		else
 		{
-			if (PlayerData_GetAdmin(i) >= HELPER && !Admin_GetHideStatus(playerid))
+			if (Player_GetAdminLevel(i) >= HELPER && !Admin_GetHideStatus(playerid))
 			{
 				total ++;
 			}
@@ -45,17 +57,17 @@ stock GetOnlineAdmin(bool:work)
 	return total;
 }
 
-stock Admin_GetSpectateTimerID(playerid)
+stock Admin_GetgsSpectateTimerID(playerid)
 {
-	return spectateTimer[playerid];
+	return gsSpectateTimer[playerid];
 }
 
 timer AdminSpectatePlayer[1000](playerid)
 {
 	new spectated_id = Admin_GetPlayerSpectated(playerid);
-	if (spectated_id != INVALID_PLAYER_ID && PlayerData_GetAdmin(playerid) >= HELPER)
+	if (spectated_id != INVALID_PLAYER_ID && Player_GetAdminLevel(playerid) >= HELPER)
 	{
-		if (IsValidPlayer(spectated_id, PlayerData_GetIsLogged(spectated_id)))
+		if (IsValidPlayer(spectated_id, Player_GetLoggedStatus(spectated_id)))
 		{
 			SetPlayerToTeamColor(playerid);
 			SetPlayerInterior(playerid, GetPlayerInterior(spectated_id));
@@ -68,13 +80,13 @@ timer AdminSpectatePlayer[1000](playerid)
 
 stock Admin_StartSpectate(playerid)
 {
-	spectateTimer[playerid] = repeat AdminSpectatePlayer(playerid);
+	gsSpectateTimer[playerid] = repeat AdminSpectatePlayer(playerid);
 	return 1;
 }
 
 stock Admin_StopSpectate(playerid)
 {
-	if (Timer_IsRunning(spectateTimer[playerid])) stop spectateTimer[playerid];
+	if (Timer_IsRunning(gsSpectateTimer[playerid])) stop gsSpectateTimer[playerid];
 	return 1;
 }
 
@@ -82,34 +94,34 @@ stock Admin_StopSpectate(playerid)
 stock UpdateSpectatePlayer(playerid, id)
 {
 	new string[120];
-	PlayerTextDrawHide(playerid, SpectateTextDraw_GetByIndex(playerid, 1));
-	PlayerTextDrawSetPreviewModel(playerid, SpectateTextDraw_GetByIndex(playerid, 1), GetPlayerSkin(id));
-	PlayerTextDrawShow(playerid, SpectateTextDraw_GetByIndex(playerid, 1));
-	format(string, sizeof(string), "~r~VIDA: ~w~%.0f", Player_GetHealth(id));
-	PlayerTextDrawSetString(playerid, SpectateTextDraw_GetByIndex(playerid, 2), string);
-	format(string, sizeof(string), "~b~COLETE: ~w~%.0f", Player_GetArmour(id));
-	PlayerTextDrawSetString(playerid, SpectateTextDraw_GetByIndex(playerid, 3), string);
-	format(string, sizeof(string), "%s", Player_GetName(id));
-	PlayerTextDrawSetString(playerid, SpectateTextDraw_GetByIndex(playerid, 5), string);
+	PlayerTextDrawHide(playerid, GetSpectateTextdrawId(playerid, 1));
+	PlayerTextDrawSetPreviewModel(playerid, GetSpectateTextdrawId(playerid, 1), GetPlayerSkin(id));
+	PlayerTextDrawShow(playerid, GetSpectateTextdrawId(playerid, 1));
+	format(string, sizeof(string), "~r~VIDA: ~w~%.0f", GetPlayerHealthCustom(id));
+	PlayerTextDrawSetString(playerid, GetSpectateTextdrawId(playerid, 2), string);
+	format(string, sizeof(string), "~b~COLETE: ~w~%.0f", GetPlayerArmourCustom(id));
+	PlayerTextDrawSetString(playerid, GetSpectateTextdrawId(playerid, 3), string);
+	format(string, sizeof(string), "%s", GetPlayerNameCustom(id));
+	PlayerTextDrawSetString(playerid, GetSpectateTextdrawId(playerid, 5), string);
 	format(string, sizeof(string), "%d", id);
-	PlayerTextDrawSetString(playerid, SpectateTextDraw_GetByIndex(playerid, 7), string);
-	format(string, sizeof(string), "%d", PlayerData_GetID(id));
-	PlayerTextDrawSetString(playerid, SpectateTextDraw_GetByIndex(playerid, 9), string);
-	format(string, sizeof(string), "%s", Server_GetWeaponName(GetPlayerWeapon(id)));
-	PlayerTextDrawSetString(playerid, SpectateTextDraw_GetByIndex(playerid, 11), string);
-	format(string, sizeof(string), "%i", Server_GetWeaponAmmo(id, GetPlayerWeapon(id)));
-	PlayerTextDrawSetString(playerid, SpectateTextDraw_GetByIndex(playerid, 13), string);
-	PlayerTextDrawSetString(playerid, SpectateTextDraw_GetByIndex(playerid, 15), (PlayerData_GetIsUsingAndroid(id) ? "Android" : "PC"));
-	format(string, sizeof(string), "%s", Server_FormatToMoney(PlayerData_GetMoney(id)));
-	PlayerTextDrawSetString(playerid, SpectateTextDraw_GetByIndex(playerid, 17), string);
-	format(string, sizeof(string), "%s", Vehicle_GetName(GetVehicleModel(GetPlayerVehicleID(id))));
-	PlayerTextDrawSetString(playerid, SpectateTextDraw_GetByIndex(playerid, 19), string);
+	PlayerTextDrawSetString(playerid, GetSpectateTextdrawId(playerid, 7), string);
+	format(string, sizeof(string), "%d", Player_GetId(id));
+	PlayerTextDrawSetString(playerid, GetSpectateTextdrawId(playerid, 9), string);
+	format(string, sizeof(string), "%s", GetPlayerWeaponName(GetPlayerWeapon(id)));
+	PlayerTextDrawSetString(playerid, GetSpectateTextdrawId(playerid, 11), string);
+	format(string, sizeof(string), "%i", GetPlayerWeaponAmmo(id, GetPlayerWeapon(id)));
+	PlayerTextDrawSetString(playerid, GetSpectateTextdrawId(playerid, 13), string);
+	PlayerTextDrawSetString(playerid, GetSpectateTextdrawId(playerid, 15), (Player_GetUsingAndroidStatus(id) ? "Android" : "PC"));
+	format(string, sizeof(string), "%s", FormatMoneyString(Player_GetMoney(id)));
+	PlayerTextDrawSetString(playerid, GetSpectateTextdrawId(playerid, 17), string);
+	format(string, sizeof(string), "%s", GetVehicleName(GetVehicleModel(GetPlayerVehicleID(id))));
+	PlayerTextDrawSetString(playerid, GetSpectateTextdrawId(playerid, 19), string);
 	format(string, sizeof(string), "%d", GetPlayerSpeed(id, true));
-	PlayerTextDrawSetString(playerid, SpectateTextDraw_GetByIndex(playerid, 21), string);
-	format(string, sizeof(string), "%d", PlayerData_GetLevel(id));
-	PlayerTextDrawSetString(playerid, SpectateTextDraw_GetByIndex(playerid, 24), string);
-	format(string, sizeof(string), "%d", PlayerData_GetCoins(id));
-	PlayerTextDrawSetString(playerid, SpectateTextDraw_GetByIndex(playerid, 26), string);
+	PlayerTextDrawSetString(playerid, GetSpectateTextdrawId(playerid, 21), string);
+	format(string, sizeof(string), "%d", Player_GetLevel(id));
+	PlayerTextDrawSetString(playerid, GetSpectateTextdrawId(playerid, 24), string);
+	format(string, sizeof(string), "%d", Player_GetCoins(id));
+	PlayerTextDrawSetString(playerid, GetSpectateTextdrawId(playerid, 26), string);
 	return 1;
 }
 
@@ -133,11 +145,11 @@ stock HideSpectatePlayer(playerid)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerConnect(playerid)
 {
-	Admin_SetWorkMode(playerid, false);
-	Admin_SetAfkMode(playerid, false);
+	Admin_SetWorkStatus(playerid, false);
+	Admin_SetAfkStatus(playerid, false);
 	Admin_SetHideStatus(playerid, false);
 	Admin_SetWatchStatus(playerid, false);
 	Admin_SetPlayerSpectated(playerid, INVALID_PLAYER_ID);
-	Admin_SetViewAllPars(playerid, false);
+	Admin_SetViewAllPm(playerid, false);
 	return 1;
 }

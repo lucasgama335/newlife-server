@@ -10,23 +10,23 @@
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 // MySQL connection handle
-static MySQL:DBConnection;
-static g_MysqlRaceCheck[MAX_PLAYERS];
+static MySQL:gsDatabaseConnection;
+static gsMysqlRaceCheck[MAX_PLAYERS];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock MySQL:Database_GetConnection()
 {
-    return DBConnection;
+    return gsDatabaseConnection;
 }
 
 stock Database_IncrementRaceCheck(playerid)
 {
-    return ++g_MysqlRaceCheck[playerid];
+    return ++gsMysqlRaceCheck[playerid];
 }
 
 stock Database_GetRaceCheck(playerid)
 {
-    return g_MysqlRaceCheck[playerid];
+    return gsMysqlRaceCheck[playerid];
 }
 
 
@@ -35,16 +35,16 @@ stock Database_GetRaceCheck(playerid)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnGameModeInit()
 {
-    new MySQLOpt: option_id = mysql_init_options();
-    mysql_set_option(option_id, AUTO_RECONNECT, true); // it automatically reconnects when loosing connection to mysql server
-    mysql_set_option(option_id, SERVER_PORT, MYSQL_PORT);
+    new MySQLOpt: mysqlConfig = mysql_init_options();
+    mysql_set_option(mysqlConfig, AUTO_RECONNECT, true); // it automatically reconnects when loosing connection to mysql server
+    mysql_set_option(mysqlConfig, SERVER_PORT, MYSQL_PORT);
 
     #if MYSQL_DEBUG == true
         mysql_log(INFO | ERROR | WARNING);
     #endif
 
-    DBConnection = mysql_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE);
-    if (DBConnection == MYSQL_INVALID_HANDLE || mysql_errno(DBConnection) != 0)
+    gsDatabaseConnection = mysql_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE);
+    if (gsDatabaseConnection == MYSQL_INVALID_HANDLE || mysql_errno(gsDatabaseConnection) != 0)
     {
         print("[DATABASE]: Failed to connect to the database.");
         SendRconCommand("exit"); // Sending console command to shut down server.
@@ -58,7 +58,7 @@ hook OnGameModeInit()
 public OnGameModeExit()
 {
     CallLocalFunction("BeforeCloseConnection", "");
-    mysql_close(DBConnection);
+    mysql_close(gsDatabaseConnection);
     return 1;
 }
 
@@ -78,6 +78,6 @@ public OnQueryError(errorid, const error[], const callback[], const query[], MyS
 	}
     new string[150];
     format(string, sizeof(string), "[MySQL]: Houve um erro ao realizar uma operação no banco de dados. Error %d | Callback: %s", errorid, callback);
-    Server_PrintLog(FOLDER_MYSQL_LOG, string);
+    PrintLog(FOLDER_MYSQL_LOG, string);
 	return 1;
 }

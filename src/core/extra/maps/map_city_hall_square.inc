@@ -3,7 +3,7 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static objLombadas[15];
+static gsSpeedBumpsObject[15];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
@@ -132,25 +132,25 @@ hook OnGameModeInit()
 	CreateDynamicObject(2960, 1583.81360, -1729.77075, 12.31070,   0.00000, 0.00000, 0.00000);
 	CreateDynamicObject(2960, 1583.81360, -1730.46973, 12.31070,   0.00000, 0.00000, 0.00000);
 	CreateDynamicObject(2960, 1583.81360, -1731.15051, 12.31070,   0.00000, 0.00000, 0.00000);
-	// --------- Lombadas --------- 
-	objLombadas[0] = CreateDynamicObject(10814,2452.8,-1642.2,-6.9,0,299.25,0,-1,-1,-1,300.0);
-	objLombadas[1] = CreateDynamicObject(10814,2222.2,-1715.5,-6.8,0,299.246,0,-1,-1,-1,300.0);
-	objLombadas[2] = CreateDynamicObject(10814,1412.8,-1729.1,-6.8,0,299.246,90.5,-1,-1,-1,300.0);
-	objLombadas[3] = CreateDynamicObject(10814,1560.1,-1748.9,-6.8,0,299.24,180.5,-1,-1,-1,300.0);
-	objLombadas[4] = CreateDynamicObject(10814,1413.2,-1749,-6.8,0,299.235,180.5,-1,-1,-1,300.0);
-	objLombadas[5] = CreateDynamicObject(10814,1200.4,-1728.8,-6.8,0,299.235,180.5,-1,-1,-1,300.0);
-	objLombadas[6] = CreateDynamicObject(10814,1068.8,-1729.2,-6.8,0,299.235,180.5,-1,-1,-1,300.0);
-	objLombadas[7] = CreateDynamicObject(10814,1372.2,-1859.6,-6.9,0,299.235,90.5,-1,-1,-1,300.0);
-	objLombadas[8] = CreateDynamicObject(10814,1513.1,-1728.8,-6.8,0,299.24,90.5,-1,-1,-1,300.0);
-	objLombadas[9] = CreateDynamicObject(10814,1880.4,-1357.5,-6.8,0,299.235,180.5,-1,-1,-1,300.0);
-	objLombadas[10] = CreateDynamicObject(10814,1837.1,-1277.7,-6.7,0,299.235,180.5,-1,-1,-1,300.0);
-	objLombadas[11] = CreateDynamicObject(10814,1878.6,-1277,-6.9,0,299.235,180.5,-1,-1,-1,300.0);
-	objLombadas[12] = CreateDynamicObject(10814,1838.1,-1197.5,3.5,0,299.235,180.5,-1,-1,-1,300.0);
-	objLombadas[13] = CreateDynamicObject(10814,1512.5,-1177.7,3.7,0,299.235,180.5,-1,-1,-1,300.0);
-	objLombadas[14] = CreateDynamicObject(10814,1091.7,-1868.7,-6.8,0,299.235,180.5,-1,-1,-1,300.0);
+	// --------- Speed Bumps --------- 
+	gsSpeedBumpsObject[0] = CreateDynamicObject(10814,2452.8,-1642.2,-6.9,0,299.25,0,-1,-1,-1,300.0);
+	gsSpeedBumpsObject[1] = CreateDynamicObject(10814,2222.2,-1715.5,-6.8,0,299.246,0,-1,-1,-1,300.0);
+	gsSpeedBumpsObject[2] = CreateDynamicObject(10814,1412.8,-1729.1,-6.8,0,299.246,90.5,-1,-1,-1,300.0);
+	gsSpeedBumpsObject[3] = CreateDynamicObject(10814,1560.1,-1748.9,-6.8,0,299.24,180.5,-1,-1,-1,300.0);
+	gsSpeedBumpsObject[4] = CreateDynamicObject(10814,1413.2,-1749,-6.8,0,299.235,180.5,-1,-1,-1,300.0);
+	gsSpeedBumpsObject[5] = CreateDynamicObject(10814,1200.4,-1728.8,-6.8,0,299.235,180.5,-1,-1,-1,300.0);
+	gsSpeedBumpsObject[6] = CreateDynamicObject(10814,1068.8,-1729.2,-6.8,0,299.235,180.5,-1,-1,-1,300.0);
+	gsSpeedBumpsObject[7] = CreateDynamicObject(10814,1372.2,-1859.6,-6.9,0,299.235,90.5,-1,-1,-1,300.0);
+	gsSpeedBumpsObject[8] = CreateDynamicObject(10814,1513.1,-1728.8,-6.8,0,299.24,90.5,-1,-1,-1,300.0);
+	gsSpeedBumpsObject[9] = CreateDynamicObject(10814,1880.4,-1357.5,-6.8,0,299.235,180.5,-1,-1,-1,300.0);
+	gsSpeedBumpsObject[10] = CreateDynamicObject(10814,1837.1,-1277.7,-6.7,0,299.235,180.5,-1,-1,-1,300.0);
+	gsSpeedBumpsObject[11] = CreateDynamicObject(10814,1878.6,-1277,-6.9,0,299.235,180.5,-1,-1,-1,300.0);
+	gsSpeedBumpsObject[12] = CreateDynamicObject(10814,1838.1,-1197.5,3.5,0,299.235,180.5,-1,-1,-1,300.0);
+	gsSpeedBumpsObject[13] = CreateDynamicObject(10814,1512.5,-1177.7,3.7,0,299.235,180.5,-1,-1,-1,300.0);
+	gsSpeedBumpsObject[14] = CreateDynamicObject(10814,1091.7,-1868.7,-6.8,0,299.235,180.5,-1,-1,-1,300.0);
 	for(new i = 0; i < 15; i++)
 	{
-		SetDynamicObjectMaterial(objLombadas[i], 2, 19425, "speed_bumps", "speed_bump01", 0xFFFFFFFF);
+		SetDynamicObjectMaterial(gsSpeedBumpsObject[i], 2, 19425, "speed_bumps", "speed_bump01", 0xFFFFFFFF);
 	}
     //=====================================[ ACTORS ]====================================||
     

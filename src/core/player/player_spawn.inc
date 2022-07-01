@@ -11,11 +11,11 @@
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerSpawn(playerid)
 {
-    if (!PlayerData_GetIsLogged(playerid))
+    if (!Player_GetLoggedStatus(playerid))
     {
         new string[102];
-		format(string, sizeof(string), "[AVISO]: O jogador %s foi kickado por ter spawnado ser ter realizado o login.", Player_GetName(playerid));
-		MensagemAdmin(COLOR_LIGHTRED, string, HELPER);
+		format(string, sizeof(string), "[AVISO]: O jogador %s foi kickado por ter spawnado ser ter realizado o login.", GetPlayerNameCustom(playerid));
+		SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
 		SendClientMessage(playerid, COLOR_LIGHTRED, "[AVISO]: Você foi kickado porque spawnou sem realizar o login.");
 		KickPlayer(playerid);
 		return 1;
@@ -26,7 +26,7 @@ hook OnPlayerSpawn(playerid)
     ResetPlayerWeapons(playerid);
 	SetPlayerInterior(playerid, 0);
     SetPlayerVirtualWorld(playerid, 0);
-    SetPlayerSkin(playerid, PlayerData_GetSkin(playerid));
+    SetPlayerSkin(playerid, Player_GetSkin(playerid));
 	SetPlayerPos(playerid, SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ);
     SetPlayerFacingAngle(playerid, SPAWN_POSA);
     SetPlayerToTeamColor(playerid);
@@ -35,12 +35,12 @@ hook OnPlayerSpawn(playerid)
 
 hook OnPlayerRequestSpawn(playerid)
 {
-	IsPlayerLogged(playerid);
+	SpawnPlayerLogged(playerid);
     return 1;
 }
 
 hook BeforeSaveOnDisconnect(playerid)
 {
-    PlayerData_UpdateLastPosition(playerid);
+    Player_UpdateLastPosition(playerid);
     return 1;
 }

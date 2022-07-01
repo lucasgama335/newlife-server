@@ -3,166 +3,166 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-enum pScoreInfo
+enum p_SCORE_DATA
 {
-    pLevel,
-    pHoursPlayed,
-    pExperience,
-    pDeaths,
-    pKills,
-    pWantedLevel,
-    pNoobAnswers
+    p_LEVEL,
+    p_HOURS_PLAYED,
+    p_EXPERIENCE,
+    p_DEATHS,
+    p_KILLS,
+    p_WANTED_LEVEL,
+    p_NOOB_ANSWERS
 }
-static Player_ScoreInfo[MAX_PLAYERS][pScoreInfo];
+static gsScoreInfo[MAX_PLAYERS][p_SCORE_DATA];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 // ============== SAVE DB INFO ============== //
-stock Database_SaveScoreInfo(playerid)
+stock Player_SaveScoreData(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    new query_string[194 + 1];
+    new query_string[200];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
     %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME,
-    PLAYER_FIELD_LEVEL, Player_ScoreInfo[playerid][pLevel],
-    PLAYER_FIELD_HOURS_PLAYED, Player_ScoreInfo[playerid][pHoursPlayed],
-    PLAYER_FIELD_EXP, Player_ScoreInfo[playerid][pExperience],
-    PLAYER_FIELD_DEATHS, Player_ScoreInfo[playerid][pDeaths],
-    PLAYER_FIELD_KILLS, Player_ScoreInfo[playerid][pKills],
-    PLAYER_FIELD_WANTED_LEVEL, Player_ScoreInfo[playerid][pWantedLevel],
-    PLAYER_FIELD_NOOB_ANSWERS, Player_ScoreInfo[playerid][pNoobAnswers],
-    PlayerData_GetID(playerid));
+    PLAYER_FIELD_LEVEL, gsScoreInfo[playerid][p_LEVEL],
+    PLAYER_FIELD_HOURS_PLAYED, gsScoreInfo[playerid][p_HOURS_PLAYED],
+    PLAYER_FIELD_EXP, gsScoreInfo[playerid][p_EXPERIENCE],
+    PLAYER_FIELD_DEATHS, gsScoreInfo[playerid][p_DEATHS],
+    PLAYER_FIELD_KILLS, gsScoreInfo[playerid][p_KILLS],
+    PLAYER_FIELD_WANTED_LEVEL, gsScoreInfo[playerid][p_WANTED_LEVEL],
+    PLAYER_FIELD_NOOB_ANSWERS, gsScoreInfo[playerid][p_NOOB_ANSWERS],
+    Player_GetId(playerid));
     mysql_tquery(Database_GetConnection(), query_string);
     return 1;
 }
 
+// ============== RESET INFO ============== //
+stock Player_ResetScoreData(playerid)
+{
+    static const empty_data[p_SCORE_DATA];
+    gsScoreInfo[playerid] = empty_data;
+    gsScoreInfo[playerid][p_LEVEL] = 1;
+    return gsScoreInfo[playerid];
+}
+
 // ============== LEVEL ACCESSORS ============== //
 // Getters
-stock PlayerData_GetLevel(playerid)
+stock Player_GetLevel(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_ScoreInfo[playerid][pLevel];
+    return gsScoreInfo[playerid][p_LEVEL];
 }
 
 // Setters
-stock PlayerData_SetLevel(playerid, level)
+stock Player_SetLevel(playerid, level)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_ScoreInfo[playerid][pLevel] = level;
+    return gsScoreInfo[playerid][p_LEVEL] = level;
 }
 
 // ============== HOURS PLAYED ACCESSORS ============== //
 // Getters
-stock PlayerData_GetHoursPlayed(playerid)
+stock Player_GetHoursPlayed(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_ScoreInfo[playerid][pHoursPlayed];
+    return gsScoreInfo[playerid][p_HOURS_PLAYED];
 }
 
 // Setters
-stock PlayerData_SetHoursPlayed(playerid, quantity)
+stock Player_SetHoursPlayed(playerid, quantity)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_ScoreInfo[playerid][pHoursPlayed] = quantity;
+    return gsScoreInfo[playerid][p_HOURS_PLAYED] = quantity;
 }
 
 // ============== EXPERIENCE ACCESSORS ============== //
 // Getters
-stock PlayerData_GetExperience(playerid)
+stock Player_GetExperience(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_ScoreInfo[playerid][pExperience];
+    return gsScoreInfo[playerid][p_EXPERIENCE];
 }
 
 // Setters
-stock PlayerData_SetExperience(playerid, xp)
+stock Player_SetExperience(playerid, experience)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_ScoreInfo[playerid][pExperience] = xp;
+    return gsScoreInfo[playerid][p_EXPERIENCE] = experience;
 }
 
 // ============== DEATHS ACCESSORS ============== //
 // Getters
-stock PlayerData_GetDeaths(playerid)
+stock Player_GetDeaths(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_ScoreInfo[playerid][pDeaths];
+    return gsScoreInfo[playerid][p_DEATHS];
 }
 
 // Setters
-stock PlayerData_SetDeaths(playerid, deaths)
+stock Player_SetDeaths(playerid, deaths)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_ScoreInfo[playerid][pDeaths] = deaths;
+    return gsScoreInfo[playerid][p_DEATHS] = deaths;
 }
 
 // ============== KILLS ACCESSORS ============== //
 // Getters
-stock PlayerData_GetKills(playerid)
+stock Player_GetKills(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_ScoreInfo[playerid][pKills];
+    return gsScoreInfo[playerid][p_KILLS];
 }
 
 // Setters
-stock PlayerData_SetKills(playerid, kills)
+stock Player_SetKills(playerid, kills)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_ScoreInfo[playerid][pKills] = kills;
+    return gsScoreInfo[playerid][p_KILLS] = kills;
 }
 
 // ============== WANTED LEVEL ACCESSORS ============== //
 // Getters
-stock PlayerData_GetWantedLevel(playerid)
+stock Player_GetWantedLevel(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_ScoreInfo[playerid][pWantedLevel];
+    return gsScoreInfo[playerid][p_WANTED_LEVEL];
 }
 
 // Setters
-stock PlayerData_SetWantedLevel(playerid, level)
+stock Player_SetWantedLevel(playerid, level)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
     
-    return Player_ScoreInfo[playerid][pWantedLevel] = level;
+    return gsScoreInfo[playerid][p_WANTED_LEVEL] = level;
 }
 
 // ============== NOOB ANSERS ACCESSORS ============== //
 // Getters
-stock PlayerData_GetNoobAnswers(playerid)
+stock Player_GetNoobAnswers(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_ScoreInfo[playerid][pNoobAnswers];
+    return gsScoreInfo[playerid][p_NOOB_ANSWERS];
 }
 
 // Setters
-stock PlayerData_SetNoobAnswers(playerid, quantity)
+stock Player_SetNoobAnswers(playerid, quantity)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
     
-    return Player_ScoreInfo[playerid][pNoobAnswers] = quantity;
-}
-
-// ============== RESET INFO ============== //
-stock PlayerData_ResetScoreInfo(playerid)
-{
-    static const empty_data[pScoreInfo];
-    Player_ScoreInfo[playerid] = empty_data;
-    Player_ScoreInfo[playerid][pLevel] = 1;
-    return Player_ScoreInfo[playerid];
+    return gsScoreInfo[playerid][p_NOOB_ANSWERS] = quantity;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

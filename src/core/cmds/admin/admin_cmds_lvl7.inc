@@ -12,11 +12,11 @@
 YCMD:setpos(playerid, params[], help)
 {
 	// Verificações
-    if (PlayerData_GetAdmin(playerid) < MASTERPP)
+    if (Player_GetAdminLevel(playerid) < MASTERPP)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
-    if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+    if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
 	}
@@ -25,7 +25,7 @@ YCMD:setpos(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /setpos [id] [X] [Y] [Z]");
 	}
-    if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+    if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}

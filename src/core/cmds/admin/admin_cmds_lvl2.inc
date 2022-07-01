@@ -11,11 +11,11 @@
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 YCMD:repararid(playerid, params[], help)
 {
-	if (PlayerData_GetAdmin(playerid) < ASPIRANT)
+	if (Player_GetAdminLevel(playerid) < ASPIRANT)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
-	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
 	}
@@ -27,8 +27,8 @@ YCMD:repararid(playerid, params[], help)
 	new vehicleid = GetPlayerVehicleID(playerid), string[72];
 	format(string, sizeof(string), "Você reparou o veículo ID:[%d].", vehicleid);
     SendClientMessage(playerid, COLOR_INVALID, string);
-	format(string, sizeof(string), "AdmAviso: Veículo ID:[%d] foi reparado por: %s.", vehicleid, Player_GetName(playerid));
-	MensagemAdmin(COLOR_YELLOW, string, HELPER);
+	format(string, sizeof(string), "AdmAviso: Veículo ID:[%d] foi reparado por: %s.", vehicleid, GetPlayerNameCustom(playerid));
+	SendAdminMessage(COLOR_YELLOW, string, HELPER);
     Vehicle_SetBrokenStatus(vehicleid, false);
     RepairVehicle(vehicleid);
     return 1;
@@ -36,11 +36,11 @@ YCMD:repararid(playerid, params[], help)
 
 YCMD:blindarid(playerid, params[], help)
 {
-	if (PlayerData_GetAdmin(playerid) < ASPIRANT)
+	if (Player_GetAdminLevel(playerid) < ASPIRANT)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
-	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
 	}
@@ -52,8 +52,8 @@ YCMD:blindarid(playerid, params[], help)
 	new vehicleid = GetPlayerVehicleID(playerid), string[71];
 	format(string, sizeof(string), "Você blindou o veículo ID:[%d].", vehicleid);
     SendClientMessage(playerid, COLOR_INVALID, string);
-	format(string, sizeof(string), "AdmAviso: Veículo ID:[%d] foi blindado por: %s.", vehicleid, Player_GetName(playerid));
-	MensagemAdmin(COLOR_YELLOW, string, HELPER);
+	format(string, sizeof(string), "AdmAviso: Veículo ID:[%d] foi blindado por: %s.", vehicleid, GetPlayerNameCustom(playerid));
+	SendAdminMessage(COLOR_YELLOW, string, HELPER);
     Vehicle_SetBrokenStatus(vehicleid, false);
 	RepairVehicle(vehicleid);
     Vehicle_SetShield(vehicleid, 100);
@@ -62,11 +62,11 @@ YCMD:blindarid(playerid, params[], help)
 
 YCMD:abastecerid(playerid, params[], help)
 {
-	if (PlayerData_GetAdmin(playerid) < ASPIRANT)
+	if (Player_GetAdminLevel(playerid) < ASPIRANT)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
-	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
 	}
@@ -78,19 +78,19 @@ YCMD:abastecerid(playerid, params[], help)
     new vehicleid = GetPlayerVehicleID(playerid), string[74];
 	format(string, sizeof(string), "Você abasteceu o veículo ID:[%d].", vehicleid);
     SendClientMessage(playerid, COLOR_INVALID, string);
-	format(string, sizeof(string), "AdmAviso: Veículo ID:[%d] foi abastecido por: %s.", vehicleid, Player_GetName(playerid));
-	MensagemAdmin(COLOR_YELLOW, string, HELPER);
+	format(string, sizeof(string), "AdmAviso: Veículo ID:[%d] foi abastecido por: %s.", vehicleid, GetPlayerNameCustom(playerid));
+	SendAdminMessage(COLOR_YELLOW, string, HELPER);
     Vehicle_SetFuel(vehicleid, 100);
     return 1;
 }
 
 YCMD:respawnid(playerid, params[], help)
 {
-	if (PlayerData_GetAdmin(playerid) < ASPIRANT)
+	if (Player_GetAdminLevel(playerid) < ASPIRANT)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
-	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
 	}
@@ -102,19 +102,19 @@ YCMD:respawnid(playerid, params[], help)
 	new vehicleid = GetPlayerVehicleID(playerid), string[74];
 	format(string, sizeof(string), "Você deu respawn no veículo ID:[%d].", vehicleid);
     SendClientMessage(playerid, COLOR_INVALID, string);
-	format(string, sizeof(string), "AdmAviso: Veículo ID:[%d] foi respawnado por: %s.", vehicleid, Player_GetName(playerid));
-	MensagemAdmin(COLOR_YELLOW, string, HELPER);
+	format(string, sizeof(string), "AdmAviso: Veículo ID:[%d] foi respawnado por: %s.", vehicleid, GetPlayerNameCustom(playerid));
+	SendAdminMessage(COLOR_YELLOW, string, HELPER);
 	SetVehicleToRespawn(vehicleid);
     return 1;
 }
 
 YCMD:setclima(playerid, params[], help)
 {
-	if (PlayerData_GetAdmin(playerid) < ASPIRANT)
+	if (Player_GetAdminLevel(playerid) < ASPIRANT)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
-	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
 	}
@@ -130,55 +130,55 @@ YCMD:setclima(playerid, params[], help)
 
 	new string[61];
 	SetWeather(weather);
-	format(string, sizeof(string), "[AdmAviso]: %s setou o tempo para %d.", Player_GetName(playerid), weather);
-	MensagemAdmin(COLOR_YELLOW, string, HELPER);
+	format(string, sizeof(string), "[AdmAviso]: %s setou o tempo para %d.", GetPlayerNameCustom(playerid), weather);
+	SendAdminMessage(COLOR_YELLOW, string, HELPER);
 	SendClientMessage(playerid, COLOR_GREY, "Tempo setado!");
     return 1;
 }
 
 YCMD:desativarprevisao(playerid, params[], help)
 {
-	if (PlayerData_GetAdmin(playerid) < ASPIRANT)
+	if (Player_GetAdminLevel(playerid) < ASPIRANT)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
-	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
 	}
 
 	new string[68];
 	Server_SetWeatherForecast(false);
-	format(string, sizeof(string), "[AdmAviso]: %s desativou a previsão do tempo.", Player_GetName(playerid));
-	MensagemAdmin(COLOR_YELLOW, string, HELPER);
+	format(string, sizeof(string), "[AdmAviso]: %s desativou a previsão do tempo.", GetPlayerNameCustom(playerid));
+	SendAdminMessage(COLOR_YELLOW, string, HELPER);
     return 1;
 }
 
 YCMD:ativarprevisao(playerid, params[], help)
 {
-	if (PlayerData_GetAdmin(playerid) < ASPIRANT)
+	if (Player_GetAdminLevel(playerid) < ASPIRANT)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
-	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
 	}
 
 	new string[65];
 	Server_SetWeatherForecast(true);
-	format(string, sizeof(string), "[AdmAviso]: %s ativou a previsão do tempo.", Player_GetName(playerid));
-	MensagemAdmin(COLOR_YELLOW, string, HELPER);
+	format(string, sizeof(string), "[AdmAviso]: %s ativou a previsão do tempo.", GetPlayerNameCustom(playerid));
+	SendAdminMessage(COLOR_YELLOW, string, HELPER);
     return 1;
 }
 
 YCMD:calar(playerid, params[], help)
 {
-	if (PlayerData_GetAdmin(playerid) < ASPIRANT)
+	if (Player_GetAdminLevel(playerid) < ASPIRANT)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
-	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
 	}
@@ -187,11 +187,11 @@ YCMD:calar(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /calar [id] [minutos]");
 	}
-	if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+	if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
-	if (PlayerData_GetAdmin(id) >= HELPER_OWNER && PlayerData_GetAdmin(id) != OWNER)
+	if (Player_GetAdminLevel(id) >= HELPER_OWNER && Player_GetAdminLevel(id) != OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode calar um Admin Dono !");
 	}
@@ -204,27 +204,27 @@ YCMD:calar(playerid, params[], help)
 	if (time > 0)
 	{
 		new string[103];
-		PlayerData_SetMutedTime(id, (time * 60));
-		format(string, sizeof(string), "ADMIN CMD: %s foi calado por %s durante [%d] minutos.", Player_GetName(id), Player_GetName(playerid), time);
-		MensagemAdmin(COLOR_LIGHTRED, string, HELPER);
+		Player_SetMutedTime(id, (time * 60));
+		format(string, sizeof(string), "ADMIN CMD: %s foi calado por %s durante [%d] minutos.", GetPlayerNameCustom(id), GetPlayerNameCustom(playerid), time);
+		SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
 	}
 	else
 	{
 		new string[80];
-		PlayerData_SetMutedTime(id, 0);
-		format(string, sizeof(string), "ADMIN CMD: %s foi descalado por %s.", Player_GetName(id), Player_GetName(playerid));
-		MensagemAdmin(COLOR_LIGHTRED, string, HELPER);
+		Player_SetMutedTime(id, 0);
+		format(string, sizeof(string), "ADMIN CMD: %s foi descalado por %s.", GetPlayerNameCustom(id), GetPlayerNameCustom(playerid));
+		SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
 	}
 	return 1;
 }
 
 YCMD:calarn(playerid, params[], help)
 {
-	if (PlayerData_GetAdmin(playerid) < ASPIRANT)
+	if (Player_GetAdminLevel(playerid) < ASPIRANT)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
-	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
 	}
@@ -233,11 +233,11 @@ YCMD:calarn(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /calarn [id] [minutos]");
 	}
-	if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+	if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
-	if (PlayerData_GetAdmin(id) >= HELPER_OWNER && PlayerData_GetAdmin(id) != OWNER)
+	if (Player_GetAdminLevel(id) >= HELPER_OWNER && Player_GetAdminLevel(id) != OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode bloquear o chat dúvida de um Admin Dono !");
 	}
@@ -249,15 +249,15 @@ YCMD:calarn(playerid, params[], help)
 	if (time > 0)
 	{
 		new string[113];
-		PlayerData_SetMutedTime(id, (time * 60));
-		format(string, sizeof(string), "ADMIN CMD: %s bloqueou o chat dúvida de %s durante [%d] minuto(s).", Player_GetName(id), Player_GetName(playerid), time);
+		Player_SetMutedTime(id, (time * 60));
+		format(string, sizeof(string), "ADMIN CMD: %s bloqueou o chat dúvida de %s durante [%d] minuto(s).", GetPlayerNameCustom(id), GetPlayerNameCustom(playerid), time);
 		SendClientMessageToAll(COLOR_LIGHTRED, string);
 	}
 	else
 	{
 		new string[91];
-		PlayerData_SetMutedTime(id, 0);
-		format(string, sizeof(string), "ADMIN CMD: %s desbloqueou o chat dúvida de %s.", Player_GetName(id), Player_GetName(playerid));
+		Player_SetMutedTime(id, 0);
+		format(string, sizeof(string), "ADMIN CMD: %s desbloqueou o chat dúvida de %s.", GetPlayerNameCustom(id), GetPlayerNameCustom(playerid));
 		SendClientMessageToAll(COLOR_LIGHTRED, string);
 	}
 	return 1;
@@ -265,11 +265,11 @@ YCMD:calarn(playerid, params[], help)
 
 YCMD:congelar(playerid, params[], help)
 {
-	if (PlayerData_GetAdmin(playerid) < ASPIRANT)
+	if (Player_GetAdminLevel(playerid) < ASPIRANT)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
-	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
 	}
@@ -278,29 +278,29 @@ YCMD:congelar(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /congelar [id]");
 	}
-	if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+	if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
-	if (PlayerData_GetAdmin(id) >= HELPER_OWNER && PlayerData_GetAdmin(id) != OWNER)
+	if (Player_GetAdminLevel(id) >= HELPER_OWNER && Player_GetAdminLevel(id) != OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode congelar um Admin Dono !");
 	}
 
 	new string[80];
 	TogglePlayerControllable(id, false);
-	format(string, sizeof(string), "ADMIN CMD: %s foi congelado por %s.", Player_GetName(id), Player_GetName(playerid));
-	MensagemAdmin(COLOR_LIGHTRED, string, HELPER);
+	format(string, sizeof(string), "ADMIN CMD: %s foi congelado por %s.", GetPlayerNameCustom(id), GetPlayerNameCustom(playerid));
+	SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
 	return 1;
 }
 
 YCMD:descongelar(playerid, params[], help)
 {
-	if (PlayerData_GetAdmin(playerid) < ASPIRANT)
+	if (Player_GetAdminLevel(playerid) < ASPIRANT)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
-	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
 	}
@@ -309,25 +309,25 @@ YCMD:descongelar(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /descongelar [id]");
 	}
-	if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+	if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
 
 	new string[83];
 	TogglePlayerControllable(id, true);
-	format(string, sizeof(string), "ADMIN CMD: %s foi descongelado por %s.", Player_GetName(id), Player_GetName(playerid));
-	MensagemAdmin(COLOR_LIGHTRED, string, HELPER);
+	format(string, sizeof(string), "ADMIN CMD: %s foi descongelado por %s.", GetPlayerNameCustom(id), GetPlayerNameCustom(playerid));
+	SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
 	return 1;
 }
 
 YCMD:limparchat(playerid, params[], help)
 {
-	if (PlayerData_GetAdmin(playerid) < ASPIRANT)
+	if (Player_GetAdminLevel(playerid) < ASPIRANT)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
-	if (!Admin_IsWorking(playerid) && PlayerData_GetAdmin(playerid) < HELPER_OWNER)
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
 	}

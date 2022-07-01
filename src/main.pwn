@@ -5,9 +5,6 @@
 ==============================================================================*/
 // #define FIXES_Single 1
 // #define FIXES_ServerVarMsg 0
-#define YSI_NO_VERSION_CHECK
-#define YSI_NO_OPTIMISATION_MESSAGE
-#define YSI_NO_MODE_CACHE
 #define YSI_NO_HEAP_MALLOC
 #if !defined IsValidVehicle
     native IsValidVehicle(vehicleid);
@@ -102,7 +99,7 @@
 #define	PLAYER_OBJECT_10		9
 
 // Admin Levels
-enum
+enum e_ADMIN_LEVELS
 {
 	NO_ADMIN,
 	HELPER,
@@ -118,14 +115,14 @@ enum
 };
 
 // Interiors Locales
-enum
+enum e_INTERIOR_LOCALES
 {
 	NO_INTERIOR,
 	CITY_HALL_INTERIOR,
 };
 
 // Dialogs
-enum 
+enum e_DIALOGS
 {
 	DIALOG_ONLY_READ,
 	// Auth
@@ -166,9 +163,9 @@ enum
 };
 
 // TAGS
-enum
+enum e_TAGS
 {
-	TAG_NONE,
+	NO_TAG,
 	TAG_SCRIPTER,
 	TAG_ADMIN,
 	TAG_LEADER,

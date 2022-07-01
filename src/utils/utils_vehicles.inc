@@ -3,7 +3,7 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static vehicleNames[212][] =
+static const gscVehicleNames[212][] =
 {
 	{"Landstalker"},{"Bravura"},{"Buffalo"},{"Linerunner"},{"Perrenial"},{"Sentinel"},{"Dumper"},
     {"Firetruck"},{"Trashmaster"},{"Stretch"},{"Manana"},{"Infernus"},{"Voodoo"},{"Pony"},{"Mule"},
@@ -37,7 +37,7 @@ static vehicleNames[212][] =
 };
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-stock Vehicle_GetName(model)
+stock GetVehicleName(model)
 {
     new nameVeh[75];
     if (model < 400 || model > 611)
@@ -45,7 +45,7 @@ stock Vehicle_GetName(model)
     	strcat(nameVeh, "Nenhum");
         return nameVeh;
     }
-    strcat(nameVeh, vehicleNames[model - 400]);
+    strcat(nameVeh, gscVehicleNames[model - 400]);
     return nameVeh;
 }
 

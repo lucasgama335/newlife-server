@@ -27,7 +27,7 @@ static cmd_Cooldown[MAX_PLAYERS];
 public e_COMMAND_ERRORS:OnPlayerCommandReceived(playerid, cmdtext[], e_COMMAND_ERRORS:success)
 {
 	// if player is not spawned, do not allow him to use commands.
-	if(!PlayerData_GetIsLogged(playerid))
+	if(!Player_GetLoggedStatus(playerid))
 	{
 		SendClientMessage(playerid, COLOR_INVALID, "Você não está logado.");
 		Command_SetDeniedReturn(true);
@@ -90,13 +90,13 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		{
 			if (newkeys == KEY_F && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
 			{
-				if (Player_GetAnimationStatus(playerid) && IsValidPlayer(playerid, PlayerData_GetIsLogged(playerid)))
+				if (Player_GetAnimationStatus(playerid) && IsValidPlayer(playerid, Player_GetLoggedStatus(playerid)))
 				{
 					Player_SetAnimationStatus(playerid, false);
 					ClearAnimations(playerid);
 				}
-				CallLocalFunction("CheckEntrances", "i", playerid);
-				if (PlayerToPoint(2, playerid, 809.5279,-1341.4880,13.5405))
+				CallLocalFunction("CheckPlayerEntrances", "i", playerid);
+				if (IsPlayerInRangeOfPoint(2, playerid, 809.5279, -1341.4880, 13.5405))
 				{
 					ShowPlayerFaqList(playerid);
 				}

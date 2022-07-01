@@ -11,33 +11,33 @@
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 YCMD:daradmin(playerid, params[], help)
 {
-    if (PlayerData_GetAdmin(playerid) < OWNER)
+    if (Player_GetAdminLevel(playerid) < OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
-	new id, level;
+	new id, e_ADMIN_LEVELS:level;
 	if (sscanf(params, "ud", id, level))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /daradmin [id] [nivel]");
 	}
-    if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+    if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
-	if (PlayerData_GetAdmin(id) == OWNER)
+	if (Player_GetAdminLevel(id) == OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode alterar o nível de admin de um Dono.");
 	}
-	if (level < HELPER || level > OWNER)
+	if (level < NO_ADMIN || level > OWNER)
 	{
         return SendClientMessage(playerid, COLOR_INVALID, "Nível de admin inválido.");
 	}
 
 	new string[100];
-	PlayerData_SetAdmin(id, level, true);
-	format(string, sizeof(string), "Você foi promovido para level %d de Admin - Por %s.", level, Player_GetName(playerid));
+	Player_SetAdminLevel(id, level, true);
+	format(string, sizeof(string), "Você foi promovido para level %d de Admin - Por %s.", level, GetPlayerNameCustom(playerid));
     SendClientMessage(id, COLOR_LIGHTBLUE, string);
-	format(string, sizeof(string), "Você promoveu %s para o level %d de Admin.", Player_GetName(id), level);
+	format(string, sizeof(string), "Você promoveu %s para o level %d de Admin.", GetPlayerNameCustom(id), level);
 	SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
     return 1;
 }
@@ -45,7 +45,7 @@ YCMD:daradmin(playerid, params[], help)
 YCMD:radmin(playerid, params[], help) = retiraradmin;
 YCMD:retiraradmin(playerid, params[], help)
 {
-    if (PlayerData_GetAdmin(playerid) < OWNER)
+    if (Player_GetAdminLevel(playerid) < OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
@@ -54,20 +54,20 @@ YCMD:retiraradmin(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /retiraradmin [id]");
 	}
-    if (!IsValidPlayer(id, PlayerData_GetIsLogged(id)))
+    if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
-	if (PlayerData_GetAdmin(id) == OWNER)
+	if (Player_GetAdminLevel(id) == OWNER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode retirar o status de admin de um Dono.");
 	}
 
 	new string[68];
-	PlayerData_SetAdmin(id, 0, true);
-	format(string, sizeof(string), "Seu Admin foi retirado pelo Administrador: %s.", Player_GetName(playerid));
+	Player_SetAdminLevel(id, NO_ADMIN, true);
+	format(string, sizeof(string), "Seu Admin foi retirado pelo Administrador: %s.", GetPlayerNameCustom(playerid));
     SendClientMessage(id, COLOR_LIGHTBLUE, string);
-	format(string, sizeof(string), "Você retirou o Admin de %s.", Player_GetName(id));
+	format(string, sizeof(string), "Você retirou o Admin de %s.", GetPlayerNameCustom(id));
 	SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
     return 1;
 }

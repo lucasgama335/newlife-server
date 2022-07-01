@@ -5,28 +5,28 @@
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-stock Player_GetName(playerid)
+stock GetPlayerNameCustom(playerid)
 {
     static player_name[MAX_PLAYER_NAME + 1];
     GetPlayerName(playerid, player_name, sizeof(player_name));
     return player_name;
 }
 
-stock Player_GetIP(playerid)
+stock GetPlayerIpCustom(playerid)
 {
     static str[16];
     GetPlayerIp(playerid, str, sizeof(str));
     return str;
 }
 
-stock Float:Player_GetHealth(playerid)
+stock Float:GetPlayerHealthCustom(playerid)
 {
 	static Float:player_Health;
 	GetPlayerHealth(playerid, player_Health);
 	return player_Health;
 }
 
-stock Float:Player_GetArmour(playerid)
+stock Float:GetPlayerArmourCustom(playerid)
 {
 	static Float:player_Armour;
 	GetPlayerArmour(playerid, player_Armour);
@@ -56,24 +56,6 @@ stock GetPlayerSpeed(playerid, bool:kmh2)
 		rtn = floatsqroot(floatpower(floatabs(Vx),2)+floatpower(floatabs(Vy),2)+floatpower(floatabs(Vz),2));
 	}
     return kmh2?floatround(rtn * 100 * 1.61):floatround(rtn * 100);
-}
-
-stock PlayerToPoint(Float:radi, playerid, Float:x, Float:y, Float:z)
-{
-    if (IsPlayerConnected(playerid))
-	{
-		new Float:oldposx, Float:oldposy, Float:oldposz;
-		new Float:tempposx, Float:tempposy, Float:tempposz;
-		GetPlayerPos(playerid, oldposx, oldposy, oldposz);
-		tempposx = (oldposx -x);
-		tempposy = (oldposy -y);
-		tempposz = (oldposz -z);
-		if (((tempposx < radi) && (tempposx > -radi)) && ((tempposy < radi) && (tempposy > -radi)) && ((tempposz < radi) && (tempposz > -radi)))
-		{
-			return 1;
-		}
-	}
-	return 0;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

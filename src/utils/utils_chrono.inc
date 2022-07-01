@@ -11,39 +11,39 @@ static stock Timestamp:CorrectTimezone(&Timestamp:time)
 }
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-stock Timestamp:Server_ConvertIntToChrono(ts)
+stock Timestamp:Chrono_ConvertToTimestamp(ts)
 {
 	new Timestamp:timestamp = Timestamp:ts;
 	return timestamp;
 }
 
-stock Server_ConvertChronoToInt(Timestamp:ts)
+stock Chrono_ConvertToInt(Timestamp:ts)
 {
 	return _:ts;
 }
 
-stock Timestamp:Server_GetTimeNow()
+stock Timestamp:Chrono_GetTimeNow()
 {
 	new Timestamp:now = Now();
 
 	return now;
 }
 
-stock Timestamp:Server_TimeAddDays(Timestamp:ts, days)
+stock Timestamp:Chrono_AddDays(Timestamp:ts, days)
 {
 	new Days:addDays = Days:days;
 	ts += addDays;
 	return ts;
 }
 
-stock Timestamp:Server_TimeSubtractDays(Timestamp:ts, days)
+stock Timestamp:Chrono_SubtractDays(Timestamp:ts, days)
 {
 	new Days:addDays = Days:days;
 	ts -= addDays;
 	return ts;
 }
 
-stock Server_FormatFullDate(Timestamp:tsTimezone)
+stock Chrono_GetFullDate(Timestamp:tsTimezone)
 {
 	CorrectTimezone(tsTimezone);
 
@@ -52,7 +52,7 @@ stock Server_FormatFullDate(Timestamp:tsTimezone)
 	return fullOutput;
 }
 
-stock Server_FormatDate(Timestamp:tsTimezone)
+stock Chrono_GetDate(Timestamp:tsTimezone)
 {
 	CorrectTimezone(tsTimezone);
 
@@ -61,7 +61,7 @@ stock Server_FormatDate(Timestamp:tsTimezone)
 	return output;
 }
 
-stock Server_FormatDay(Timestamp:tsTimezone)
+stock Chrono_GetDay(Timestamp:tsTimezone)
 {
 	CorrectTimezone(tsTimezone);
 
@@ -70,7 +70,7 @@ stock Server_FormatDay(Timestamp:tsTimezone)
 	return output;
 }
 
-stock Server_FormatHour(Timestamp:tsTimezone)
+stock Chrono_GetHour(Timestamp:tsTimezone)
 {
 	CorrectTimezone(tsTimezone);
 
@@ -79,7 +79,7 @@ stock Server_FormatHour(Timestamp:tsTimezone)
 	return output;
 }
 
-stock Server_FormatMonth(Timestamp:tsTimezone)
+stock Chrono_GetMonth(Timestamp:tsTimezone)
 {
 	CorrectTimezone(tsTimezone);
 
@@ -100,7 +100,7 @@ stock Server_FormatMonth(Timestamp:tsTimezone)
 	return output;
 }
 
-stock Server_FormatHourDigit(Timestamp:tsTimezone)
+stock Chrono_GetHourDigit(Timestamp:tsTimezone)
 {
 	CorrectTimezone(tsTimezone);
 

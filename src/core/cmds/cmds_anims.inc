@@ -344,14 +344,14 @@ YCMD:handsup(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
 	}
-    if (PlayerData_GetWantedLevel(playerid) == 0)
+    if (Player_GetWantedLevel(playerid) == 0)
 	{
 		return SendClientMessage(playerid, COLOR_GRAD1, "Você só pode usar este comando procurado, use /hide em outras situações!");
 	}
 
 	// Execução do Comando
 	new string[150];
-	format(string, sizeof(string), "* Suspeito %s digitou: /handsup com: Vida[%.0f] Colete[%.0f].", Player_GetName(playerid), Player_GetHealth(playerid), Player_GetArmour(playerid));
+	format(string, sizeof(string), "* Suspeito %s digitou: /handsup com: Vida[%.0f] Colete[%.0f].", GetPlayerNameCustom(playerid), GetPlayerHealthCustom(playerid), GetPlayerArmourCustom(playerid));
 	SendMessageInRange(30.0, playerid, string, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE, COLOR_LIGHTBLUE);
 	SetPlayerSpecialAction(playerid, 10);
 	Player_SetAnimationStatus(playerid, true);
@@ -508,7 +508,7 @@ YCMD:gro(playerid, params[], help)
 YCMD:stopanim(playerid, params[], help) = pararanim;
 YCMD:pararanim(playerid, params[], help)
 {
-	if (!IsValidPlayer(playerid, PlayerData_GetIsLogged(playerid)))
+	if (!IsValidPlayer(playerid, Player_GetLoggedStatus(playerid)))
 	{
 	    return 1;
 	}

@@ -3,7 +3,7 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static spawnActor[3];
+static gsSpawnActor[3];
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
@@ -73,10 +73,10 @@ hook OnGameModeInit()
 	CreateDynamicObject(638, 808.18732, -1339.73022, 13.23450,   0.00000, 0.00000, 359.83423);
 
     //=====================================[ ACTORS ]====================================||
-    spawnActor[0] = CreateActor(211, 808.8286,-1341.5260,13.5417,265.2473);
-    ApplyActorAnimation(spawnActor[0], "PED", "IDLE_CHAT", 4.1, true, false, false, false, 0);
-	spawnActor[1] = CreateActor(11, 815.7498,-1355.5166,13.5414,357.1111);
-	spawnActor[2] = CreateActor(189, 811.8927,-1355.5170,13.5414,0.5015);
+    gsSpawnActor[0] = CreateActor(211, 808.8286,-1341.5260,13.5417,265.2473);
+    ApplyActorAnimation(gsSpawnActor[0], "PED", "IDLE_CHAT", 4.1, true, false, false, false, 0);
+	gsSpawnActor[1] = CreateActor(11, 815.7498,-1355.5166,13.5414,357.1111);
+	gsSpawnActor[2] = CreateActor(189, 811.8927,-1355.5170,13.5414,0.5015);
     return 1;
 }
 

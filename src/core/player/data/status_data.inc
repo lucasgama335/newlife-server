@@ -3,162 +3,162 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-enum pStatusInfo
+enum p_STATUS_DATA
 {
-    pJailed,
-    pJailTime,
-    pHungry,
-    pDrink,
-    pWarnings,
-    pMuted,
-    pMutedNoob
+    p_JAILED,
+    p_JAIL_TIME,
+    p_HUNGRY,
+    p_DRINK,
+    p_WARNINGS,
+    p_MUTED,
+    p_MUTED_NOOB
 }
-static Player_StatusInfo[MAX_PLAYERS][pStatusInfo];
+static gsStatusInfo[MAX_PLAYERS][p_STATUS_DATA];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 // ============== SAVE DB INFO ============== //
-stock Database_SaveStatusInfo(playerid)
+stock Player_SaveStatusData(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    new query_string[139 + 1];
+    new query_string[157];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
     %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME,
-    PLAYER_FIELD_JAILED, Player_StatusInfo[playerid][pJailed],
-    PLAYER_FIELD_JAILTIME, Player_StatusInfo[playerid][pJailTime],
-    PLAYER_FIELD_HUNGRY, Player_StatusInfo[playerid][pHungry],
-    PLAYER_FIELD_DRINK, Player_StatusInfo[playerid][pDrink],
-    PLAYER_FIELD_WARNINGS, Player_StatusInfo[playerid][pWarnings],
-    PLAYER_FIELD_MUTED, Player_StatusInfo[playerid][pMuted],
-    PLAYER_FIELD_MUTED_NOOB, Player_StatusInfo[playerid][pMutedNoob],
-    PlayerData_GetID(playerid));
+    PLAYER_FIELD_JAILED, gsStatusInfo[playerid][p_JAILED],
+    PLAYER_FIELD_JAILTIME, gsStatusInfo[playerid][p_JAIL_TIME],
+    PLAYER_FIELD_HUNGRY, gsStatusInfo[playerid][p_HUNGRY],
+    PLAYER_FIELD_DRINK, gsStatusInfo[playerid][p_DRINK],
+    PLAYER_FIELD_WARNINGS, gsStatusInfo[playerid][p_WARNINGS],
+    PLAYER_FIELD_MUTED, gsStatusInfo[playerid][p_MUTED],
+    PLAYER_FIELD_MUTED_NOOB, gsStatusInfo[playerid][p_MUTED_NOOB],
+    Player_GetId(playerid));
     mysql_tquery(Database_GetConnection(), query_string);
     return 1;
 }
 
-// ============== JAIL ACCESSORS ============== //
-// Getters
-stock PlayerData_GetJailed(playerid)
+// ============== RESET INFO ============== //
+stock Player_ResetStatusData(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
-
-    return Player_StatusInfo[playerid][pJailed];
+    static const scEmptyData[p_STATUS_DATA];
+    gsStatusInfo[playerid] = scEmptyData;
+    return gsStatusInfo[playerid];
 }
 
-stock PlayerData_GetJailTime(playerid)
+// ============== JAIL ACCESSORS ============== //
+// Getters
+stock Player_GetJailed(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_StatusInfo[playerid][pJailTime];
+    return gsStatusInfo[playerid][p_JAILED];
+}
+
+stock Player_GetJailTime(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return 0;
+
+    return gsStatusInfo[playerid][p_JAIL_TIME];
 }
 
 // Setters
-stock PlayerData_SetJailed(playerid, value)
+stock Player_SetJailed(playerid, value)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_StatusInfo[playerid][pJailed] = value;
+    return gsStatusInfo[playerid][p_JAILED] = value;
 }
 
-stock PlayerData_SetJailTime(playerid, value)
+stock Player_SetJailTime(playerid, value)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_StatusInfo[playerid][pJailTime] = value;
+    return gsStatusInfo[playerid][p_JAIL_TIME] = value;
 }
 
 // ============== HUNGRY ACCESSORS ============== //
 // Getters
-stock PlayerData_GetHungry(playerid)
+stock Player_GetHungry(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_StatusInfo[playerid][pHungry];
+    return gsStatusInfo[playerid][p_HUNGRY];
 }
 
 // Setters
-stock PlayerData_SetHungry(playerid, value)
+stock Player_SetHungry(playerid, value)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_StatusInfo[playerid][pHungry] = value;
+    return gsStatusInfo[playerid][p_HUNGRY] = value;
 }
 
 // ============== DRINK ACCESSORS ============== //
 // Getters
-stock PlayerData_GetDrink(playerid)
+stock Player_GetDrink(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_StatusInfo[playerid][pDrink];
+    return gsStatusInfo[playerid][p_DRINK];
 }
 
 // Setters
-stock PlayerData_SetDrink(playerid, value)
+stock Player_SetDrink(playerid, value)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_StatusInfo[playerid][pDrink] = value;
+    return gsStatusInfo[playerid][p_DRINK] = value;
 }
 
 // ============== WARNINGS ACCESSORS ============== //
 // Getters
-stock PlayerData_GetWarnings(playerid)
+stock Player_GetWarnings(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_StatusInfo[playerid][pWarnings];
+    return gsStatusInfo[playerid][p_WARNINGS];
 }
 
 // Setters
-stock PlayerData_SetWarnings(playerid, value)
+stock Player_SetWarnings(playerid, value)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
     
-    return Player_StatusInfo[playerid][pWarnings] = value;
+    return gsStatusInfo[playerid][p_WARNINGS] = value;
 }
 
 // ============== MUTED ACCESSORS ============== //
 // Getters
-stock PlayerData_GetMutedTime(playerid)
+stock Player_GetMutedTime(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_StatusInfo[playerid][pMuted];
+    return gsStatusInfo[playerid][p_MUTED];
 }
 
 // Setters
-stock PlayerData_SetMutedTime(playerid, quantity)
+stock Player_SetMutedTime(playerid, time)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_StatusInfo[playerid][pMuted] = quantity;
+    return gsStatusInfo[playerid][p_MUTED] = time;
 }
 
 // ============== MUTED NOOB ACCESSORS ============== //
 // Getters
-stock PlayerData_GetMutedNoobTime(playerid)
+stock Player_GetNoobMutedTime(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_StatusInfo[playerid][pMutedNoob];
+    return gsStatusInfo[playerid][p_MUTED_NOOB];
 }
 
 // Setters
-stock PlayerData_SetMutedNoobTime(playerid, time)
+stock Player_SetNoobMutedTime(playerid, time)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
-    return Player_StatusInfo[playerid][pMutedNoob] = time;
-}
-
-// ============== RESET INFO ============== //
-stock PlayerData_ResetStatusInfo(playerid)
-{
-    static const empty_data[pStatusInfo];
-    Player_StatusInfo[playerid] = empty_data;
-    return Player_StatusInfo[playerid];
+    return gsStatusInfo[playerid][p_MUTED_NOOB] = time;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

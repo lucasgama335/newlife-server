@@ -5,7 +5,7 @@
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-stock Server_PrintLog(const folder[], const string[], maxlength = sizeof(string))
+stock PrintLog(const folder[], const string[], maxlength = sizeof(string))
 {
     if (maxlength) return print("[Log Error]: Limite de caracteres atingido.");
     #if DEV_MODE
@@ -28,7 +28,7 @@ stock Server_PrintLog(const folder[], const string[], maxlength = sizeof(string)
     return 1;
 }
 
-stock Server_FormatToMoney(number)
+stock FormatMoneyString(number)
 {
     new real, mil, milhao, milhaor, bilhao, bilhaor, string[100];
     if (number > 999999999)
@@ -71,34 +71,7 @@ stock Server_FormatToMoney(number)
     return string;
 }
 
-stock Server_FormatTime(number)
-{
-    new hours = 0, mins = 0, secs = 0, string[100];
-    hours = floatround(number / 3600);
-    mins = floatround((number / 60) - (hours * 60));
-    secs = floatround(number - ((hours * 3600) + (mins * 60)));
-    new days = 0;
-    if (hours >= 24)
-    {
-        days = floatround((hours/24), floatround_floor);
-        hours = hours % 24;
-    }
-    if (days > 0)
-    {
-        format(string, 100, "%d dias, %02d:%02d:%02d", days, hours, mins, secs);
-    }
-    else if (hours > 0)
-    {
-        format(string, 100, "%02d:%02d:%02d", hours, mins, secs);
-    }
-    else
-    {
-        format(string, 100, "%02d:%02d:%02d", hours, mins, secs);
-    }
-    return string;
-}
-
-stock Server_GetWeaponName(gun)
+stock GetPlayerWeaponName(gun)
 {
     static armatext[90];
     switch (gun)
@@ -146,7 +119,7 @@ stock Server_GetWeaponName(gun)
     return armatext;
 }
 
-stock Server_GetWeaponAmmo(playerid, weaponid)
+stock GetPlayerWeaponAmmo(playerid, weaponid)
 {
     new wd[2][13];
     for(new i; i<13; i++) GetPlayerWeaponData(playerid,i,wd[0][i],wd[1][i]);
@@ -158,7 +131,7 @@ stock Server_GetWeaponAmmo(playerid, weaponid)
     return 0;
 }
 
-stock Server_PlayersInSameIp(const test_ip[])
+stock GetPlayersInSameIp(const test_ip[])
 {
 	new against_ip[32+1];
     new ip_count = 0;
@@ -173,7 +146,7 @@ stock Server_PlayersInSameIp(const test_ip[])
     return ip_count;
 }
 
-stock TentouDivulgar(const string[])
+stock CheckInvalidWords(const string[])
 {
 	new x = 0;
 	for (new i = 0, j = strlen(string); i <= j; i++)
