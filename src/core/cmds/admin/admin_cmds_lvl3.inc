@@ -9,3 +9,245 @@
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+YCMD:1(playerid, params[], help)
+{
+	if (Player_GetAdminLevel(playerid) < BEGINNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+
+	new string[15];
+	format(string, sizeof(string), "~p~| ~r~1 ~p~|");
+    GameTextForAll(string, 1000, 5);
+    return 1;
+}
+
+YCMD:2(playerid, params[], help)
+{
+	if (Player_GetAdminLevel(playerid) < BEGINNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+
+	new string[15];
+	format(string, sizeof(string), "~p~| ~r~2 ~p~|");
+    GameTextForAll(string, 1000, 5);
+    return 1;
+}
+
+YCMD:3(playerid, params[], help)
+{
+	if (Player_GetAdminLevel(playerid) < BEGINNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+
+	new string[15];
+	format(string, sizeof(string), "~p~| ~y~3 ~p~|");
+    GameTextForAll(string, 1000, 5);
+    return 1;
+}
+
+YCMD:go(playerid, params[], help)
+{
+	if (Player_GetAdminLevel(playerid) < BEGINNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+
+	new string[22];
+	format(string, sizeof(string), "~p~| ~g~Go Go Go ~p~|");
+    GameTextForAll(string, 1000, 5);
+    return 1;
+}
+
+timer DestroyFlyObject[500](objectId)
+{
+    DestroyObject(objectId);
+    return 1;
+}
+
+YCMD:voaron(playerid, params[], help)
+{
+	if (Player_GetAdminLevel(playerid) < BEGINNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+
+	new string[57];
+	if (!Admin_IsFlying(playerid))
+	{
+        new Float: X, Float: Y, Float: Z;
+        Admin_SetFlying(playerid, true);
+		GetPlayerPos(playerid, X, Y, Z);
+		SetPlayerHealth(playerid, 1000000);
+	  	format(string, sizeof(string), "Adm-Cmd: %s ativou o modo voar.", GetPlayerNameCustom(playerid));
+	    SendAdminMessage(COLOR_YELLOW, string, HELPER);
+	    SendClientMessage(playerid, COLOR_LIGHTBLUE, "Para sair do modo de voar digite /voaron novamente !");
+        new smoke_id = CreateObject(2780, X, Y, Z - 3.0, 0.0, 0.0, 0.0);
+        defer DestroyFlyObject(smoke_id);
+     	StartFly(playerid);
+    }
+    else
+    {
+        Admin_SetFlying(playerid, false);
+		SetPlayerHealth(playerid, 100);
+        format(string, sizeof(string), "Adm-Cmd: %s desativou o modo voar.", GetPlayerNameCustom(playerid));
+		SendAdminMessage(COLOR_YELLOW, string, HELPER);
+        StopFly(playerid);
+	}
+    return 1;
+}
+
+YCMD:orelhas(playerid, params[], help)
+{
+	if (Player_GetAdminLevel(playerid) < BEGINNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+
+	if (!Admin_HasBigEars(playerid))
+   	{
+        Admin_SetBigEars(playerid, true);
+        SendClientMessage(playerid, COLOR_INVALID, "Suas orelhas cresceram!");
+   	}
+   	else
+   	{
+        Admin_SetBigEars(playerid, false);
+    	SendClientMessage(playerid, COLOR_INVALID, "Suas orelhas encolheram!");
+   	}
+    return 1;
+}
+
+YCMD:respawnperto(playerid, params[], help)
+{
+	if (Player_GetAdminLevel(playerid) < BEGINNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+
+	// Execução do Comando
+	new string[78];
+	RespawnNearVehicles(playerid);
+	SendClientMessage(playerid, COLOR_INVALID, "Você deu respawn nos carros a 50 metros de você.");
+	format(string, sizeof(string), "AdmAviso: %s deu respawn em todos os carros perto dele.", GetPlayerNameCustom(playerid));
+	SendAdminMessage(COLOR_YELLOW, string, HELPER);
+    return 1;
+}
+
+YCMD:rarmas(playerid, params[], help) = retirararmas;
+YCMD:retirararmas(playerid, params[], help)
+{
+	if (Player_GetAdminLevel(playerid) < BEGINNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new id;
+	if (sscanf(params, "u", id))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /retirararmas [id]");
+	}
+	if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+	}
+
+	new string[91];
+	ResetPlayerWeapons(id);
+	format(string, sizeof(string), "ADMIN CMD: %s teve as armas retiradas por: %s.", GetPlayerNameCustom(id), GetPlayerNameCustom(playerid));
+	SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
+	return 1;
+}
+
+YCMD:saciar(playerid, params[], help)
+{
+	if (Player_GetAdminLevel(playerid) < BEGINNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new id;
+	if (sscanf(params, "u", id))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /saciar [id]");
+	}
+	if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+	}
+
+ 	new string[90];
+	Player_SetHungry(id, 100);
+	Player_SetDrink(id, 100);
+	format(string, sizeof(string), "Adm-Cmd: O Admin %s saciou a fome/sede de %s.", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id));
+	SendAdminMessage(COLOR_LIGHTGREEN, string, HELPER);
+	return 1;
+}
+
+YCMD:saciarall(playerid, params[], help)
+{
+	if (Player_GetAdminLevel(playerid) < BEGINNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+
+    new string[85];
+	foreach(new i: Player)
+	{
+	    if (Player_GetLoggedStatus(i))
+	    {
+			Player_SetHungry(i, 100);
+			Player_SetDrink(i, 100);
+		}
+	}
+	format(string, sizeof(string), "Adm-Cmd: O Admin %s saciou a fome e sede de todos do servidor.", GetPlayerNameCustom(playerid));
+	SendClientMessageToAll(COLOR_LIGHTGREEN, string);
+	return 1;
+}
+
+// TO-DO
+// /banir
+// /bansagendados
+// /agendarban
+// /excluirban
+// /desbanir
+// /versms

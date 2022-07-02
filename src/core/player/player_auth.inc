@@ -236,7 +236,7 @@ public OnPlayerConnect(playerid)
 
         SelectTextDraw(playerid, COLOR_ORANGE);
     }
-    Player_UpdateLastLoginTemp(playerid);
+    Player_UpdateLastLoginTemp(playerid, Chrono_GetTimeNow());
 	PlayAudioStreamForPlayer(playerid, "https://www.dropbox.com/s/ocpam5bletkz3j8/intro.mp3?dl=1");
     ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
     SendClientMessage(playerid, COLOR_SOFTGREY, "* Aguarde enquanto carregamos os seus dados...");

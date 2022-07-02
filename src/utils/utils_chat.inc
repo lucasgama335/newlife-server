@@ -21,29 +21,36 @@ stock SendMessageInRange(Float:range, playerid, const string[], col1, col2, col3
 		GetPlayerPos(playerid, oldposx, oldposy, oldposz);
 		foreach(new i: Player)
 		{
-			GetPlayerPos(i, posx, posy, posz);
-            tempposx = (oldposx -posx);
-            tempposy = (oldposy -posy);
-            tempposz = (oldposz -posz);
-            if (((tempposx < range/16) && (tempposx > -range/16)) && ((tempposy < range/16) && (tempposy > -range/16)) && ((tempposz < range/16) && (tempposz > -range/16)))
+            if (!Admin_HasBigEars(playerid))
+            {
+                GetPlayerPos(i, posx, posy, posz);
+                tempposx = (oldposx -posx);
+                tempposy = (oldposy -posy);
+                tempposz = (oldposz -posz);
+                if (((tempposx < range/16) && (tempposx > -range/16)) && ((tempposy < range/16) && (tempposy > -range/16)) && ((tempposz < range/16) && (tempposz > -range/16)))
+                {
+                    SendClientMessage(i, col1, string);
+                }
+                else if (((tempposx < range/8) && (tempposx > -range/8)) && ((tempposy < range/8) && (tempposy > -range/8)) && ((tempposz < range/8) && (tempposz > -range/8)))
+                {
+                    SendClientMessage(i, col2, string);
+                }
+                else if (((tempposx < range/4) && (tempposx > -range/4)) && ((tempposy < range/4) && (tempposy > -range/4)) && ((tempposz < range/4) && (tempposz > -range/4)))
+                {
+                    SendClientMessage(i, col3, string);
+                }
+                else if (((tempposx < range/2) && (tempposx > -range/2)) && ((tempposy < range/2) && (tempposy > -range/2)) && ((tempposz < range/2) && (tempposz > -range/2)))
+                {
+                    SendClientMessage(i, col4, string);
+                }
+                else if (((tempposx < range) && (tempposx > -range)) && ((tempposy < range) && (tempposy > -range)) && ((tempposz < range) && (tempposz > -range)))
+                {
+                    SendClientMessage(i, col5, string);
+                }
+            }
+            else
             {
                 SendClientMessage(i, col1, string);
-            }
-            else if (((tempposx < range/8) && (tempposx > -range/8)) && ((tempposy < range/8) && (tempposy > -range/8)) && ((tempposz < range/8) && (tempposz > -range/8)))
-            {
-                SendClientMessage(i, col2, string);
-            }
-            else if (((tempposx < range/4) && (tempposx > -range/4)) && ((tempposy < range/4) && (tempposy > -range/4)) && ((tempposz < range/4) && (tempposz > -range/4)))
-            {
-                SendClientMessage(i, col3, string);
-            }
-            else if (((tempposx < range/2) && (tempposx > -range/2)) && ((tempposy < range/2) && (tempposy > -range/2)) && ((tempposz < range/2) && (tempposz > -range/2)))
-            {
-                SendClientMessage(i, col4, string);
-            }
-            else if (((tempposx < range) && (tempposx > -range)) && ((tempposy < range) && (tempposy > -range)) && ((tempposz < range) && (tempposz > -range)))
-            {
-                SendClientMessage(i, col5, string);
             }
 		}
 	}

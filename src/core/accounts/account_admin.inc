@@ -8,6 +8,8 @@ static bool:gsAdminAfkMode[MAX_PLAYERS];
 static bool:gsAdminHideMode[MAX_PLAYERS];
 
 static bool:gsAdminViewAllPm[MAX_PLAYERS];
+static bool:gsIsAdminFlying[MAX_PLAYERS];
+static bool:gsAdminHasBigEars[MAX_PLAYERS];
 
 enum a_SPECTATE
 {
@@ -126,6 +128,28 @@ stock Spectate_SetCoords(playerid, Float:x, Float:y, Float:z, interior, world)
     gsSpectateInfo[playerid][a_INTERIOR] = interior;
     gsSpectateInfo[playerid][a_VIRTUAL_WORLD] = world;
     return 1;
+}
+
+stock bool:Admin_HasBigEars(playerid)
+{
+	return gsAdminHasBigEars[playerid];
+}
+
+stock Admin_SetBigEars(playerid, bool:status)
+{
+	gsAdminHasBigEars[playerid] = status;
+	return 1;
+}
+
+stock bool:Admin_IsFlying(playerid)
+{
+	return gsIsAdminFlying[playerid];
+}
+
+stock Admin_SetFlying(playerid, bool:status)
+{
+	gsIsAdminFlying[playerid] = status;
+	return 1;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

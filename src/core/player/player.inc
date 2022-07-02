@@ -1,20 +1,9 @@
-// Database Player Data
-#include <general_data>
-#include <job_data>
-#include <appearence_data>
-#include <money_data>
-#include <score_data>
-#include <vip_data>
-#include <status_data>
-#include <config_data>
-//
 #include <player_admin>
 #include <player_tutorial>
 #include <player_vehicle>
 #include <player_anims>
 #include <player_auth>
 #include <player_spawn>
-#include <player_entrances>
 
 #include <YSI_Coding\y_hooks>
 
@@ -25,36 +14,6 @@
 static Timer:gsPlayerUpdateStatusTimer[MAX_PLAYERS];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-stock SetPlayerToTeamColor(playerid)
-{
-    SetPlayerColor(playerid, COLOR_WHITE);
-	if (Admin_GetWorkStatus(playerid) && !Admin_GetHideStatus(playerid))
-	{
-		SetPlayerColor(playerid, COLOR_ADMIN);
-	}
-	return 1;
-}
-
-stock PlayAudioStreamForPlayerEx(playerid, const url[])
-{
-	if (Player_GetMusicStreamStatus(playerid))
-	{
-		PlayAudioStreamForPlayer(playerid, url);
-	}
-	return 1;
-}
-
-stock SendDuvidaMessage(color, const string[])
-{
-	foreach(new i: Player)
-	{
-		if (Player_GetNoobChatStatus(i))
-	    {
-			SendClientMessage(i, color, string);
-		}
-	}
-	return 1;
-}
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 timer PlayerUpdateStatus[1000](playerid)

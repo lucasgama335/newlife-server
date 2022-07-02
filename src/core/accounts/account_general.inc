@@ -195,11 +195,11 @@ stock Player_SetLastLogin(playerid, Timestamp:timestamp)
     return 1;
 }
 
-stock Player_UpdateLastLoginTemp(playerid)
+stock Player_UpdateLastLoginTemp(playerid, Timestamp:time)
 {
     if (!IsPlayerConnected(playerid)) return 0;
     
-    gsLastLoginTimeTemp[playerid] = Chrono_GetTimeNow();
+    gsLastLoginTimeTemp[playerid] = time;
     return 1;
 }
 
@@ -280,6 +280,7 @@ stock e_INTERIOR_LOCALES:Player_SetInteriorLocale(playerid, e_INTERIOR_LOCALES:i
 }
 
 // ============== TEMPORARY ACCESSORS ============== //
+// Getters
 stock bool:Player_GetUsingAndroidStatus(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
@@ -294,11 +295,12 @@ stock bool:Player_GetLoggedStatus(playerid)
     return gsPlayerIsLogged[playerid];
 }
 
+// Setters
 stock bool:Player_SetUsingAndroidStatus(playerid, bool:status)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    return gsPlayerIsLogged[playerid] = status;
+    return gsPlayerIsUsingAndroid[playerid] = status;
 }
 
 stock bool:Player_SetLoggedStatus(playerid, bool:status)

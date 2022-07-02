@@ -43,7 +43,7 @@ static stock ShowHelpDialog(playerid)
 
 static stock ShowPlayerConfig(playerid)
 {
-	new configDialog[808 + 1], string[74 + 1];
+	new configDialog[827 + 1], string[74 + 1];
 	strcat(configDialog, "{FFFFFF}Sistema\t{FFFFFF}Informações\n");
 	strcat(configDialog, "{0080ff}• {FFFFFF}Gerenciar Tags\t{848484}Clique para Configurar\n");
 	switch(Player_GetSpawn(playerid))
@@ -74,6 +74,14 @@ static stock ShowPlayerConfig(playerid)
 	{
 		case 0: strcat(configDialog, "{0080ff}• {FFFFFF}Rastreador\t{00aaff}CheckPoint\n");
 		case 1: strcat(configDialog, "{0080ff}• {FFFFFF}Rastreador\t{00aaff}Seta\n");
+	}
+	if (!Player_GetUsingAndroidStatus(playerid))
+	{
+		strcat(configDialog, "{0080ff}• {FFFFFF}Plataforma\t{FFEC8B}PC\n");
+	}
+	else
+	{
+		strcat(configDialog, "{0080ff}• {FFFFFF}Plataforma\t{FFEC8B}Android\n");
 	}
 	strcat(configDialog, "{0080ff}• {FFFFFF}Menu Hit(Sino do Dano)\t{848484}Clique para Configurar\n");
 	format(string, sizeof(string), "{FFFFFF}Configurações da Conta: ({0080ff}%s{FFFFFF})", SERVER_TAG);
@@ -912,6 +920,21 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						}
 			        }
 					case 11:
+			        {
+						if (!Player_GetUsingAndroidStatus(playerid))
+						{
+							Player_SetUsingAndroidStatus(playerid, true);
+							SendClientAlert(playerid, "Configuracoes", "Voce mudou a sua plataforma para android.");
+						}
+						else
+						{
+							Player_SetUsingAndroidStatus(playerid, false);
+							SendClientAlert(playerid, "Configuracoes", "Voce mudou a sua plataforma para pc.");
+						}
+						PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
+						return ShowPlayerConfig(playerid);
+			        }
+					case 12:
 			        {
 						new hitDialog[228 + 1];
 			            strcat(hitDialog, (Player_GetHitSound(playerid) == 3 ? "{04b404}» {848484}Ouvir o sino ao: {FFFFFF}(Acetar Tiro)\n" : "{848484}Ouvir o sino ao: {FFFFFF}(Acetar Tiro)\n"));

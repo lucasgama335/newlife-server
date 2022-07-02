@@ -79,5 +79,53 @@ stock PlayerPlayMusic(playerid, musicId)
 	}
 }
 
+stock SetPlayerLookAt(playerid, Float:xl, Float:yl)
+{
+	new Float:Px, Float:Py, Float: Pa;
+	GetPlayerPos(playerid, Px, Py, Pa);
+	Pa = floatabs(atan((yl-Py) / (xl-Px)));
+	if (xl <= Px && yl >= Py) 		Pa = floatsub(180.0, Pa);
+	else if (xl < Px && yl < Py) 	Pa = floatadd(Pa, 180.0);
+	else if (xl >= Px && yl <= Py)	Pa = floatsub(360.0, Pa);
+	Pa = floatsub(Pa, 90.0);
+	if (Pa >= 360.0)
+	{
+		Pa = floatsub(Pa, 360.0);
+	}
+	SetPlayerFacingAngle(playerid, Pa);
+	return 1;
+}
+
+stock SetPlayerToTeamColor(playerid)
+{
+    SetPlayerColor(playerid, COLOR_WHITE);
+	if (Admin_GetWorkStatus(playerid) && !Admin_GetHideStatus(playerid))
+	{
+		SetPlayerColor(playerid, COLOR_ADMIN);
+	}
+	return 1;
+}
+
+stock PlayAudioStreamForPlayerEx(playerid, const url[])
+{
+	if (Player_GetMusicStreamStatus(playerid))
+	{
+		PlayAudioStreamForPlayer(playerid, url);
+	}
+	return 1;
+}
+
+stock SendDuvidaMessage(color, const string[])
+{
+	foreach(new i: Player)
+	{
+		if (Player_GetNoobChatStatus(i))
+	    {
+			SendClientMessage(i, color, string);
+		}
+	}
+	return 1;
+}
+
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 

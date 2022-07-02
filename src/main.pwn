@@ -34,20 +34,20 @@
 /*==============================================================================
 	Gamemode Scripts
 ==============================================================================*/
-// SERVER CORE (CONNECTION)
+// SERVER CORE
 #include <server>
 #include <database>
+#include <accounts>
+#include <anticheat>
 // UTILS
 #include <utils>
 // VEHICLES CORE
 #include <vehicles>
-// EXTRA CORE
+// EXTRA
 #include <maps>
 #include <textdraws>
 // PLAYER CORE
 #include <player>
-// SERVER CORE (ANTICHEAT)
-#include <anticheat>
 // FEATURES CORE
 #include <features>
 // CHAT

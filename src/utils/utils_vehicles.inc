@@ -56,6 +56,35 @@ stock GetVehicleSpeed(vehicleid)
     return floatround(floatsqroot(xPos[0] * xPos[0] + xPos[1] * xPos[1] + xPos[2] * xPos[2]) * 170.00);
 }
 
+stock IsPlayerNearVehicle(Float:radi, playerid, vehicleid)
+{
+	new Float:PX, Float:PY, Float:PZ, Float:X, Float:Y, Float:Z;
+    GetPlayerPos(playerid, PX, PY, PZ);
+    GetVehiclePos(vehicleid, X, Y, Z);
+    new Float:DistanceP = (X - PX) * (X - PX) + (Y - PY) * (Y - PY) + (Z - PZ) * (Z - PZ);
+    if (DistanceP <= radi*radi)
+    {
+        return 1;
+    }
+	return 0;
+}
+
+stock IsVehicleBusy(vehicleid)
+{
+    foreach(new i: Player)
+    {
+        if (!Player_GetLoggedStatus(i)) 
+        {
+            continue;
+        }
+        if (GetPlayerVehicleID(i) == vehicleid)
+        { 
+            return true;
+        }
+    }
+    return false;
+}
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
