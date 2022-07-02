@@ -4,8 +4,67 @@
 #include <YSI_Coding\y_hooks>
 
 //------------------------- Definitions and constants -------------------------
+static Iterator:Vehicles<MAX_VEHICLES>;
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
+
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+task CheckVehicleFuel[15000]()
+{
+	foreach (new vehicleid : Vehicles)
+	{
+		if (Vehicle_GetFuel(vehicleid) > 0)
+		{
+			Vehicle_SetFuel(vehicleid, (Vehicle_GetFuel(vehicleid) - 1));
+			if (Vehicle_GetFuel(vehicleid) <= 0)
+			{
+				if (Vehicle_GetEngineStatus(vehicleid))
+				{
+					Vehicle_SetEngine(vehicleid, false);
+				}
+			}
+		}
+		else
+		{
+			if (Vehicle_GetEngineStatus(vehicleid))
+			{
+				Vehicle_SetEngine(vehicleid, false);
+			}
+		}
+	}
+	return 1;
+}
+
+task CheckVehicleShield[1000]()
+{
+	foreach (new vehicleid : Vehicles)
+	{
+		new Float:vehicleHealth, intHealt, lostHealth;
+		GetVehicleHealth(vehicleid, vehicleHealth);
+		intHealt = floatround((vehicleHealth / 10), floatround_round);
+		lostHealth = (100 - intHealt);
+		if (Vehicle_GetShield(vehicleid) > 0 && vehicleHealth < 1000)
+		{
+			if (Vehicle_GetShield(vehicleid) > lostHealth)
+			{
+				Vehicle_SetShield(vehicleid, (Vehicle_GetShield(vehicleid) - lostHealth));
+			}
+			else
+			{
+				Vehicle_SetShield(vehicleid, 0);
+			}
+			RepairVehicle(vehicleid);
+		}
+
+		if (vehicleHealth <= 300.0)
+		{
+			Vehicle_SetEngine(vehicleid, false);
+			SetVehicleHealth(vehicleid, 300);
+			Vehicle_SetBrokenStatus(vehicleid, true);
+		}
+	}
+	return 1;
+}
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock Vehicle_SetEngine(vehicleid, bool:status)
@@ -30,21 +89,21 @@ stock Vehicle_SetEngineToPlayer(playerid, vehicleid, bool:status)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em um veículo.");
 	}
-	if (GetPlayerState(playerid) != 2)
+	if (GetPlayerState(playerid) != PLAYER_STATE_DRIVER)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não é o motorista desse veículo.");
 	}
-	if (GetPlayerState(playerid) == 2 && Vehicle_GetFuel(vehicleid) <= 0)
+	if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER && Vehicle_GetFuel(vehicleid) <= 0)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Seu veículo está sem gasolina, use um galão.");
+	}
+	if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER && Vehicle_GetBrokenStatus(vehicleid))
+	{
+		return SendClientMessage(playerid, COLOR_LIGHTBLUE, "Seu veículo está quebrado, não pode mecher no motor !");
 	}
 	if (Vehicle_GetEngineStatus(vehicleid)  && GetPlayerState(playerid) == 2 && GetPlayerSpeed(playerid, true) > 1)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode mecher no motor do veículo em movimento.");
-	}
-	if (GetPlayerState(playerid) == 2 && Vehicle_GetBrokenStatus(vehicleid))
-	{
-		return SendClientMessage(playerid, COLOR_LIGHTBLUE, "Seu veículo está quebrado, não pode mecher no motor !");
 	}
 
     Vehicle_SetEngine(vehicleid, status);
@@ -59,6 +118,25 @@ stock Vehicle_SetEngineToPlayer(playerid, vehicleid, bool:status)
     return 1;
 }
 
-//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+stock AddStaticVehicleCustom(modelId, Float:posX, Float:posY, Float:posZ, Float:posA, colorOne, colorTwo, timeToRespawn, bool:siren = false)
+{
+	new tempVehicleId = INVALID_VEHICLE_ID;
+	tempVehicleId = AddStaticVehicleEx(modelId, posX, posY, posZ, posA, colorOne, colorTwo, timeToRespawn, siren);
+	Vehicle_SetColor(tempVehicleId, colorOne, colorTwo);
+	Vehicle_SetFuel(tempVehicleId, 100);
+	Vehicle_SetShield(tempVehicleId, 0);
+	Vehicle_SetMoney(tempVehicleId, 0);
+	Vehicle_SetBrokenStatus(tempVehicleId, false);
+	Vehicle_SetLockedStatus(tempVehicleId, false);
+	Vehicle_SetPlate(tempVehicleId, "");
+	Vehicle_SetEngine(tempVehicleId, false);
+	Iter_Add(Vehicles, tempVehicleId);
+	return tempVehicleId;
+}
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+hook OnVehicleSpawn(vehicleid)
+{
+	Vehicle_SetEngine(vehicleid, false);
+	return 1;
+}

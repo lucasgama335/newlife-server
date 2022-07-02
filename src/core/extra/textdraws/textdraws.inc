@@ -3,6 +3,7 @@
 #include <textdraw_spectate>
 #include <textdraw_alert>
 #include <textdraw_hud_footer>
+#include <textdraw_speedometer>
 
 #include <YSI_Coding\y_hooks>
 

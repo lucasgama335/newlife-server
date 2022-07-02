@@ -3,8 +3,8 @@
 /*==============================================================================
 	Library Predefinitions
 ==============================================================================*/
-// #define FIXES_Single 1
-// #define FIXES_ServerVarMsg 0
+#define FIXES_Single 1
+#define FIXES_ServerVarMsg 0
 #define YSI_NO_HEAP_MALLOC
 #if !defined IsValidVehicle
     native IsValidVehicle(vehicleid);
@@ -13,13 +13,13 @@
 /*==============================================================================
 	Libraries and respective links to their release pages
 ==============================================================================*/
-// #include <fixes>						// By Y_Less:				https://github.com/pawn-lang/sa-mp-fixes (have a bug on android, show a empty dialog)
+#include <fixes>						// By Y_Less:				https://github.com/pawn-lang/sa-mp-fixes (have a bug on android, show a empty dialog)
 #include <a_mysql>						// By pBlueG:				https://github.com/pBlueG/SA-MP-MySQL
 #include <samp_bcrypt>					// By LassiR				https://github.com/LassiR/bcrypt-samp
 #include <sscanf2>						// By Y_Less:				https://github.com/Y-Less/sscanf
 #include <streamer>						// By Incognito:			https://github.com/samp-incognito/samp-streamer-plugin
 #include <chrono>						// By Southclaws:			https://github.com/Southclaws/pawn-chrono
-#include <YSI_Data\y_foreach>       	// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
+#include <YSI_Data\y_iterate>       	// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 #include <YSI_Visual\y_commands> 		// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 #include <YSI_Coding\y_timers> 			// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 #include <YSI_Extra\y_inline_mysql>		// By Y_Less:				https://github.com/pawn-lang/YSI-Includes

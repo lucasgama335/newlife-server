@@ -3,7 +3,7 @@
 #include <YSI_Coding\y_hooks>
 
 //------------------------- Definitions and constants -------------------------
-#define		SERVER_ADMIN_PASS   "serverteste"	
+#define		SERVER_ADMIN_PASS   "123"	
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static Timer:gsSpectateTimer[MAX_PLAYERS];

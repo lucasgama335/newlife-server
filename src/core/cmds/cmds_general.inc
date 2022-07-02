@@ -866,27 +866,27 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						{
 							case 0: 
 							{
-								// new vid = GetPlayerVehicleID(playerid);
-								// if (IsPlayerInVehicle(playerid, vid)) HidePlayerVelocimetro(playerid);
 								Player_SetSpeedometer(playerid, 1);
-								// if (IsPlayerInVehicle(playerid, vid)) ShowPlayerVelocimetro(playerid);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce mudou o seu velocimetro~n~para o estilo compacto.");
-								Player_UpdateConfigData(playerid);
-								return ShowPlayerConfig(playerid);
 							}
 							default: 
 							{
-								// new vid = GetPlayerVehicleID(playerid);
-								// if (IsPlayerInVehicle(playerid, vid)) HidePlayerVelocimetro(playerid);
 								Player_SetSpeedometer(playerid, 0);
-								// if (IsPlayerInVehicle(playerid, vid)) ShowPlayerVelocimetro(playerid);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce mudou o seu velocimetro~n~para o estilo moderno.");
-								Player_UpdateConfigData(playerid);
-								return ShowPlayerConfig(playerid);
+								
 							}
 						}
+						new vehicleid = GetPlayerVehicleID(playerid);
+						if (IsPlayerInVehicle(playerid, vehicleid) && vehicleid != INVALID_VEHICLE_ID && IsValidVehicle(vehicleid)) 
+						{
+							HidePlayerSpeedometer(playerid);
+							UpdatePlayerSpeedometer(playerid, vehicleid, Player_GetSpeedometer(playerid));
+							ShowPlayerSpeedometer(playerid, Player_GetSpeedometer(playerid));
+						}
+						Player_UpdateConfigData(playerid);
+						ShowPlayerConfig(playerid);
 			        }
 					case 10:
 			        {

@@ -17,7 +17,9 @@ enum v_VEHICLE_DATA
 	bool:v_LOCKED,
 	v_PLATE[MAX_PLATE_STRING],
     v_MONEY,
-	bool:v_BROKEN
+	bool:v_BROKEN,
+    v_COLOR_ONE,
+    v_COLOR_TWO
 }
 static gsVehicleInfo[MAX_VEHICLES][v_VEHICLE_DATA];
 
@@ -144,23 +146,32 @@ stock bool:Vehicle_SetBrokenStatus(vehicleid, bool:status)
     return gsVehicleInfo[vehicleid][v_BROKEN] = status;
 }
 
+// ============== BROKEN ACCESSORS ============== //
+// Getters
+stock Vehicle_GetColorOne(vehicleid)
+{
+    if (!IsValidVehicle(vehicleid)) return 0;
+
+    return gsVehicleInfo[vehicleid][v_COLOR_ONE];
+}
+
+stock Vehicle_GetColorTwo(vehicleid)
+{
+    if (!IsValidVehicle(vehicleid)) return 0;
+
+    return gsVehicleInfo[vehicleid][v_COLOR_TWO];
+}
+
+// Setters
+stock Vehicle_SetColor(vehicleid, colorOne, colorTwo)
+{
+    if (!IsValidVehicle(vehicleid)) return false;
+
+    gsVehicleInfo[vehicleid][v_COLOR_ONE] = colorOne;
+    gsVehicleInfo[vehicleid][v_COLOR_TWO] = colorTwo;
+    return 1;
+}
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
-hook OnGameModeInit()
-{
-    new engine, lights, alarm, doors, bonnet, boot, objective;
-    for (new i = 0; i < MAX_VEHICLES; i++)
-    {
-        gsVehicleInfo[i][v_ENGINE] = false;
-        gsVehicleInfo[i][v_FUEL] = 100;
-        gsVehicleInfo[i][v_SHIELD] = 0;
-        gsVehicleInfo[i][v_LOCKED] = false;
-        format(gsVehicleInfo[i][v_PLATE], MAX_PLATE_STRING, "");
-        gsVehicleInfo[i][v_MONEY] = 0;
-        gsVehicleInfo[i][v_BROKEN] = false;
-        GetVehicleParamsEx(i, engine, lights, alarm, doors, bonnet, boot, objective);
-	    SetVehicleParamsEx(i, VEHICLE_PARAMS_OFF, lights, alarm, doors, bonnet, boot, objective);
-    }
-    return 1;
-}

@@ -16,7 +16,7 @@
 #define TXT_CLIMA13  	 "[Previsão do Tempo]: Neblina Densa com Vento forte, Mínima de -2°C, Máxima de 1°C."
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static gsChangeWeatherCounter = 7200; // this is for change weather each 2 hour
+static gsChangeWeatherCounter = TIME_WEATHER_FORECAST; // this is for change weather each 2 hour
 static bool:gsWeatherForeactStatus;
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
@@ -30,8 +30,22 @@ stock Server_SetWeatherForecast(bool:status)
 task SyncRealTime[1000]()
 {
     new Timestamp:timeNow = Chrono_GetTimeNow(), minutes = Server_FormatMinuteDigit(timeNow), seconds = Server_FormatSecondDigit(timeNow);
-    if (gsChangeWeatherCounter > 0) gsChangeWeatherCounter--;
-    if (minutes == 0 && seconds == 0) UpdateWorldTime(timeNow);
+	if (minutes == 0 && seconds == 0) UpdateWorldTime(timeNow);
+
+	// Weather Forecast
+    if (gsChangeWeatherCounter <= 0) 
+    { 
+        if (gsWeatherForeactStatus && !Server_IsRestarting()) 
+		{
+			WeatherForecast();
+		}
+		gsChangeWeatherCounter = TIME_WEATHER_FORECAST;
+    }
+	else 
+	{
+		gsChangeWeatherCounter--;
+	}
+	return 1;
 }
 
 static stock UpdateWorldTime(Timestamp:time)
@@ -63,12 +77,7 @@ static stock UpdateWorldTime(Timestamp:time)
         case 21: SetWorldTime(0);
         case 22: SetWorldTime(0);
         case 23: SetWorldTime(0);
-    }
-    if (gsChangeWeatherCounter <= 0) 
-    { 
-        if (gsWeatherForeactStatus) WeatherForecast();
-        gsChangeWeatherCounter = 7200;
-    }
+	}
     return 1;
 }
 

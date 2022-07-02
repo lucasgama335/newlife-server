@@ -22,16 +22,16 @@ stock Vehicle_IsCivilVehicle(vehicleid)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnGameModeInit()
 {
-    gsCivilVehicle[0] = AddStaticVehicleEx(462, 841.7307, -1336.1260, 13.0684, 0.0000, 7, 7, 90);
-	gsCivilVehicle[1] = AddStaticVehicleEx(462, 828.5796, -1336.1260, 13.0684, 0.0000, 7, 7, 90);
-	gsCivilVehicle[2] = AddStaticVehicleEx(462, 829.7737, -1336.1260, 13.0684, 0.0000, 7, 7, 90);
-	gsCivilVehicle[3] = AddStaticVehicleEx(462, 831.2488, -1336.1260, 13.0684, 0.0000, 7, 7, 90);
-	gsCivilVehicle[4] = AddStaticVehicleEx(462, 832.7236, -1336.1260, 13.0684, 0.0000, 7, 7, 90);
-	gsCivilVehicle[5] = AddStaticVehicleEx(462, 834.2357, -1336.1260, 13.0684, 0.0000, 7, 7, 90);
-	gsCivilVehicle[6] = AddStaticVehicleEx(462, 835.6768, -1336.1260, 13.0684, 0.0000, 7, 7, 90);
-	gsCivilVehicle[7] = AddStaticVehicleEx(462, 837.2051, -1336.1260, 13.0684, 0.0000, 7, 7, 90);
-	gsCivilVehicle[8] = AddStaticVehicleEx(462, 838.7051, -1336.1260, 13.0684, 0.0000, 7, 7, 90);
-	gsCivilVehicle[9] = AddStaticVehicleEx(462, 840.1488, -1336.1260, 13.0684, 0.0000, 7, 7, 90);
+    gsCivilVehicle[0] = AddStaticVehicleCustom(462, 841.7307, -1336.1260, 13.0684, 0.0000, 7, 7, 90);
+	gsCivilVehicle[1] = AddStaticVehicleCustom(462, 828.5796, -1336.1260, 13.0684, 0.0000, 7, 7, 90);
+	gsCivilVehicle[2] = AddStaticVehicleCustom(462, 829.7737, -1336.1260, 13.0684, 0.0000, 7, 7, 90);
+	gsCivilVehicle[3] = AddStaticVehicleCustom(462, 831.2488, -1336.1260, 13.0684, 0.0000, 7, 7, 90);
+	gsCivilVehicle[4] = AddStaticVehicleCustom(462, 832.7236, -1336.1260, 13.0684, 0.0000, 7, 7, 90);
+	gsCivilVehicle[5] = AddStaticVehicleCustom(462, 834.2357, -1336.1260, 13.0684, 0.0000, 7, 7, 90);
+	gsCivilVehicle[6] = AddStaticVehicleCustom(462, 835.6768, -1336.1260, 13.0684, 0.0000, 7, 7, 90);
+	gsCivilVehicle[7] = AddStaticVehicleCustom(462, 837.2051, -1336.1260, 13.0684, 0.0000, 7, 7, 90);
+	gsCivilVehicle[8] = AddStaticVehicleCustom(462, 838.7051, -1336.1260, 13.0684, 0.0000, 7, 7, 90);
+	gsCivilVehicle[9] = AddStaticVehicleCustom(462, 840.1488, -1336.1260, 13.0684, 0.0000, 7, 7, 90);
 	for(new x; x < sizeof(gsCivilVehicle); x++)
 	{
 		new string[80];

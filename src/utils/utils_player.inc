@@ -3,6 +3,14 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
+static Timer:gsPlayerMusic[MAX_PLAYERS];
+
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+timer StopPlayerMusic[5000](playerid)
+{
+	PlayerPlaySound(playerid, 0, 0.0, 0.0, 0.0);
+	return 1;
+}
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock GetPlayerNameCustom(playerid)
@@ -58,7 +66,18 @@ stock GetPlayerSpeed(playerid, bool:kmh2)
     return kmh2?floatround(rtn * 100 * 1.61):floatround(rtn * 100);
 }
 
-//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+stock PlayerPlayMusic(playerid, musicId)
+{
+	if (IsPlayerConnected(playerid))
+	{
+		if (Timer_IsRunning(gsPlayerMusic[playerid]))
+		{
+			stop gsPlayerMusic[playerid];
+		}
+		gsPlayerMusic[playerid] = defer StopPlayerMusic(playerid);
+		PlayerPlaySound(playerid, musicId, 0.0, 0.0, 0.0);
+	}
+}
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 

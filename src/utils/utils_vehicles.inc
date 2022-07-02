@@ -49,6 +49,13 @@ stock GetVehicleName(model)
     return nameVeh;
 }
 
+stock GetVehicleSpeed(vehicleid)
+{
+    new Float:xPos[3];
+    GetVehicleVelocity(vehicleid, xPos[0], xPos[1], xPos[2]);
+    return floatround(floatsqroot(xPos[0] * xPos[0] + xPos[1] * xPos[1] + xPos[2] * xPos[2]) * 170.00);
+}
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
