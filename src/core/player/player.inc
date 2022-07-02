@@ -92,14 +92,40 @@ timer PlayerUpdateStatus[1000](playerid)
     }
 
     // Muted Time
-    if (Player_GetMutedTime(playerid) > 0) Player_SetMutedTime(playerid, (Player_GetMutedTime(playerid) - 1));
-    if (Player_GetNoobMutedTime(playerid) > 0) Player_SetNoobMutedTime(playerid, (Player_GetNoobMutedTime(playerid) - 1));
+    if (Player_GetMutedTime(playerid) > 0) 
+    {
+        Player_SetMutedTime(playerid, (Player_GetMutedTime(playerid) - 1));
+    }
+    if (Player_GetNoobMutedTime(playerid) > 0) 
+    {
+        Player_SetNoobMutedTime(playerid, (Player_GetNoobMutedTime(playerid) - 1));
+    }
+    
+    if (Player_GetPaydayTime(playerid) <= 0)
+    {
+        PlayerGetPayday(playerid);
+    }   
+    else
+    {
+        Player_SetPaydayTime(playerid, (Player_GetPaydayTime(playerid) - 1));
+    }
+    // Update HUD
+    UpdatePlayerHud(playerid, Chrono_GetTimeNow(), Player_GetLevel(playerid), Player_GetHungry(playerid), Player_GetDrink(playerid), Player_GetPaydayTime(playerid));
+    return 1;
+}
+
+stock PlayerGetPayday(playerid)
+{
+    Player_SetPaydayTime(playerid, 3600);
+    SendClientMessage(playerid, -1, "PAYDAY");
     return 1;
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook BeforeSpawnPlayer(playerid)
 {
+    UpdatePlayerHud(playerid, Chrono_GetTimeNow(), Player_GetLevel(playerid), Player_GetHungry(playerid), Player_GetDrink(playerid), Player_GetPaydayTime(playerid));
+    ShowPlayerHud(playerid);
 	gsPlayerUpdateStatusTimer[playerid] = repeat PlayerUpdateStatus(playerid);
 	return 1;
 }

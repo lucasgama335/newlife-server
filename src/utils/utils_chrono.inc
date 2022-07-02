@@ -52,6 +52,22 @@ stock Chrono_GetFullDate(Timestamp:tsTimezone)
 	return fullOutput;
 }
 
+stock Chrono_GetDayName(Timestamp:tsTimezone)
+{
+	CorrectTimezone(tsTimezone);
+
+	new output[14];
+	TimeFormat(tsTimezone, WEEKDAY_NAME, output);
+	if (!strcmp("Monday", output, true)) format(output, sizeof(output), "Segunda-Feira");
+	else if (!strcmp("Tuesday", output, true)) format(output, sizeof(output), "Terça-Feira");
+	else if (!strcmp("Wednesday", output, true)) format(output, sizeof(output), "Quarta-Feira");
+	else if (!strcmp("Thursday", output, true)) format(output, sizeof(output), "Quinta-Feira");
+	else if (!strcmp("Friday", output, true)) format(output, sizeof(output), "Sexta-Feira");
+	else if (!strcmp("Saturday", output, true)) format(output, sizeof(output), "Sabado");
+	else if (!strcmp("Sunday", output, true)) format(output, sizeof(output), "Domingo");
+	return output;
+}
+
 stock Chrono_GetDate(Timestamp:tsTimezone)
 {
 	CorrectTimezone(tsTimezone);

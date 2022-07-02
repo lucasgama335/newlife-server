@@ -9,6 +9,7 @@ enum p_STATUS_DATA
     p_JAIL_TIME,
     p_HUNGRY,
     p_DRINK,
+    p_PAYDAY_TIME,
     p_WARNINGS,
     p_MUTED,
     p_MUTED_NOOB
@@ -21,14 +22,15 @@ stock Player_SaveStatusData(playerid)
 {
     if (!IsPlayerConnected(playerid)) return 0;
 
-    new query_string[157];
+    new query_string[177];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
-    %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
+    %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME,
     PLAYER_FIELD_JAILED, gsStatusInfo[playerid][p_JAILED],
     PLAYER_FIELD_JAILTIME, gsStatusInfo[playerid][p_JAIL_TIME],
     PLAYER_FIELD_HUNGRY, gsStatusInfo[playerid][p_HUNGRY],
     PLAYER_FIELD_DRINK, gsStatusInfo[playerid][p_DRINK],
+    PLAYER_FIELD_PAYDAY_TIME, gsStatusInfo[playerid][p_PAYDAY_TIME],
     PLAYER_FIELD_WARNINGS, gsStatusInfo[playerid][p_WARNINGS],
     PLAYER_FIELD_MUTED, gsStatusInfo[playerid][p_MUTED],
     PLAYER_FIELD_MUTED_NOOB, gsStatusInfo[playerid][p_MUTED_NOOB],
@@ -108,6 +110,23 @@ stock Player_SetDrink(playerid, value)
     if (!IsPlayerConnected(playerid)) return 0;
 
     return gsStatusInfo[playerid][p_DRINK] = value;
+}
+
+// ============== PAYDAY ACCESSORS ============== //
+// Getters
+stock Player_GetPaydayTime(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return 0;
+
+    return gsStatusInfo[playerid][p_PAYDAY_TIME];
+}
+
+// Setters
+stock Player_SetPaydayTime(playerid, time)
+{
+    if (!IsPlayerConnected(playerid)) return 0;
+
+    return gsStatusInfo[playerid][p_PAYDAY_TIME] = time;
 }
 
 // ============== WARNINGS ACCESSORS ============== //

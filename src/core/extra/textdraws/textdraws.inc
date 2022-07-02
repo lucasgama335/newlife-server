@@ -1,8 +1,8 @@
 #include <textdraw_loading>
 #include <textdraw_login>
-#include <textdraw_time>
 #include <textdraw_spectate>
 #include <textdraw_alert>
+#include <textdraw_hud_footer>
 
 #include <YSI_Coding\y_hooks>
 

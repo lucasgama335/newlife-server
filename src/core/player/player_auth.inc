@@ -97,107 +97,109 @@ public OnPlayerConnect(playerid)
         if(cache_num_rows() > 0)
         {
             // General Info
-            new id, e_ADMIN_LEVELS:admin, attendances, rating, number_rating, tutorial, last_login, last_connected_time, Float:pos_x, Float:pos_y, Float:pos_z, Float:pos_a, interior, vw;
+            new id, e_ADMIN_LEVELS:admin, attendances, rating, numberRating, tutorial, lastLogin, lastConnectedTime, Float:posX, Float:posY, Float:posZ, Float:posA, interior, vW;
             cache_get_value_name_int(0, PLAYER_FIELD_ID, id);
             cache_get_value_name_int(0, PLAYER_FIELD_ADMIN, admin);
             cache_get_value_name_int(0, PLAYER_FIELD_ATTENDANCES, attendances);
             cache_get_value_name_int(0, PLAYER_FIELD_RATING, rating);
-            cache_get_value_name_int(0, PLAYER_FIELD_NUMBERRANTING, number_rating);
+            cache_get_value_name_int(0, PLAYER_FIELD_NUMBERRANTING, numberRating);
             cache_get_value_name_int(0, PLAYER_FIELD_TUTORIAL, tutorial);
-            cache_get_value_name_int(0, PLAYER_FIELD_LAST_LOGIN, last_login);
-            cache_get_value_name_int(0, PLAYER_FIELD_LAST_CONNECTED_TIME, last_connected_time);
-            cache_get_value_name_float(0, PLAYER_FIELD_LAST_POSX, pos_x);
-            cache_get_value_name_float(0, PLAYER_FIELD_LAST_POSY, pos_y);
-            cache_get_value_name_float(0, PLAYER_FIELD_LAST_POSZ, pos_z);
-            cache_get_value_name_float(0, PLAYER_FIELD_LAST_POSA, pos_a);
+            cache_get_value_name_int(0, PLAYER_FIELD_LAST_LOGIN, lastLogin);
+            cache_get_value_name_int(0, PLAYER_FIELD_LAST_CONNECTED_TIME, lastConnectedTime);
+            cache_get_value_name_float(0, PLAYER_FIELD_LAST_POSX, posX);
+            cache_get_value_name_float(0, PLAYER_FIELD_LAST_POSY, posY);
+            cache_get_value_name_float(0, PLAYER_FIELD_LAST_POSZ, posZ);
+            cache_get_value_name_float(0, PLAYER_FIELD_LAST_POSA, posA);
             cache_get_value_name_int(0, PLAYER_FIELD_LAST_INTERIOR, interior);
-            cache_get_value_name_int(0, PLAYER_FIELD_LAST_VW, vw);
+            cache_get_value_name_int(0, PLAYER_FIELD_LAST_VW, vW);
 
             Player_SetId(playerid, id);
             Player_SetAdminLevel(playerid, admin, false);
             Player_SetAdminAttendances(playerid, attendances);
             Player_SetAdminRating(playerid, rating);
-            Player_SetAdminNumberRating(playerid, number_rating);
+            Player_SetAdminNumberRating(playerid, numberRating);
             Player_SetTutorialStatus(playerid, (tutorial == 0 ? false : true));
-            Player_SetLastLogin(playerid, Chrono_ConvertToTimestamp(last_login));
-            Player_SetLastConnectedTime(playerid, last_connected_time);
-            Player_SetLastPosition(playerid, pos_x, pos_y, pos_z, pos_a, interior, vw);
+            Player_SetLastLogin(playerid, Chrono_ConvertToTimestamp(lastLogin));
+            Player_SetLastConnectedTime(playerid, lastConnectedTime);
+            Player_SetLastPosition(playerid, posX, posY, posZ, posA, interior, vW);
 
             // Job
-            new job, org, org_role;
+            new job, org, orgRole;
             cache_get_value_name_int(0, PLAYER_FIELD_JOB, job);
             cache_get_value_name_int(0, PLAYER_FIELD_ORG, org);
-            cache_get_value_name_int(0, PLAYER_FIELD_ORG_ROLE, org_role);
+            cache_get_value_name_int(0, PLAYER_FIELD_ORG_ROLE, orgRole);
 
             Player_SetJob(playerid, job);
-            Player_SetOrg(playerid, org, org_role);
+            Player_SetOrg(playerid, org, orgRole);
 
             // Appearence
-            new gender, fight_style, skin, old_skin;
+            new gender, fightStyle, skin, oldSkin;
             cache_get_value_name_int(0, PLAYER_FIELD_GENDER, gender);
-            cache_get_value_name_int(0, PLAYER_FIELD_FIGHT_STYLE, fight_style);
+            cache_get_value_name_int(0, PLAYER_FIELD_FIGHT_STYLE, fightStyle);
             cache_get_value_name_int(0, PLAYER_FIELD_SKIN, skin);
-            cache_get_value_name_int(0, PLAYER_FIELD_OLDSKIN, old_skin);
+            cache_get_value_name_int(0, PLAYER_FIELD_OLDSKIN, oldSkin);
 
             Player_SetGender(playerid, gender);
-            Player_SetFightStyle(playerid, fight_style);
+            Player_SetFightStyle(playerid, fightStyle);
             Player_SetSkin(playerid, skin);
-            Player_SetOldSkin(playerid, old_skin);
+            Player_SetOldSkin(playerid, oldSkin);
 
             // Money Info
-            new money, illegal_money, illegal_safe_money, bank_status, bank_money, coins;
+            new money, illegalMoney, illegalSafeMoney, bankStatus, bankMoney, coins;
             cache_get_value_name_int(0, PLAYER_FIELD_MONEY, money);
-            cache_get_value_name_int(0, PLAYER_FIELD_ILLEGAL_MONEY, illegal_money);
-            cache_get_value_name_int(0, PLAYER_FIELD_ILLEGAL_SAFE_MONEY, illegal_safe_money);
-            cache_get_value_name_int(0, PLAYER_FIELD_BANK_ACCOUNT, bank_status);
-            cache_get_value_name_int(0, PLAYER_FIELD_BANK_MONEY, bank_money);
+            cache_get_value_name_int(0, PLAYER_FIELD_ILLEGAL_MONEY, illegalMoney);
+            cache_get_value_name_int(0, PLAYER_FIELD_ILLEGAL_SAFE_MONEY, illegalSafeMoney);
+            cache_get_value_name_int(0, PLAYER_FIELD_BANK_ACCOUNT, bankStatus);
+            cache_get_value_name_int(0, PLAYER_FIELD_BANK_MONEY, bankMoney);
             cache_get_value_name_int(0, PLAYER_FIELD_COINS, coins);
 
             Player_SetMoney(playerid, money);
-            Player_SetIllegalMoney(playerid, illegal_money);
-            Player_SetIllegalSafeMoney(playerid, illegal_safe_money);
-            Player_SetBankStatus(playerid, bank_status == 0 ? false : true);
-            Player_SetBankMoney(playerid, bank_money);
+            Player_SetIllegalMoney(playerid, illegalMoney);
+            Player_SetIllegalSafeMoney(playerid, illegalSafeMoney);
+            Player_SetBankStatus(playerid, bankStatus == 0 ? false : true);
+            Player_SetBankMoney(playerid, bankMoney);
             Player_SetCoins(playerid, coins);
 
             // Score Info
-            new level, hours_played, experience, deaths, kills, wanted_level, noob_answers;
+            new level, hoursPlayed, experience, deaths, kills, wantedLevel, noobAnswers;
             cache_get_value_name_int(0, PLAYER_FIELD_LEVEL, level);
-            cache_get_value_name_int(0, PLAYER_FIELD_HOURS_PLAYED, hours_played);
+            cache_get_value_name_int(0, PLAYER_FIELD_HOURS_PLAYED, hoursPlayed);
             cache_get_value_name_int(0, PLAYER_FIELD_EXP, experience);
             cache_get_value_name_int(0, PLAYER_FIELD_DEATHS, deaths);
             cache_get_value_name_int(0, PLAYER_FIELD_KILLS, kills);
-            cache_get_value_name_int(0, PLAYER_FIELD_WANTED_LEVEL, wanted_level);
-            cache_get_value_name_int(0, PLAYER_FIELD_NOOB_ANSWERS, noob_answers);
+            cache_get_value_name_int(0, PLAYER_FIELD_WANTED_LEVEL, wantedLevel);
+            cache_get_value_name_int(0, PLAYER_FIELD_NOOB_ANSWERS, noobAnswers);
 
             Player_SetLevel(playerid, level);
-            Player_SetHoursPlayed(playerid, hours_played);
+            Player_SetHoursPlayed(playerid, hoursPlayed);
             Player_SetExperience(playerid, experience);
             Player_SetDeaths(playerid, deaths);
             Player_SetKills(playerid, kills);
-            Player_SetWantedLevel(playerid, wanted_level);
-            Player_SetNoobAnswers(playerid, noob_answers);
+            Player_SetWantedLevel(playerid, wantedLevel);
+            Player_SetNoobAnswers(playerid, noobAnswers);
 
             // Status Info
-            new jailed, jail_time, hungry, drink, warnings, muted, muted_noob;
+            new jailed, jailTime, hungry, drink, paydayTime, warnings, muted, mutedNoob;
             cache_get_value_name_int(0, PLAYER_FIELD_JAILED, jailed);
-            cache_get_value_name_int(0, PLAYER_FIELD_JAILTIME, jail_time);
+            cache_get_value_name_int(0, PLAYER_FIELD_JAILTIME, jailTime);
             cache_get_value_name_int(0, PLAYER_FIELD_HUNGRY, hungry);
             cache_get_value_name_int(0, PLAYER_FIELD_DRINK, drink);
+            cache_get_value_name_int(0, PLAYER_FIELD_PAYDAY_TIME, paydayTime);
             cache_get_value_name_int(0, PLAYER_FIELD_WARNINGS, warnings);
             cache_get_value_name_int(0, PLAYER_FIELD_MUTED, muted);
-            cache_get_value_name_int(0, PLAYER_FIELD_MUTED_NOOB, muted_noob);
+            cache_get_value_name_int(0, PLAYER_FIELD_MUTED_NOOB, mutedNoob);
 
             Player_SetJailed(playerid, jailed);
-            Player_SetJailTime(playerid, jail_time);
+            Player_SetJailTime(playerid, jailTime);
             Player_SetHungry(playerid, hungry);
             Player_SetDrink(playerid, drink);
+            Player_SetPaydayTime(playerid, paydayTime);
             Player_SetWarnings(playerid, warnings);
             Player_SetMutedTime(playerid, muted);
-            Player_SetNoobMutedTime(playerid, muted_noob);
+            Player_SetNoobMutedTime(playerid, mutedNoob);
 
             // Config Info
-            new e_TAGS:tag, city, spawn, document, speedometer, tracker, hitsound, territorial_chat, vip_chat, socio_chat, noob_chat, leader_chat, stream;
+            new e_TAGS:tag, city, spawn, document, speedometer, tracker, hitsound, territorialChat, vipChat, socioChat, noobChat, leaderChat, stream;
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_TAG, tag);
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_CITY, city);
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_SPAWN, spawn);
@@ -205,15 +207,15 @@ public OnPlayerConnect(playerid)
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_SPEED, speedometer);
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_TRACKER, tracker);
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_HITSOUND, hitsound);
-            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_TERRITORIAL_CHAT, territorial_chat);
-            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_VIP_CHAT, vip_chat);
-            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_SOCIO_CHAT, socio_chat);
-            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_NOOB_CHAT, noob_chat);
-            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_LEADER_CHAT, leader_chat);
+            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_TERRITORIAL_CHAT, territorialChat);
+            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_VIP_CHAT, vipChat);
+            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_SOCIO_CHAT, socioChat);
+            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_NOOB_CHAT, noobChat);
+            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_LEADER_CHAT, leaderChat);
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_STREAM, stream);
 
             Player_UpdateConfigTypes(playerid, tag, city, spawn, document, speedometer, tracker, hitsound);
-            Player_UpdateConfigChats(playerid, (territorial_chat ? true : false), (vip_chat ? true : false), (socio_chat ? true : false), (noob_chat ? true : false), (leader_chat ? true : false), (stream ? true : false));
+            Player_UpdateConfigChats(playerid, (territorialChat ? true : false), (vipChat ? true : false), (socioChat ? true : false), (noobChat ? true : false), (leaderChat ? true : false), (stream ? true : false));
 
             isRegistered[playerid] = true;
 
@@ -499,7 +501,6 @@ function:OnPlayerLogin(playerid)
 	HideLoginScreen(playerid);
     CancelSelectTextDraw(playerid);
 	TogglePlayerSpectating(playerid, false);
-    ShowTimeScreen(playerid);
     
     new string[150];
     if (!Player_GetTutorialStatus(playerid))

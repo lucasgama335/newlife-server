@@ -29,22 +29,9 @@ stock Server_SetWeatherForecast(bool:status)
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 task SyncRealTime[1000]()
 {
-    new Timestamp:timeNow = Chrono_GetTimeNow();
-    static clock_string[9];
-    format(clock_string, sizeof(clock_string), "%s", Chrono_GetHour(timeNow));
-	UpdateClockScreen(clock_string);
-    
-    new minutes = Server_FormatMinuteDigit(timeNow), seconds = Server_FormatSecondDigit(timeNow);
+    new Timestamp:timeNow = Chrono_GetTimeNow(), minutes = Server_FormatMinuteDigit(timeNow), seconds = Server_FormatSecondDigit(timeNow);
     if (gsChangeWeatherCounter > 0) gsChangeWeatherCounter--;
     if (minutes == 0 && seconds == 0) UpdateWorldTime(timeNow);
-}
-
-static stock UpdateClockString()
-{
-    new Timestamp:time_now = Chrono_GetTimeNow(), time_string[16];
-    format(time_string, sizeof(time_string), "%s de %s", Chrono_GetDay(time_now), Chrono_GetMonth(time_now));
-	UpdateDateScreen(time_string);
-    return 1;
 }
 
 static stock UpdateWorldTime(Timestamp:time)
@@ -163,7 +150,6 @@ static stock WeatherForecast()
 hook OnGameModeInit()
 {
     gsWeatherForeactStatus = true;
-    UpdateClockString();
     UpdateWorldTime(Chrono_GetTimeNow());
     SetWeather(0);
     return 1;

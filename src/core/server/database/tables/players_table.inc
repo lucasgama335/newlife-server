@@ -53,6 +53,7 @@
 #define PLAYER_FIELD_JAILTIME                   "jail_time"
 #define PLAYER_FIELD_HUNGRY                     "hungry"
 #define PLAYER_FIELD_DRINK                      "drink"
+#define PLAYER_FIELD_PAYDAY_TIME                "payday_time"
 #define PLAYER_FIELD_WARNINGS                   "warnings"
 #define PLAYER_FIELD_MUTED                      "muted"
 #define PLAYER_FIELD_MUTED_NOOB                 "muted_noob"
@@ -118,6 +119,7 @@ stock Database_CreatePlayersTable()
         "PLAYER_FIELD_JAILTIME" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_HUNGRY" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_DRINK" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_PAYDAY_TIME" int DEFAULT 3600 NOT NULL, \
         "PLAYER_FIELD_WARNINGS" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_MUTED" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_MUTED_NOOB" int DEFAULT 0 NOT NULL, \

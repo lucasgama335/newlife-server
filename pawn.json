@@ -66,6 +66,7 @@
 			"includes": [
 				"legacy",
 				"src/utils",
+				"src/core",
 				"src/core/extra",
 				"src/core/extra/maps",
 				"src/core/extra/textdraws",
@@ -98,6 +99,7 @@
 			"includes": [
 				"legacy",
 				"src/utils",
+				"src/core",
 				"src/core/extra",
 				"src/core/extra/maps",
 				"src/core/extra/textdraws",

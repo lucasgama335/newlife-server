@@ -9,59 +9,6 @@
 static Timer:gsSpectateTimer[MAX_PLAYERS];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) ------------------------
-stock Admin_SendPrivateMessage(playerid, id, COLOR, const string[])
-{
-	SendClientMessage(id, COLOR, string);
-	foreach(new i: Player)
-	{
-		if (Player_GetAdminLevel(playerid) >= SUB_OWNER && Admin_GetViewAllPm(i) && playerid != i)
-		{
-			SendClientMessage(i, COLOR, string);
-		}
-	}
-	return 1;
-}
-
-stock SendAdminMessage(COLOR, const string[], e_ADMIN_LEVELS:level)
-{
-	foreach(new i: Player)
-	{
-		if (Player_GetAdminLevel(i) >= level)
-		{
-			SendClientMessage(i, COLOR, string);
-		}
-	}
-	return 1;
-}
-
-stock GetOnlineAdmin(bool:work)
-{
-	new total = 0;
-	foreach(new i : Player)
-	{
-		if (work)
-		{
-			if (Player_GetAdminLevel(i) >= HELPER && Admin_GetWorkStatus(playerid) && !Admin_GetHideStatus(playerid))
-			{
-				total ++;
-			}
-		}
-		else
-		{
-			if (Player_GetAdminLevel(i) >= HELPER && !Admin_GetHideStatus(playerid))
-			{
-				total ++;
-			}
-		}
-	}
-	return total;
-}
-
-stock Admin_GetgsSpectateTimerID(playerid)
-{
-	return gsSpectateTimer[playerid];
-}
-
 timer AdminSpectatePlayer[1000](playerid)
 {
 	new spectated_id = Admin_GetPlayerSpectated(playerid);
@@ -90,6 +37,10 @@ stock Admin_StopSpectate(playerid)
 	return 1;
 }
 
+stock Admin_GetSpectateTimerId(playerid)
+{
+	return gsSpectateTimer[playerid];
+}
 
 stock UpdateSpectatePlayer(playerid, id)
 {
@@ -129,7 +80,6 @@ stock ShowSpectatePlayer(playerid, id)
 {
 	UpdateSpectatePlayer(playerid, id);
 	ShowSpectateScreen(playerid);
-	// SelectTextDraw(playerid, COLOR_ORANGE);
 	return 1;
 }
 
@@ -138,6 +88,54 @@ stock HideSpectatePlayer(playerid)
 	HideSpectateScreen(playerid);
 	CancelSelectTextDraw(playerid);
 	return 1;
+}
+
+stock Admin_SendPrivateMessage(playerid, id, COLOR, const string[])
+{
+	SendClientMessage(id, COLOR, string);
+	foreach(new i: Player)
+	{
+		if (Player_GetAdminLevel(playerid) >= SUB_OWNER && Admin_GetViewAllPm(i) && playerid != i)
+		{
+			SendClientMessage(i, COLOR, string);
+		}
+	}
+	return 1;
+}
+
+stock SendAdminMessage(COLOR, const string[], e_ADMIN_LEVELS:level)
+{
+	foreach(new i: Player)
+	{
+		if (Player_GetAdminLevel(i) >= level)
+		{
+			SendClientMessage(i, COLOR, string);
+		}
+	}
+	return 1;
+}
+
+stock GetOnlineAdmins(bool:work)
+{
+	new total = 0;
+	foreach(new i : Player)
+	{
+		if (work)
+		{
+			if (Player_GetAdminLevel(i) >= HELPER && Admin_GetWorkStatus(playerid) && !Admin_GetHideStatus(playerid))
+			{
+				total ++;
+			}
+		}
+		else
+		{
+			if (Player_GetAdminLevel(i) >= HELPER && !Admin_GetHideStatus(playerid))
+			{
+				total ++;
+			}
+		}
+	}
+	return total;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
