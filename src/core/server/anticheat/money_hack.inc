@@ -9,7 +9,7 @@ stock SetPlayerMoneyCustom(playerid, quantity)
 {
     ResetPlayerMoney(playerid);
     Player_SetMoney(playerid, quantity);
-    GivePlayerMoney(playerid, quantity);
+    GivePlayerMoney(playerid, Player_GetMoney(playerid));
     return quantity;
 }
 
@@ -26,12 +26,16 @@ stock ResetPlayerMoneyCustom(playerid)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerUpdate(playerid)
 {
-    new hacked_money = GetPlayerMoney(playerid); 
-    if (hacked_money != Player_GetMoney(playerid)) {
-        SetPlayerMoneyCustom(playerid, Player_GetMoney(playerid));
-        new string[MAX_LOG_STRING];
-        format(string, sizeof(string), "Anti-Cheat: %s possivelmente usou money hack R$ [%s], ou o seu dinheiro bugou.", GetPlayerNameCustom(playerid), FormatMoneyString((hacked_money - Player_GetMoney(playerid))));
-        PrintLog(FOLDER_ANTICHEAT_MONEY, string);
+    if (Player_GetLoggedStatus(playerid)) 
+    {
+        new hacked_money = GetPlayerMoney(playerid); 
+        if (hacked_money != Player_GetMoney(playerid))
+        {
+            SetPlayerMoneyCustom(playerid, Player_GetMoney(playerid));
+            new string[MAX_LOG_STRING];
+            format(string, sizeof(string), "Anti-Cheat: %s possivelmente usou money hack R$ [%s], ou o seu dinheiro bugou.", GetPlayerNameCustom(playerid), FormatMoneyString((hacked_money - Player_GetMoney(playerid))));
+            PrintLog(FOLDER_ANTICHEAT_MONEY, string);
+        }
     }
     return 1;
 }

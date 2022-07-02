@@ -7,7 +7,7 @@
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock PrintLog(const folder[], const string[], maxlength = sizeof(string))
 {
-    if (maxlength) return print("[Log Error]: Limite de caracteres atingido.");
+    if (maxlength > 144) return print("[Log Error]: Limite de caracteres atingido.");
     #if DEV_MODE
         printf("[Server Log]: %s", string);
     #endif

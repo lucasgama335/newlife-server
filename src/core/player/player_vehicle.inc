@@ -9,19 +9,27 @@ static Timer:gsPlayerCheckFuelTimer[MAX_PLAYERS];
 static Timer:gsPlayerCheckBrokenTimer[MAX_PLAYERS];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+timer UpdateVehicleSpeedometer[500](playerid, vehicleid, type)
+{
+	UpdatePlayerSpeedometer(playerid, vehicleid, type);
+	return 1;
+}
 
+stock StartSpeedometerTimer(playerid, vehicleid)
+{
+	if (Timer_IsRunning(gsPlayerSpeedometerTimer[playerid]))
+	{
+		stop gsPlayerSpeedometerTimer[playerid];
+	}
+	gsPlayerSpeedometerTimer[playerid] = repeat UpdateVehicleSpeedometer(playerid, vehicleid, Player_GetSpeedometer(playerid));
+	return 1;
+}
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 static stock ShowActualVehicleName(playerid, vehicleid)
 {
 	new string[100];
 	format(string, sizeof(string), "~g~%s[%d]", GetVehicleName(GetVehicleModel(vehicleid)), GetVehicleModel(vehicleid));
 	GameTextForPlayer(playerid, string, 6000, 1);
-	return 1;
-}
-
-timer UpdateVehicleSpeedometer[500](playerid, vehicleid, type)
-{
-	UpdatePlayerSpeedometer(playerid, vehicleid, type);
 	return 1;
 }
 
@@ -125,7 +133,7 @@ hook OnPlayerStateChange(playerid, newstate, oldstate)
 		new vehicleid = GetPlayerVehicleID(playerid);
 		UpdatePlayerSpeedometer(playerid, vehicleid, Player_GetSpeedometer(playerid));
 		ShowPlayerSpeedometer(playerid, Player_GetSpeedometer(playerid));
-		gsPlayerSpeedometerTimer[playerid] = repeat UpdateVehicleSpeedometer(playerid, vehicleid, Player_GetSpeedometer(playerid));
+		StartSpeedometerTimer(playerid, vehicleid);
 		PlayerCheckVehicleFuel(playerid, vehicleid);
 		PlayerCheckVehicleBroken(playerid, vehicleid);
 		if (newstate == PLAYER_STATE_DRIVER)

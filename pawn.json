@@ -5,7 +5,7 @@
 	"output": "gamemodes/main.amx",
 	"dependencies": [
 		"pawn-lang/samp-stdlib",
-		"pawn-lang/YSI-Includes:v5.06.1932",
+		"pawn-lang/YSI-Includes:v5.x",
 		"pBlueG/SA-MP-MySQL:R41-4",
 		"Y-Less/sscanf:v2.13.1",
 		"Zeex/samp-plugin-crashdetect:v4.20",

@@ -59,7 +59,7 @@
 #define KEY_F           		16
 #define KEY_Y           		65536
 #define KEY_N           		131072
-#define KEY_H           		262144
+#define KEY_H           		2
 #define KEY_LALT        		1024
 #define KEY_LSHIFT      		32
 
@@ -135,7 +135,9 @@ enum e_DIALOGS
 	DIALOG_CONFIG_LIST,
 	DIALOG_MENU_HIT,
 	DIALOG_MENU_LOCATE,
-	DIALOG_MANAGE_TAG
+	DIALOG_MANAGE_TAG,
+	// Features
+	DIALOG_GAS_STATION
 };
 
 // TAGS

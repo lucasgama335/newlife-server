@@ -110,6 +110,16 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				Vehicle_SetEngineToPlayer(playerid, vehicleid, (Vehicle_GetEngineStatus(vehicleid) ? false : true));
 			}
 		}
+		case KEY_H:
+		{
+			if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
+			{
+				if (IsPlayerInGasStation(playerid))
+				{
+					ShowPlayerGasStationDialog(playerid);
+				}
+			}
+		}
 	}
 	return 1;
 }

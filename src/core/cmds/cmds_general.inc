@@ -884,6 +884,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							HidePlayerSpeedometer(playerid);
 							UpdatePlayerSpeedometer(playerid, vehicleid, Player_GetSpeedometer(playerid));
 							ShowPlayerSpeedometer(playerid, Player_GetSpeedometer(playerid));
+							StartSpeedometerTimer(playerid, vehicleid);
 						}
 						Player_UpdateConfigData(playerid);
 						ShowPlayerConfig(playerid);

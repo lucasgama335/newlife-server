@@ -41,3 +41,12 @@ hook OnGameModeInit()
 	}
     return 1;
 }
+
+hook OnVehicleSpawn(vehicleid)
+{
+	if (Vehicle_IsCivilVehicle(vehicleid))
+	{
+		Vehicle_SetFuel(vehicleid, 100);
+	}
+	return 1;
+}

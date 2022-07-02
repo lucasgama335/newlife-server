@@ -116,8 +116,81 @@ timer PlayerUpdateStatus[1000](playerid)
 
 stock PlayerGetPayday(playerid)
 {
+    new string[160], salaryReceived = 0;
+    SendClientMessage(playerid, COLOR_WHITE, "___________[ Salário(PayDay) ]___________");
+    if (salaryReceived > 0)
+    {
+        format(string, sizeof(string), "Salário: R$ [{00FF00}%s{FFFFFF}] | Organização: R$ [{00FF00}%s{FFFFFF}]", FormatMoneyString(Player_GetSalary(playerid)), FormatMoneyString(salaryReceived));
+    }
+    else
+    {
+        format(string, sizeof(string), "Salário: R$ [{00FF00}%s{FFFFFF}]", FormatMoneyString(Player_GetSalary(playerid)));
+    }
+    SendClientMessage(playerid, COLOR_WHITE, string);
+
+
+    new vip_money = 0, vip_exp = 0;
+    switch(Player_GetVipLevel(playerid))
+    {
+        case 1:
+        {
+            new moneyVip = 3000 + random(2000);
+            vip_exp += 1;
+            vip_money += moneyVip;
+            format(string, sizeof(string), "{FFFF00}Bônus VIP: {FFFFFF}Experiência: {00FF00}+1 {FFFFFF} | Dinheiro Extra: R$ [{00FF00}%s{FFFFFF}]", FormatMoneyString(moneyVip));
+            SendClientMessage(playerid, COLOR_WHITE, string);	
+        }
+        case 2:
+        {
+            new moneyVip = 5000 + random(2000);
+            vip_exp += 2;
+            vip_money += moneyVip;
+            format(string, sizeof(string), "{FFFF00}Bônus VIP: {FFFFFF}Experiência: {00FF00}+2 {FFFFFF} | Dinheiro Extra: R$ [{00FF00}%s{FFFFFF}]", FormatMoneyString(moneyVip));
+            SendClientMessage(playerid, COLOR_WHITE, string);
+        }
+    }
+    switch(Player_GetSocioLevel(playerid))
+    {
+        case 1:
+        {
+            new moneySocio = 6000 + random(3000);
+            vip_exp += 3;
+            vip_money += moneySocio;
+            format(string, sizeof(string), "{FFFF00}Bônus Sócio: {FFFFFF}Experiência: {00FF00}+3 {FFFFFF} | Dinheiro Extra: R$ [{00FF00}%s{FFFFFF}]", FormatMoneyString(moneySocio));
+            SendClientMessage(playerid, COLOR_WHITE, string);	
+        }
+        case 2:
+        {
+            new moneySocio = 10000 + random(5000);
+            vip_exp += 4;
+            vip_money += moneySocio;
+            format(string, sizeof(string), "{FFFF00}Bônus Sócio: {FFFFFF}Experiência: {00FF00}+4 {FFFFFF} | Dinheiro Extra: R$ [{00FF00}%s{FFFFFF}]", FormatMoneyString(moneySocio));
+            SendClientMessage(playerid, COLOR_WHITE, string);
+        }
+    }
+
+    format(string, sizeof(string), "Experiência Atual para passar de nível: ({0080ff}%d/%d{FFFFFF})", Player_GetExperience(playerid), ((Player_GetLevel(playerid) + 1) * 4));
+	SendClientMessage(playerid, COLOR_WHITE, string);
+    SendClientMessage(playerid, COLOR_WHITE, "_________________________________________");
+    GameTextForPlayer(playerid, "~b~PAYDAY !", 5000, 1);
+    if (Player_GetExperience(playerid) >= ((Player_GetLevel(playerid) + 1) * 4))
+    {
+        SendClientMessage(playerid, COLOR_YELLOW, "[Servidor]: Você já possui experiência suficiente para passar de nível, use: /comprarnivel");
+    }
+
+    Player_SetExperience(playerid, (Player_GetExperience(playerid) + 1 + vip_exp));
+    Player_SetSalary(playerid, (Player_GetSalary(playerid) + salaryReceived + vip_money));
+    Player_SetHoursPlayed(playerid, (Player_GetHoursPlayed(playerid) + 1));
+    Player_SetLastConnectedTime(playerid, (Player_GetLastConnectedTime(playerid) + 1));
+
+    // Payment
+    if (Player_GetSalary(playerid) > 0)
+    {
+        Player_SetMoney(playerid, (Player_GetMoney(playerid) + Player_GetSalary(playerid)));
+        Player_SetSalary(playerid, 0);
+    }
+
     Player_SetPaydayTime(playerid, 3600);
-    SendClientMessage(playerid, -1, "PAYDAY");
     return 1;
 }
 

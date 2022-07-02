@@ -21,9 +21,9 @@
 #include <chrono>						// By Southclaws:			https://github.com/Southclaws/pawn-chrono
 #include <YSI_Data\y_iterate>       	// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 #include <YSI_Visual\y_commands> 		// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
-#include <YSI_Coding\y_timers> 			// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 #include <YSI_Extra\y_inline_mysql>		// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 #include <YSI_Extra\y_inline_bcrypt>	// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
+#include <YSI_Coding\y_timers> 			// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 #include <YSI_Coding\y_hooks> 			// By Y_Less:				https://github.com/pawn-lang/YSI-Includes
 
 /*==============================================================================
@@ -34,10 +34,9 @@
 /*==============================================================================
 	Gamemode Scripts
 ==============================================================================*/
-// SERVER CORE
+// SERVER CORE (CONNECTION)
 #include <server>
 #include <database>
-#include <anticheat>
 // UTILS
 #include <utils>
 // VEHICLES CORE
@@ -47,6 +46,8 @@
 #include <textdraws>
 // PLAYER CORE
 #include <player>
+// SERVER CORE (ANTICHEAT)
+#include <anticheat>
 // FEATURES CORE
 #include <features>
 // CHAT

@@ -469,10 +469,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 function:OnPlayerLogin(playerid) 
 {
-    recentlyLogged[playerid] = false;
-    isRegistered[playerid] = true;
-    Player_SetLoggedStatus(playerid, true);
-
     if (Timer_IsRunning(timerToKickPlayer[playerid])) stop timerToKickPlayer[playerid];
 
     if (Player_GetAdminLevel(playerid) > OWNER)
@@ -485,7 +481,6 @@ function:OnPlayerLogin(playerid)
     SetPlayerScore(playerid, Player_GetLevel(playerid));
     SetPlayerWantedLevel(playerid, Player_GetWantedLevel(playerid));
     SetPlayerMoneyCustom(playerid, Player_GetMoney(playerid));
-    SetSpawnInfo(playerid, -1, Player_GetSkin(playerid), SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA, 0, 0, 0, 0, 0, 0);
     switch(Player_GetFightStyle(playerid))
     {
         case 0: SetPlayerFightingStyle(playerid, FIGHT_STYLE_NORMAL);
@@ -536,9 +531,19 @@ function:OnPlayerLogin(playerid)
             ShowPlayerDialog(playerid, DIALOG_AUTH_ADMIN, DIALOG_STYLE_PASSWORD, "Proteção de Conta", admPassDialog, "Validar", "");
         }
     }
-    if (Player_GetAdminLevel(playerid) < HELPER_OWNER) format(string, sizeof(string), "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [%s]!", GetPlayerNameCustom(playerid), playerid, Player_GetLevel(playerid), GetPlayerIpCustom(playerid));
-    else format(string, sizeof(string), "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [N/A]!", GetPlayerNameCustom(playerid), playerid, Player_GetLevel(playerid));
- 	SendAdminMessage(COLOR_SKIN, string, HELPER);
+    if (Player_GetAdminLevel(playerid) < HELPER_OWNER) 
+    {
+        format(string, sizeof(string), "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [%s]!", GetPlayerNameCustom(playerid), playerid, Player_GetLevel(playerid), GetPlayerIpCustom(playerid));
+    }
+    else 
+    {
+        format(string, sizeof(string), "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [N/A]!", GetPlayerNameCustom(playerid), playerid, Player_GetLevel(playerid));
+    }
+    SendAdminMessage(COLOR_SKIN, string, HELPER);
+    recentlyLogged[playerid] = false;
+    isRegistered[playerid] = true;
+    Player_SetLoggedStatus(playerid, true);
+    SetSpawnInfo(playerid, -1, Player_GetSkin(playerid), SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA, 0, 0, 0, 0, 0, 0);
     CallLocalFunction("BeforeSpawnPlayer", "i", playerid);
     SpawnPlayer(playerid);
     return 1;

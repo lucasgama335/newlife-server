@@ -50,8 +50,7 @@ task SyncRealTime[1000]()
 
 static stock UpdateWorldTime(Timestamp:time)
 {
-    new hour = Chrono_GetHourDigit(time);
-    switch (hour)
+    switch (Chrono_GetHourDigit(time))
     {
         case 0: SetWorldTime(0);
         case 1: SetWorldTime(1);

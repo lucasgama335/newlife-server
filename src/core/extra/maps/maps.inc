@@ -2,6 +2,7 @@
 #include <map_house_login>
 #include <map_city_hall>
 #include <map_city_hall_square>
+#include <map_gas_station>
 
 #include <YSI_Coding\y_hooks>
 

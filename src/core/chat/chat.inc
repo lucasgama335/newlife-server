@@ -7,9 +7,8 @@ enum e_CHAT_GROUPS
 {
     e_OPEN_WORLD
 }
-
-static gsFloodTimer[MAX_PLAYERS];
 static e_CHAT_GROUPS:gsChatGroup = e_OPEN_WORLD;
+static gsFloodTimer[MAX_PLAYERS];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
