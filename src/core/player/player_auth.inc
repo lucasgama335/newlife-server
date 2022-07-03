@@ -216,10 +216,11 @@ public OnPlayerConnect(playerid)
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_STREAM, stream);
 
             Player_UpdateConfigTypes(playerid, tag, city, spawn, document, speedometer, tracker, hitsound, screenSize);
-            Player_UpdateConfigChats(playerid, (territorialChat ? true : false), (vipChat ? true : false), (socioChat ? true : false), (noobChat ? true : false), (leaderChat ? true : false), (stream ? true : false));
+            Player_UpdateConfigChats(playerid, (territorialChat == 1 ? true : false), (vipChat == 1 ? true : false), (socioChat == 1 ? true : false), (noobChat == 1 ? true : false), (leaderChat == 1 ? true : false), (stream == 1 ? true : false));
 
             isRegistered[playerid] = true;
             AdaptSpeedometerToScreen(playerid);
+            AdaptAlertToScreen(playerid);
 
             ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
             SendClientMessage(playerid, COLOR_SOFTGREY, "* Dados Carregados com sucesso, pressione em 'Fazer Login'.");

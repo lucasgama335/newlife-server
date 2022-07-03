@@ -44,6 +44,9 @@ stock Player_ResetStatusData(playerid)
 {
     static const scEmptyData[p_STATUS_DATA];
     gsStatusInfo[playerid] = scEmptyData;
+    gsStatusInfo[playerid][p_PAYDAY_TIME] = 3600;
+    gsStatusInfo[playerid][p_HUNGRY] = 100;
+    gsStatusInfo[playerid][p_DRINK] = 100;
     return gsStatusInfo[playerid];
 }
 

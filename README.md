@@ -38,12 +38,13 @@ Any contributions you make are **greatly appreciated**.
 # Thanks to
 Name | Message
 --- | --- |
-[Southclaws] | Includes, snippets from Scavenge Survive, sampctl.
+[Southclaws] | Includes, snippets from Scavenge Survive, sampctl and chrono.
 [maddinat0r] | MySQL
 [Y_Less]     | for YSI Library, used a lot throughout the code and sscanf.
 [Zeex]       | amx_assembly, crashdetect, indirection
 [Incognito]  | streamer
 [LassiR]     | Bcrypt
+[PatrickGTR] | Snippets from gta-open
 
 Very special thanks to
 **SA:MP Team past, present and future - SA:MP.**

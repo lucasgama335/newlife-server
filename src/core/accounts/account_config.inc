@@ -56,6 +56,14 @@ stock Player_ResetConfigData(playerid)
 {
     static const scEmptyData[p_CONFIG_DATA];
     gsConfigInfo[playerid] = scEmptyData;
+    gsConfigInfo[playerid][p_HIT_SOUND_TYPE] = 1;
+    gsConfigInfo[playerid][p_SCREEN_TYPE] = SCREEN_NORMAL;
+    gsConfigInfo[playerid][p_TERRITORIAL_CHAT] = true;
+    gsConfigInfo[playerid][p_VIP_CHAT] = true;
+    gsConfigInfo[playerid][p_SOCIO_CHAT] = true;
+    gsConfigInfo[playerid][p_NOOB_CHAT] = true;
+    gsConfigInfo[playerid][p_LEADER_CHAT] = true;
+    gsConfigInfo[playerid][p_STREAM_MUSIC] = true;
     return gsConfigInfo[playerid];
 }
 

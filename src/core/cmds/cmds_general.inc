@@ -956,7 +956,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							{
 								Player_SetScreenSize(playerid, SCREEN_ULTRAWIDE);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
-								SendClientAlert(playerid, "Configuracoes", "Voce mudou o seu monitor para 21:9.");
+								SendClientAlert(playerid, "Configuracoes", "Voce mudou o seu monitor para 21:9.", true);
 								Player_UpdateConfigData(playerid);
 								ShowPlayerConfig(playerid);
 							}
@@ -964,7 +964,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							{
 								Player_SetScreenSize(playerid, SCREEN_NORMAL);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
-								SendClientAlert(playerid, "Configuracoes", "Voce mudou o seu monitor para 16:9.");
+								SendClientAlert(playerid, "Configuracoes", "Voce mudou o seu monitor para 16:9.", true);
 								Player_UpdateConfigData(playerid);
 								ShowPlayerConfig(playerid);
 							}
@@ -972,7 +972,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							{
 								Player_SetScreenSize(playerid, SCREEN_NORMAL);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
-								SendClientAlert(playerid, "Configuracoes", "Voce mudou o seu monitor para 16:9.");
+								SendClientAlert(playerid, "Configuracoes", "Voce mudou o seu monitor para 16:9.", true);
 								Player_UpdateConfigData(playerid);
 								ShowPlayerConfig(playerid);
 							}
