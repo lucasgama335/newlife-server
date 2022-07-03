@@ -146,7 +146,7 @@ stock bool:Vehicle_SetBrokenStatus(vehicleid, bool:status)
     return gsVehicleInfo[vehicleid][v_BROKEN] = status;
 }
 
-// ============== BROKEN ACCESSORS ============== //
+// ============== COLORS ACCESSORS ============== //
 // Getters
 stock Vehicle_GetColorOne(vehicleid)
 {

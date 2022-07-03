@@ -5,18 +5,18 @@
 	"output": "gamemodes/main.amx",
 	"dependencies": [
 		"pawn-lang/samp-stdlib",
-		"pawn-lang/YSI-Includes:v5.x",
-		"pBlueG/SA-MP-MySQL:R41-4",
+		"pawn-lang/YSI-Includes",
+		"pBlueG/SA-MP-MySQL",
 		"Y-Less/sscanf:v2.13.1",
-		"Zeex/samp-plugin-crashdetect:v4.20",
-		"samp-incognito/samp-streamer-plugin:v2.9.5",
-		"Sreyas-Sreelal/samp-bcrypt:0.3.4",
+		"Zeex/samp-plugin-crashdetect",
+		"samp-incognito/samp-streamer-plugin",
+		"Sreyas-Sreelal/samp-bcrypt",
 		"pawn-lang/sa-mp-fixes",
-		"Southclaws/pawn-chrono:1.1.1"
+		"Southclaws/pawn-chrono"
 	],
 	"local": true,
 	"runtime": {
-		"version": "0.3.7",
+		"version": "openmp",
 		"mode": "server",
 		"rcon_password": "password",
 		"port": 7777,
@@ -51,7 +51,11 @@
 		"db_log_queries": false,
 		"conncookies": true,
 		"cookielogging": false,
-		"output": true
+		"output": true,
+		"extra": {
+			"crashdetect_log": "crash_detect.txt",
+			"long_call_time": "10000"
+		}
 	},
 	"builds": [
 		{

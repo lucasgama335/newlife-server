@@ -9,6 +9,11 @@ static PlayerText:compactSpeedometer[MAX_PLAYERS][9];
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock UpdatePlayerSpeedometer(playerid, vehicleid, type)
 {
+	if (vehicleid == INVALID_VEHICLE_ID)
+	{
+		return 0;
+	}
+	
     new speedometerString[20], Float:vehicleHealth;
     GetVehicleHealth(vehicleid, vehicleHealth);
     switch (type)
@@ -53,7 +58,8 @@ stock UpdatePlayerSpeedometer(playerid, vehicleid, type)
         case 1:
         {
             PlayerTextDrawSetPreviewModel(playerid, compactSpeedometer[playerid][6], GetVehicleModel(vehicleid));
-			PlayerTextDrawSetPreviewVehCol(playerid, compactSpeedometer[playerid][6], 1, 1);
+			PlayerTextDrawSetPreviewVehCol(playerid, compactSpeedometer[playerid][6], Vehicle_GetColorOne(vehicleid), Vehicle_GetColorTwo(vehicleid));
+
 
             PlayerTextDrawSetString(playerid, compactSpeedometer[playerid][5], GetVehicleName(GetVehicleModel(vehicleid)));
 
