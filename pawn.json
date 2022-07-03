@@ -7,7 +7,7 @@
 		"pawn-lang/samp-stdlib",
 		"pawn-lang/YSI-Includes",
 		"pBlueG/SA-MP-MySQL",
-		"Y-Less/sscanf:v2.13.1",
+		"Y-Less/sscanf",
 		"Zeex/samp-plugin-crashdetect",
 		"samp-incognito/samp-streamer-plugin",
 		"Sreyas-Sreelal/samp-bcrypt",

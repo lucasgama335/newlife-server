@@ -22,7 +22,6 @@
 	Libraries and respective links to their release pages
 ==============================================================================*/
 // #include <fixes>						// By Y_Less:				https://github.com/pawn-lang/sa-mp-fixes (have a bug on android, show a empty dialog)
-#include <crashdetect>
 #include <a_mysql>						// By pBlueG:				https://github.com/pBlueG/SA-MP-MySQL
 #include <samp_bcrypt>					// By LassiR				https://github.com/LassiR/bcrypt-samp
 #include <sscanf2>						// By Y_Less:				https://github.com/Y-Less/sscanf
