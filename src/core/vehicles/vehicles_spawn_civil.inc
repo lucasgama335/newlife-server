@@ -12,7 +12,7 @@ stock Vehicle_IsCivilVehicle(vehicleid)
 {
     for(new x; x < sizeof(gsCivilVehicle); x++)
     {
-        if (vehicleid == x) return true;
+        if (vehicleid != INVALID_VEHICLE_ID && vehicleid == x) return true;
     }
     return false;
 }
@@ -32,15 +32,12 @@ hook OnGameModeInit()
 	gsCivilVehicle[7] = AddStaticVehicleCustom(462, 837.2051, -1336.1260, 13.0684, 0.0000, 7, 7, 90, false);
 	gsCivilVehicle[8] = AddStaticVehicleCustom(462, 838.7051, -1336.1260, 13.0684, 0.0000, 7, 7, 90, false);
 	gsCivilVehicle[9] = AddStaticVehicleCustom(462, 840.1488, -1336.1260, 13.0684, 0.0000, 7, 7, 90, false);
-	new string[80];
+	new string[50];
 	for(new x; x < sizeof(gsCivilVehicle); x++)
 	{
-		if (x != INVALID_VEHICLE_ID)
-		{
-			format(string, sizeof string, "{00BFFF}%s\n{FFFFFF}•• Veículo Civil ••", GetVehicleName(GetVehicleModel(gsCivilVehicle[x])));
-			new Text3D:textVehicle = Create3DTextLabel(string, 0xFFFFFFFF, 0.0, 0.0, 0.0, 10.0, 0);
-			Attach3DTextLabelToVehicle(textVehicle, gsCivilVehicle[x], 0.0, 0.0, 0.0);
-		}
+		format(string, sizeof string, "{00BFFF}%s\n{FFFFFF}•• Veículo Civil ••", GetVehicleName(GetVehicleModel(gsCivilVehicle[x])));
+		new Text3D:textVehicle = Create3DTextLabel(string, 0xFFFFFFFF, 0.0, 0.0, 0.0, 10.0, 0);
+		Attach3DTextLabelToVehicle(textVehicle, gsCivilVehicle[x], 0.0, 0.0, 0.0);
 	}
     return 1;
 }

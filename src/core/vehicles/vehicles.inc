@@ -81,6 +81,9 @@ stock Vehicle_SetEngineToPlayer(playerid, vehicleid, bool:status)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnVehicleSpawn(vehicleid)
 {
-	Vehicle_SetEngine(vehicleid, false);
+	if (vehicleid != INVALID_VEHICLE_ID)
+	{
+		Vehicle_SetEngine(vehicleid, false);
+	}
 	return 1;
 }

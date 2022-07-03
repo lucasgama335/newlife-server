@@ -82,11 +82,7 @@
 				"src/core/features",
 				"src/core/vehicles",
 				"src/core/vehicles/data"
-			],
-			"constants": {
-				"MAX_PLAYERS": "10"
-			},
-			"compiler": {}
+			]
 		},
 		{
 			"name": "live",
@@ -115,11 +111,7 @@
 				"src/core/features",
 				"src/core/vehicles",
 				"src/core/vehicles/data"
-			],
-			"constants": {
-				"MAX_PLAYERS": "250"
-			},
-			"compiler": {}
+			]
 		}
 	]
 }
