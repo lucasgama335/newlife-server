@@ -199,7 +199,7 @@ public OnPlayerConnect(playerid)
             Player_SetNoobMutedTime(playerid, mutedNoob);
 
             // Config Info
-            new e_TAGS:tag, city, spawn, document, speedometer, tracker, hitsound, territorialChat, vipChat, socioChat, noobChat, leaderChat, stream;
+            new e_TAGS:tag, city, spawn, document, speedometer, tracker, hitsound, e_SCREENS:screenSize, territorialChat, vipChat, socioChat, noobChat, leaderChat, stream;
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_TAG, tag);
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_CITY, city);
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_SPAWN, spawn);
@@ -207,6 +207,7 @@ public OnPlayerConnect(playerid)
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_SPEED, speedometer);
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_TRACKER, tracker);
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_HITSOUND, hitsound);
+            cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_SCREEN, screenSize);
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_TERRITORIAL_CHAT, territorialChat);
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_VIP_CHAT, vipChat);
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_SOCIO_CHAT, socioChat);
@@ -214,10 +215,11 @@ public OnPlayerConnect(playerid)
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_LEADER_CHAT, leaderChat);
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_STREAM, stream);
 
-            Player_UpdateConfigTypes(playerid, tag, city, spawn, document, speedometer, tracker, hitsound);
+            Player_UpdateConfigTypes(playerid, tag, city, spawn, document, speedometer, tracker, hitsound, screenSize);
             Player_UpdateConfigChats(playerid, (territorialChat ? true : false), (vipChat ? true : false), (socioChat ? true : false), (noobChat ? true : false), (leaderChat ? true : false), (stream ? true : false));
 
             isRegistered[playerid] = true;
+            AdaptSpeedometerToScreen(playerid);
 
             ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
             SendClientMessage(playerid, COLOR_SOFTGREY, "* Dados Carregados com sucesso, pressione em 'Fazer Login'.");

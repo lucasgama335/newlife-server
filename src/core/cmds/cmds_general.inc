@@ -43,7 +43,7 @@ static stock ShowHelpDialog(playerid)
 
 static stock ShowPlayerConfig(playerid)
 {
-	new configDialog[827 + 1], string[74 + 1];
+	new configDialog[872 + 1], string[74 + 1];
 	strcat(configDialog, "{FFFFFF}Sistema\t{FFFFFF}Informações\n");
 	strcat(configDialog, "{0080ff}• {FFFFFF}Gerenciar Tags\t{848484}Clique para Configurar\n");
 	switch(Player_GetSpawn(playerid))
@@ -83,9 +83,30 @@ static stock ShowPlayerConfig(playerid)
 	{
 		strcat(configDialog, "{0080ff}• {FFFFFF}Plataforma\t{FFEC8B}Android\n");
 	}
+	switch(Player_GetScreenSize(playerid))
+	{
+		case SCREEN_INVALID: strcat(configDialog, "{0080ff}• {FFFFFF}Monitor\t{00aaff}Inválido\n");
+		case SCREEN_NORMAL: strcat(configDialog, "{0080ff}• {FFFFFF}Monitor\t{00aaff}16:9\n");
+		case SCREEN_ULTRAWIDE: strcat(configDialog, "{0080ff}• {FFFFFF}Monitor\t{00aaff}21:9\n");
+	}
 	strcat(configDialog, "{0080ff}• {FFFFFF}Menu Hit(Sino do Dano)\t{848484}Clique para Configurar\n");
 	format(string, sizeof(string), "{FFFFFF}Configurações da Conta: ({0080ff}%s{FFFFFF})", SERVER_TAG);
 	return ShowPlayerDialog(playerid, DIALOG_CONFIG_LIST, DIALOG_STYLE_TABLIST_HEADERS, string, configDialog, "Selecionar", "Fechar");
+}
+
+static stock PlayerUpdateSpeedometer(playerid)
+{
+	new vehicleid = GetPlayerVehicleID(playerid);
+	AdaptSpeedometerToScreen(playerid);
+	if (IsPlayerInVehicle(playerid, vehicleid) && vehicleid != INVALID_VEHICLE_ID && IsValidVehicle(vehicleid)) 
+	{
+		HidePlayerSpeedometer(playerid);
+		UpdatePlayerSpeedometer(playerid, vehicleid, Player_GetSpeedometer(playerid));
+		ShowPlayerSpeedometer(playerid, Player_GetSpeedometer(playerid));
+		StartSpeedometerTimer(playerid, vehicleid);
+		return 1;
+	}
+	return 0;
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
@@ -886,14 +907,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								
 							}
 						}
-						new vehicleid = GetPlayerVehicleID(playerid);
-						if (IsPlayerInVehicle(playerid, vehicleid) && vehicleid != INVALID_VEHICLE_ID && IsValidVehicle(vehicleid)) 
-						{
-							HidePlayerSpeedometer(playerid);
-							UpdatePlayerSpeedometer(playerid, vehicleid, Player_GetSpeedometer(playerid));
-							ShowPlayerSpeedometer(playerid, Player_GetSpeedometer(playerid));
-							StartSpeedometerTimer(playerid, vehicleid);
-						}
+						PlayerUpdateSpeedometer(playerid);
 						Player_UpdateConfigData(playerid);
 						ShowPlayerConfig(playerid);
 			        }
@@ -935,6 +949,39 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						return ShowPlayerConfig(playerid);
 			        }
 					case 12:
+			        {
+			            switch(Player_GetScreenSize(playerid))
+						{
+							case SCREEN_NORMAL: 
+							{
+								Player_SetScreenSize(playerid, SCREEN_ULTRAWIDE);
+								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
+								SendClientAlert(playerid, "Configuracoes", "Voce mudou o seu monitor para 21:9.");
+								Player_UpdateConfigData(playerid);
+								ShowPlayerConfig(playerid);
+							}
+							case SCREEN_ULTRAWIDE: 
+							{
+								Player_SetScreenSize(playerid, SCREEN_NORMAL);
+								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
+								SendClientAlert(playerid, "Configuracoes", "Voce mudou o seu monitor para 16:9.");
+								Player_UpdateConfigData(playerid);
+								ShowPlayerConfig(playerid);
+							}
+							default:
+							{
+								Player_SetScreenSize(playerid, SCREEN_NORMAL);
+								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
+								SendClientAlert(playerid, "Configuracoes", "Voce mudou o seu monitor para 16:9.");
+								Player_UpdateConfigData(playerid);
+								ShowPlayerConfig(playerid);
+							}
+						}
+						HidePlayerHud(playerid);
+						ShowPlayerHud(playerid);
+						PlayerUpdateSpeedometer(playerid);
+			        }
+					case 13:
 			        {
 						new hitDialog[228 + 1];
 			            strcat(hitDialog, (Player_GetHitSound(playerid) == 3 ? "{04b404}» {848484}Ouvir o sino ao: {FFFFFF}(Acetar Tiro)\n" : "{848484}Ouvir o sino ao: {FFFFFF}(Acetar Tiro)\n"));

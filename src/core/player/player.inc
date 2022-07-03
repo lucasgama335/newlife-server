@@ -60,7 +60,7 @@ timer PlayerUpdateStatus[1000](playerid)
         Player_SetNoobMutedTime(playerid, (Player_GetNoobMutedTime(playerid) - 1));
     }
     
-    if (Player_GetPaydayTime(playerid) <= 0)
+    if (Player_GetPaydayTime(playerid) <= 0 && IsValidPlayer(playerid))
     {
         PlayerGetPayday(playerid);
     }   

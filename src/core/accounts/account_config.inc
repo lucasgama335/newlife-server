@@ -12,6 +12,7 @@ enum p_CONFIG_DATA
     p_SPEEDOMETER_TYPE,
     p_TRACKER_TYPE,
     p_HIT_SOUND_TYPE,
+    e_SCREENS:p_SCREEN_TYPE,
     bool:p_TERRITORIAL_CHAT,
     bool:p_VIP_CHAT,
     bool:p_SOCIO_CHAT,
@@ -27,9 +28,9 @@ stock Player_SaveConfigData(playerid)
 {
     if (!IsPlayerConnected(playerid)) return 0;
 
-    new query_string[310];
+    new query_string[329];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
-    %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
+    %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME, 
     PLAYER_FIELD_CONFIG_TAG, gsConfigInfo[playerid][p_TAG], 
     PLAYER_FIELD_CONFIG_CITY, gsConfigInfo[playerid][p_CITY_SPAWN], 
@@ -38,6 +39,7 @@ stock Player_SaveConfigData(playerid)
     PLAYER_FIELD_CONFIG_SPEED, gsConfigInfo[playerid][p_SPEEDOMETER_TYPE], 
     PLAYER_FIELD_CONFIG_TRACKER, gsConfigInfo[playerid][p_TRACKER_TYPE], 
     PLAYER_FIELD_CONFIG_HITSOUND, gsConfigInfo[playerid][p_HIT_SOUND_TYPE], 
+    PLAYER_FIELD_CONFIG_SCREEN, gsConfigInfo[playerid][p_SCREEN_TYPE], 
     PLAYER_FIELD_CONFIG_TERRITORIAL_CHAT, (gsConfigInfo[playerid][p_TERRITORIAL_CHAT] ? 1 : 0), 
     PLAYER_FIELD_CONFIG_VIP_CHAT, (gsConfigInfo[playerid][p_VIP_CHAT] ? 1 : 0), 
     PLAYER_FIELD_CONFIG_SOCIO_CHAT, (gsConfigInfo[playerid][p_SOCIO_CHAT] ? 1 : 0), 
@@ -176,6 +178,24 @@ stock Player_SetHitSound(playerid, type)
     return gsConfigInfo[playerid][p_HIT_SOUND_TYPE] = type;
 }
 
+// ============== SCREEN TYPE ACCESSORS ============== //
+// Getters
+stock e_SCREENS:Player_GetScreenSize(playerid)
+{
+    if (!IsPlayerConnected(playerid)) return SCREEN_INVALID;
+
+    return gsConfigInfo[playerid][p_SCREEN_TYPE];
+}
+
+// Setters
+stock Player_SetScreenSize(playerid, e_SCREENS:type)
+{
+    if (!IsPlayerConnected(playerid)) return 0;
+
+    gsConfigInfo[playerid][p_SCREEN_TYPE] = type;
+    return 1;
+}
+
 // ============== TERRITORIAL CHAT ACCESSORS ============== //
 // Getters
 stock bool:Player_GetTerritorialChatStatus(playerid)
@@ -279,7 +299,7 @@ stock bool:Player_SetMusicStreamStatus(playerid, bool:status)
 }
 
 // ============== AUTO UPDATE ============== //
-stock Player_UpdateConfigTypes(playerid, e_TAGS:tag, city, spawn, document, speedometer, tracker, hitsound)
+stock Player_UpdateConfigTypes(playerid, e_TAGS:tag, city, spawn, document, speedometer, tracker, hitsound, e_SCREENS:screenSize)
 {
     gsConfigInfo[playerid][p_TAG] = tag;
     gsConfigInfo[playerid][p_CITY_SPAWN] = city;
@@ -288,6 +308,7 @@ stock Player_UpdateConfigTypes(playerid, e_TAGS:tag, city, spawn, document, spee
     gsConfigInfo[playerid][p_SPEEDOMETER_TYPE] = speedometer;
     gsConfigInfo[playerid][p_TRACKER_TYPE] = tracker;
     gsConfigInfo[playerid][p_HIT_SOUND_TYPE] = hitsound;
+    gsConfigInfo[playerid][p_SCREEN_TYPE] = screenSize;
     return 1;
 }
 
@@ -311,6 +332,7 @@ stock Player_UpdateConfigData(playerid)
     gsConfigInfo[playerid][p_SPEEDOMETER_TYPE] = Player_GetSpeedometer(playerid);
     gsConfigInfo[playerid][p_TRACKER_TYPE] = Player_GetTracker(playerid);
     gsConfigInfo[playerid][p_HIT_SOUND_TYPE] = Player_GetHitSound(playerid);
+    gsConfigInfo[playerid][p_SCREEN_TYPE] = Player_GetScreenSize(playerid);
     Player_SaveConfigData(playerid);
     return 1;
 }

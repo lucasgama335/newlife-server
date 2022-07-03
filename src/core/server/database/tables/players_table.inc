@@ -72,6 +72,7 @@
 #define PLAYER_FIELD_CONFIG_NOOB_CHAT           "config_noob_chat"
 #define PLAYER_FIELD_CONFIG_LEADER_CHAT         "config_leader_chat"
 #define PLAYER_FIELD_CONFIG_STREAM              "config_stream"
+#define PLAYER_FIELD_CONFIG_SCREEN              "config_screen"
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 
@@ -141,6 +142,7 @@ stock Database_CreatePlayersTable()
         "PLAYER_FIELD_CONFIG_SPEED" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_CONFIG_TRACKER" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_CONFIG_HITSOUND" int DEFAULT 1 NOT NULL, \
+        "PLAYER_FIELD_CONFIG_SCREEN" tinyint DEFAULT 1 NOT NULL, \
         "PLAYER_FIELD_CONFIG_TERRITORIAL_CHAT" tinyint DEFAULT 1 NOT NULL, \
         "PLAYER_FIELD_CONFIG_VIP_CHAT" tinyint DEFAULT 1 NOT NULL, \
         "PLAYER_FIELD_CONFIG_SOCIO_CHAT" tinyint DEFAULT 1 NOT NULL, \

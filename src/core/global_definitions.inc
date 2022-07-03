@@ -153,3 +153,11 @@ enum e_TAGS
 	TAG_NOOB,
 	TAG_KILLER
 };
+
+// Screen Sizes
+enum e_SCREENS
+{
+	SCREEN_INVALID,
+	SCREEN_NORMAL,
+	SCREEN_ULTRAWIDE
+};
