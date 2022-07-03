@@ -6,13 +6,13 @@
 	"dependencies": [
 		"pawn-lang/samp-stdlib",
 		"pawn-lang/YSI-Includes",
-		"pBlueG/SA-MP-MySQL",
-		"Y-Less/sscanf",
-		"Zeex/samp-plugin-crashdetect",
-		"samp-incognito/samp-streamer-plugin",
-		"Sreyas-Sreelal/samp-bcrypt",
+		"pBlueG/SA-MP-MySQL:R41-4",
+		"Y-Less/sscanf:v2.13.1",
+		"Zeex/samp-plugin-crashdetect:v4.20",
+		"samp-incognito/samp-streamer-plugin:v2.9.5",
+		"Sreyas-Sreelal/samp-bcrypt:0.3.4",
 		"pawn-lang/sa-mp-fixes",
-		"Southclaws/pawn-chrono"
+		"Southclaws/pawn-chrono:1.1.1"
 	],
 	"local": true,
 	"runtime": {
@@ -53,7 +53,7 @@
 		"cookielogging": false,
 		"output": true,
 		"extra": {
-			"crashdetect_log": "crash_detect.txt"
+			"crashdetect_log": "crashinfo.txt"
 		}
 	},
 	"builds": [

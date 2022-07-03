@@ -243,7 +243,7 @@ static stock Compact_CreateNormalScreen(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, compactSpeedometer[playerid][6], -10.000000, 0.000000, -44.000000, 0.920000);
 	PlayerTextDrawSetPreviewVehCol(playerid, compactSpeedometer[playerid][6], 1, 1);
 
-	compactSpeedometer[playerid][7] = CreatePlayerTextDraw(playerid, 260.000000, 311.000000, "_");
+	compactSpeedometer[playerid][7] = CreatePlayerTextDraw(playerid, 261.000000, 311.000000, "_");
 	PlayerTextDrawFont(playerid, compactSpeedometer[playerid][7], 1);
 	PlayerTextDrawLetterSize(playerid, compactSpeedometer[playerid][7], 0.462500, 11.700005);
 	PlayerTextDrawTextSize(playerid, compactSpeedometer[playerid][7], 295.000000, 0.500000);
