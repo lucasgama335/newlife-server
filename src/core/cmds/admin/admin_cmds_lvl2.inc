@@ -187,7 +187,7 @@ YCMD:calar(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /calar [id] [minutos]");
 	}
-	if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
+	if (!IsValidPlayer(id))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
@@ -233,7 +233,7 @@ YCMD:calarn(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /calarn [id] [minutos]");
 	}
-	if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
+	if (!IsValidPlayer(id))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
@@ -278,7 +278,7 @@ YCMD:congelar(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /congelar [id]");
 	}
-	if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
+	if (!IsValidPlayer(id))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
@@ -309,7 +309,7 @@ YCMD:descongelar(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /descongelar [id]");
 	}
-	if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
+	if (!IsValidPlayer(id))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}

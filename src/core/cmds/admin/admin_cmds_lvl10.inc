@@ -20,7 +20,7 @@ YCMD:daradmin(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /daradmin [id] [nivel]");
 	}
-    if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
+    if (!IsValidPlayer(id))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
@@ -54,7 +54,7 @@ YCMD:retiraradmin(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /retiraradmin [id]");
 	}
-    if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
+    if (!IsValidPlayer(id))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}

@@ -13,7 +13,7 @@ timer AdminSpectatePlayer[1000](playerid)
 	new spectated_id = Admin_GetPlayerSpectated(playerid);
 	if (spectated_id != INVALID_PLAYER_ID && Player_GetAdminLevel(playerid) >= HELPER)
 	{
-		if (IsValidPlayer(spectated_id, Player_GetLoggedStatus(spectated_id)))
+		if (IsValidPlayer(spectated_id))
 		{
 			SetPlayerToTeamColor(playerid);
 			SetPlayerInterior(playerid, GetPlayerInterior(spectated_id));

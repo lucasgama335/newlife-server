@@ -47,7 +47,7 @@ YCMD:verip(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /verip [id]");
 	}
-	if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
+	if (!IsValidPlayer(id))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
@@ -183,7 +183,7 @@ YCMD:fogo(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /fogo [id]");
 	}
-	if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
+	if (!IsValidPlayer(id))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
@@ -216,7 +216,7 @@ YCMD:boasvindas(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /boasvindas [id]");
 	}
-	if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
+	if (!IsValidPlayer(id))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}

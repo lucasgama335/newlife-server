@@ -122,11 +122,16 @@ stock GetPlayerWeaponName(gun)
 stock GetPlayerWeaponAmmo(playerid, weaponid)
 {
     new wd[2][13];
-    for(new i; i<13; i++) GetPlayerWeaponData(playerid,i,wd[0][i],wd[1][i]);
     for(new i; i<13; i++)
     {
-
-        if (weaponid == wd[0][i]) return wd[1][i];
+        GetPlayerWeaponData(playerid, i, wd[0][i], wd[1][i]);
+    }
+    for(new i; i<13; i++)
+    {
+        if (weaponid == wd[0][i]) 
+        {
+            return wd[1][i];
+        }
     }
     return 0;
 }
@@ -153,7 +158,7 @@ stock CheckInvalidWords(const string[])
 	{
 		if (string[i] >= 46 && string[i] <= 58)
 		{
-		    x+=1;
+		    x += 1;
 		}
 	}
 	if (x >= 8) return 1;

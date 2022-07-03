@@ -53,8 +53,7 @@
 		"cookielogging": false,
 		"output": true,
 		"extra": {
-			"crashdetect_log": "crash_detect.txt",
-			"long_call_time": "10000"
+			"crashdetect_log": "crash_detect.txt"
 		}
 	},
 	"builds": [

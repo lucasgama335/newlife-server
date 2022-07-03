@@ -1,0 +1,14 @@
+[09:45:12] Long callback execution detected (hang or performance issue)
+[09:45:12] AMX backtrace:
+[09:45:12] #0 00002bd8 in Server_PrintIntroPart (18003936) at C:\Users\lucas\Desktop\NewLife\dependencies\YSI-Includes\YSI_Data\y_foreach\..\..\YSI_Core\y_core\y_scriptinit_impl.inc:475
+[09:45:12] #1 00004a28 in YVers_PrintHeader () at C:\Users\lucas\Desktop\NewLife\dependencies\YSI-Includes\YSI_Data\y_foreach\..\..\YSI_Core\y_core\y_version.inc:468
+[09:45:12] #2 00004fec in YVers_StartCheck () at C:\Users\lucas\Desktop\NewLife\dependencies\YSI-Includes\YSI_Data\y_foreach\..\..\YSI_Core\y_core\y_version.inc:606
+[09:45:12] #3 00003eec in public SSCANF_OnGameModeInit ()  at C:\Users\lucas\Desktop\NewLife\dependencies\YSI-Includes\YSI_Data\y_foreach\..\..\YSI_Core\y_core\y_scriptinit_impl.inc:1137
+[09:45:12] #4 000015a4 in ?? () at C:\Users\lucas\Desktop\NewLife\dependencies\.resources\sscanf-019253\sscanf2.inc:1033
+[09:45:22] Long callback execution detected (hang or performance issue)
+[09:45:22] AMX backtrace:
+[09:45:22] #0 00002c58 in Server_PrintIntroPart (18003936) at C:\Users\lucas\Desktop\NewLife\dependencies\YSI-Includes\YSI_Data\y_foreach\..\..\YSI_Core\y_core\y_scriptinit_impl.inc:482
+[09:45:22] #1 00004a28 in YVers_PrintHeader () at C:\Users\lucas\Desktop\NewLife\dependencies\YSI-Includes\YSI_Data\y_foreach\..\..\YSI_Core\y_core\y_version.inc:468
+[09:45:22] #2 00004fec in YVers_StartCheck () at C:\Users\lucas\Desktop\NewLife\dependencies\YSI-Includes\YSI_Data\y_foreach\..\..\YSI_Core\y_core\y_version.inc:606
+[09:45:22] #3 00003eec in public SSCANF_OnGameModeInit ()  at C:\Users\lucas\Desktop\NewLife\dependencies\YSI-Includes\YSI_Data\y_foreach\..\..\YSI_Core\y_core\y_scriptinit_impl.inc:1137
+[09:45:22] #4 000015a4 in ?? () at C:\Users\lucas\Desktop\NewLife\dependencies\.resources\sscanf-019253\sscanf2.inc:1033

@@ -90,7 +90,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		{
 			if (newkeys == KEY_F && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
 			{
-				if (Player_GetAnimationStatus(playerid) && IsValidPlayer(playerid, Player_GetLoggedStatus(playerid)))
+				if (Player_GetAnimationStatus(playerid) && IsValidPlayer(playerid))
 				{
 					Player_SetAnimationStatus(playerid, false);
 					ClearAnimations(playerid);

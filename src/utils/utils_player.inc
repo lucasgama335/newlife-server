@@ -41,9 +41,9 @@ stock Float:GetPlayerArmourCustom(playerid)
 	return player_Armour;
 }
 
-stock bool:IsValidPlayer(playerid, bool:loggedStatus)
+stock bool:IsValidPlayer(playerid)
 {
-    if (IsPlayerConnected(playerid) && playerid != INVALID_PLAYER_ID && loggedStatus == true)
+    if (IsPlayerConnected(playerid) && playerid != INVALID_PLAYER_ID && Player_GetLoggedStatus(playerid))
 	{
 		return true;
 	}
@@ -56,14 +56,14 @@ stock GetPlayerSpeed(playerid, bool:kmh2)
     if (IsPlayerInAnyVehicle(playerid))
 	{
 		GetVehicleVelocity(GetPlayerVehicleID(playerid), Vx, Vy, Vz);
-		rtn = floatsqroot(floatpower(floatabs(Vx),2)+floatpower(floatabs(Vy),2)+floatpower(floatabs(Vz),2));
+		rtn = floatsqroot(floatpower(floatabs(Vx), 2) + floatpower(floatabs(Vy), 2) + floatpower(floatabs(Vz), 2));
 	}
 	else
 	{
 		GetPlayerVelocity(playerid, Vx, Vy, Vz);
-		rtn = floatsqroot(floatpower(floatabs(Vx),2)+floatpower(floatabs(Vy),2)+floatpower(floatabs(Vz),2));
+		rtn = floatsqroot(floatpower(floatabs(Vx), 2) + floatpower(floatabs(Vy), 2) + floatpower(floatabs(Vz), 2));
 	}
-    return kmh2?floatround(rtn * 100 * 1.61):floatround(rtn * 100);
+    return kmh2 ? floatround(rtn * 100 * 1.61) : floatround(rtn * 100);
 }
 
 stock PlayerPlayMusic(playerid, musicId)

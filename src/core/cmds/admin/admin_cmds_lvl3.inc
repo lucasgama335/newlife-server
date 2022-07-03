@@ -179,7 +179,7 @@ YCMD:retirararmas(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /retirararmas [id]");
 	}
-	if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
+	if (!IsValidPlayer(id))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
@@ -206,7 +206,7 @@ YCMD:saciar(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /saciar [id]");
 	}
-	if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
+	if (!IsValidPlayer(id))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}

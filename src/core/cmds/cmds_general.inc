@@ -1119,7 +1119,7 @@ YCMD:id(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /id [ID/Nick]");
 	}
-    if (!IsValidPlayer(id, Player_GetLoggedStatus(id)))
+    if (!IsValidPlayer(id))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}

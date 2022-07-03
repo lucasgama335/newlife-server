@@ -508,7 +508,7 @@ YCMD:gro(playerid, params[], help)
 YCMD:stopanim(playerid, params[], help) = pararanim;
 YCMD:pararanim(playerid, params[], help)
 {
-	if (!IsValidPlayer(playerid, Player_GetLoggedStatus(playerid)))
+	if (!IsValidPlayer(playerid))
 	{
 	    return 1;
 	}
