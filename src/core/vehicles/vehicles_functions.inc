@@ -45,7 +45,7 @@ stock VehicleDecreaseGlobalFuel()
 {
     foreach (new vehicleid : Vehicles)
 	{
-		if (Vehicle_GetFuel(vehicleid) > 0)
+		if (Vehicle_GetFuel(vehicleid) > 0 && Vehicle_GetEngineStatus(vehicleid))
 		{
 			Vehicle_SetFuel(vehicleid, (Vehicle_GetFuel(vehicleid) - 1));
 			if (Vehicle_GetFuel(vehicleid) <= 0)
