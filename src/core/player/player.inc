@@ -150,6 +150,8 @@ stock PlayerGetPayday(playerid)
     }
 
     Player_SetPaydayTime(playerid, 3600);
+    Player_SaveScoreData(playerid);
+    Player_SaveMoneyData(playerid);
     return 1;
 }
 
