@@ -59,9 +59,9 @@ static stock UpdateWorldTime(Timestamp:time)
         case 4: SetWorldTime(4);
         case 5: SetWorldTime(5);
         case 6: SetWorldTime(6);
-        case 7: SetWorldTime(6);
-        case 8: SetWorldTime(6);
-        case 9: SetWorldTime(7);
+        case 7: SetWorldTime(7);
+        case 8: SetWorldTime(8);
+        case 9: SetWorldTime(9);
         case 10: SetWorldTime(10);
         case 11: SetWorldTime(11);
         case 12: SetWorldTime(12);
