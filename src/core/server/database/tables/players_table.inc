@@ -1,6 +1,7 @@
 #include <YSI_Coding\y_hooks>
 
 //------------------------- Definitions and constants -------------------------
+#define PLAYER_JOIN_PREFIX                      "p"
 #define PLAYER_TABLE_NAME                       "players"
 #define PLAYER_FIELD_ID                         "id"
 #define PLAYER_FIELD_NAME                       "name"

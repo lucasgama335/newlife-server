@@ -8,6 +8,7 @@
 #include <account_status>
 #include <account_config>
 #include <account_admin>
+#include <account_ban>
 
 #include <YSI_Coding\y_hooks>
 

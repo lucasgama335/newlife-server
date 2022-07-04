@@ -1,6 +1,7 @@
 #include <db_connect>
 
 #include <players_table>
+#include <banned_players>
 #if MYSQL_SETUP_TABLES
 #include <create_tables>
 #endif

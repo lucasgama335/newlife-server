@@ -3,14 +3,14 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-enum p_APPEARANCE
+enum p_APPEARANCE_DATA
 {
     p_GENDER,
     p_FIGHT_STYLE,
     p_SKIN,
     p_OLD_SKIN
 }
-static gsAppearanceInfo[MAX_PLAYERS][p_APPEARANCE];
+static gsAppearanceInfo[MAX_PLAYERS][p_APPEARANCE_DATA];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 // ============== SAVE DB INFO ============== //
@@ -34,7 +34,7 @@ stock Player_SaveAppearenceData(playerid)
 // ============== RESET INFO ============== //
 stock Player_ResetAppearenceData(playerid)
 {
-    static const scEmptyData[p_APPEARANCE];
+    static const scEmptyData[p_APPEARANCE_DATA];
     gsAppearanceInfo[playerid] = scEmptyData;
     gsAppearanceInfo[playerid][p_GENDER] = GENDER_MALE;
     gsAppearanceInfo[playerid][p_SKIN] = DEFAULT_SKIN_MALE;

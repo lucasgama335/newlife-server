@@ -246,6 +246,45 @@ YCMD:saciarall(playerid, params[], help)
 
 // TO-DO
 // /banir
+YCMD:banir(playerid, params[], help)
+{
+	if (Player_GetAdminLevel(playerid) < BEGINNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new id, days, reason[65];
+	if (sscanf(params, "uds[65]", id, days, reason))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /banir [id] [dias(0 = permanente)] [motivo]");
+	}
+	if (!IsValidPlayer(id))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+	}
+	if (id == playerid)
+	{
+	    return SendClientMessage(playerid, COLOR_INVALID, "Você não pode dar banir a si mesmo.");
+	}
+	if (days < 0)
+	{
+	    return SendClientMessage(playerid, COLOR_INVALID, "Número de dias inválido.");
+	}
+	if (!strlen(reason))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você precisa informar um motivo para o banimento.");
+	}
+	if (strlen(reason) > 65)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "O motivo do banimento está muito longo");
+	}
+
+	BanPlayer(id, playerid, GetPlayerIpCustom(id), days, reason);
+	return 1;
+}
 // /bansagendados
 // /agendarban
 // /excluirban

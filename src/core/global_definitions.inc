@@ -8,6 +8,7 @@
 
 #define	MYSQL_DEBUG				true
 #define	MYSQL_SETUP_TABLES		true
+#define	MYSQL_INVALID_VALUE		-1
 
 #define SERVER_NAME				"NewLife"
 #define	SERVER_TAG				"NL"
