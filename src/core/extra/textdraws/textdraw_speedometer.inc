@@ -295,32 +295,32 @@ stock UpdatePlayerSpeedometer(playerid, vehicleid, type)
 
             if (!Vehicle_GetLockedStatus(vehicleid))
             {
-                PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][12], "~g~A ~w~F");
+                PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][15], "~g~A ~w~F");
             }
             else
             {
-                PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][12], "~w~A ~r~F");
+                PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][15], "~w~A ~r~F");
             }
 
-            PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][16], GetVehicleName(GetVehicleModel(vehicleid)));
+            PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][8], GetVehicleName(GetVehicleModel(vehicleid)));
 
             format(speedometerString, sizeof (speedometerString), "%d", spd1);
-            PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][13], speedometerString);
-
-            format(speedometerString, sizeof (speedometerString), "%d", spd2);
-            PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][14], speedometerString);
-
-            format(speedometerString, sizeof (speedometerString), "%d", spd3);
-            PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][15], speedometerString);
-
-            format(speedometerString, sizeof (speedometerString), "%02d Litros", Vehicle_GetFuel(vehicleid));
             PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][17], speedometerString);
 
-            format(speedometerString, sizeof (speedometerString), "%0.0f%", vehicleHealth / 10);
+            format(speedometerString, sizeof (speedometerString), "%d", spd2);
             PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][18], speedometerString);
 
-            format(speedometerString, sizeof (speedometerString), "%d%%", Vehicle_GetShield(vehicleid));
+            format(speedometerString, sizeof (speedometerString), "%d", spd3);
             PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][19], speedometerString);
+
+            format(speedometerString, sizeof (speedometerString), "%02d Litros", Vehicle_GetFuel(vehicleid));
+            PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][9], speedometerString);
+
+            format(speedometerString, sizeof (speedometerString), "%0.0f%", vehicleHealth / 10);
+            PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][10], speedometerString);
+
+            format(speedometerString, sizeof (speedometerString), "%d%%", Vehicle_GetShield(vehicleid));
+            PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][11], speedometerString);
         }
         case 1:
         {
@@ -444,21 +444,21 @@ stock DestroyPlayerSpeedometer(playerid)
 hook OnPlayerConnect(playerid)
 {
 	// Modern
-    modernSpeedometer[playerid][0] = CreatePlayerTextDraw(playerid, 586.000000, 368.000000, "Km/h");
+    modernSpeedometer[playerid][0] = CreatePlayerTextDraw(playerid, 363.000000, 395.000000, "I");
 	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][0], 1);
-	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][0], 0.300000, 1.250000);
+	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][0], 23.995798, 2.249999);
 	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][0], 400.000000, 17.000000);
-	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][0], 1);
+	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][0], 0);
 	PlayerTextDrawSetShadow(playerid, modernSpeedometer[playerid][0], 0);
 	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][0], 1);
-	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][0], -741092353);
-	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][0], 50);
+	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][0], 102);
+	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][0], 255);
 	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][0], 50);
 	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][0], false);
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][0], true);
 	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][0], false);
 
-	modernSpeedometer[playerid][1] = CreatePlayerTextDraw(playerid, 442.000000, 422.000000, "l");
+	modernSpeedometer[playerid][1] = CreatePlayerTextDraw(playerid, 363.000000, 381.000000, "I");
 	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][1], 1);
 	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][1], 23.995798, 2.249999);
 	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][1], 400.000000, 17.000000);
@@ -472,7 +472,7 @@ hook OnPlayerConnect(playerid)
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][1], true);
 	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][1], false);
 
-	modernSpeedometer[playerid][2] = CreatePlayerTextDraw(playerid, 442.000000, 408.000000, "l");
+	modernSpeedometer[playerid][2] = CreatePlayerTextDraw(playerid, 363.000000, 367.000000, "I");
 	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][2], 1);
 	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][2], 23.995798, 2.249999);
 	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][2], 400.000000, 17.000000);
@@ -486,7 +486,7 @@ hook OnPlayerConnect(playerid)
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][2], true);
 	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][2], false);
 
-	modernSpeedometer[playerid][3] = CreatePlayerTextDraw(playerid, 442.000000, 394.000000, "l");
+	modernSpeedometer[playerid][3] = CreatePlayerTextDraw(playerid, 363.000000, 409.000000, "I");
 	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][3], 1);
 	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][3], 23.995798, 2.249999);
 	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][3], 400.000000, 17.000000);
@@ -500,227 +500,227 @@ hook OnPlayerConnect(playerid)
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][3], true);
 	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][3], false);
 
-	modernSpeedometer[playerid][4] = CreatePlayerTextDraw(playerid, 442.000000, 380.000000, "l");
-	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][4], 1);
-	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][4], 23.995798, 2.349998);
+	modernSpeedometer[playerid][4] = CreatePlayerTextDraw(playerid, 450.000000, 373.000000, "VEICULO");
+	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][4], 3);
+	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][4], 0.266666, 0.999999);
 	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][4], 400.000000, 17.000000);
-	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][4], 0);
+	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][4], 1);
 	PlayerTextDrawSetShadow(playerid, modernSpeedometer[playerid][4], 0);
 	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][4], 1);
-	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][4], 102);
-	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][4], 255);
+	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][4], -741092353);
+	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][4], 80);
 	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][4], 50);
 	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][4], false);
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][4], true);
 	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][4], false);
 
-	modernSpeedometer[playerid][5] = CreatePlayerTextDraw(playerid, 496.000000, 386.000000, "Veiculo");
-	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][5], 1);
-	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][5], 0.283331, 1.049999);
+	modernSpeedometer[playerid][5] = CreatePlayerTextDraw(playerid, 450.000000, 387.000000, "COMBUSTIVEL");
+	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][5], 3);
+	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][5], 0.266666, 0.999999);
 	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][5], 400.000000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][5], 1);
 	PlayerTextDrawSetShadow(playerid, modernSpeedometer[playerid][5], 0);
 	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][5], 1);
 	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][5], -741092353);
-	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][5], 50);
+	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][5], 80);
 	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][5], 50);
 	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][5], false);
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][5], true);
 	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][5], false);
 
-	modernSpeedometer[playerid][6] = CreatePlayerTextDraw(playerid, 496.000000, 399.000000, "Gasolina");
-	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][6], 1);
-	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][6], 0.237498, 1.100000);
+	modernSpeedometer[playerid][6] = CreatePlayerTextDraw(playerid, 450.000000, 401.000000, "LATARIA");
+	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][6], 3);
+	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][6], 0.266666, 0.999999);
 	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][6], 400.000000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][6], 1);
 	PlayerTextDrawSetShadow(playerid, modernSpeedometer[playerid][6], 0);
 	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][6], 1);
 	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][6], -741092353);
-	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][6], 50);
+	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][6], 80);
 	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][6], 50);
 	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][6], false);
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][6], true);
 	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][6], false);
 
-	modernSpeedometer[playerid][7] = CreatePlayerTextDraw(playerid, 496.000000, 413.000000, "Lataria");
-	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][7], 1);
-	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][7], 0.287498, 1.049999);
+	modernSpeedometer[playerid][7] = CreatePlayerTextDraw(playerid, 450.000000, 415.000000, "BLINDAGEM");
+	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][7], 3);
+	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][7], 0.266666, 0.999999);
 	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][7], 400.000000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][7], 1);
 	PlayerTextDrawSetShadow(playerid, modernSpeedometer[playerid][7], 0);
 	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][7], 1);
 	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][7], -741092353);
-	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][7], 50);
+	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][7], 80);
 	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][7], 50);
 	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][7], false);
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][7], true);
 	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][7], false);
 
-	modernSpeedometer[playerid][8] = CreatePlayerTextDraw(playerid, 496.000000, 427.000000, "Blindagem");
-	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][8], 1);
-	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][8], 0.208333, 1.049998);
+	modernSpeedometer[playerid][8] = CreatePlayerTextDraw(playerid, 584.000000, 373.000000, "FAGGIO");
+	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][8], 3);
+	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][8], 0.266666, 0.999999);
 	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][8], 400.000000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][8], 1);
 	PlayerTextDrawSetShadow(playerid, modernSpeedometer[playerid][8], 0);
-	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][8], 1);
+	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][8], 3);
 	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][8], -741092353);
-	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][8], 50);
+	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][8], 80);
 	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][8], 50);
 	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][8], false);
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][8], true);
 	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][8], false);
 
-	modernSpeedometer[playerid][9] = CreatePlayerTextDraw(playerid, 513.000000, 367.000000, "_");
-	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][9], 0);
-	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][9], 0.583333, 1.700002);
-	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][9], 297.000000, 30.500000);
-	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][9], 0);
+	modernSpeedometer[playerid][9] = CreatePlayerTextDraw(playerid, 584.000000, 387.000000, "100L");
+	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][9], 3);
+	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][9], 0.266666, 0.999999);
+	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][9], 400.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][9], 1);
 	PlayerTextDrawSetShadow(playerid, modernSpeedometer[playerid][9], 0);
-	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][9], 2);
-	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][9], -1);
-	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][9], 255);
-	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][9], 135);
-	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][9], true);
+	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][9], 3);
+	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][9], -741092353);
+	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][9], 80);
+	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][9], 50);
+	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][9], false);
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][9], true);
 	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][9], false);
 
-	modernSpeedometer[playerid][10] = CreatePlayerTextDraw(playerid, 556.000000, 357.000000, "_");
-	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][10], 0);
-	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][10], 0.583333, 2.750001);
-	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][10], 297.000000, 49.500000);
-	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][10], 0);
+	modernSpeedometer[playerid][10] = CreatePlayerTextDraw(playerid, 584.000000, 401.000000, "100%");
+	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][10], 3);
+	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][10], 0.266666, 0.999999);
+	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][10], 400.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][10], 1);
 	PlayerTextDrawSetShadow(playerid, modernSpeedometer[playerid][10], 0);
-	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][10], 2);
-	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][10], -1);
-	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][10], 255);
-	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][10], 135);
-	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][10], true);
+	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][10], 3);
+	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][10], -741092353);
+	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][10], 80);
+	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][10], 50);
+	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][10], false);
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][10], true);
 	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][10], false);
 
-	modernSpeedometer[playerid][11] = CreatePlayerTextDraw(playerid, 599.000000, 367.000000, "_");
-	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][11], 0);
-	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][11], 0.583333, 1.700002);
-	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][11], 297.000000, 30.500000);
-	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][11], 0);
+	modernSpeedometer[playerid][11] = CreatePlayerTextDraw(playerid, 584.000000, 415.000000, "100%");
+	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][11], 3);
+	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][11], 0.266666, 0.999999);
+	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][11], 400.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][11], 1);
 	PlayerTextDrawSetShadow(playerid, modernSpeedometer[playerid][11], 0);
-	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][11], 2);
+	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][11], 3);
 	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][11], -741092353);
-	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][11], 255);
-	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][11], 135);
-	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][11], true);
+	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][11], 80);
+	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][11], 50);
+	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][11], false);
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][11], true);
 	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][11], false);
 
-	modernSpeedometer[playerid][12] = CreatePlayerTextDraw(playerid, 524.000000, 367.000000, "A ~r~F");
-	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][12], 2);
-	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][12], 0.350000, 1.400000);
-	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][12], 400.000000, 17.000000);
+	modernSpeedometer[playerid][12] = CreatePlayerTextDraw(playerid, 515.000000, 344.000000, "_");
+	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][12], 0);
+	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][12], 0.216666, 2.750000);
+	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][12], 297.000000, 49.500000);
 	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][12], 1);
 	PlayerTextDrawSetShadow(playerid, modernSpeedometer[playerid][12], 0);
-	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][12], 3);
+	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][12], 2);
 	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][12], -1);
-	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][12], 50);
-	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][12], 50);
-	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][12], false);
+	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][12], 255);
+	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][12], 102);
+	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][12], true);
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][12], true);
 	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][12], false);
 
-	modernSpeedometer[playerid][13] = CreatePlayerTextDraw(playerid, 540.000000, 361.000000, "0");
-	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][13], 1);
-	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][13], 0.383333, 2.049999);
-	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][13], 240.000000, -18.500000);
+	modernSpeedometer[playerid][13] = CreatePlayerTextDraw(playerid, 471.000000, 353.000000, "_");
+	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][13], 0);
+	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][13], 0.216666, 1.700001);
+	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][13], 297.000000, 30.500000);
 	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][13], 1);
 	PlayerTextDrawSetShadow(playerid, modernSpeedometer[playerid][13], 0);
 	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][13], 2);
 	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][13], -1);
-	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][13], 50);
-	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][13], 109);
+	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][13], 80);
+	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][13], 102);
 	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][13], true);
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][13], true);
 	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][13], false);
 
-	modernSpeedometer[playerid][14] = CreatePlayerTextDraw(playerid, 556.000000, 361.000000, "9");
-	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][14], 1);
-	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][14], 0.383333, 2.049999);
-	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][14], 240.000000, -18.500000);
+	modernSpeedometer[playerid][14] = CreatePlayerTextDraw(playerid, 560.000000, 353.000000, "_");
+	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][14], 0);
+	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][14], 0.216666, 1.700001);
+	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][14], 297.000000, 30.500000);
 	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][14], 1);
 	PlayerTextDrawSetShadow(playerid, modernSpeedometer[playerid][14], 0);
 	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][14], 2);
 	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][14], -1);
-	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][14], 50);
-	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][14], 109);
+	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][14], 255);
+	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][14], 102);
 	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][14], true);
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][14], true);
 	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][14], false);
 
-	modernSpeedometer[playerid][15] = CreatePlayerTextDraw(playerid, 572.000000, 361.000000, "1");
+	modernSpeedometer[playerid][15] = CreatePlayerTextDraw(playerid, 483.000000, 353.000000, "~g~A ~w~F");
 	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][15], 1);
-	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][15], 0.383333, 2.049999);
-	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][15], 240.000000, -18.500000);
+	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][15], 0.433333, 1.650000);
+	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][15], 400.000000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][15], 1);
 	PlayerTextDrawSetShadow(playerid, modernSpeedometer[playerid][15], 0);
-	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][15], 2);
+	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][15], 3);
 	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][15], -1);
-	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][15], 50);
-	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][15], 109);
-	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][15], true);
+	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][15], 255);
+	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][15], 50);
+	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][15], false);
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][15], true);
 	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][15], false);
 
-	modernSpeedometer[playerid][16] = CreatePlayerTextDraw(playerid, 615.000000, 386.000000, "Luggage Trailer B");
-	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][16], 2);
-	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][16], 0.174998, 1.049999);
+	modernSpeedometer[playerid][16] = CreatePlayerTextDraw(playerid, 547.000000, 353.000000, "KM/H");
+	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][16], 1);
+	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][16], 0.300000, 1.450000);
 	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][16], 400.000000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][16], 1);
 	PlayerTextDrawSetShadow(playerid, modernSpeedometer[playerid][16], 0);
-	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][16], 3);
-	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][16], -741092353);
-	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][16], 50);
+	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][16], 1);
+	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][16], -1);
+	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][16], 80);
 	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][16], 50);
 	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][16], false);
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][16], true);
 	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][16], false);
 
-	modernSpeedometer[playerid][17] = CreatePlayerTextDraw(playerid, 615.000000, 399.000000, "100 Litros");
-	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][17], 2);
-	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][17], 0.204165, 1.049999);
-	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][17], 400.000000, 17.000000);
+	modernSpeedometer[playerid][17] = CreatePlayerTextDraw(playerid, 499.000000, 347.000000, "0");
+	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][17], 1);
+	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][17], 0.383332, 2.049998);
+	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][17], 240.000000, -18.500000);
 	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][17], 1);
 	PlayerTextDrawSetShadow(playerid, modernSpeedometer[playerid][17], 0);
-	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][17], 3);
-	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][17], -741092353);
-	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][17], 50);
-	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][17], 50);
-	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][17], false);
+	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][17], 2);
+	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][17], -1);
+	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][17], 80);
+	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][17], 109);
+	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][17], true);
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][17], true);
 	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][17], false);
 
-	modernSpeedometer[playerid][18] = CreatePlayerTextDraw(playerid, 615.000000, 414.000000, "100%");
-	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][18], 2);
-	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][18], 0.204165, 1.049999);
-	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][18], 400.000000, 17.000000);
+	modernSpeedometer[playerid][18] = CreatePlayerTextDraw(playerid, 515.000000, 347.000000, "0");
+	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][18], 1);
+	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][18], 0.383332, 2.049998);
+	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][18], 240.000000, -18.500000);
 	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][18], 1);
 	PlayerTextDrawSetShadow(playerid, modernSpeedometer[playerid][18], 0);
-	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][18], 3);
-	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][18], -741092353);
-	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][18], 50);
-	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][18], 50);
-	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][18], false);
+	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][18], 2);
+	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][18], -1);
+	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][18], 80);
+	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][18], 109);
+	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][18], true);
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][18], true);
 	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][18], false);
 
-	modernSpeedometer[playerid][19] = CreatePlayerTextDraw(playerid, 615.000000, 428.000000, "100%");
-	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][19], 2);
-	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][19], 0.204165, 1.049999);
-	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][19], 400.000000, 17.000000);
+	modernSpeedometer[playerid][19] = CreatePlayerTextDraw(playerid, 531.000000, 347.000000, "0");
+	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][19], 1);
+	PlayerTextDrawLetterSize(playerid, modernSpeedometer[playerid][19], 0.383332, 2.049998);
+	PlayerTextDrawTextSize(playerid, modernSpeedometer[playerid][19], 240.000000, -18.500000);
 	PlayerTextDrawSetOutline(playerid, modernSpeedometer[playerid][19], 1);
 	PlayerTextDrawSetShadow(playerid, modernSpeedometer[playerid][19], 0);
-	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][19], 3);
-	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][19], -741092353);
-	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][19], 50);
-	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][19], 50);
-	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][19], false);
+	PlayerTextDrawAlignment(playerid, modernSpeedometer[playerid][19], 2);
+	PlayerTextDrawColor(playerid, modernSpeedometer[playerid][19], -1);
+	PlayerTextDrawBackgroundColor(playerid, modernSpeedometer[playerid][19], 80);
+	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][19], 109);
+	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][19], true);
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][19], true);
 	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][19], false);
 
