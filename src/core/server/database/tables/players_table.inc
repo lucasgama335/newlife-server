@@ -83,7 +83,7 @@ stock Database_CreatePlayersTable()
 {
     inline OnQueryFinished()
     {
-        printf("[DATABASE]: Player's table created.");
+        printf("[DATABASE]: 'players' table created.");
     }
 
     MySQL_TQueryInline(Database_GetConnection(), using inline OnQueryFinished, "CREATE TABLE IF NOT EXISTS "PLAYER_TABLE_NAME" \

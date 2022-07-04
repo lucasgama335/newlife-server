@@ -1,10 +1,10 @@
 #include <player_admin>
-#include <player_tutorial>
-#include <player_vehicle>
 #include <player_anims>
 #include <player_auth>
-#include <player_spawn>
+#include <player_tutorial>
 #include <player_ban>
+#include <player_spawn>
+#include <player_vehicle>
 
 #include <YSI_Coding\y_hooks>
 
@@ -157,14 +157,6 @@ stock PlayerGetPayday(playerid)
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
-hook BeforeSpawnPlayer(playerid)
-{
-    UpdatePlayerHud(playerid, Chrono_GetTimeNow(), Player_GetLevel(playerid), Player_GetHungry(playerid), Player_GetDrink(playerid), Player_GetPaydayTime(playerid));
-    ShowPlayerHud(playerid);
-	gsPlayerUpdateStatusTimer[playerid] = repeat PlayerUpdateStatus(playerid);
-	return 1;
-}
-
 hook OnPlayerConnect(playerid)
 {
     new numPlayersInSameIp = GetPlayersInSameIp(GetPlayerIpCustom(playerid));
@@ -172,8 +164,13 @@ hook OnPlayerConnect(playerid)
 	{
         printf("MAXIPs: O Jogador[%d] excedeu o número de conexões [%d] por IP: [%s].", playerid, MAX_CONNECTIONS_FROM_IP, GetPlayerIpCustom(playerid));
         Kick(playerid);
-        return ~1; // Ended Hooks Calls
     }
+    return 1;
+}
+
+hook FirstSpawnOnLogin(playerid)
+{
+    gsPlayerUpdateStatusTimer[playerid] = repeat PlayerUpdateStatus(playerid);
     return 1;
 }
 

@@ -126,6 +126,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 Player_SetOldSkin(playerid, DEFAULT_SKIN_FEMALE);
 			    SetPlayerSkin(playerid, Player_GetSkin(playerid));
 				ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
+				HidePlayerHud(playerid);
 			    SendClientMessage(playerid, COLOR_LIGHTBLUE, "[Tutorial]: Você escolheu o sexo feminino!");
 				format(string, sizeof(string), "{FFFFFF}Olá, {33CCFF}%s{FFFFFF}, deseja ler nosso tutorial para obter\nalguns conhecimentos básicos de como começar?\n\nEscolha uma opção abaixo:", GetPlayerNameCustom(playerid));
 			    ShowPlayerDialog(playerid, DIALOG_OPTION_TUT, DIALOG_STYLE_MSGBOX, "Tutorial", string, "Sim", "Não");
@@ -138,6 +139,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 Player_SetOldSkin(playerid, DEFAULT_SKIN_MALE);
                 SetPlayerSkin(playerid, Player_GetSkin(playerid));
 			    ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
+				HidePlayerHud(playerid);
 		        SendClientMessage(playerid, COLOR_LIGHTBLUE, "[Tutorial]: Você escolheu o sexo masculino!");
 		        format(string, sizeof(string), "{FFFFFF}Olá, {33CCFF}%s{FFFFFF}, deseja ler nosso tutorial para obter\nalguns conhecimentos básicos de como começar?\n\nEscolha uma opção abaixo:", GetPlayerNameCustom(playerid));
 			    ShowPlayerDialog(playerid, DIALOG_OPTION_TUT, DIALOG_STYLE_MSGBOX, "Tutorial", string, "Sim", "Não");
@@ -149,6 +151,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    {
                 Player_SetTutorialStatus(playerid, true);
 				Database_SaveTutorial(playerid);
+				ShowPlayerHud(playerid);
 				SendClientMessage(playerid, COLOR_LIGHTBLUE, "Você optou por não ver o tutorial!");
 				return 1;
 			}
@@ -513,6 +516,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	     		StopAudioStreamForPlayer(playerid);
 	            TogglePlayerControllable(playerid, true);
 				TogglePlayerSpectating(playerid, false);
+				ShowPlayerHud(playerid);
 				SetCameraBehindPlayer(playerid);
 				SendClientMessage(playerid, COLOR_LIGHTBLUE, "Tutorial finalizado. Tenha um bom jogo!");
 				SpawnPlayer(playerid);

@@ -18,7 +18,7 @@ stock Database_CreateBansTable()
 {
     inline OnQueryBansFinished()
     {
-        printf("[DATABASE]: Banned Players table created.");
+        printf("[DATABASE]: 'banned_players' table created.");
     }
 
     MySQL_TQueryInline(Database_GetConnection(), using inline OnQueryBansFinished, "CREATE TABLE IF NOT EXISTS "BAN_TABLE_NAME" \

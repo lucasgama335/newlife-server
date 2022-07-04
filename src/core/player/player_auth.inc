@@ -473,7 +473,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 function:OnPlayerLogin(playerid) 
 {
     if (Timer_IsRunning(timerToKickPlayer[playerid])) stop timerToKickPlayer[playerid];
-
+    
     if (Player_GetAdminLevel(playerid) > OWNER)
 	{
 		SendClientMessage(playerid, COLOR_ADMIN, "Nível de Administração Inválido!"); 
@@ -494,60 +494,20 @@ function:OnPlayerLogin(playerid)
         case 5: SetPlayerFightingStyle(playerid, FIGHT_STYLE_ELBOW);
         default: SetPlayerFightingStyle(playerid, FIGHT_STYLE_NORMAL);
     }
-    ClearChatBox(playerid, 15);
-	StopAudioStreamForPlayer(playerid);
-	HideLoginScreen(playerid);
-    CancelSelectTextDraw(playerid);
-	TogglePlayerSpectating(playerid, false);
-    
-    new string[150];
-    if (!Player_GetTutorialStatus(playerid))
-    {
-        ShowGenderDialog(playerid);
-    }
-    else
-    {
-        SendClientMessage(playerid, COLOR_WHITE, "________________________________________________________________________________________________");
-        format(string, sizeof(string), "* [Aviso]: Seja Bem Vindo(a): {FFFFFF}%s{33ccff}.", GetPlayerNameCustom(playerid));
-        SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
-        SendClientMessage(playerid, COLOR_LIGHTBLUE, "* [Aviso]: Para voltar na última posição de onde saiu pela última vez digite ({FFFFFF}/irposicao{33ccff})!");
-        SendClientMessage(playerid, COLOR_LIGHTBLUE, "* [Aviso]: Retire suas dúvidas usando ({FFFFFF}/relato{33ccff}) ou com o chat de dúvidas ({FFFFFF}/nchat{33ccff}).");
-        format(string, sizeof(string), "* [Aviso]: Último login no dia: {FFFFFF}%s {33ccff}durante {FFFFFF}%d{33ccff} hora(s).", Player_GetLastLoginFormated(playerid), Player_GetLastConnectedTime(playerid));
- 		SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
-        if (Player_GetAdminLevel(playerid) >= HELPER)
-        {
-            format(string, sizeof(string), "[{FFFFFF}ADMIN{33ccff}]: Você Logou Como Admin: [{FFFFFF}%s{33ccff}].", GetAdminRoleName(Player_GetAdminLevel(playerid)));
-            SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
-        }
-		if (Player_GetAdminLevel(playerid) >= HELPER && Player_GetAdminLevel(playerid) < SUB_OWNER)
-		{
-			new adminName[35];
-			format(adminName, sizeof(adminName), "~w~%s ~g~ON", GetPlayerNameCustom(playerid));
-			GameTextForAll(adminName, 5000, 1);
-		}
-        format(string, sizeof(string), "~w~Bem Vindo ~n~~y~%s", GetPlayerNameCustom(playerid));
-        GameTextForPlayer(playerid, string, 5000, 1);
-        if (Player_GetAdminLevel(playerid) >= HELPER_OWNER)
-        {
-            new admPassDialog[300];
-            format(admPassDialog, sizeof(admPassDialog), "{FFFFFF}Conta: {0080ff}%s\n{FFFFFF}Você logou com Admin ({0080ff}%s{FFFFFF})\n\n{FFFFFF}Você precisa autenticar a senha de segurança para poder\n{FFFFFF}logar em sua conta!\n\n{ff6347}OBS: {FFFFFF}Você só tem uma tentativa ou será desconectado do servidor.\n\n\n{6e6e6e}Insira abaixo a senha da administração:", GetPlayerNameCustom(playerid), GetAdminRoleName(Player_GetAdminLevel(playerid)));
-            ShowPlayerDialog(playerid, DIALOG_AUTH_ADMIN, DIALOG_STYLE_PASSWORD, "Proteção de Conta", admPassDialog, "Validar", "");
-        }
-    }
-    if (Player_GetAdminLevel(playerid) < HELPER_OWNER) 
-    {
-        format(string, sizeof(string), "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [%s]!", GetPlayerNameCustom(playerid), playerid, Player_GetLevel(playerid), GetPlayerIpCustom(playerid));
-    }
-    else 
-    {
-        format(string, sizeof(string), "[Conexão]: %s(ID: %d) se conectou, Level: %d | IP: [N/A]!", GetPlayerNameCustom(playerid), playerid, Player_GetLevel(playerid));
-    }
-    SendAdminMessage(COLOR_SKIN, string, HELPER);
     recentlyLogged[playerid] = false;
     isRegistered[playerid] = true;
-    Player_SetLoggedStatus(playerid, true);
+    
+    ClearChatBox(playerid, 15);
+	StopAudioStreamForPlayer(playerid);
+	TogglePlayerSpectating(playerid, false);
+    CancelSelectTextDraw(playerid);
     SetSpawnInfo(playerid, -1, Player_GetSkin(playerid), SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA, 0, 0, 0, 0, 0, 0);
-    CallLocalFunction("BeforeSpawnPlayer", "i", playerid);
+    
+    Player_SetLoggedStatus(playerid, true);
+	HideLoginScreen(playerid);
+    
+    CallLocalFunction("FirstSpawnOnLogin", "i", playerid);
+    
     SpawnPlayer(playerid);
     return 1;
 }

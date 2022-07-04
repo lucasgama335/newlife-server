@@ -328,7 +328,7 @@ YCMD:agendarban(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode banir a si mesmo.");
 	}
-
+	
 	AdminBanPlayerByName(name, playerid, days, reason);
 	return 1;
 }

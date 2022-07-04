@@ -4,8 +4,6 @@
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 
-//------------------------- Query Callbacks -------------------------
-
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock AdminBanPlayer(playerid, adminId, days, const reason[])
 {
@@ -59,15 +57,8 @@ stock AdminBanPlayer(playerid, adminId, days, const reason[])
                         format(banString, sizeof(banString), "[BAN]: %s foi banido por %s durante [%d] dia(s). [Motivo]: %s.", GetPlayerNameCustom(playerid), Player_GetBanAdminName(playerid), days, reasonCopyInline);
                     }
                     SendClientMessageToAll(COLOR_LIGHTRED, banString);
-                    SendClientMessage(playerid, COLOR_YELLOW, "|________________Instruções para Revisão de Ban________________|");
-                    SendClientMessage(playerid, COLOR_SKIN, "Tire uma SS da tela apertando F8 imediatamente após ser banido");
-                    SendClientMessage(playerid, COLOR_SKIN, "E acesse o nosso fórum para solicitar uma revisão de banimento");
-                    SendClientMessage(playerid, COLOR_LIGHTRED, "Atenção: Você só será desbanido se for inocente !");
-                    GameTextForPlayer(playerid, "~r~banido", 2500, 3);
-
+                    ShowPlayerBanDialog(playerid, playerIpCopy, Player_GetBanAdminName(playerid), Chrono_ConvertToTimestamp(banTime), Chrono_ConvertToTimestamp(unBanTime), (days <= 0 ? true : false), reasonCopyInline);
                     PrintLog(FOLDER_BANS_SUCCESS, banString);
-
-                    KickPlayer(playerid);
                 }
                 else
                 {
@@ -137,15 +128,8 @@ stock SystemBanPlayer(playerid, days, const reason[])
                         format(banString, sizeof(banString), "[BAN]: %s foi banido por pelo sistema durante [%d] dia(s). [Motivo]: %s.", GetPlayerNameCustom(playerid), days, reasonCopyInline);
                     }
                     SendClientMessageToAll(COLOR_LIGHTRED, banString);
-                    SendClientMessage(playerid, COLOR_YELLOW, "|________________Instruções para Revisão de Ban________________|");
-                    SendClientMessage(playerid, COLOR_SKIN, "Tire uma SS da tela apertando F8 imediatamente após ser banido");
-                    SendClientMessage(playerid, COLOR_SKIN, "E acesse o nosso fórum para solicitar uma revisão de banimento");
-                    SendClientMessage(playerid, COLOR_LIGHTRED, "Atenção: Você só será desbanido se for inocente !");
-                    GameTextForPlayer(playerid, "~r~banido", 2500, 3);
-
+                    ShowPlayerBanDialog(playerid, playerIpCopy, Player_GetBanAdminName(playerid), Chrono_ConvertToTimestamp(banTime), Chrono_ConvertToTimestamp(unBanTime), (days <= 0 ? true : false), reasonCopyInline);
                     PrintLog(FOLDER_BANS_SUCCESS, banString);
-
-                    KickPlayer(playerid);
                 }
                 else
                 {
@@ -232,14 +216,7 @@ stock AdminBanPlayerByName(const name[], adminId, days, const reason[])
                                     Player_SetUnBanTime(playerid, Chrono_ConvertToTimestamp(unBanTime));
                                 }
                                 Player_SetBanReason(playerid, reasonCopy2);
-
-                                SendClientMessage(playerid, COLOR_YELLOW, "|________________Instruções para Revisão de Ban________________|");
-                                SendClientMessage(playerid, COLOR_SKIN, "Tire uma SS da tela apertando F8 imediatamente após ser banido");
-                                SendClientMessage(playerid, COLOR_SKIN, "E acesse o nosso fórum para solicitar uma revisão de banimento");
-                                SendClientMessage(playerid, COLOR_LIGHTRED, "Atenção: Você só será desbanido se for inocente !");
-                                GameTextForPlayer(playerid, "~r~banido", 2500, 3);
-
-                                KickPlayer(playerid);
+                                ShowPlayerBanDialog(playerid, playerIpCopy, GetPlayerNameCustom(adminId), Chrono_ConvertToTimestamp(banTime), Chrono_ConvertToTimestamp(unBanTime), (days <= 0 ? true : false), reasonCopy2);
                             }
                             PrintLog(FOLDER_BANS_SUCCESS, banString);
                         }
@@ -317,7 +294,66 @@ stock UnBanPlayer(const name[], adminId)
     return 1;
 }
 
+stock LoadPlayerBan(playerid)
+{
+    inline const OnBanLoaded()
+    {
+        if (cache_num_rows() > 0)
+        {
+            new banId, playerId, adminId, adminName[MAX_PLAYER_NAME + 1], playerIp[MAX_IP_STRING], banTime, unBanTime, reason[MAX_REASON_STRING];
+            cache_get_value_name_int(0, BAN_FIELD_ID, banId);
+            cache_get_value_name_int(0, BAN_FIELD_PLAYER_ID, playerId);
+            cache_get_value_name_int(0, BAN_FIELD_ADMIN_ID, adminId);
+            cache_get_value_name(0, "admin_name", adminName, MAX_PLAYER_NAME);
+            cache_get_value_name(0, BAN_FIELD_PLAYER_IP, playerIp, MAX_IP_STRING);
+            cache_get_value_name_int(0, BAN_FIELD_BAN_TIME, banTime);
+            cache_get_value_name_int(0, BAN_FIELD_UNBAN_TIME, unBanTime);
+            cache_get_value_name(0, BAN_FIELD_REASON, reason, MAX_REASON_STRING);
+            
+            Player_SetBanId(playerid, banId);
+            Player_SetBanPlayerId(playerid, playerId);
+            Player_SetBanAdminId(playerid, adminId),
+            Player_SetBanAdminName(playerid, adminName);
+            Player_SetBanIp(playerid, playerIp);
+            Player_SetBanTime(playerid, Chrono_ConvertToTimestamp(banTime));
+            Player_SetUnBanTime(playerid, Chrono_ConvertToTimestamp(unBanTime));
+            Player_SetBanReason(playerid, reason);
+            Player_SetBanForeverStatus(playerid, (unBanTime <= 0 ? true : false));
+
+            inline_return ShowPlayerBanDialog(playerid, playerIp, adminName, Chrono_ConvertToTimestamp(banTime), Chrono_ConvertToTimestamp(unBanTime), (unBanTime <= 0 ? true : false), reason);
+        }
+    }
+    MySQL_TQueryInline(Database_GetConnection(), using inline OnBanLoaded, "SELECT ban.*, admin.%s as admin_name FROM %s as ban LEFT JOIN %s as admin ON ban.%s = admin.%s WHERE ban.%s = %d OR ban.%s = '%s' ORDER BY ban.%s DESC LIMIT 1",
+    PLAYER_FIELD_NAME, BAN_TABLE_NAME, PLAYER_TABLE_NAME, BAN_FIELD_ADMIN_ID, PLAYER_FIELD_ID, BAN_FIELD_PLAYER_ID, Player_GetId(playerid), BAN_FIELD_PLAYER_IP, GetPlayerIpCustom(playerid), BAN_FIELD_ADMIN_ID);
+    return 1;
+}
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+static stock ShowPlayerBanDialog(playerid, const playerIp[], const adminName[], Timestamp:banTime, Timestamp:unBanTime, bool:banForever, const reason[])
+{
+    new string[350];
+    SendClientMessage(playerid, COLOR_YELLOW, "|________________Instruções para Revisão de Ban________________|");
+    SendClientMessage(playerid, COLOR_SKIN, "Tire uma SS da tela apertando F8 imediatamente");
+    SendClientMessage(playerid, COLOR_SKIN, "E acesse o nosso fórum para solicitar uma revisão de banimento");
+    SendClientMessage(playerid, COLOR_LIGHTRED, "Atenção: Você só será desbanido se for inocente !");
+    GameTextForPlayer(playerid, "~r~banido", 2500, 3);
+    if (banForever)
+    {
+        format(string, sizeof(string), "Conta: %s\n\nIP: %s\n\nAdmin: %s\n\nMotivo: %s\n\nBanimento: Permanente\n\nData do Banimento: %s\n\n\n\nAcha isso um erro? Peça uma revisão em nosso fórum.", GetPlayerNameCustom(playerid), playerIp, adminName, reason, Chrono_GetFullDate(banTime));
+	    ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX, "SERVIDOR - Conta Banida", string, "Ok", "Sair");
+    }
+    else
+    {
+        format(string, sizeof(string), "Conta: %s\n\nIP: %s\n\nAdmin: %s\n\nMotivo: %s\n\nBanimento: Temporário\n\nData do Banimento: %s\n\nData do Desbanimento: %s\n\n\n\nAcha isso um erro? Peça uma revisão em nosso fórum.", GetPlayerNameCustom(playerid), playerIp, adminName, reason, Chrono_GetFullDate(banTime), Chrono_GetFullDate(unBanTime));
+	    ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX, "SERVIDOR - Conta Banida", string, "Ok", "Sair");
+    }
+    KickPlayer(playerid);
+    return 1;
+}
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+hook FirstSpawnOnLogin(playerid)
+{
+    LoadPlayerBan(playerid);
+    return 1;
+}
