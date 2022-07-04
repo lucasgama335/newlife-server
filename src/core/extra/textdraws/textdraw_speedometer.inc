@@ -456,7 +456,7 @@ hook OnPlayerConnect(playerid)
 	PlayerTextDrawBoxColor(playerid, modernSpeedometer[playerid][0], 50);
 	PlayerTextDrawUseBox(playerid, modernSpeedometer[playerid][0], false);
 	PlayerTextDrawSetProportional(playerid, modernSpeedometer[playerid][0], true);
-	PlayerTextDrawSetSelectable(playerid, modernSpeedometer[playerid][0], false);
+	PlayerTextDrawSetSelectable(playeridg, modernSpeedometer[playerid][0], false);
 
 	modernSpeedometer[playerid][1] = CreatePlayerTextDraw(playerid, 363.000000, 381.000000, "I");
 	PlayerTextDrawFont(playerid, modernSpeedometer[playerid][1], 1);
