@@ -289,7 +289,7 @@ YCMD:banir(playerid, params[], help)
 	return 1;
 }
 
-YCMD:banirnome(playerid, params[], help)
+YCMD:agendarban(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < BEGINNER)
 	{
@@ -302,7 +302,7 @@ YCMD:banirnome(playerid, params[], help)
 	new name[MAX_PLAYER_NAME], days, reason[MAX_REASON_STRING];
 	if (sscanf(params, "s[24]ds[65]", name, days, reason))
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "USE: /banirnome [nick] [dias(0 = permanente)] [motivo]");
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /agendarban [nick] [dias(0 = permanente)] [motivo]");
 	}
 	if (!strlen(name))
 	{

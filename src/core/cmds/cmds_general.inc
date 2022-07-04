@@ -100,7 +100,6 @@ static stock PlayerUpdateSpeedometer(playerid)
 	AdaptSpeedometerToScreen(playerid);
 	if (IsPlayerInVehicle(playerid, vehicleid) && vehicleid != INVALID_VEHICLE_ID && IsValidVehicle(vehicleid)) 
 	{
-		HidePlayerSpeedometer(playerid);
 		UpdatePlayerSpeedometer(playerid, vehicleid, Player_GetSpeedometer(playerid));
 		ShowPlayerSpeedometer(playerid, Player_GetSpeedometer(playerid));
 		StartSpeedometerTimer(playerid, vehicleid);
@@ -891,6 +890,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			        }
 					case 9:
 			        {
+						if (IsPlayerInAnyVehicle(playerid))
+						{
+							HidePlayerSpeedometer(playerid);
+						}
 			            switch(Player_GetSpeedometer(playerid))
 						{
 							case 0: 

@@ -204,14 +204,14 @@ stock AdminBanPlayerByName(const name[], adminId, days, const reason[])
                         new db_id = cache_insert_id();
                         if (db_id != MYSQL_INVALID_VALUE)
                         {
-                            new banString[144];
+                            new banString[188];
                             if (days <= 0)
                             {
-                                format(banString, sizeof(banString), "[BAN]: %s foi banido por %s permanentemente. [Motivo]: %s.", playerNameCopy2, GetPlayerNameCustom(adminId), reasonCopy2);
+                                format(banString, sizeof(banString), "[BAN]: %s agendou o banimento de %s permanentemente. [Motivo]: %s.", GetPlayerNameCustom(adminId), playerNameCopy2, reasonCopy2);
                             }
                             else
                             {
-                                format(banString, sizeof(banString), "[BAN]: %s foi banido por %s durante [%d] dia(s). [Motivo]: %s.", playerNameCopy2, GetPlayerNameCustom(adminId), days, reasonCopy2);
+                                format(banString, sizeof(banString), "[BAN]: %s agendou o banimento de %s durante [%d] dia(s). [Motivo]: %s.", GetPlayerNameCustom(adminId), playerNameCopy2, days, reasonCopy2);
                             }
                             SendClientMessageToAll(COLOR_LIGHTRED, banString);
 

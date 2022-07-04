@@ -56,9 +56,9 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 2: 
 					{
-						new dialogTitle[25], string[207];
+						new dialogTitle[25], string[180];
 						format(string, sizeof(string), "{0080ff}*** | {FFFFFF}/1 /2 /3 /go /voaron /orelhas /respawnperto /retirararmas /versms\n\
-														{0080ff}*** | {FFFFFF}/saciar /saciarall /banir /desbanir /bansagendados /agendarban /excluirban\n");
+														{0080ff}*** | {FFFFFF}/saciar /saciarall /banir /desbanir /agendarban\n");
 						format(dialogTitle, sizeof(dialogTitle), "Comandos do %s", GetAdminRoleName(listitem + 1));
 						ShowPlayerDialog(playerid, DIALOG_ADMIN_CMDS2, DIALOG_STYLE_MSGBOX, dialogTitle, string, "Voltar", "Fechar");
 					}
