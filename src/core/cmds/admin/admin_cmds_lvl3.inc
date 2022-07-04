@@ -332,6 +332,34 @@ YCMD:banirnome(playerid, params[], help)
 	AdminBanPlayerByName(name, playerid, days, reason);
 	return 1;
 }
+
+YCMD:desbanir(playerid, params[], help)
+{
+	if (Player_GetAdminLevel(playerid) < BEGINNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new name[MAX_PLAYER_NAME];
+	if (sscanf(params, "s[24]", name))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /desbanir [nick]");
+	}
+	if (!strlen(name))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você precisa digitar o nome do jogador.");
+	}
+	if (strlen(name) > MAX_PLAYER_NAME)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "O nome do jogador está muito longo.");
+	}
+
+	UnBanPlayer(name, playerid);
+	return 1;
+}
 // /bansagendados
 // /agendarban
 // /excluirban

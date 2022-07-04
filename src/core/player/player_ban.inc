@@ -260,7 +260,7 @@ stock AdminBanPlayerByName(const name[], adminId, days, const reason[])
         else
         {
             new string[142];
-            format(string, sizeof(string), "[ERRO]: A tentativa de banimento do jogador %s pelo admin %s falhou, porque ele esse jogador não existe.", playerName, GetPlayerNameCustom(adminId));
+            format(string, sizeof(string), "[ERRO]: A tentativa de banimento do jogador %s pelo admin %s falhou, porque esse jogador não existe.", playerName, GetPlayerNameCustom(adminId));
             PrintLog(FOLDER_BANS_ERROR, string);
             SendClientMessage(adminId, COLOR_INVALID, "Esse jogador não existe.");
         }
@@ -268,6 +268,55 @@ stock AdminBanPlayerByName(const name[], adminId, days, const reason[])
     MySQL_TQueryInline(Database_GetConnection(), using inline PlayerExistsInDatabase, "SELECT %s, %s FROM %s WHERE %s = '%s'", PLAYER_FIELD_ID, PLAYER_FIELD_IP, PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, name);
     return 1;
 }
+
+stock UnBanPlayer(const name[], adminId)
+{
+    new nameCopy[MAX_PLAYER_NAME + 1];
+    strcopy(nameCopy, name, MAX_PLAYER_NAME);
+
+    inline const PlayerExistsInDatabase()
+    {
+        if (cache_num_rows() > 0)
+        {
+            new playerIdDbm, nameCopy2[MAX_PLAYER_NAME + 1];
+            cache_get_value_name_int(0, PLAYER_FIELD_ID, playerIdDbm);
+            strcopy(nameCopy2, nameCopy, MAX_PLAYER_NAME);
+
+            inline const IsPlayerBanned()
+            {
+                if (cache_num_rows() > 0)
+                {
+                    inline const OnPlayerBanned()
+                    {
+                        new unBanString[79];
+                        format(unBanString, sizeof(unBanString), "[DESBAN]: %s foi desbanido por %s.", nameCopy2, GetPlayerNameCustom(adminId));
+                        SendClientMessageToAll(COLOR_LIGHTRED, unBanString);
+                        PrintLog(FOLDER_UNBAN_SUCCESS, unBanString);
+                    }
+                    MySQL_TQueryInline(Database_GetConnection(), using inline OnPlayerBanned, "DELETE FROM %s WHERE %s = %d", BAN_TABLE_NAME, BAN_FIELD_PLAYER_ID, playerIdDbm);
+                }
+                else
+                {
+                    new string[153];
+                    format(string, sizeof(string), "[ERRO]: A tentativa de desbanimento do jogador %s pelo admin %s falhou, porque esse jogador não está banido.", nameCopy2, GetPlayerNameCustom(adminId));
+                    PrintLog(FOLDER_UNBAN_ERROR, string);
+                    SendClientMessage(adminId, COLOR_INVALID, "Esse jogador não está banido.");
+                }
+            }
+            MySQL_TQueryInline(Database_GetConnection(), using inline IsPlayerBanned, "SELECT %s FROM %s WHERE %s = %d", BAN_FIELD_ID, BAN_TABLE_NAME, BAN_FIELD_PLAYER_ID, playerIdDbm);
+        }
+        else
+        {
+            new string[148];
+            format(string, sizeof(string), "[ERRO]: A tentativa de desbanimento do jogador %s pelo admin %s falhou, porque esse jogador não existe.", nameCopy, GetPlayerNameCustom(adminId));
+            PrintLog(FOLDER_UNBAN_ERROR, string);
+            SendClientMessage(adminId, COLOR_INVALID, "Esse jogador não existe.");
+        }
+    }
+    MySQL_TQueryInline(Database_GetConnection(), using inline PlayerExistsInDatabase, "SELECT %s, %s FROM %s WHERE %s = '%s'", PLAYER_FIELD_ID, PLAYER_FIELD_IP, PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, name);
+    return 1;
+}
+
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
