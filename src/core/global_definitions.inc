@@ -75,6 +75,9 @@
 #define	PLAYER_OBJECT_9			8
 #define	PLAYER_OBJECT_10		9
 
+#define MAX_IP_STRING           16
+#define MAX_REASON_STRING       65
+
 // Admin Levels
 enum e_ADMIN_LEVELS
 {

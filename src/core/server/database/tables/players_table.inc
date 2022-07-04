@@ -20,6 +20,7 @@
 #define PLAYER_FIELD_LAST_LOGIN                 "last_login"
 #define PLAYER_FIELD_LAST_CONNECTED_TIME        "last_connected_time"
 #define PLAYER_FIELD_LAST_LOCALE                "last_interior_locale"
+#define PLAYER_FIELD_IP                         "player_ip"
 
 #define PLAYER_FIELD_JOB                        "job"
 #define PLAYER_FIELD_ORG                        "org"
@@ -150,9 +151,10 @@ stock Database_CreatePlayersTable()
         "PLAYER_FIELD_CONFIG_NOOB_CHAT" tinyint DEFAULT 1 NOT NULL, \
         "PLAYER_FIELD_CONFIG_LEADER_CHAT" tinyint DEFAULT 1 NOT NULL, \
         "PLAYER_FIELD_CONFIG_STREAM" tinyint DEFAULT 1 NOT NULL, \
+        "PLAYER_FIELD_IP" varchar(%d), \
         created_at timestamp DEFAULT CURRENT_TIMESTAMP, \
         updated_at timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP \
-    )", MAX_PLAYER_NAME, BCRYPT_HASH_LENGTH, DEFAULT_SKIN_MALE, DEFAULT_SKIN_MALE, SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA);
+    )", MAX_PLAYER_NAME, BCRYPT_HASH_LENGTH, DEFAULT_SKIN_MALE, DEFAULT_SKIN_MALE, SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA, MAX_IP_STRING);
     return 1;
 }
 

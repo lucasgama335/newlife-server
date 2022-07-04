@@ -19,7 +19,8 @@ enum p_GENERAL_DATA
     Float:p_LAST_POSA,
     p_LAST_INTERIOR,
     e_INTERIOR_LOCALES:p_LAST_INTERIOR_LOCALE,
-    p_LAST_VIRTUAL_WORLD
+    p_LAST_VIRTUAL_WORLD,
+    p_IP
 }
 static gsGeneralInfo[MAX_PLAYERS][p_GENERAL_DATA];
 
@@ -33,9 +34,10 @@ stock Player_SaveGeneralData(playerid)
 {
     if (!IsPlayerConnected(playerid)) return 0;
 
-    new query_string[394];
+    new query_string[425];
+    Player_UpdateIp(playerid);
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
-    %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %f, %s = %f, %s = %f, %s = %f, %s = %d, %s = %d, %s = %d WHERE id = %d", 
+    %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %f, %s = %f, %s = %f, %s = %f, %s = %d, %s = %d, %s = %d, %s = '%s' WHERE id = %d", 
     PLAYER_TABLE_NAME,
     PLAYER_FIELD_ADMIN, gsGeneralInfo[playerid][p_ADMIN],
     PLAYER_FIELD_ATTENDANCES, gsGeneralInfo[playerid][p_ATTENDANCE],
@@ -51,6 +53,7 @@ stock Player_SaveGeneralData(playerid)
     PLAYER_FIELD_LAST_INTERIOR, gsGeneralInfo[playerid][p_LAST_INTERIOR],
     PLAYER_FIELD_LAST_VW, gsGeneralInfo[playerid][p_LAST_VIRTUAL_WORLD],
     PLAYER_FIELD_LAST_LOCALE, gsGeneralInfo[playerid][p_LAST_INTERIOR_LOCALE],
+    PLAYER_FIELD_IP, gsGeneralInfo[playerid][p_IP],
     gsGeneralInfo[playerid][p_ID]);
     mysql_tquery(Database_GetConnection(), query_string);
     return 1;
@@ -67,6 +70,7 @@ stock Player_ResetGeneralData(playerid)
     gsGeneralInfo[playerid][p_LAST_POSA] = SPAWN_POSA;
     gsGeneralInfo[playerid][p_LAST_INTERIOR] = SPAWN_INTERIOR;
     gsGeneralInfo[playerid][p_LAST_VIRTUAL_WORLD] = SPAWN_VW;
+    gsGeneralInfo[playerid][p_IP] = EOS;
     return gsGeneralInfo[playerid];
 }
 
@@ -308,6 +312,22 @@ stock bool:Player_SetLoggedStatus(playerid, bool:status)
     if (!IsPlayerConnected(playerid)) return false;
     
     return gsPlayerIsLogged[playerid] = status;
+}
+
+// ============== LAST LOGIN ACCESSORS ============== //
+// Getters
+stock Player_GetIp(playerid)
+{
+    new string[MAX_IP_STRING];
+    format(string, sizeof(string), "%s", gsGeneralInfo[playerid][p_IP]);
+    return string;
+}
+
+// Setters
+stock Player_UpdateIp(playerid)
+{
+    format(gsGeneralInfo[playerid][p_IP], MAX_IP_STRING, "%s", GetPlayerIpCustom(playerid));
+    return 1;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

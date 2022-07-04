@@ -86,9 +86,6 @@ timer NextStepTutorial[1000](playerid)
         TutTime[playerid] = 0;
 		if (Timer_IsRunning(tutorialTimer[playerid])) stop tutorialTimer[playerid];
 	}
-    new string[100];
-    format(string, sizeof(string), "time left: %d", TutTime[playerid]);
-    SendClientMessage(playerid, -1, string);
 	return 1;
 }
 

@@ -50,6 +50,18 @@ stock bool:IsValidPlayer(playerid)
     return false;
 }
 
+stock GetPlayerIdByDb(dbId)
+{
+	foreach (new i : Player)
+	{
+		if (Player_GetId(i) == dbId)
+		{
+			return i;
+		}
+	}
+	return INVALID_PLAYER_ID;
+}
+
 stock GetPlayerSpeed(playerid, bool:kmh2)
 {
     new Float:Vx, Float:Vy, Float:Vz, Float:rtn;

@@ -57,7 +57,7 @@ static stock InsertPlayerInDataBase(playerid, const password[])
         Player_SetId(playerid, cache_insert_id());
         OnPlayerLogin(playerid);
     }
-    MySQL_TQueryInline(Database_GetConnection(), using inline OnPlayerRegister, "INSERT INTO %s (%s, %s) VALUES ('%s', '%s')", PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, PLAYER_FIELD_PASSWORD, GetPlayerNameCustom(playerid), password);
+    MySQL_TQueryInline(Database_GetConnection(), using inline OnPlayerRegister, "INSERT INTO %s (%s, %s, %s) VALUES ('%s', '%s', '%s')", PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, PLAYER_FIELD_PASSWORD, PLAYER_FIELD_IP, GetPlayerNameCustom(playerid), password, GetPlayerIpCustom(playerid));
     return 1;
 }
 

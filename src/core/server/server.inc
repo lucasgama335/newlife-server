@@ -5,6 +5,8 @@
 #define FOLDER_ANTICHEAT_ADVERTISING    "ServerLogs/AntiCheat/advertising_hack.log"
 #define FOLDER_ADMIN_PAR 		        "ServerLogs/Admins/par_log.log"
 #define FOLDER_MYSQL_LOG                "ServerLogs/Admins/mysql_log.log"
+#define FOLDER_BANS_SUCCESS             "ServerLogs/Bans/ban_success.log"
+#define FOLDER_BANS_ERROR               "ServerLogs/Bans/ban_error.log"
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static bool:gsIsRestartingServer = false;

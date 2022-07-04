@@ -245,7 +245,6 @@ YCMD:saciarall(playerid, params[], help)
 }
 
 // TO-DO
-// /banir
 YCMD:banir(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < BEGINNER)
@@ -256,7 +255,7 @@ YCMD:banir(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
 	}
-	new id, days, reason[65];
+	new id, days, reason[MAX_REASON_STRING];
 	if (sscanf(params, "uds[65]", id, days, reason))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /banir [id] [dias(0 = permanente)] [motivo]");
@@ -269,6 +268,10 @@ YCMD:banir(playerid, params[], help)
 	{
 	    return SendClientMessage(playerid, COLOR_INVALID, "Você não pode dar banir a si mesmo.");
 	}
+	if (Player_GetAdminLevel(id) >= HELPER && Player_GetAdminLevel(id) != OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode banir um administrador.");
+	}
 	if (days < 0)
 	{
 	    return SendClientMessage(playerid, COLOR_INVALID, "Número de dias inválido.");
@@ -277,12 +280,56 @@ YCMD:banir(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você precisa informar um motivo para o banimento.");
 	}
-	if (strlen(reason) > 65)
+	if (strlen(reason) > MAX_REASON_STRING)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "O motivo do banimento está muito longo");
 	}
 
-	BanPlayer(id, playerid, GetPlayerIpCustom(id), days, reason);
+	AdminBanPlayer(id, playerid, days, reason);
+	return 1;
+}
+
+YCMD:banirnome(playerid, params[], help)
+{
+	if (Player_GetAdminLevel(playerid) < BEGINNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new name[MAX_PLAYER_NAME], days, reason[MAX_REASON_STRING];
+	if (sscanf(params, "s[24]ds[65]", name, days, reason))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /banirnome [nick] [dias(0 = permanente)] [motivo]");
+	}
+	if (!strlen(name))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você precisa digitar o nome do jogador.");
+	}
+	if (strlen(name) > MAX_PLAYER_NAME)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "O nome do jogador está muito longo.");
+	}
+	if (days < 0)
+	{
+	    return SendClientMessage(playerid, COLOR_INVALID, "Número de dias inválido.");
+	}
+	if (!strlen(reason))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você precisa informar um motivo para o banimento.");
+	}
+	if (strlen(reason) > MAX_REASON_STRING)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "O motivo do banimento está muito longo.");
+	}
+	if (!strcmp(GetPlayerNameCustom(playerid), name, true))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode banir a si mesmo.");
+	}
+
+	AdminBanPlayerByName(name, playerid, days, reason);
 	return 1;
 }
 // /bansagendados
