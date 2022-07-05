@@ -241,3 +241,8 @@ YCMD:boasvindas(playerid, params[], help)
 	SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
 	return 1;
 }
+
+// /tesouro
+// /online
+// /setarevento
+// /destruirgrafite

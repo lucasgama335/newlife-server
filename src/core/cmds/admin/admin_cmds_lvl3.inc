@@ -256,7 +256,7 @@ YCMD:banir(playerid, params[], help)
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
 	}
 	new id, days, reason[MAX_REASON_STRING];
-	if (sscanf(params, "uds[65]", id, days, reason))
+	if (sscanf(params, "uds[*]", id, days, MAX_REASON_STRING, reason))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /banir [id] [dias(0 = permanente)] [motivo]");
 	}
@@ -300,7 +300,7 @@ YCMD:agendarban(playerid, params[], help)
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
 	}
 	new name[MAX_PLAYER_NAME], days, reason[MAX_REASON_STRING];
-	if (sscanf(params, "s[24]ds[65]", name, days, reason))
+	if (sscanf(params, "s[*]ds[*]", MAX_PLAYER_NAME, name, days, MAX_REASON_STRING, reason))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /agendarban [nick] [dias(0 = permanente)] [motivo]");
 	}
@@ -360,8 +360,5 @@ YCMD:desbanir(playerid, params[], help)
 	UnBanPlayer(name, playerid);
 	return 1;
 }
-// /bansagendados
-// /agendarban
-// /excluirban
-// /desbanir
+
 // /versms

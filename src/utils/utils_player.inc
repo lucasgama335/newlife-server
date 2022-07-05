@@ -62,6 +62,13 @@ stock GetPlayerIdByDb(dbId)
 	return INVALID_PLAYER_ID;
 }
 
+stock GetPlayerIdByName(const name[])
+{
+    new ret_id;
+    sscanf(name, "u", ret_id);
+    return ret_id;
+}
+
 stock GetPlayerSpeed(playerid, bool:kmh2)
 {
     new Float:Vx, Float:Vy, Float:Vz, Float:rtn;
