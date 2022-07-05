@@ -9,3 +9,170 @@
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+// /editar
+
+YCMD:explodir(playerid, params[], help)
+{
+	if (Player_GetAdminLevel(playerid) < MASTER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new id;
+	if (sscanf(params, "u", id))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /explodir [id]");
+	}
+	if (!IsValidPlayer(id))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+	}
+	if (Player_GetAdminLevel(id) >= HELPER_OWNER && Player_GetAdminLevel(playerid) != OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode explodir um Admin Dono !");
+	}
+
+	new string[80], Float:boomx, Float:boomy, Float:boomz;
+	SetPlayerHealth(id, 10);
+	GetPlayerPos(id, boomx, boomy, boomz);
+	CreateExplosion(boomx, boomy , boomz, 7, 10);
+	format(string, sizeof(string), "ADMIN CMD: %s foi explodido por %s.", GetPlayerNameCustom(id), GetPlayerNameCustom(playerid));
+	SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
+	return 1;
+}
+
+YCMD:setskin(playerid, params[], help)
+{
+    if (Player_GetAdminLevel(playerid) < MASTER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new id, skinid;
+	if (sscanf(params, "ud", id, skinid))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /setskin [id] [id da skin]");
+	}
+    if (!IsValidPlayer(id))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+	}
+
+	new string[60];
+    Player_SetOldSkin(id, GetPlayerSkin(id));
+    Player_SetSkin(id, skinid);
+	format(string, sizeof(string), "O admin %s mudou sua skin para %d.", GetPlayerNameCustom(playerid), skinid);
+	SendClientMessage(id, COLOR_WHITE, string);
+	format(string, sizeof(string), "Você mudou a skin do %s para %d.", GetPlayerNameCustom(id), skinid);
+	SendClientMessage(playerid, COLOR_WHITE, string);
+    SetPlayerSkin(id, Player_GetSkin(id));
+    return 1;
+}
+
+YCMD:irveiculo(playerid, params[], help)
+{
+	if (Player_GetAdminLevel(playerid) < MASTER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new vid;
+	if (sscanf(params, "d", vid))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /irveiculo [id do veículo]");
+	}
+	if (!IsValidVehicle(vid))
+	{
+	    return SendClientMessage(playerid, COLOR_INVALID, "O ID informado é inválido.");
+	}
+
+	new Float:x, Float:y, Float:z;
+	GetVehiclePos(vid, x, y, z);
+	SetPlayerPos(playerid, x, (y + 4), z);
+	SendClientMessage(playerid, COLOR_PURPLE, "Você foi até o veículo!");
+	return 1;
+}
+
+YCMD:trazerveiculo(playerid, params[], help)
+{
+    if (Player_GetAdminLevel(playerid) < MASTER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new vid;
+	if (sscanf(params, "d", vid))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /trazerveiculo [id do veículo]");
+	}
+	if (!IsValidVehicle(vid))
+	{
+	    return SendClientMessage(playerid, COLOR_INVALID, "O ID informado é inválido.");
+	}
+
+    new interiorid = GetPlayerInterior(playerid);
+    new virtualid = GetPlayerVirtualWorld(playerid);
+	new Float:x, Float:y, Float:z;
+	GetPlayerPos(playerid, x, y, z);
+	SetVehiclePos(vid, x, (y + 4), z);
+	LinkVehicleToInterior(vid, interiorid);
+	SetVehicleVirtualWorld(vid, virtualid);
+	SendClientMessage(playerid, COLOR_PURPLE, "Você trouxe um carro para perto de você!");
+	return 1;
+}
+
+YCMD:abastecercarros(playerid, params[], help)
+{
+	if (Player_GetAdminLevel(playerid) < MASTER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+
+	new string[63];
+	RefuelAllVehicles();
+	format(string, sizeof(string), "ADMIN CMD: %s abasteceu todos os carros.", GetPlayerNameCustom(playerid));
+	SendClientMessageToAll(COLOR_LIGHTRED, string);
+	return 1;
+}
+
+YCMD:rcall(playerid, params[], help) = respawncarros;
+YCMD:respawncarros(playerid, params[], help)
+{
+	if (Player_GetAdminLevel(playerid) < MASTER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+
+	new string[88];
+	RespawnAllVehicles();
+	format(string, sizeof(string), "[%s]: Todos os carros foram para seus locais de início. By: %s.", SERVER_TAG, GetPlayerNameCustom(playerid));
+	SendClientMessageToAll(0x80FF8096, string);
+	return 1;
+}
+
+// /guerrafavela
+// /guerracasarao
+// /tempoguerra
+// /respawnorg
+// /darlicencas
+// /retirarlicencas

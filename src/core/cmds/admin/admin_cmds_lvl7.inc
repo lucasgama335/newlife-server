@@ -35,3 +35,10 @@ YCMD:setpos(playerid, params[], help)
 	SendClientMessage(playerid, COLOR_LIGHTBLUE, "Posição setada!");
     return 1;
 }
+
+// /bloquearcaixa
+// /limitecaixa
+// /liberarcaixa
+// /setarlider
+// /setorgvip
+// /limparlider

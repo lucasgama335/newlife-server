@@ -71,3 +71,36 @@ YCMD:retiraradmin(playerid, params[], help)
 	SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
     return 1;
 }
+
+// /excluirconta
+
+YCMD:iro(playerid, params[], help)
+{
+    if (Player_GetAdminLevel(playerid) < OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	new objid;
+	if (sscanf(params, "d", objid))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /iro [id do objeto]");
+	}
+
+	new Float:x, Float:y, Float:z;
+	GetDynamicObjectPos(objid, x, y, z);
+	SetPlayerPos(playerid, x, y, z);
+	SendClientMessage(playerid, COLOR_INVALID, "Você foi até o objeto");
+	return 1;
+}
+
+// /totalcasas
+// /criarcasa
+// /editarcasa
+// /deletarcasa
+// /deletarcasasall
+// /ircasa
+// /criarempresa
+// /editarempresa
+// /deletarempresa
+// /deletarempresasall
+// /irempresa

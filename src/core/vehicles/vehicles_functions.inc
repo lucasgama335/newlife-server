@@ -98,6 +98,27 @@ stock VehicleDecreaseGlobalShield()
     return 1;
 }
 
+stock RefuelAllVehicles()
+{
+	foreach (new vehicleid : Vehicles)
+	{
+		Vehicle_SetFuel(vehicleid, 100);
+	}
+	return 1;
+}
+
+stock RespawnAllVehicles()
+{
+	foreach (new vehicleid : Vehicles)
+	{
+		if (!IsVehicleBusy(vehicleid))
+		{
+			SetVehicleToRespawn(vehicleid);
+		}
+	}
+	return 1;
+}
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
