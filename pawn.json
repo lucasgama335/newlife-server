@@ -5,14 +5,14 @@
 	"output": "gamemodes/main.amx",
 	"dependencies": [
 		"pawn-lang/samp-stdlib",
-		"pawn-lang/YSI-Includes",
-		"pBlueG/SA-MP-MySQL:R41-4",
-		"Y-Less/sscanf:v2.13.1",
-		"Zeex/samp-plugin-crashdetect:v4.20",
-		"samp-incognito/samp-streamer-plugin:v2.9.5",
-		"Sreyas-Sreelal/samp-bcrypt:0.3.4",
 		"pawn-lang/sa-mp-fixes",
-		"Southclaws/pawn-chrono:1.1.1"
+		"pawn-lang/YSI-Includes",
+		"Zeex/samp-plugin-crashdetect:v4.20",
+		"pBlueG/SA-MP-MySQL:R41-4",
+		"Sreyas-Sreelal/samp-bcrypt:0.3.4",
+		"Southclaws/pawn-chrono:1.1.1",
+		"Y-Less/sscanf:v2.13.1",
+		"samp-incognito/samp-streamer-plugin:v2.9.5"
 	],
 	"local": true,
 	"runtime": {

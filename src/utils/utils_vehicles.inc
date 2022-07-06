@@ -89,8 +89,8 @@ stock RepairVehicleCustom(vehicleid)
 {
     if (IsValidVehicle(vehicleid))
     {
-        Vehicle_SetHealth(vehicleid, 1000.0);
         RepairVehicle(vehicleid);
+        Vehicle_SetHealth(vehicleid, 1000.0);
     }
     return 1;
 }
