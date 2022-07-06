@@ -45,22 +45,16 @@ stock VehicleDecreaseGlobalFuel()
 {
     foreach (new vehicleid : Vehicles)
 	{
-		if (Vehicle_GetFuel(vehicleid) > 0 && Vehicle_GetEngineStatus(vehicleid))
+		if (Vehicle_GetEngineStatus(vehicleid))
 		{
-			Vehicle_SetFuel(vehicleid, (Vehicle_GetFuel(vehicleid) - 1));
-			if (Vehicle_GetFuel(vehicleid) <= 0)
+			if (Vehicle_GetFuel(vehicleid) <= 1)
 			{
-				if (Vehicle_GetEngineStatus(vehicleid))
-				{
-					Vehicle_SetEngine(vehicleid, false);
-				}
-			}
-		}
-		else
-		{
-			if (Vehicle_GetEngineStatus(vehicleid))
-			{
+				Vehicle_SetFuel(vehicleid, 0);
 				Vehicle_SetEngine(vehicleid, false);
+			}
+			else
+			{
+				Vehicle_SetFuel(vehicleid, (Vehicle_GetFuel(vehicleid) - 1));
 			}
 		}
 	}
@@ -69,30 +63,34 @@ stock VehicleDecreaseGlobalFuel()
 
 stock VehicleDecreaseGlobalShield()
 {
+	new Float:vehicleHealth, lostHealth;
     foreach (new vehicleid : Vehicles)
 	{
-		new Float:vehicleHealth, intHealt, lostHealth;
 		GetVehicleHealth(vehicleid, vehicleHealth);
-		intHealt = floatround((vehicleHealth / 10), floatround_round);
-		lostHealth = (100 - intHealt);
-		if (Vehicle_GetShield(vehicleid) > 0 && vehicleHealth < 1000)
+		lostHealth = (100 - floatround((vehicleHealth / 10), floatround_round));
+		if (vehicleHealth < 1000.0)
 		{
-			if (Vehicle_GetShield(vehicleid) > lostHealth)
+			if (vehicleHealth <= 300.0)
 			{
-				Vehicle_SetShield(vehicleid, (Vehicle_GetShield(vehicleid) - lostHealth));
+				Vehicle_SetEngine(vehicleid, false);
+				SetVehicleHealth(vehicleid, 300);
+				Vehicle_SetBrokenStatus(vehicleid, true);
 			}
 			else
 			{
-				Vehicle_SetShield(vehicleid, 0);
+				if (Vehicle_GetShield(vehicleid) > 0)
+				{
+					if (Vehicle_GetShield(vehicleid) > lostHealth)
+					{
+						Vehicle_SetShield(vehicleid, (Vehicle_GetShield(vehicleid) - lostHealth));
+					}
+					else
+					{
+						Vehicle_SetShield(vehicleid, 0);
+					}
+					RepairVehicle(vehicleid);
+				}
 			}
-			RepairVehicle(vehicleid);
-		}
-
-		if (vehicleHealth <= 300.0)
-		{
-			Vehicle_SetEngine(vehicleid, false);
-			SetVehicleHealth(vehicleid, 300);
-			Vehicle_SetBrokenStatus(vehicleid, true);
 		}
 	}
     return 1;
