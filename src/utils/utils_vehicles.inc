@@ -85,6 +85,16 @@ stock bool:IsVehicleBusy(vehicleid)
     return false;
 }
 
+stock RepairVehicleCustom(vehicleid)
+{
+    if (IsValidVehicle(vehicleid))
+    {
+        Vehicle_SetHealth(vehicleid, 1000.0);
+        RepairVehicle(vehicleid);
+    }
+    return 1;
+}
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------

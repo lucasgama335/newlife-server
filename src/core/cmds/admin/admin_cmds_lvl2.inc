@@ -30,7 +30,7 @@ YCMD:repararid(playerid, params[], help)
 	format(string, sizeof(string), "AdmAviso: Veículo ID:[%d] foi reparado por: %s.", vehicleid, GetPlayerNameCustom(playerid));
 	SendAdminMessage(COLOR_YELLOW, string, HELPER);
     Vehicle_SetBrokenStatus(vehicleid, false);
-    RepairVehicle(vehicleid);
+    RepairVehicleCustom(vehicleid);
     return 1;
 }
 
@@ -55,7 +55,7 @@ YCMD:blindarid(playerid, params[], help)
 	format(string, sizeof(string), "AdmAviso: Veículo ID:[%d] foi blindado por: %s.", vehicleid, GetPlayerNameCustom(playerid));
 	SendAdminMessage(COLOR_YELLOW, string, HELPER);
     Vehicle_SetBrokenStatus(vehicleid, false);
-	RepairVehicle(vehicleid);
+	RepairVehicleCustom(vehicleid);
     Vehicle_SetShield(vehicleid, 100);
     return 1;
 }

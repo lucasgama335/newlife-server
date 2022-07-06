@@ -21,6 +21,7 @@ stock AddStaticVehicleCustom(modelId, Float:posX, Float:posY, Float:posZ, Float:
 		Vehicle_SetLockedStatus(tempVehicleId, false);
 		Vehicle_SetPlate(tempVehicleId, "");
 		Vehicle_SetEngine(tempVehicleId, false);
+		Vehicle_SetHealth(tempVehicleId, 1000.0);
 		Iter_Add(Vehicles, tempVehicleId);
 	}
 	return tempVehicleId;
@@ -61,41 +62,6 @@ stock VehicleDecreaseGlobalFuel()
     return 1;
 }
 
-stock VehicleDecreaseGlobalShield()
-{
-	new Float:vehicleHealth, lostHealth;
-    foreach (new vehicleid : Vehicles)
-	{
-		GetVehicleHealth(vehicleid, vehicleHealth);
-		lostHealth = (100 - floatround((vehicleHealth / 10), floatround_round));
-		if (vehicleHealth < 1000.0)
-		{
-			if (vehicleHealth <= 300.0)
-			{
-				Vehicle_SetEngine(vehicleid, false);
-				SetVehicleHealth(vehicleid, 300);
-				Vehicle_SetBrokenStatus(vehicleid, true);
-			}
-			else
-			{
-				if (Vehicle_GetShield(vehicleid) > 0)
-				{
-					if (Vehicle_GetShield(vehicleid) > lostHealth)
-					{
-						Vehicle_SetShield(vehicleid, (Vehicle_GetShield(vehicleid) - lostHealth));
-					}
-					else
-					{
-						Vehicle_SetShield(vehicleid, 0);
-					}
-					RepairVehicle(vehicleid);
-				}
-			}
-		}
-	}
-    return 1;
-}
-
 stock RefuelAllVehicles()
 {
 	foreach (new vehicleid : Vehicles)
@@ -120,3 +86,20 @@ stock RespawnAllVehicles()
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+hook OnPlayerUpdate(playerid)
+{
+	if (IsValidPlayer(playerid))
+	{
+		if (IsPlayerInAnyVehicle(playerid) && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
+		{
+			new vehicleid = GetPlayerVehicleID(playerid), Float:oldHealth = Vehicle_GetHealth(vehicleid), Float:actualHealth;
+			GetVehicleHealth(vehicleid, actualHealth);
+			if (oldHealth > actualHealth && actualHealth < 1000.0 && (oldHealth - actualHealth) >= 1.0)
+			{
+				Vehicle_SetHealth(vehicleid, actualHealth);
+				CallLocalFunction("OnVehicleHealthChange", "iiff", vehicleid, playerid, oldHealth, actualHealth);
+			}
+		}
+	}
+	return 1;
+}

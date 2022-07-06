@@ -12,6 +12,7 @@
 enum v_VEHICLE_DATA
 {
     bool:v_ENGINE,
+    Float:v_HEALTH,
 	v_FUEL,
 	v_SHIELD,
 	bool:v_LOCKED,
@@ -39,6 +40,25 @@ stock bool:Vehicle_SetEngineStatus(vehicleid, bool:status)
     if (!IsValidVehicle(vehicleid)) return false;
 
     return gsVehicleInfo[vehicleid][v_ENGINE] = status;
+}
+
+// ============== HEALTH ACCESSORS ============== //
+// Getters
+stock Float:Vehicle_GetHealth(vehicleid)
+{
+    if (!IsValidVehicle(vehicleid)) return 0.0;
+
+    return gsVehicleInfo[vehicleid][v_HEALTH];
+}
+
+// Setters
+stock Vehicle_SetHealth(vehicleid, Float:health)
+{
+    if (IsValidVehicle(vehicleid))
+    {
+        gsVehicleInfo[vehicleid][v_HEALTH] = health;
+    }
+    return 1;
 }
 
 // ============== FUEL ACCESSORS ============== //

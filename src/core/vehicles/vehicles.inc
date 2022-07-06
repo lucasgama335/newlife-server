@@ -15,12 +15,6 @@ task CheckVehicleFuel[15000]()
 	return 1;
 }
 
-task CheckVehicleShield[1000]()
-{
-	VehicleDecreaseGlobalShield();
-	return 1;
-}
-
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock Vehicle_SetEngine(vehicleid, bool:status)
 {
@@ -84,6 +78,37 @@ hook OnVehicleSpawn(vehicleid)
 	if (vehicleid != INVALID_VEHICLE_ID)
 	{
 		Vehicle_SetEngine(vehicleid, false);
+	}
+	return 1;
+}
+
+hook OnVehicleHealthChange(vehicleid, playerid, Float:oldHealth, Float:actualHealth)
+{
+	new lostHealth = floatround((oldHealth - actualHealth), floatround_round);
+	if (lostHealth > 0)
+	{
+		if (actualHealth <= 300.0)
+		{
+			SetVehicleHealth(vehicleid, 300.0);
+			Vehicle_SetHealth(vehicleid, 300.0);
+			Vehicle_SetEngine(vehicleid, false);
+			Vehicle_SetBrokenStatus(vehicleid, true);
+		}
+		else
+		{
+			if (Vehicle_GetShield(vehicleid) > 0)
+			{
+				if (Vehicle_GetShield(vehicleid) > lostHealth)
+				{
+					Vehicle_SetShield(vehicleid, (Vehicle_GetShield(vehicleid) - lostHealth));
+				}
+				else
+				{
+					Vehicle_SetShield(vehicleid, 0);
+				}
+				RepairVehicleCustom(vehicleid);
+			}
+		}
 	}
 	return 1;
 }
