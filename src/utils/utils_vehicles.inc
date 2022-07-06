@@ -69,21 +69,21 @@ stock bool:IsPlayerNearVehicle(Float:radi, playerid, vehicleid)
 	return false;
 }
 
-stock bool:IsVehicleBusy(vehicleid)
-{
-    foreach(new i: Player)
-    {
-        if (!IsValidPlayer(i)) 
-        {
-            continue;
-        }
-        if (GetPlayerVehicleID(i) == vehicleid)
-        { 
-            return true;
-        }
-    }
-    return false;
-}
+// stock bool:IsVehicleOccupied(vehicleid)
+// {
+//     foreach(new i: Player)
+//     {
+//         if (!IsValidPlayer(i)) 
+//         {
+//             continue;
+//         }
+//         if (GetPlayerVehicleID(i) == vehicleid)
+//         { 
+//             return true;
+//         }
+//     }
+//     return false;
+// }
 
 stock RepairVehicleCustom(vehicleid)
 {

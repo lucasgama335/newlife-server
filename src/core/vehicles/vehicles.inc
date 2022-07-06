@@ -78,6 +78,7 @@ hook OnVehicleSpawn(vehicleid)
 	if (vehicleid != INVALID_VEHICLE_ID)
 	{
 		Vehicle_SetEngine(vehicleid, false);
+		Vehicle_SetHealth(vehicleid, 1000.0);
 	}
 	return 1;
 }
