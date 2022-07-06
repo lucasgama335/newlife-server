@@ -68,7 +68,7 @@ stock AdminBanPlayer(playerid, adminId, days, const reason[])
                     SendClientMessage(adminId, COLOR_INVALID, "Houve um erro ao banir o jogador.");
                 }
             }
-            MySQL_TQueryInline(Database_GetConnection(), using inline OnPlayerBanned, "INSERT INTO %s (%s, %s, %s, %s, %s, %s) VALUES (%d, %d, '%s', %d, %d, '%s')", BAN_TABLE_NAME, BAN_FIELD_PLAYER_ID, BAN_FIELD_ADMIN_ID, BAN_FIELD_PLAYER_IP, BAN_FIELD_BAN_TIME, BAN_FIELD_UNBAN_TIME, BAN_FIELD_REASON,
+            MySQL_TQueryInline(Database_GetConnection(), using inline OnPlayerBanned, "INSERT INTO %s (%s, %s, %s, %s, %s, %s) VALUES (%d, %d, '%s', %d, %d, '%e')", BAN_TABLE_NAME, BAN_FIELD_PLAYER_ID, BAN_FIELD_ADMIN_ID, BAN_FIELD_PLAYER_IP, BAN_FIELD_BAN_TIME, BAN_FIELD_UNBAN_TIME, BAN_FIELD_REASON,
             Player_GetId(playerid), Player_GetId(adminId), playerIp, banTime, unBanTime, reasonCopy);
         }
     }
@@ -138,7 +138,7 @@ stock SystemBanPlayer(playerid, days, const reason[])
                     PrintLog(FOLDER_BANS_ERROR, string);
                 }
             }
-            MySQL_TQueryInline(Database_GetConnection(), using inline OnPlayerBanned, "INSERT INTO %s (%s, %s, %s, %s, %s) VALUES (%d, '%s', %d, %d, '%s')", BAN_TABLE_NAME, BAN_FIELD_PLAYER_ID, BAN_FIELD_PLAYER_IP, BAN_FIELD_BAN_TIME, BAN_FIELD_UNBAN_TIME, BAN_FIELD_REASON,
+            MySQL_TQueryInline(Database_GetConnection(), using inline OnPlayerBanned, "INSERT INTO %s (%s, %s, %s, %s, %s) VALUES (%d, '%s', %d, %d, '%e')", BAN_TABLE_NAME, BAN_FIELD_PLAYER_ID, BAN_FIELD_PLAYER_IP, BAN_FIELD_BAN_TIME, BAN_FIELD_UNBAN_TIME, BAN_FIELD_REASON,
             Player_GetId(playerid), playerIp, banTime, unBanTime, reasonCopy);
         }
     }
@@ -228,7 +228,7 @@ stock AdminBanPlayerByName(const name[], adminId, days, const reason[])
                             SendClientMessage(adminId, COLOR_INVALID, "Houve um erro ao banir o jogador.");
                         }
                     }
-                    MySQL_TQueryInline(Database_GetConnection(), using inline OnPlayerBanned, "INSERT INTO %s (%s, %s, %s, %s, %s, %s) VALUES (%d, %d, '%s', %d, %d, '%s')", BAN_TABLE_NAME, BAN_FIELD_PLAYER_ID, BAN_FIELD_ADMIN_ID, BAN_FIELD_PLAYER_IP, BAN_FIELD_BAN_TIME, BAN_FIELD_UNBAN_TIME, BAN_FIELD_REASON,
+                    MySQL_TQueryInline(Database_GetConnection(), using inline OnPlayerBanned, "INSERT INTO %s (%s, %s, %s, %s, %s, %s) VALUES (%d, %d, '%s', %d, %d, '%e')", BAN_TABLE_NAME, BAN_FIELD_PLAYER_ID, BAN_FIELD_ADMIN_ID, BAN_FIELD_PLAYER_IP, BAN_FIELD_BAN_TIME, BAN_FIELD_UNBAN_TIME, BAN_FIELD_REASON,
                     playerIdDbm, Player_GetId(adminId), playerIpCopy, banTime, unBanTime, reasonCopy2);
                 }
             }
@@ -242,7 +242,7 @@ stock AdminBanPlayerByName(const name[], adminId, days, const reason[])
             SendClientMessage(adminId, COLOR_INVALID, "Esse jogador não existe.");
         }
     }
-    MySQL_TQueryInline(Database_GetConnection(), using inline PlayerExistsInDatabase, "SELECT %s, %s FROM %s WHERE %s = '%s'", PLAYER_FIELD_ID, PLAYER_FIELD_IP, PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, name);
+    MySQL_TQueryInline(Database_GetConnection(), using inline PlayerExistsInDatabase, "SELECT %s, %s FROM %s WHERE %s = '%e'", PLAYER_FIELD_ID, PLAYER_FIELD_IP, PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, name);
     return 1;
 }
 
@@ -290,7 +290,7 @@ stock UnBanPlayer(const name[], adminId)
             SendClientMessage(adminId, COLOR_INVALID, "Esse jogador não existe.");
         }
     }
-    MySQL_TQueryInline(Database_GetConnection(), using inline PlayerExistsInDatabase, "SELECT %s, %s FROM %s WHERE %s = '%s'", PLAYER_FIELD_ID, PLAYER_FIELD_IP, PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, name);
+    MySQL_TQueryInline(Database_GetConnection(), using inline PlayerExistsInDatabase, "SELECT %s, %s FROM %s WHERE %s = '%e'", PLAYER_FIELD_ID, PLAYER_FIELD_IP, PLAYER_TABLE_NAME, PLAYER_FIELD_NAME, name);
     return 1;
 }
 
@@ -323,7 +323,7 @@ stock LoadPlayerBan(playerid)
             inline_return ShowPlayerBanDialog(playerid, playerIp, adminName, Chrono_ConvertToTimestamp(banTime), Chrono_ConvertToTimestamp(unBanTime), (unBanTime <= 0 ? true : false), reason);
         }
     }
-    MySQL_TQueryInline(Database_GetConnection(), using inline OnBanLoaded, "SELECT ban.*, admin.%s as admin_name FROM %s as ban LEFT JOIN %s as admin ON ban.%s = admin.%s WHERE ban.%s = %d OR ban.%s = '%s' ORDER BY ban.%s DESC LIMIT 1",
+    MySQL_TQueryInline(Database_GetConnection(), using inline OnBanLoaded, "SELECT ban.*, admin.%s as admin_name FROM %s as ban LEFT JOIN %s as admin ON ban.%s = admin.%s WHERE ban.%s = %d OR ban.%s = '%e' ORDER BY ban.%s DESC LIMIT 1",
     PLAYER_FIELD_NAME, BAN_TABLE_NAME, PLAYER_TABLE_NAME, BAN_FIELD_ADMIN_ID, PLAYER_FIELD_ID, BAN_FIELD_PLAYER_ID, Player_GetId(playerid), BAN_FIELD_PLAYER_IP, GetPlayerIpCustom(playerid), BAN_FIELD_ADMIN_ID);
     return 1;
 }
