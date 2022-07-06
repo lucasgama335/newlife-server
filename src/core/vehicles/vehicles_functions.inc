@@ -33,7 +33,7 @@ stock RespawnNearVehicles(playerid)
 	{
 		if (IsPlayerNearVehicle(50.0, playerid, vehicleid))
 		{
-			if (!IsVehicleBusy(vehicleid))
+			if (!IsVehicleOccupied(vehicleid))
 			{
 				SetVehicleToRespawn(vehicleid);
 			}
@@ -75,7 +75,7 @@ stock RespawnAllVehicles()
 {
 	foreach (new vehicleid : Vehicles)
 	{
-		if (!IsVehicleBusy(vehicleid))
+		if (!IsVehicleOccupied(vehicleid))
 		{
 			SetVehicleToRespawn(vehicleid);
 		}
