@@ -70,7 +70,7 @@ timer PlayerUpdateStatus[1000](playerid)
         Player_SetPaydayTime(playerid, (Player_GetPaydayTime(playerid) - 1));
     }
     // Update HUD
-    UpdatePlayerHud(playerid, Chrono_GetTimeNow(), Player_GetLevel(playerid), Player_GetHungry(playerid), Player_GetDrink(playerid), Player_GetPaydayTime(playerid));
+    UpdatePlayerHud(playerid, Chrono_GetTimeNow(), Player_GetHungry(playerid), Player_GetDrink(playerid), Player_GetPaydayTime(playerid));
     return 1;
 }
 

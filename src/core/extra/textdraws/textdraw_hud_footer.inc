@@ -36,7 +36,7 @@ static stock Footer_CreateGlobalTextdraws(playerid)
     PlayerTextDrawSetProportional(playerid, gsHudTextdraw[playerid][1], true);
     PlayerTextDrawSetSelectable(playerid, gsHudTextdraw[playerid][1], false);
 
-    gsHudTextdraw[playerid][2] = CreatePlayerTextDraw(playerid, 8.000000, 436.000000, "SEXTA FEIRA, 01/07/2022 - 12:57:32");
+    gsHudTextdraw[playerid][2] = CreatePlayerTextDraw(playerid, 8.000000, 435.000000, "SEXTA FEIRA, 01/07/2022 - 12:57:32");
     PlayerTextDrawFont(playerid, gsHudTextdraw[playerid][2], 2);
     PlayerTextDrawLetterSize(playerid, gsHudTextdraw[playerid][2], 0.174999, 0.999999);
     PlayerTextDrawTextSize(playerid, gsHudTextdraw[playerid][2], 400.000000, 17.000000);
@@ -160,9 +160,9 @@ static stock Footer_CreateGlobalTextdraws(playerid)
     PlayerTextDrawSetProportional(playerid, gsHudTextdraw[playerid][9], true);
     PlayerTextDrawSetSelectable(playerid, gsHudTextdraw[playerid][9], false);
 
-    gsHudTextdraw[playerid][10] = CreatePlayerTextDraw(playerid, 171.000000, 435.000000, "PLAYER_NAME");
+    gsHudTextdraw[playerid][10] = CreatePlayerTextDraw(playerid, 166.000000, 435.000000, "PLAYER_NAME");
     PlayerTextDrawFont(playerid, gsHudTextdraw[playerid][10], 3);
-    PlayerTextDrawLetterSize(playerid, gsHudTextdraw[playerid][10], 0.283333, 1.150000);
+    PlayerTextDrawLetterSize(playerid, gsHudTextdraw[playerid][10], 0.261999, 1.149999);
     PlayerTextDrawTextSize(playerid, gsHudTextdraw[playerid][10], 400.000000, 17.000000);
     PlayerTextDrawSetOutline(playerid, gsHudTextdraw[playerid][10], 0);
     PlayerTextDrawSetShadow(playerid, gsHudTextdraw[playerid][10], 0);
@@ -174,9 +174,9 @@ static stock Footer_CreateGlobalTextdraws(playerid)
     PlayerTextDrawSetProportional(playerid, gsHudTextdraw[playerid][10], true);
     PlayerTextDrawSetSelectable(playerid, gsHudTextdraw[playerid][10], false);
 
-    gsHudTextdraw[playerid][11] = CreatePlayerTextDraw(playerid, 469.000000, 435.000000, "LEVEL: 100");
+    gsHudTextdraw[playerid][11] = CreatePlayerTextDraw(playerid, 474.000000, 435.000000, "LOS SANTOS INTERNATIONAL");
     PlayerTextDrawFont(playerid, gsHudTextdraw[playerid][11], 3);
-    PlayerTextDrawLetterSize(playerid, gsHudTextdraw[playerid][11], 0.283333, 1.150000);
+    PlayerTextDrawLetterSize(playerid, gsHudTextdraw[playerid][11], 0.262499, 1.049998);
     PlayerTextDrawTextSize(playerid, gsHudTextdraw[playerid][11], 400.000000, 17.000000);
     PlayerTextDrawSetOutline(playerid, gsHudTextdraw[playerid][11], 0);
     PlayerTextDrawSetShadow(playerid, gsHudTextdraw[playerid][11], 0);
@@ -188,9 +188,9 @@ static stock Footer_CreateGlobalTextdraws(playerid)
     PlayerTextDrawSetProportional(playerid, gsHudTextdraw[playerid][11], true);
     PlayerTextDrawSetSelectable(playerid, gsHudTextdraw[playerid][11], false);
 
-    gsHudTextdraw[playerid][12] = CreatePlayerTextDraw(playerid, 306.000000, 435.000000, "NEWLIFE");
+    gsHudTextdraw[playerid][12] = CreatePlayerTextDraw(playerid, 312.000000, 435.000000, "NEWLIFE");
     PlayerTextDrawFont(playerid, gsHudTextdraw[playerid][12], 3);
-    PlayerTextDrawLetterSize(playerid, gsHudTextdraw[playerid][12], 0.341666, 1.200000);
+    PlayerTextDrawLetterSize(playerid, gsHudTextdraw[playerid][12], 0.261999, 1.200000);
     PlayerTextDrawTextSize(playerid, gsHudTextdraw[playerid][12], 400.000000, 17.000000);
     PlayerTextDrawSetOutline(playerid, gsHudTextdraw[playerid][12], 0);
     PlayerTextDrawSetShadow(playerid, gsHudTextdraw[playerid][12], 0);
@@ -202,9 +202,9 @@ static stock Footer_CreateGlobalTextdraws(playerid)
     PlayerTextDrawSetProportional(playerid, gsHudTextdraw[playerid][12], true);
     PlayerTextDrawSetSelectable(playerid, gsHudTextdraw[playerid][12], false);
 
-    gsHudTextdraw[playerid][13] = CreatePlayerTextDraw(playerid, 229.000000, 433.000000, "I");
+    gsHudTextdraw[playerid][13] = CreatePlayerTextDraw(playerid, 258.000000, 432.600000, "I");
     PlayerTextDrawFont(playerid, gsHudTextdraw[playerid][13], 1);
-    PlayerTextDrawLetterSize(playerid, gsHudTextdraw[playerid][13], 15.900048, 0.099999);
+    PlayerTextDrawLetterSize(playerid, gsHudTextdraw[playerid][13], 10.662511, 0.099999);
     PlayerTextDrawTextSize(playerid, gsHudTextdraw[playerid][13], 400.000000, 17.000000);
     PlayerTextDrawSetOutline(playerid, gsHudTextdraw[playerid][13], 0);
     PlayerTextDrawSetShadow(playerid, gsHudTextdraw[playerid][13], 0);
@@ -216,9 +216,9 @@ static stock Footer_CreateGlobalTextdraws(playerid)
     PlayerTextDrawSetProportional(playerid, gsHudTextdraw[playerid][13], true);
     PlayerTextDrawSetSelectable(playerid, gsHudTextdraw[playerid][13], false);
 
-    gsHudTextdraw[playerid][14] = CreatePlayerTextDraw(playerid, 229.000000, 447.000000, "I");
+    gsHudTextdraw[playerid][14] = CreatePlayerTextDraw(playerid, 258.000000, 447.000000, "I");
     PlayerTextDrawFont(playerid, gsHudTextdraw[playerid][14], 1);
-    PlayerTextDrawLetterSize(playerid, gsHudTextdraw[playerid][14], 15.900048, 0.099999);
+    PlayerTextDrawLetterSize(playerid, gsHudTextdraw[playerid][14], 10.661999, 0.099999);
     PlayerTextDrawTextSize(playerid, gsHudTextdraw[playerid][14], 400.000000, 17.000000);
     PlayerTextDrawSetOutline(playerid, gsHudTextdraw[playerid][14], 0);
     PlayerTextDrawSetShadow(playerid, gsHudTextdraw[playerid][14], 0);
@@ -260,7 +260,7 @@ static stock Footer_CreateGlobalTextdraws(playerid)
     return 1;
 }
 
-static stock Footer_CreateUltrawideScreen(playerid)
+static stock AdaptToWideScreen(playerid)
 {
     if (gsHudTextdraw[playerid][3] != INVALID_PLAYER_TEXT_DRAW)
     {
@@ -342,7 +342,7 @@ static stock Footer_CreateUltrawideScreen(playerid)
     return 1;
 }
 
-static stock Footer_CreateNormalScreen(playerid)
+static stock AdaptToNormalScreen(playerid)
 {
     if (gsHudTextdraw[playerid][3] != INVALID_PLAYER_TEXT_DRAW)
     {
@@ -389,9 +389,9 @@ static stock Footer_CreateNormalScreen(playerid)
     if (gsHudTextdraw[playerid][13] != INVALID_PLAYER_TEXT_DRAW)
     {
         PlayerTextDrawDestroy(playerid, gsHudTextdraw[playerid][13]);
-        gsHudTextdraw[playerid][13] = CreatePlayerTextDraw(playerid, 229.000000, 433.000000, "I");
+        gsHudTextdraw[playerid][13] = CreatePlayerTextDraw(playerid, 258.000000, 432.600006, "I");
         PlayerTextDrawFont(playerid, gsHudTextdraw[playerid][13], 1);
-        PlayerTextDrawLetterSize(playerid, gsHudTextdraw[playerid][13], 15.900048, 0.099999);
+        PlayerTextDrawLetterSize(playerid, gsHudTextdraw[playerid][13], 10.662511, 0.099999);
         PlayerTextDrawTextSize(playerid, gsHudTextdraw[playerid][13], 400.000000, 17.000000);
         PlayerTextDrawSetOutline(playerid, gsHudTextdraw[playerid][13], 0);
         PlayerTextDrawSetShadow(playerid, gsHudTextdraw[playerid][13], 0);
@@ -406,9 +406,9 @@ static stock Footer_CreateNormalScreen(playerid)
     if (gsHudTextdraw[playerid][14] != INVALID_PLAYER_TEXT_DRAW)
     {
         PlayerTextDrawDestroy(playerid, gsHudTextdraw[playerid][14]);
-        gsHudTextdraw[playerid][14] = CreatePlayerTextDraw(playerid, 229.000000, 447.000000, "I");
+        gsHudTextdraw[playerid][14] = CreatePlayerTextDraw(playerid, 258.000000, 447.000000, "I");
         PlayerTextDrawFont(playerid, gsHudTextdraw[playerid][14], 1);
-        PlayerTextDrawLetterSize(playerid, gsHudTextdraw[playerid][14], 15.900048, 0.099999);
+        PlayerTextDrawLetterSize(playerid, gsHudTextdraw[playerid][14], 10.661999, 0.099999);
         PlayerTextDrawTextSize(playerid, gsHudTextdraw[playerid][14], 400.000000, 17.000000);
         PlayerTextDrawSetOutline(playerid, gsHudTextdraw[playerid][14], 0);
         PlayerTextDrawSetShadow(playerid, gsHudTextdraw[playerid][14], 0);
@@ -429,11 +429,11 @@ stock ShowPlayerHud(playerid)
     // Ultrawide corrections
     if (Player_GetScreenSize(playerid) == SCREEN_ULTRAWIDE)
     {
-        Footer_CreateUltrawideScreen(playerid);
+        AdaptToWideScreen(playerid);
     }
     else
     {
-        Footer_CreateNormalScreen(playerid);
+        AdaptToNormalScreen(playerid);
     }
 
     for (new i; i < 17; i++)
@@ -461,9 +461,10 @@ stock DestroyPlayerHud(playerid)
 	return 1;
 }
 
-stock UpdatePlayerHud(playerid, Timestamp:time, level, hungry, drink, paydayTime)
+stock UpdatePlayerHud(playerid, Timestamp:time, hungry, drink, paydayTime)
 {
-    new timeString[38];
+    new timeString[38], Float:playerX, Float:playerY, Float:playerZ;
+    GetPlayerPos(playerid, playerX, playerY, playerZ);
     strcat(timeString, Chrono_GetDayName(time));
     strcat(timeString, ", ");
     strcat(timeString, Chrono_GetDate(time));
@@ -473,9 +474,9 @@ stock UpdatePlayerHud(playerid, Timestamp:time, level, hungry, drink, paydayTime
 
     PlayerTextDrawSetString(playerid, gsHudTextdraw[playerid][10], GetPlayerNameCustom(playerid));
 
-    new levelString[12];
-    format(levelString, sizeof(levelString), "LEVEL: %d", level);
-    PlayerTextDrawSetString(playerid, gsHudTextdraw[playerid][11], levelString);
+    new zoneString[MAX_ZONE_NAME];
+    GetZoneName(playerX, playerY, zoneString);
+    PlayerTextDrawSetString(playerid, gsHudTextdraw[playerid][11], zoneString);
 
     new statusString[5];
     format(statusString, sizeof(statusString), "%d%%", hungry);
