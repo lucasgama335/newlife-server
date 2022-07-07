@@ -91,7 +91,7 @@ timer FillUp[5000](playerid, vehicleid, type, price, bool:detran)
 	}
 	new string[63 + 1];
 	SetPlayerRefueling(playerid, false);
-	Player_SetMoney(playerid, (Player_GetMoney(playerid) - price));
+	SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - price));
 	TogglePlayerControllable(playerid, true);
 	// if (!detran) Bizz_GiveMoney(11, price);
 	if (detran) format(string, sizeof(string), "[Detran]: Seu veículo foi abastecido, custo R$ %s!", FormatMoneyString(price));
