@@ -12,7 +12,7 @@
 hook FirstSpawnOnLogin(playerid)
 {
     new string[150];
-    UpdatePlayerHud(playerid, Chrono_GetTimeNow(), Player_GetLevel(playerid), Player_GetHungry(playerid), Player_GetDrink(playerid), Player_GetPaydayTime(playerid));
+    UpdatePlayerHud(playerid, Chrono_GetTimeNow(), Player_GetHungry(playerid), Player_GetDrink(playerid), Player_GetPaydayTime(playerid));
     ShowPlayerHud(playerid);
     if (!Player_GetTutorialStatus(playerid))
     {
