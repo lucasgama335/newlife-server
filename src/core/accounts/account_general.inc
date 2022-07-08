@@ -6,10 +6,6 @@
 enum p_GENERAL_DATA
 {
     p_ID,
-    e_ADMIN_LEVELS:p_ADMIN,
-    p_ATTENDANCE,
-	p_RATING,
-	p_NUMBER_RATING,
     bool:p_TUTORIAL,
     Timestamp:p_LAST_LOGIN_TIME,
     p_LAST_CONNECTED_TIME,
@@ -37,12 +33,8 @@ stock Player_SaveGeneralData(playerid)
     new query_string[425];
     Player_UpdateIp(playerid);
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
-    %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %f, %s = %f, %s = %f, %s = %f, %s = %d, %s = %d, %s = %d, %s = '%s' WHERE id = %d", 
+    %s = %d, %s = %d, %s = %d, %s = %f, %s = %f, %s = %f, %s = %f, %s = %d, %s = %d, %s = %d, %s = '%s' WHERE id = %d", 
     PLAYER_TABLE_NAME,
-    PLAYER_FIELD_ADMIN, gsGeneralInfo[playerid][p_ADMIN],
-    PLAYER_FIELD_ATTENDANCES, gsGeneralInfo[playerid][p_ATTENDANCE],
-    PLAYER_FIELD_RATING, gsGeneralInfo[playerid][p_RATING],
-    PLAYER_FIELD_NUMBERRANTING, gsGeneralInfo[playerid][p_NUMBER_RATING],
     PLAYER_FIELD_TUTORIAL, (gsGeneralInfo[playerid][p_TUTORIAL] == true ? 1 : 0),
     PLAYER_FIELD_LAST_LOGIN, Chrono_ConvertToInt(gsGeneralInfo[playerid][p_LAST_LOGIN_TIME]),
     PLAYER_FIELD_LAST_CONNECTED_TIME, gsGeneralInfo[playerid][p_LAST_CONNECTED_TIME],
@@ -89,67 +81,6 @@ stock Player_SetId(playerid, id)
     if (!IsPlayerConnected(playerid)) return 0;
 
     return gsGeneralInfo[playerid][p_ID] = id;
-}
-
-// ============== ADMIN ACCESSORS ============== //
-// Getters
-stock e_ADMIN_LEVELS:Player_GetAdminLevel(playerid)
-{
-    if (!IsPlayerConnected(playerid)) return NO_ADMIN;
-
-    return gsGeneralInfo[playerid][p_ADMIN];
-}
-
-stock Player_GetAdminAttendances(playerid)
-{
-    if (!IsPlayerConnected(playerid)) return NO_ADMIN;
-
-    return gsGeneralInfo[playerid][p_ATTENDANCE];
-}
-
-stock Player_GetAdminRating(playerid)
-{
-    if (!IsPlayerConnected(playerid)) return 0;
-
-    return gsGeneralInfo[playerid][p_RATING];
-}
-
-stock Player_GetAdminNumberRating(playerid)
-{
-    if (!IsPlayerConnected(playerid)) return 0;
-
-    return gsGeneralInfo[playerid][p_NUMBER_RATING];
-}
-
-// Setters
-stock Player_SetAdminLevel(playerid, e_ADMIN_LEVELS:level, bool:save)
-{
-    if (!IsPlayerConnected(playerid)) return 0;
-
-    gsGeneralInfo[playerid][p_ADMIN] = level;
-    if (save) Player_SaveGeneralData(playerid);
-    return 1;
-}
-
-stock Player_SetAdminAttendances(playerid, value)
-{
-    if (!IsPlayerConnected(playerid)) return 0;
-
-    return gsGeneralInfo[playerid][p_ATTENDANCE] = value;
-}
-
-stock Player_SetAdminRating(playerid, value)
-{
-    if (!IsPlayerConnected(playerid)) return 0;
-
-    return gsGeneralInfo[playerid][p_RATING] = value;
-}
-
-stock Player_SetAdminNumberRating(playerid, value)
-{
-    if (!IsPlayerConnected(playerid)) return 0;
-
-    return gsGeneralInfo[playerid][p_NUMBER_RATING] = value;
 }
 
 // ============== TUTORIAL ACCESSORS ============== //

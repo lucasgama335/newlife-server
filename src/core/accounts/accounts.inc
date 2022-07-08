@@ -1,5 +1,6 @@
 // Database Player Data
 #include <account_general>
+#include <account_admin>
 #include <account_job>
 #include <account_appearence>
 #include <account_money>
@@ -7,7 +8,6 @@
 #include <account_vip>
 #include <account_status>
 #include <account_config>
-#include <account_admin>
 #include <account_ban>
 
 #include <YSI_Coding\y_hooks>
@@ -21,3 +21,17 @@
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+hook OnPlayerConnect(playerid)
+{
+    // Reset Player Data
+    Player_ResetGeneralData(playerid);
+    Player_ResetAdminData(playerid);
+    Player_ResetJobData(playerid);
+    Player_ResetAppearenceData(playerid);
+    Player_ResetMoneyData(playerid);
+    Player_ResetScoreData(playerid);
+    Player_ResetStatusData(playerid);
+    Player_ResetVipData(playerid);
+    Player_ResetConfigData(playerid);
+    return 1;
+}

@@ -30,17 +30,8 @@ timer OnLoginTimeout[60000](playerid)
     return 1;
 }
 
-static stock Player_ClearInfoVars(playerid) 
+static stock Player_ClearLoginVars(playerid) 
 {
-    Player_ResetGeneralData(playerid);
-    Player_ResetJobData(playerid);
-    Player_ResetAppearenceData(playerid);
-    Player_ResetMoneyData(playerid);
-    Player_ResetScoreData(playerid);
-    Player_ResetStatusData(playerid);
-    Player_ResetVipData(playerid);
-    Player_ResetConfigData(playerid);
-
     // Temporary Vars
     loginAttempts[playerid] = 0;
     recentlyLogged[playerid] = true;
@@ -83,9 +74,7 @@ static stock ShowRegisterDialog(playerid)
 public OnPlayerConnect(playerid)
 {
     new race_check = Database_IncrementRaceCheck(playerid);
-
-    // Reset Player Data
-    Player_ClearInfoVars(playerid);
+    Player_ClearLoginVars(playerid);
 
     // Textdraws
     ShowLoadingScreen(playerid);
