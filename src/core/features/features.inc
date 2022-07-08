@@ -1,5 +1,9 @@
+// General Features
 #include <real_time>
 #include <gas_station>
+// Player Features
+#include <admin_spectate>
+#include <admin_fly>
 
 #include <YSI_Coding\y_hooks>
 

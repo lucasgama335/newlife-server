@@ -33,5 +33,12 @@ hook OnPlayerConnect(playerid)
     Player_ResetStatusData(playerid);
     Player_ResetVipData(playerid);
     Player_ResetConfigData(playerid);
+    // Admin
+    Admin_SetBigEars(playerid, false);
+	Admin_SetWorkStatus(playerid, false);
+	Admin_SetAfkStatus(playerid, false);
+	Admin_SetHideStatus(playerid, false);
+	Admin_SetWatchStatus(playerid, false);
+	Admin_SetViewAllPm(playerid, false);
     return 1;
 }

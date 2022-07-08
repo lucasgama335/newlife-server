@@ -20,6 +20,7 @@
 #define	SERVER_LANGUAGE			"Português BR/PT"
 #define	SERVER_WEBSITE			"www.nlrpg.forumeiros.com"
 #define	SERVER_OWNER			"Lucas Gama"
+#define	SERVER_ADMIN_PASS   	"123"	
 
 // Macros
 #define function:%0(%1)			forward %0(%1); public %0(%1)
