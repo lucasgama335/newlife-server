@@ -100,3 +100,12 @@ hook OnPlayerConnect(playerid)
 	Admin_SetFlying(playerid, false);
     return 1;
 }
+
+hook OnPlayerDisconnect(playerid)
+{
+	if (Timer_IsRunning(gsAdminFlyTimer[playerid]))
+	{
+		stop gsAdminFlyTimer[playerid];
+	}
+	return 1;
+}

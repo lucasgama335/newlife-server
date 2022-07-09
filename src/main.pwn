@@ -120,3 +120,8 @@ public OnGameModeInit()
     ManualVehicleEngineAndLights();
 	return 1;
 }
+
+public OnPlayerEnterRaceCheckpoint(playerid)
+{
+	return 1;
+}

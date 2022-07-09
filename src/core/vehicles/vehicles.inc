@@ -1,6 +1,7 @@
 #include <vehicles_data>
 #include <vehicles_functions>
 #include <vehicles_spawn_civil>
+#include <vehicles_driving_school>
 
 #include <YSI_Coding\y_hooks>
 

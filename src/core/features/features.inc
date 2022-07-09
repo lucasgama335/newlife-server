@@ -4,6 +4,7 @@
 // Player Features
 #include <admin_spectate>
 #include <admin_fly>
+#include <driving_school>
 
 #include <YSI_Coding\y_hooks>
 

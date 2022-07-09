@@ -109,6 +109,15 @@ static stock PlayerUpdateSpeedometer(playerid)
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+hook OnPlayerPressF(playerid)
+{
+	if (IsPlayerInRangeOfPoint(playerid, 2.0, 809.5279, -1341.4880, 13.5405))
+	{
+		ShowPlayerFaqList(playerid);
+	}
+	return 1;
+}
+
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
     switch (dialogid)

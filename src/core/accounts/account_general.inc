@@ -63,6 +63,8 @@ stock Player_ResetGeneralData(playerid)
     gsGeneralInfo[playerid][p_LAST_INTERIOR] = SPAWN_INTERIOR;
     gsGeneralInfo[playerid][p_LAST_VIRTUAL_WORLD] = SPAWN_VW;
     gsGeneralInfo[playerid][p_IP] = EOS;
+    gsPlayerIsUsingAndroid[playerid] = false;
+    gsPlayerIsLogged[playerid] = false;
     return gsGeneralInfo[playerid];
 }
 

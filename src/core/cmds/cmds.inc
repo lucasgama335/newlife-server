@@ -95,11 +95,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					Player_SetAnimationStatus(playerid, false);
 					ClearAnimations(playerid);
 				}
-				CallLocalFunction("CheckPlayerEntrances", "i", playerid);
-				if (IsPlayerInRangeOfPoint(playerid, 2.0, 809.5279, -1341.4880, 13.5405))
-				{
-					ShowPlayerFaqList(playerid);
-				}
+				CallLocalFunction("OnPlayerPressF", "i", playerid);
 			}
 		}
 		case KEY_N: 

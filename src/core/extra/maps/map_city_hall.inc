@@ -241,10 +241,8 @@ hook OnPlayerConnect(playerid)
     
 }
 
-hook CheckPlayerEntrances(playerid)
+hook OnPlayerPressF(playerid)
 {
-	new Float:cx, Float:cy, Float:cz;
-	GetPlayerPos(playerid, cx, cy, cz);
 	// Entrance
 	if (IsPlayerInRangeOfPoint(playerid, 3.0, CITY_HALL_ENTRANCE))
 	{

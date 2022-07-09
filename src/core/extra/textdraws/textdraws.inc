@@ -4,6 +4,7 @@
 #include <textdraw_alert>
 #include <textdraw_hud_footer>
 #include <textdraw_speedometer>
+#include <textdraw_drive_school>
 
 #include <YSI_Coding\y_hooks>
 

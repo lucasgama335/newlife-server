@@ -36,8 +36,6 @@ static stock Player_ClearLoginVars(playerid)
     loginAttempts[playerid] = 0;
     recentlyLogged[playerid] = true;
     isRegistered[playerid] = false;
-    Player_SetLoggedStatus(playerid, false);
-    Player_SetUsingAndroidStatus(playerid, false);
     return 1;
 }
 
@@ -210,6 +208,7 @@ public OnPlayerConnect(playerid)
             isRegistered[playerid] = true;
             AdaptSpeedometerToScreen(playerid);
             AdaptAlertToScreen(playerid);
+            AdaptDriveSchoolHudToScreen(playerid);
 
             ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
             SendClientMessage(playerid, COLOR_SOFTGREY, "* Dados Carregados com sucesso, pressione em 'Fazer Login'.");
@@ -473,6 +472,8 @@ function:OnPlayerLogin(playerid)
     SetPlayerScore(playerid, Player_GetLevel(playerid));
     SetPlayerWantedLevel(playerid, Player_GetWantedLevel(playerid));
     SetPlayerMoneyCustom(playerid, Player_GetMoney(playerid));
+    SetPlayerVirtualWorld(playerid, 0);
+    SetPlayerInterior(playerid, 0);
     switch(Player_GetFightStyle(playerid))
     {
         case 0: SetPlayerFightingStyle(playerid, FIGHT_STYLE_NORMAL);
