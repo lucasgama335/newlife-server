@@ -3,6 +3,7 @@
 #include <map_city_hall>
 #include <map_city_hall_square>
 #include <map_gas_station>
+#include <map_gas_station_verona>
 #include <map_driving_school>
 
 #include <YSI_Coding\y_hooks>
