@@ -20,6 +20,7 @@ stock Player_ResetLicensesData(playerid)
 {
     static const scEmptyData[p_LICENSES_DATA];
     gsLicensesInfo[playerid] = scEmptyData;
+    gsLicensesInfo[playerid][p_GUN_LICENSE] = false;
     return gsLicensesInfo[playerid];
 }
 
@@ -48,7 +49,7 @@ stock Player_GetCarLicense(playerid)
 {
     if (!IsPlayerConnected(playerid)) return 0;
 
-    return gsJobInfo[playerid][p_CAR_LICENSE];
+    return gsLicensesInfo[playerid][p_CAR_LICENSE];
 }
 
 // Setters
@@ -56,7 +57,7 @@ stock Player_SetCarLicense(playerid, quantity)
 {
     if (!IsPlayerConnected(playerid)) return 0;
 
-    return gsJobInfo[playerid][p_CAR_LICENSE] = quantity;
+    return gsLicensesInfo[playerid][p_CAR_LICENSE] = quantity;
 }
 
 // ============== MOTORCYCLE LICENSE ACCESSORS ============== //
@@ -65,7 +66,7 @@ stock Player_GetMotorCycleLicense(playerid)
 {
     if (!IsPlayerConnected(playerid)) return 0;
 
-    return gsJobInfo[playerid][p_MOTORCYCLE_LICENSE];
+    return gsLicensesInfo[playerid][p_MOTORCYCLE_LICENSE];
 }
 
 // Setters
@@ -73,7 +74,7 @@ stock Player_SetMotorCycleLicense(playerid, quantity)
 {
     if (!IsPlayerConnected(playerid)) return 0;
 
-    return gsJobInfo[playerid][p_MOTORCYCLE_LICENSE] = quantity;
+    return gsLicensesInfo[playerid][p_MOTORCYCLE_LICENSE] = quantity;
 }
 
 // ============== TRUCK LICENSE ACCESSORS ============== //
@@ -82,7 +83,7 @@ stock Player_GetTruckLicense(playerid)
 {
     if (!IsPlayerConnected(playerid)) return 0;
 
-    return gsJobInfo[playerid][p_TRUCK_LICENSE];
+    return gsLicensesInfo[playerid][p_TRUCK_LICENSE];
 }
 
 // Setters
@@ -90,7 +91,7 @@ stock Player_SetTruckLicense(playerid, quantity)
 {
     if (!IsPlayerConnected(playerid)) return 0;
 
-    return gsJobInfo[playerid][p_TRUCK_LICENSE] = quantity;
+    return gsLicensesInfo[playerid][p_TRUCK_LICENSE] = quantity;
 }
 
 // ============== FLY LICENSE ACCESSORS ============== //
@@ -99,7 +100,7 @@ stock Player_GetFlyLicense(playerid)
 {
     if (!IsPlayerConnected(playerid)) return 0;
 
-    return gsJobInfo[playerid][p_FLY_LICENSE];
+    return gsLicensesInfo[playerid][p_FLY_LICENSE];
 }
 
 // Setters
@@ -107,7 +108,7 @@ stock Player_SetFlyLicense(playerid, quantity)
 {
     if (!IsPlayerConnected(playerid)) return 0;
 
-    return gsJobInfo[playerid][p_FLY_LICENSE] = quantity;
+    return gsLicensesInfo[playerid][p_FLY_LICENSE] = quantity;
 }
 
 // ============== BOAT LICENSE ACCESSORS ============== //
@@ -116,7 +117,7 @@ stock Player_GetBoatLicense(playerid)
 {
     if (!IsPlayerConnected(playerid)) return 0;
 
-    return gsJobInfo[playerid][p_BOAT_LICENSE];
+    return gsLicensesInfo[playerid][p_BOAT_LICENSE];
 }
 
 // Setters
@@ -124,16 +125,16 @@ stock Player_SetBoatLicense(playerid, quantity)
 {
     if (!IsPlayerConnected(playerid)) return 0;
 
-    return gsJobInfo[playerid][p_BOAT_LICENSE] = quantity;
+    return gsLicensesInfo[playerid][p_BOAT_LICENSE] = quantity;
 }
 
 // ============== GUN LICENSE ACCESSORS ============== //
 // Getters
 stock bool:Player_GetGunLicense(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) return false;
 
-    return gsJobInfo[playerid][p_GUN_LICENSE];
+    return gsLicensesInfo[playerid][p_GUN_LICENSE];
 }
 
 // Setters
@@ -141,7 +142,7 @@ stock Player_SetGunLicense(playerid, bool:status)
 {
     if (!IsPlayerConnected(playerid)) return 0;
 
-    return gsJobInfo[playerid][p_GUN_LICENSE] = status;
+    return gsLicensesInfo[playerid][p_GUN_LICENSE] = status;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

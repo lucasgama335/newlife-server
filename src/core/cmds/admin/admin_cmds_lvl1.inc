@@ -260,6 +260,10 @@ YCMD:kitadm(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
+	if (!Player_GetGunLicense(playerid))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não possui porte de armas, retire-o na prefeitura.");
+	}
 
 	new string[51];
 	GivePlayerWeapon(playerid, 46, 1);

@@ -183,5 +183,6 @@ public OnPlayerDisconnect(playerid, reason)
     Player_SaveStatusData(playerid);
     Player_SaveMoneyData(playerid);
     Player_SaveScoreData(playerid);
+    Player_SaveAppearenceData(playerid);
     return 1;
 }
