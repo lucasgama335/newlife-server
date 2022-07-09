@@ -40,6 +40,9 @@ logs/
 server_log.txt
 crashinfo.txt
 
+scriptfiles/ServerLogs/*/*
+!scriptfiles/ServerLogs/*/.gitkeep
+
 # Ban list
 samp.ban
 
