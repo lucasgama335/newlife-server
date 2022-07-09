@@ -7,6 +7,7 @@
 #include <account_score>
 #include <account_vip>
 #include <account_status>
+#include <account_licenses>
 #include <account_config>
 #include <account_ban>
 
@@ -33,6 +34,7 @@ hook OnPlayerConnect(playerid)
     Player_ResetStatusData(playerid);
     Player_ResetVipData(playerid);
     Player_ResetConfigData(playerid);
+    Player_ResetLicensesData(playerid);
     // Admin
     Admin_SetBigEars(playerid, false);
 	Admin_SetWorkStatus(playerid, false);

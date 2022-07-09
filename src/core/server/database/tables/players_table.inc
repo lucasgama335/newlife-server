@@ -60,6 +60,13 @@
 #define PLAYER_FIELD_MUTED                      "muted"
 #define PLAYER_FIELD_MUTED_NOOB                 "muted_noob"
 
+#define PLAYER_FIELD_CAR_LICENSE                "car_license"
+#define PLAYER_FIELD_MOTORCYCLE_LICENSE         "motorcycle_license"
+#define PLAYER_FIELD_TRUCK_LICENSE              "truck_license"
+#define PLAYER_FIELD_FLY_LICENSE                "fly_license"
+#define PLAYER_FIELD_BOAT_LICENSE               "boat_license"
+#define PLAYER_FIELD_GUN_LICENSE                "gun_license"
+
 #define PLAYER_FIELD_CONFIG_TAG                 "config_tag"
 #define PLAYER_FIELD_CONFIG_CITY                "config_city"
 #define PLAYER_FIELD_CONFIG_SPAWN               "config_spawn"
@@ -137,6 +144,12 @@ stock Database_CreatePlayersTable()
         "PLAYER_FIELD_LAST_INTERIOR" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_LAST_VW" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_LAST_LOCALE" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_CAR_LICENSE" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_MOTORCYCLE_LICENSE" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_TRUCK_LICENSE" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_FLY_LICENSE" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_BOAT_LICENSE" int DEFAULT 0 NOT NULL, \
+        "PLAYER_FIELD_GUN_LICENSE" tinyint NOT NULL DEFAULT 0, \
         "PLAYER_FIELD_CONFIG_TAG" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_CONFIG_CITY" int DEFAULT 0 NOT NULL, \
         "PLAYER_FIELD_CONFIG_SPAWN" int DEFAULT 0 NOT NULL, \
