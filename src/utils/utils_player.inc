@@ -146,5 +146,13 @@ stock SendDuvidaMessage(color, const string[])
 	return 1;
 }
 
+stock SetPlayerWorldCustom(playerid, interiorId, worldId, e_INTERIOR_LOCALES:localeId)
+{
+	SetPlayerInterior(playerid, interiorId);
+	SetPlayerVirtualWorld(playerid, worldId);
+	Player_SetInteriorLocale(playerid, localeId);
+	return 1;
+}
+
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 

@@ -30,7 +30,7 @@ hook OnPlayerConnect(playerid)
     //=====================================[ REMOVE WORLD OBJECTS ]====================================||
 
 	//=====================================[ MAP ICONS ]====================================||
-    SetPlayerMapIcon(playerid, 47, 1000.5934,-919.9224,42.3281, 17, 0xE6E6E6E6);
-	SetPlayerMapIcon(playerid, 49, 1928.5815,-1776.3611,13.5469, 17, 0xE6E6E6E6);
+    SetPlayerMapIcon(playerid, 2, 1000.5934,-919.9224,42.3281, 17, 0xE6E6E6E6);
+	SetPlayerMapIcon(playerid, 3, 1928.5815,-1776.3611,13.5469, 17, 0xE6E6E6E6);
 	return 1;
 }

@@ -1,9 +1,12 @@
 #include <YSI_Coding\y_hooks>
 
 //------------------------- Definitions and constants -------------------------
+#define	CITY_HALL_ENTRANCE		1481.0397,-1772.3135,18.7958
+#define	CITY_HALL_EXIT			390.7694,173.8226,1008.3828
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static gsCityHallActor[2];
+
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
@@ -12,11 +15,11 @@ static gsCityHallActor[2];
 hook OnGameModeInit()
 {
 	//=====================================[ 3DTEXT ]====================================||
-    Create3DTextLabel("Prefeitura de {FFFFFF}Los Santos{B4B5B7}\nPara Entrar\nAperte '{FFFFFF}F{B4B5B7}'", COLOR_GRAD1, 1481.0397,-1772.3135,18.7958, 20.0,0);
+    Create3DTextLabel("Prefeitura de {FFFFFF}Los Santos{B4B5B7}\nPara Entrar\nAperte '{FFFFFF}F{B4B5B7}'", COLOR_GRAD1, CITY_HALL_ENTRANCE, 20.0, 0);
 
     //=====================================[ PICKUPS ]====================================||
     AddStaticPickup(1318, 23, 1481.0397,-1772.3135,18.7958); // Entrance
-    AddStaticPickup(1318, 23, 390.7694,173.8226,1008.3828); // Exit
+    AddStaticPickup(1318, 23, CITY_HALL_EXIT); // Exit
 
 	//=====================================[ OBJECTS ]====================================||
     CreateDynamicObject(1231, 1483.80566, -1750.43030, 17.18440,   0.00000, 0.00000, 0.00000);
@@ -233,7 +236,7 @@ hook OnPlayerConnect(playerid)
     //=====================================[ REMOVE WORLD OBJECTS ]====================================||
 
     //=====================================[ MAP ICONS ]====================================||
-    SetPlayerMapIcon(playerid, 8, 1480.9403,-1770.8481,18.7958, 44 , 0xE6E6E6E6);
+    SetPlayerMapIcon(playerid, 1, 1480.9403,-1770.8481,18.7958, 44 , 0xE6E6E6E6);
 	return 1;
     
 }
@@ -243,23 +246,19 @@ hook CheckPlayerEntrances(playerid)
 	new Float:cx, Float:cy, Float:cz;
 	GetPlayerPos(playerid, cx, cy, cz);
 	// Entrance
-	if (IsPlayerInRangeOfPoint(playerid, 3.0, 1481.0397, -1772.3135, 18.7958))
+	if (IsPlayerInRangeOfPoint(playerid, 3.0, CITY_HALL_ENTRANCE))
 	{
 	    PlayAudioStreamForPlayer(playerid, "https://www.dropbox.com/s/53d0kb63zneqa1i/playstory%20PREFEITURA.mp3?dl=1");
         GameTextForPlayer(playerid, "~w~bem vindo a prefeitura ls !", 5000, 1);
-        SetPlayerInterior(playerid, 3);
-		SetPlayerVirtualWorld(playerid, 0);
-		SetPlayerPos(playerid,390.7694,173.8226,1008.3828);
-		Player_SetInteriorLocale(playerid, CITY_HALL_INTERIOR);
+		SetPlayerWorldCustom(playerid, 3, 0, CITY_HALL_INTERIOR);
+		SetPlayerPos(playerid, CITY_HALL_EXIT);
    	}
 	// Exit
-	if (IsPlayerInRangeOfPoint(playerid, 3.0, 390.7694, 173.8226, 1008.3828))
+	if (IsPlayerInRangeOfPoint(playerid, 3.0, CITY_HALL_EXIT))
 	{
 	    StopAudioStreamForPlayer(playerid);
-	    SetPlayerInterior(playerid, 0);
-	    SetPlayerVirtualWorld(playerid, 0);
-		SetPlayerPos(playerid,1481.0397,-1772.3135,18.7958);
-        Player_SetInteriorLocale(playerid, NO_INTERIOR);
+		SetPlayerWorldCustom(playerid, 0, 0, NO_INTERIOR);
+		SetPlayerPos(playerid, CITY_HALL_ENTRANCE);
 	}
 	return 1;
 }
