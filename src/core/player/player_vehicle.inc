@@ -154,3 +154,16 @@ hook OnPlayerStateChange(playerid, newstate, oldstate)
 	}
 	return 1;
 }
+
+hook OnPlayerUpdateScreenSize(playerid)
+{
+	new vehicleid = GetPlayerVehicleID(playerid);
+	AdaptSpeedometerToScreen(playerid);
+	if (IsPlayerInVehicle(playerid, vehicleid) && vehicleid != INVALID_VEHICLE_ID && IsValidVehicle(vehicleid)) 
+	{
+		UpdatePlayerSpeedometer(playerid, vehicleid, Player_GetSpeedometer(playerid));
+		ShowPlayerSpeedometer(playerid, Player_GetSpeedometer(playerid));
+		StartSpeedometerTimer(playerid, vehicleid);
+	}
+	return 1;
+}

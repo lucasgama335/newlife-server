@@ -10,7 +10,7 @@ enum p_LICENSES_DATA
     p_TRUCK_LICENSE,
     p_FLY_LICENSE,
     p_BOAT_LICENSE,
-    bool:p_GUN_LICENSE
+    p_GUN_LICENSE
 }
 static gsLicensesInfo[MAX_PLAYERS][p_LICENSES_DATA];
 
@@ -20,7 +20,6 @@ stock Player_ResetLicensesData(playerid)
 {
     static const scEmptyData[p_LICENSES_DATA];
     gsLicensesInfo[playerid] = scEmptyData;
-    gsLicensesInfo[playerid][p_GUN_LICENSE] = false;
     return gsLicensesInfo[playerid];
 }
 
@@ -29,7 +28,7 @@ stock Player_SaveLicensesData(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
 
-    new query_string[150];
+    new query_string[158];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET %s = %d, %s = %d, %s = %d, %s = %d, %s = %d, %s = %d WHERE id = %d", 
     PLAYER_TABLE_NAME,
     PLAYER_FIELD_CAR_LICENSE, gsLicensesInfo[playerid][p_CAR_LICENSE],
@@ -37,7 +36,7 @@ stock Player_SaveLicensesData(playerid)
     PLAYER_FIELD_TRUCK_LICENSE, gsLicensesInfo[playerid][p_TRUCK_LICENSE],
     PLAYER_FIELD_FLY_LICENSE, gsLicensesInfo[playerid][p_FLY_LICENSE],
     PLAYER_FIELD_BOAT_LICENSE, gsLicensesInfo[playerid][p_BOAT_LICENSE],
-    PLAYER_FIELD_GUN_LICENSE, (gsLicensesInfo[playerid][p_GUN_LICENSE] ? 1 : 0),
+    PLAYER_FIELD_GUN_LICENSE, gsLicensesInfo[playerid][p_GUN_LICENSE],
     Player_GetId(playerid));
     mysql_tquery(Database_GetConnection(), query_string);
     return 1;
@@ -130,19 +129,19 @@ stock Player_SetBoatLicense(playerid, quantity)
 
 // ============== GUN LICENSE ACCESSORS ============== //
 // Getters
-stock bool:Player_GetGunLicense(playerid)
+stock Player_GetGunLicense(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) return 0;
 
     return gsLicensesInfo[playerid][p_GUN_LICENSE];
 }
 
 // Setters
-stock Player_SetGunLicense(playerid, bool:status)
+stock Player_SetGunLicense(playerid, quantity)
 {
     if (!IsPlayerConnected(playerid)) return 0;
 
-    return gsLicensesInfo[playerid][p_GUN_LICENSE] = status;
+    return gsLicensesInfo[playerid][p_GUN_LICENSE] = quantity;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

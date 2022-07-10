@@ -186,3 +186,10 @@ public OnPlayerDisconnect(playerid, reason)
     Player_SaveAppearenceData(playerid);
     return 1;
 }
+
+hook OnPlayerUpdateScreenSize(playerid)
+{
+    HidePlayerHud(playerid);
+    ShowPlayerHud(playerid);
+    return 1;
+}

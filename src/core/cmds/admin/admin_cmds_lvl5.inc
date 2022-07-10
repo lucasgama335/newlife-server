@@ -133,6 +133,77 @@ YCMD:trazerveiculo(playerid, params[], help)
 	return 1;
 }
 
+CMD:darlicencas(playerid, params[])
+{
+    if (Player_GetAdminLevel(playerid) < MASTER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new id;
+	if (sscanf(params, "u", id))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /darlicencas [id]");
+	}
+	if (!IsValidPlayer(id))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+	}
+
+	new string[90];
+	Player_SetCarLicense(playerid, 80);
+	Player_SetMotorCycleLicense(playerid, 70);
+	Player_SetFlyLicense(playerid, 110);
+	Player_SetBoatLicense(playerid, 90);
+	Player_SetTruckLicense(playerid, 100);
+	Player_SetGunLicense(playerid, 120);
+	Player_SaveLicensesData(playerid);
+    format(string, sizeof(string), "O Administrador: %s lhe deu todas as licenças.", GetPlayerNameCustom(playerid));
+	SendClientMessage(id, COLOR_LIGHTBLUE, string);
+	format(string, sizeof(string), "ADMIN CMD: %s deu todas as licenças para: %s.", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id));
+	SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
+	return 1;
+}
+
+CMD:retirarlicencas(playerid, params[])
+{
+	if (Player_GetAdminLevel(playerid) < MASTER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+	}
+	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+	}
+	new id;
+	if (sscanf(params, "u", id))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /retirarlicencas [id]");
+	}
+	if (!IsValidPlayer(id))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+	}
+
+	new string[86];
+	ResetPlayerWeapons(id);
+	Player_SetCarLicense(playerid, 0);
+	Player_SetMotorCycleLicense(playerid, 0);
+	Player_SetFlyLicense(playerid, 0);
+	Player_SetBoatLicense(playerid, 0);
+	Player_SetTruckLicense(playerid, 0);
+	Player_SetGunLicense(playerid, 0);
+	Player_SaveLicensesData(playerid);
+    format(string, sizeof(string), "O Administrador: %s retirou todas as suas licenças.", GetPlayerNameCustom(playerid));
+	SendClientMessage(id, COLOR_LIGHTBLUE, string);
+	format(string, sizeof(string), "ADMIN CMD: %s retirou as licenças de: %s.", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id));
+	SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
+	return 1;
+}
+
 YCMD:abastecercarros(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < MASTER)

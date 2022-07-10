@@ -3,7 +3,7 @@
 //------------------------- Definitions and constants -------------------------
 #if defined MAX_VEHICLES
 #undef  MAX_VEHICLES
-#define MAX_VEHICLES   16 + 1 // Sempre Será a Soma das Variáveis de Carros + 1
+#define MAX_VEHICLES   38 + 1 // Sempre Será a Soma das Variáveis de Carros + 1
 #endif
 
 #define MAX_PLATE_STRING    9

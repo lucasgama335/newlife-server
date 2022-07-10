@@ -94,20 +94,6 @@ static stock ShowPlayerConfig(playerid)
 	return ShowPlayerDialog(playerid, DIALOG_CONFIG_LIST, DIALOG_STYLE_TABLIST_HEADERS, string, configDialog, "Selecionar", "Fechar");
 }
 
-static stock PlayerUpdateSpeedometer(playerid)
-{
-	new vehicleid = GetPlayerVehicleID(playerid);
-	AdaptSpeedometerToScreen(playerid);
-	if (IsPlayerInVehicle(playerid, vehicleid) && vehicleid != INVALID_VEHICLE_ID && IsValidVehicle(vehicleid)) 
-	{
-		UpdatePlayerSpeedometer(playerid, vehicleid, Player_GetSpeedometer(playerid));
-		ShowPlayerSpeedometer(playerid, Player_GetSpeedometer(playerid));
-		StartSpeedometerTimer(playerid, vehicleid);
-		return 1;
-	}
-	return 0;
-}
-
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerPressF(playerid)
 {
@@ -919,7 +905,14 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								
 							}
 						}
-						PlayerUpdateSpeedometer(playerid);
+						new vehicleid = GetPlayerVehicleID(playerid);
+						if (IsPlayerInVehicle(playerid, vehicleid) && vehicleid != INVALID_VEHICLE_ID && IsValidVehicle(vehicleid)) 
+						{
+							UpdatePlayerSpeedometer(playerid, vehicleid, Player_GetSpeedometer(playerid));
+							ShowPlayerSpeedometer(playerid, Player_GetSpeedometer(playerid));
+							StartSpeedometerTimer(playerid, vehicleid);
+							return 1;
+						}
 						Player_UpdateConfigData(playerid);
 						ShowPlayerConfig(playerid);
 			        }
@@ -989,9 +982,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								ShowPlayerConfig(playerid);
 							}
 						}
-						HidePlayerHud(playerid);
-						ShowPlayerHud(playerid);
-						PlayerUpdateSpeedometer(playerid);
+						CallLocalFunction("OnPlayerUpdateScreenSize", "i", playerid);
 			        }
 					case 13:
 			        {
@@ -1324,5 +1315,25 @@ YCMD:nchat(playerid, params[], help)
 	}
 	SendDuvidaMessage(COLOR_NCHAT, string);
 	talkChatNoob[playerid] = gettime();
+	return 1;
+}
+
+YCMD:minhaslicencas(playerid, params[], help)
+{
+	new licensesList[300], licenseString[80];
+    strcat(licensesList, "Tipo\tStatus\tValidade\n");
+	format(licenseString, sizeof(licenseString), (Player_GetCarLicense(playerid) > 0 ? "{FFFFFF}Carro\t{33aa33}Válida\t{00e7c6}%d\n" : "{FFFFFF}Carro\t{FF6347}Vencida\t{00e7c6}%d\n"), Player_GetCarLicense(playerid));
+	strcat(licensesList, licenseString);
+	format(licenseString, sizeof(licenseString), (Player_GetMotorCycleLicense(playerid) > 0 ? "{FFFFFF}Moto\t{33aa33}Válida\t{00e7c6}%d\n" : "{FFFFFF}Moto\t{FF6347}Vencida\t{00e7c6}%d\n"), Player_GetMotorCycleLicense(playerid));
+	strcat(licensesList, licenseString);
+	format(licenseString, sizeof(licenseString), (Player_GetTruckLicense(playerid) > 0 ? "{FFFFFF}Caminhão/Ônibus\t{33aa33}Válida\t{00e7c6}%d\n" : "{FFFFFF}Caminhão/Ônibus\t{FF6347}Vencida\t{00e7c6}%d\n"), Player_GetTruckLicense(playerid));
+	strcat(licensesList, licenseString);
+	format(licenseString, sizeof(licenseString), (Player_GetBoatLicense(playerid) > 0 ? "{FFFFFF}Barco\t{33aa33}Válida\t{00e7c6}%d\n" : "{FFFFFF}Barco\t{FF6347}Vencida\t{00e7c6}%d\n"), Player_GetBoatLicense(playerid));
+	strcat(licensesList, licenseString);
+	format(licenseString, sizeof(licenseString), (Player_GetFlyLicense(playerid) > 0 ? "{FFFFFF}Aeronave\t{33aa33}Válida\t{00e7c6}%d\n" : "{FFFFFF}Aeronave\t{FF6347}Vencida\t{00e7c6}%d\n"), Player_GetFlyLicense(playerid));
+	strcat(licensesList, licenseString);
+	format(licenseString, sizeof(licenseString), (Player_GetGunLicense(playerid) ? "{FFFFFF}Armas\t{33aa33}Válida\t{00e7c6}%d\n" : "{FFFFFF}Armas\t{FF6347}Vencida\t{00e7c6}%d\n"), Player_GetGunLicense(playerid));
+	strcat(licensesList, licenseString);
+	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_TABLIST_HEADERS, "Minhas Licenças", licensesList, "Fechar", "");
 	return 1;
 }

@@ -73,7 +73,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 4: 
 					{
 						new dialogTitle[25], string[192];
-						format(string, sizeof(string), "{0080ff}*** | {FFFFFF}/editar /explodir /setskin /irveiculo /trazerveiculo /darlicenceas /retirarlicencas\n\
+						format(string, sizeof(string), "{0080ff}*** | {FFFFFF}/editar /explodir /setskin /irveiculo /trazerveiculo /darlicencas /retirarlicencas\n\
 														{0080ff}*** | {FFFFFF}/abastecercarros /respawncarros /guerrafavela /tempoguerra\n");
 						format(dialogTitle, sizeof(dialogTitle), "Comandos do %s", GetAdminRoleName(listitem + 1));
 						ShowPlayerDialog(playerid, DIALOG_ADMIN_CMDS2, DIALOG_STYLE_MSGBOX, dialogTitle, string, "Voltar", "Fechar");

@@ -185,6 +185,22 @@ public OnPlayerConnect(playerid)
             Player_SetMutedTime(playerid, muted);
             Player_SetNoobMutedTime(playerid, mutedNoob);
 
+            // Licenses Info
+            new car_license, motorcycle_license, fly_license, boat_license, truck_license, gun_license;
+            cache_get_value_name_int(0, PLAYER_FIELD_CAR_LICENSE, car_license);
+            cache_get_value_name_int(0, PLAYER_FIELD_MOTORCYCLE_LICENSE, motorcycle_license);
+            cache_get_value_name_int(0, PLAYER_FIELD_FLY_LICENSE, fly_license);
+            cache_get_value_name_int(0, PLAYER_FIELD_BOAT_LICENSE, boat_license);
+            cache_get_value_name_int(0, PLAYER_FIELD_TRUCK_LICENSE, truck_license);
+            cache_get_value_name_int(0, PLAYER_FIELD_GUN_LICENSE, gun_license);
+
+            Player_SetCarLicense(playerid, car_license);
+            Player_SetMotorCycleLicense(playerid, motorcycle_license);
+            Player_SetFlyLicense(playerid, fly_license);
+            Player_SetBoatLicense(playerid, boat_license);
+            Player_SetTruckLicense(playerid, truck_license);
+            Player_SetGunLicense(playerid, gun_license);
+
             // Config Info
             new e_TAGS:tag, city, spawn, document, speedometer, tracker, hitsound, e_SCREENS:screenSize, territorialChat, vipChat, socioChat, noobChat, leaderChat, stream;
             cache_get_value_name_int(0, PLAYER_FIELD_CONFIG_TAG, tag);
@@ -460,7 +476,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 function:OnPlayerLogin(playerid) 
 {
-    if (Timer_IsRunning(timerToKickPlayer[playerid])) stop timerToKickPlayer[playerid];
+    if (Timer_IsRunning(timerToKickPlayer[playerid])) 
+    {
+        stop timerToKickPlayer[playerid];
+    }
     
     if (Player_GetAdminLevel(playerid) > OWNER)
 	{
