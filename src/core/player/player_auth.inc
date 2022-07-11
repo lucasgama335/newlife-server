@@ -233,8 +233,13 @@ public OnPlayerConnect(playerid)
         {
             isRegistered[playerid] = false;
         }
-        if (Timer_IsRunning(timerToKickPlayer[playerid])) stop timerToKickPlayer[playerid];
+        if (Timer_IsRunning(timerToKickPlayer[playerid])) 
+        {
+            stop timerToKickPlayer[playerid];
+        }
         timerToKickPlayer[playerid] = defer OnLoginTimeout(playerid);
+        Streamer_UpdateEx(playerid, 1430.3030, -1222.7921, 153.7742, 0, 0, STREAMER_TYPE_OBJECT, 3000, 1);
+        Streamer_UpdateEx(playerid, 1430.3030, -1222.7921, 153.7742, 0, 0, STREAMER_TYPE_ACTOR);
         InterpolateCameraPos(playerid, 1430.3030, -1222.7921, 153.7742, 1430.2842, -1227.1599, 153.6056, CAMERA_SPEED, CAMERA_MOVE);
 		InterpolateCameraLookAt(playerid, 1430.7921, -1223.6633, 153.5791, 1431.1718, -1227.6151, 153.3904, CAMERA_SPEED, CAMERA_MOVE);
 

@@ -180,7 +180,10 @@ stock ShowDriveSchoolHud(playerid)
 {
     for (new i; i < 5; i++)
     {
-	    PlayerTextDrawShow(playerid, gsDriveSchoolTextdraw[playerid][i]);
+        if (gsDriveSchoolTextdraw[playerid][i] != INVALID_PLAYER_TEXT_DRAW)
+        {
+	        PlayerTextDrawShow(playerid, gsDriveSchoolTextdraw[playerid][i]);
+        }
     }
 	return 1;
 }

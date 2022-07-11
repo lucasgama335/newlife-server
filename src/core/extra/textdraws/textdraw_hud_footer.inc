@@ -438,7 +438,10 @@ stock ShowPlayerHud(playerid)
 
     for (new i; i < 17; i++)
     {
-	    PlayerTextDrawShow(playerid, gsHudTextdraw[playerid][i]);
+        if (gsHudTextdraw[playerid][i] != INVALID_PLAYER_TEXT_DRAW)
+        {
+    	    PlayerTextDrawShow(playerid, gsHudTextdraw[playerid][i]);
+        }
     }
 	return 1;
 }
@@ -447,7 +450,10 @@ stock HidePlayerHud(playerid)
 {
     for (new i; i < 17; i++)
     {
-        PlayerTextDrawHide(playerid, gsHudTextdraw[playerid][i]);
+        if (gsHudTextdraw[playerid][i] != INVALID_PLAYER_TEXT_DRAW)
+        {
+            PlayerTextDrawHide(playerid, gsHudTextdraw[playerid][i]);
+        }
     }
 	return 1;
 }
@@ -456,37 +462,54 @@ stock DestroyPlayerHud(playerid)
 {
     for (new i; i < 17; i++)
     {
-        PlayerTextDrawDestroy(playerid, gsHudTextdraw[playerid][i]);
+        if (gsHudTextdraw[playerid][i] != INVALID_PLAYER_TEXT_DRAW)
+        {
+            PlayerTextDrawDestroy(playerid, gsHudTextdraw[playerid][i]);
+        }
     }
 	return 1;
 }
 
 stock UpdatePlayerHud(playerid, Timestamp:time, hungry, drink, paydayTime)
 {
-    new timeString[38], Float:playerX, Float:playerY, Float:playerZ;
+    new Float:playerX, Float:playerY, Float:playerZ;
     GetPlayerPos(playerid, playerX, playerY, playerZ);
-    strcat(timeString, Chrono_GetDayName(time));
-    strcat(timeString, ", ");
-    strcat(timeString, Chrono_GetDate(time));
-    strcat(timeString, " - ");
-    strcat(timeString, Chrono_GetHour(time));
-    PlayerTextDrawSetString(playerid, gsHudTextdraw[playerid][2], timeString);
+    if (gsHudTextdraw[playerid][2] != INVALID_PLAYER_TEXT_DRAW)
+    {
+        PlayerTextDrawSetString(playerid, gsHudTextdraw[playerid][2], Chrono_FormatHudDate(time));
+    }
 
-    PlayerTextDrawSetString(playerid, gsHudTextdraw[playerid][10], GetPlayerNameCustom(playerid));
+    if (gsHudTextdraw[playerid][10] != INVALID_PLAYER_TEXT_DRAW)
+    {
+        PlayerTextDrawSetString(playerid, gsHudTextdraw[playerid][10], GetPlayerNameCustom(playerid));
+    }
 
-    new zoneString[MAX_ZONE_NAME];
-    GetZoneName(playerX, playerY, zoneString);
-    PlayerTextDrawSetString(playerid, gsHudTextdraw[playerid][11], zoneString);
+    if (gsHudTextdraw[playerid][11] != INVALID_PLAYER_TEXT_DRAW)
+    {
+        static zoneString[MAX_MAP_ZONE_NAME];
+        GetMapZoneName(GetPlayerMapZone(playerid), zoneString, MAX_MAP_ZONE_NAME);
+        PlayerTextDrawSetString(playerid, gsHudTextdraw[playerid][11], zoneString);
+    }
 
-    new statusString[5];
-    format(statusString, sizeof(statusString), "%d%%", hungry);
-    PlayerTextDrawSetString(playerid, gsHudTextdraw[playerid][7], statusString);
-    format(statusString, sizeof(statusString), "%d%%", drink);
-    PlayerTextDrawSetString(playerid, gsHudTextdraw[playerid][9], statusString);
+    if (gsHudTextdraw[playerid][7] != INVALID_PLAYER_TEXT_DRAW)
+    {
+        static hungryString[5];
+        format(hungryString, sizeof(hungryString), "%d%%", hungry);
+        PlayerTextDrawSetString(playerid, gsHudTextdraw[playerid][7], hungryString);
+    }
+    if (gsHudTextdraw[playerid][9] != INVALID_PLAYER_TEXT_DRAW)
+    {
+        static drinkString[5];
+        format(drinkString, sizeof(drinkString), "%d%%", drink);
+        PlayerTextDrawSetString(playerid, gsHudTextdraw[playerid][9], drinkString);
+    }
     
-    new sPaydayString[10];
-    format(sPaydayString, sizeof(sPaydayString), "%02d:%02d", (paydayTime / 60), (paydayTime % 60));
-    PlayerTextDrawSetString(playerid, gsHudTextdraw[playerid][16], sPaydayString);
+    if (gsHudTextdraw[playerid][16] != INVALID_PLAYER_TEXT_DRAW)
+    {
+        static sPaydayString[10];
+        format(sPaydayString, sizeof(sPaydayString), "%02d:%02d", (paydayTime / 60), (paydayTime % 60));
+        PlayerTextDrawSetString(playerid, gsHudTextdraw[playerid][16], sPaydayString);
+    }
 	return 1;
 }
 

@@ -7,7 +7,7 @@
 #define	DEV_MODE				true
 
 #define	MYSQL_DEBUG				true
-#define	MYSQL_SETUP_TABLES		true
+#define	MYSQL_SETUP_TABLES		false
 #define	MYSQL_INVALID_VALUE		-1
 
 #define SERVER_NAME				"NewLife"

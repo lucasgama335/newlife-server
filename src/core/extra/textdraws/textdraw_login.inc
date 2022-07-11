@@ -10,7 +10,10 @@ stock ShowLoginScreen(playerid)
 {
     for (new i; i < sizeof(gsLoginScreenTextdraw); i++)
 	{
-		TextDrawShowForPlayer(playerid, gsLoginScreenTextdraw[i]);
+		if (gsLoginScreenTextdraw[i] != INVALID_TEXT_DRAW)
+		{
+			TextDrawShowForPlayer(playerid, gsLoginScreenTextdraw[i]);
+		}
 	}
 	return 1;
 }
@@ -19,7 +22,10 @@ stock HideLoginScreen(playerid)
 {
     for (new i; i < sizeof(gsLoginScreenTextdraw); i++)
 	{
-		TextDrawHideForPlayer(playerid, gsLoginScreenTextdraw[i]);
+		if (gsLoginScreenTextdraw[i] != INVALID_TEXT_DRAW)
+		{
+			TextDrawHideForPlayer(playerid, gsLoginScreenTextdraw[i]);
+		}
 	}
 	return 1;
 }
@@ -28,14 +34,20 @@ stock DestroyLoginScreen()
 {
     for (new i; i < sizeof(gsLoginScreenTextdraw); i++)
 	{
-		TextDrawDestroy(gsLoginScreenTextdraw[i]);
+		if (gsLoginScreenTextdraw[i] != INVALID_TEXT_DRAW)
+		{
+			TextDrawDestroy(gsLoginScreenTextdraw[i]);
+		}
 	}
 	return 1;
 }
 
 stock Text:GetLoginScreenTextdrawId(index)
 {
-	if (index > sizeof(gsLoginScreenTextdraw)) return gsLoginScreenTextdraw[0];
+	if (index > sizeof(gsLoginScreenTextdraw)) 
+	{
+		return gsLoginScreenTextdraw[0];
+	}
 
 	return gsLoginScreenTextdraw[index];
 }

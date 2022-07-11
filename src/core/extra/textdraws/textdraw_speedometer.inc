@@ -293,54 +293,95 @@ stock UpdatePlayerSpeedometer(playerid, vehicleid, type)
             spd3 = spd2 % 10;
             spd2 = spd2 / 10;
 
-            if (!Vehicle_GetLockedStatus(vehicleid))
+			if (modernSpeedometer[playerid][15] != INVALID_PLAYER_TEXT_DRAW)
+			{
+				if (!Vehicle_GetLockedStatus(vehicleid))
+				{
+					PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][15], "~g~A ~w~F");
+				}
+				else
+				{
+					PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][15], "~w~A ~r~F");
+				}
+			}
+
+			if (modernSpeedometer[playerid][8] != INVALID_PLAYER_TEXT_DRAW)
+			{
+	            PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][8], GetVehicleName(GetVehicleModel(vehicleid)));
+			}
+
+			if (modernSpeedometer[playerid][17] != INVALID_PLAYER_TEXT_DRAW)
             {
-                PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][15], "~g~A ~w~F");
-            }
-            else
+				format(speedometerString, sizeof (speedometerString), "%d", spd1);
+            	PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][17], speedometerString);
+			}
+
+			if (modernSpeedometer[playerid][18] != INVALID_PLAYER_TEXT_DRAW)
             {
-                PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][15], "~w~A ~r~F");
-            }
+				format(speedometerString, sizeof (speedometerString), "%d", spd2);
+            	PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][18], speedometerString);
+			}
 
-            PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][8], GetVehicleName(GetVehicleModel(vehicleid)));
+			if (modernSpeedometer[playerid][19] != INVALID_PLAYER_TEXT_DRAW)
+			{
+				format(speedometerString, sizeof (speedometerString), "%d", spd3);
+            	PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][19], speedometerString);
+			}
 
-            format(speedometerString, sizeof (speedometerString), "%d", spd1);
-            PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][17], speedometerString);
+			if (modernSpeedometer[playerid][9] != INVALID_PLAYER_TEXT_DRAW)
+            {
+				format(speedometerString, sizeof (speedometerString), "%02d Litros", Vehicle_GetFuel(vehicleid));
+            	PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][9], speedometerString);
+			}
 
-            format(speedometerString, sizeof (speedometerString), "%d", spd2);
-            PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][18], speedometerString);
+			if (modernSpeedometer[playerid][10] != INVALID_PLAYER_TEXT_DRAW)
+            {
+				format(speedometerString, sizeof (speedometerString), "%0.0f%", vehicleHealth / 10);
+            	PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][10], speedometerString);
+			}
 
-            format(speedometerString, sizeof (speedometerString), "%d", spd3);
-            PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][19], speedometerString);
-
-            format(speedometerString, sizeof (speedometerString), "%02d Litros", Vehicle_GetFuel(vehicleid));
-            PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][9], speedometerString);
-
-            format(speedometerString, sizeof (speedometerString), "%0.0f%", vehicleHealth / 10);
-            PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][10], speedometerString);
-
-            format(speedometerString, sizeof (speedometerString), "%d%%", Vehicle_GetShield(vehicleid));
-            PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][11], speedometerString);
+			if (modernSpeedometer[playerid][11] != INVALID_PLAYER_TEXT_DRAW)
+			{
+				format(speedometerString, sizeof (speedometerString), "%d%%", Vehicle_GetShield(vehicleid));
+            	PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][11], speedometerString);
+			}
         }
         case 1:
         {
-            PlayerTextDrawSetPreviewModel(playerid, compactSpeedometer[playerid][6], GetVehicleModel(vehicleid));
-			PlayerTextDrawSetPreviewVehCol(playerid, compactSpeedometer[playerid][6], Vehicle_GetColorOne(vehicleid), Vehicle_GetColorTwo(vehicleid));
+			if (compactSpeedometer[playerid][6] != INVALID_PLAYER_TEXT_DRAW)
+			{
+				PlayerTextDrawSetPreviewModel(playerid, compactSpeedometer[playerid][6], GetVehicleModel(vehicleid));
+				PlayerTextDrawSetPreviewVehCol(playerid, compactSpeedometer[playerid][6], Vehicle_GetColorOne(vehicleid), Vehicle_GetColorTwo(vehicleid));
+			}
 
+			if (compactSpeedometer[playerid][5] != INVALID_PLAYER_TEXT_DRAW)
+			{
+	            PlayerTextDrawSetString(playerid, compactSpeedometer[playerid][5], GetVehicleName(GetVehicleModel(vehicleid)));
+			}
 
-            PlayerTextDrawSetString(playerid, compactSpeedometer[playerid][5], GetVehicleName(GetVehicleModel(vehicleid)));
+			if (compactSpeedometer[playerid][2] != INVALID_PLAYER_TEXT_DRAW)
+			{
+    	        format(speedometerString, sizeof (speedometerString), "%02d", GetVehicleSpeed(vehicleid));
+	            PlayerTextDrawSetString(playerid, compactSpeedometer[playerid][2], speedometerString);
+			}
 
-            format(speedometerString, sizeof (speedometerString), "%02d", GetVehicleSpeed(vehicleid));
-            PlayerTextDrawSetString(playerid, compactSpeedometer[playerid][2], speedometerString);
+			if (compactSpeedometer[playerid][8] != INVALID_PLAYER_TEXT_DRAW)
+			{
+    	        format(speedometerString, sizeof (speedometerString), "Combustivel: %02d L", Vehicle_GetFuel(vehicleid));
+	            PlayerTextDrawSetString(playerid, compactSpeedometer[playerid][8], speedometerString);
+			}
 
-            format(speedometerString, sizeof (speedometerString), "Combustivel: %02d L", Vehicle_GetFuel(vehicleid));
-            PlayerTextDrawSetString(playerid, compactSpeedometer[playerid][8], speedometerString);
+			if (compactSpeedometer[playerid][1] != INVALID_PLAYER_TEXT_DRAW)
+			{
+    	        format(speedometerString, sizeof (speedometerString), "Lataria: %0.0f%", vehicleHealth / 10);
+	            PlayerTextDrawSetString(playerid, compactSpeedometer[playerid][1], speedometerString);
+			}
 
-            format(speedometerString, sizeof (speedometerString), "Lataria: %0.0f%", vehicleHealth / 10);
-            PlayerTextDrawSetString(playerid, compactSpeedometer[playerid][1], speedometerString);
-
-            format(speedometerString, sizeof (speedometerString), "Blindagem: %d%%", Vehicle_GetShield(vehicleid));
-            PlayerTextDrawSetString(playerid, compactSpeedometer[playerid][0], speedometerString);
+			if (compactSpeedometer[playerid][0] != INVALID_PLAYER_TEXT_DRAW)
+			{
+    	        format(speedometerString, sizeof (speedometerString), "Blindagem: %d%%", Vehicle_GetShield(vehicleid));
+	            PlayerTextDrawSetString(playerid, compactSpeedometer[playerid][0], speedometerString);
+			}
         }
     }
     return 1;
@@ -376,14 +417,20 @@ stock ShowPlayerSpeedometer(playerid, type)
 		{
 			for (new i; i < 20; i++)
             {
-                PlayerTextDrawShow(playerid, modernSpeedometer[playerid][i]);
+				if (modernSpeedometer[playerid][i] != INVALID_PLAYER_TEXT_DRAW)
+				{
+	                PlayerTextDrawShow(playerid, modernSpeedometer[playerid][i]);
+				}
             }
 		}
 		case 1:
 		{
 			for (new i; i < 9; i++)
             {
-                PlayerTextDrawShow(playerid, compactSpeedometer[playerid][i]);
+				if (compactSpeedometer[playerid][i] != INVALID_PLAYER_TEXT_DRAW)
+				{
+	                PlayerTextDrawShow(playerid, compactSpeedometer[playerid][i]);
+				}
             }
 		}
 	}
@@ -398,14 +445,20 @@ stock HidePlayerSpeedometer(playerid)
 		{
 			for (new i; i < 20; i++)
 			{
-				PlayerTextDrawHide(playerid, modernSpeedometer[playerid][i]);
+				if (modernSpeedometer[playerid][i] != INVALID_PLAYER_TEXT_DRAW)
+				{
+					PlayerTextDrawHide(playerid, modernSpeedometer[playerid][i]);
+				}
 			}
 		}
 		case 1:
 		{
 			for (new i; i < 9; i++)
 			{
-				PlayerTextDrawHide(playerid, compactSpeedometer[playerid][i]);
+				if (compactSpeedometer[playerid][i] != INVALID_PLAYER_TEXT_DRAW)
+				{
+					PlayerTextDrawHide(playerid, compactSpeedometer[playerid][i]);
+				}
 			}
 		}
 	}

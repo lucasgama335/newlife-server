@@ -222,11 +222,11 @@ hook OnGameModeInit()
 	CreateDynamicObject(870, 1439.38538, -1746.89441, 13.03996,   0.00000, 0.00000, 0.00000);
 
     //=====================================[ ACTORS ]====================================||
-    gsCityHallActor[0] = CreateActor(163, 358.3519,169.2911,1008.3828, 273.3107);
-    gsCityHallActor[1] = CreateActor(164, 358.2496,177.5590,1008.3828, 267.0439);
+    gsCityHallActor[0] = CreateDynamicActor(163, 358.3519,169.2911,1008.3828, 273.3107);
+    gsCityHallActor[1] = CreateDynamicActor(164, 358.2496,177.5590,1008.3828, 267.0439);
 	for (new i; i < sizeof(gsCityHallActor); i++)
 	{
-		ApplyActorAnimation(gsCityHallActor[i], "COP_AMBIENT", "Coplook_loop", 4.1, true, false, false, false, 0);
+		ApplyDynamicActorAnimation(gsCityHallActor[i], "COP_AMBIENT", "Coplook_loop", 4.1, true, false, false, false, 0);
 	}
     return 1;
 }

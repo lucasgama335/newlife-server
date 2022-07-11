@@ -68,6 +68,7 @@ timer PlayerUpdateStatus[1000](playerid)
     {
         Player_SetPaydayTime(playerid, (Player_GetPaydayTime(playerid) - 1));
     }
+    
     // Update HUD
     UpdatePlayerHud(playerid, Chrono_GetTimeNow(), Player_GetHungry(playerid), Player_GetDrink(playerid), Player_GetPaydayTime(playerid));
     return 1;
@@ -175,8 +176,10 @@ hook FirstSpawnOnLogin(playerid)
 
 public OnPlayerDisconnect(playerid, reason)
 {
-    if (Timer_IsRunning(gsPlayerUpdateStatusTimer[playerid])) stop gsPlayerUpdateStatusTimer[playerid];
-
+    if (Timer_IsRunning(gsPlayerUpdateStatusTimer[playerid])) 
+    {
+        stop gsPlayerUpdateStatusTimer[playerid];
+    }
     CallLocalFunction("BeforeSaveOnDisconnect", "i", playerid);
     Player_SetLastLogin(playerid, Player_GetLastLoginTemp(playerid));
     Player_SaveGeneralData(playerid);

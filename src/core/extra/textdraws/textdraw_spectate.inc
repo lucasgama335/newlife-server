@@ -10,7 +10,10 @@ stock ShowSpectateScreen(playerid)
 {
 	for (new i; i < 27; i++)
 	{
-		PlayerTextDrawShow(playerid, gsSpectateInfoTextdraw[playerid][i]);
+        if (gsSpectateInfoTextdraw[playerid][i] != INVALID_PLAYER_TEXT_DRAW)
+        {
+    		PlayerTextDrawShow(playerid, gsSpectateInfoTextdraw[playerid][i]);
+        }
 	}
     return 1;
 }
@@ -19,7 +22,10 @@ stock HideSpectateScreen(playerid)
 {
     for (new i; i < 27; i++)
 	{
-		PlayerTextDrawHide(playerid, gsSpectateInfoTextdraw[playerid][i]);
+        if (gsSpectateInfoTextdraw[playerid][i] != INVALID_PLAYER_TEXT_DRAW)
+        {
+    		PlayerTextDrawHide(playerid, gsSpectateInfoTextdraw[playerid][i]);
+        }
 	}
     return 1;
 }
@@ -28,14 +34,20 @@ stock DestroySpectateScreen(playerid)
 {
     for (new i; i < 27; i++)
 	{
-        PlayerTextDrawDestroy(playerid, gsSpectateInfoTextdraw[playerid][i]);
+        if (gsSpectateInfoTextdraw[playerid][i] != INVALID_PLAYER_TEXT_DRAW)
+        {
+            PlayerTextDrawDestroy(playerid, gsSpectateInfoTextdraw[playerid][i]);
+        }
 	}
     return 1;
 }
 
 stock PlayerText:GetSpectateTextdrawId(playerid, index)
 {
-	if (index > 27) return gsSpectateInfoTextdraw[playerid][0];
+	if (index > 27 || index < 0) 
+    {
+        return gsSpectateInfoTextdraw[playerid][0];
+    }
 
 	return gsSpectateInfoTextdraw[playerid][index];
 }

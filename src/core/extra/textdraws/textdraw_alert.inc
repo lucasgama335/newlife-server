@@ -101,8 +101,8 @@ stock AdaptAlertToScreen(playerid)
 
 stock ShowClientAlert(playerid)
 {
-	PlayerTextDrawShow(playerid, gsAlertMessage[playerid][0]);
-	PlayerTextDrawShow(playerid, gsAlertMessage[playerid][1]);
+	if (gsAlertMessage[playerid][0] != INVALID_PLAYER_TEXT_DRAW) PlayerTextDrawShow(playerid, gsAlertMessage[playerid][0]);
+	if (gsAlertMessage[playerid][1] != INVALID_PLAYER_TEXT_DRAW) PlayerTextDrawShow(playerid, gsAlertMessage[playerid][1]);
 	return 1;
 }
 
@@ -141,13 +141,22 @@ stock SendClientAlert(playerid, const title[], const message[], bool:adaptToScre
 	{
 		AdaptAlertToScreen(playerid);
 	}
-	format(string_alert, sizeof (string_alert), "%s", title);
-	PlayerTextDrawSetString(playerid, gsAlertMessage[playerid][0], string_alert);	
-	format(string_alert, sizeof (string_alert), "%s", message);
-	PlayerTextDrawSetString(playerid, gsAlertMessage[playerid][1], string_alert);	
+	if (gsAlertMessage[playerid][0] != INVALID_PLAYER_TEXT_DRAW)
+	{
+		format(string_alert, sizeof (string_alert), "%s", title);
+		PlayerTextDrawSetString(playerid, gsAlertMessage[playerid][0], string_alert);	
+	}
+	if (gsAlertMessage[playerid][1] != INVALID_PLAYER_TEXT_DRAW)
+	{
+		format(string_alert, sizeof (string_alert), "%s", message);
+		PlayerTextDrawSetString(playerid, gsAlertMessage[playerid][1], string_alert);	
+	}
 	ShowClientAlert(playerid);
 
-    if (Timer_IsRunning(gsAlertTimer[playerid])) stop gsAlertTimer[playerid];
+    if (Timer_IsRunning(gsAlertTimer[playerid])) 
+	{
+		stop gsAlertTimer[playerid];
+	}
     gsAlertTimer[playerid] = defer DismissClientAlert(playerid);
 	return 1;
 }

@@ -143,6 +143,13 @@ stock Server_FormatSecondDigit(Timestamp:tsTimezone)
 	return strval(output);
 }
 
+stock Chrono_FormatHudDate(Timestamp:time)
+{
+	static timeString[38];
+	format(timeString, sizeof(timeString), "%s, %s - %s", Chrono_GetDayName(time), Chrono_GetDate(time), Chrono_GetHour(time));
+	return timeString;
+}
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------

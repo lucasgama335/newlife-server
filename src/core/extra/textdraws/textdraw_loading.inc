@@ -10,7 +10,10 @@ stock ShowLoadingScreen(playerid)
 {
     for (new i; i < sizeof(gsLoadingScreenTextdraw); i++)
 	{
-		TextDrawShowForPlayer(playerid, gsLoadingScreenTextdraw[i]);
+		if (gsLoadingScreenTextdraw[i] != INVALID_TEXT_DRAW)
+		{
+			TextDrawShowForPlayer(playerid, gsLoadingScreenTextdraw[i]);
+		}
 	}
 	return 1;
 }
@@ -19,7 +22,10 @@ stock HideLoadingScreen(playerid)
 {
     for (new i; i < sizeof(gsLoadingScreenTextdraw); i++)
 	{
-		TextDrawHideForPlayer(playerid, gsLoadingScreenTextdraw[i]);
+		if (gsLoadingScreenTextdraw[i] != INVALID_TEXT_DRAW)
+		{
+			TextDrawHideForPlayer(playerid, gsLoadingScreenTextdraw[i]);
+		}
 	}
 	return 1;
 }
@@ -28,7 +34,10 @@ stock DestroyLoadingScreen()
 {
     for (new i; i < sizeof(gsLoadingScreenTextdraw); i++)
 	{
-		TextDrawDestroy(gsLoadingScreenTextdraw[i]);
+		if (gsLoadingScreenTextdraw[i] != INVALID_TEXT_DRAW)
+		{
+			TextDrawDestroy(gsLoadingScreenTextdraw[i]);
+		}
 	}
 	return 1;
 }

@@ -1092,26 +1092,26 @@ hook OnGameModeInit()
 	drivingSchoolObject = CreateDynamicObject(18765, -2057.125488, -116.401901, -50.286140, 0.000000, 0.000000, 0.000000);
     
 	//=====================================[ ACTORS ]====================================||
-	gsDrivingSchoolActor[0] = CreateActor(2, -2038.3361,-128.5328,-50.9141,358.0995);
-	ApplyActorAnimation(gsDrivingSchoolActor[0], "PED", "SEAT_idle", 4.1, true, false, false, false, 0);
-	gsDrivingSchoolActor[1] = CreateActor(14, -2040.0085,-128.4743,-50.9141,356.2852);
-	ApplyActorAnimation(gsDrivingSchoolActor[1], "PED", "SEAT_idle", 4.1, true, false, false, false, 0);
+	gsDrivingSchoolActor[0] = CreateDynamicActor(2, -2038.3361,-128.5328,-50.9141,358.0995);
+	ApplyDynamicActorAnimation(gsDrivingSchoolActor[0], "PED", "SEAT_idle", 4.1, true, false, false, false, 0);
+	gsDrivingSchoolActor[1] = CreateDynamicActor(14, -2040.0085,-128.4743,-50.9141,356.2852);
+	ApplyDynamicActorAnimation(gsDrivingSchoolActor[1], "PED", "SEAT_idle", 4.1, true, false, false, false, 0);
 
 
-	gsDrivingSchoolActor[2] = CreateActor(76, -2039.3076,-124.4276,-50.9141,180.1901);
-	gsDrivingSchoolActor[3] = CreateActor(59, -2038.6152,-121.0462,-50.9141,359.0818);
+	gsDrivingSchoolActor[2] = CreateDynamicActor(76, -2039.3076,-124.4276,-50.9141,180.1901);
+	gsDrivingSchoolActor[3] = CreateDynamicActor(59, -2038.6152,-121.0462,-50.9141,359.0818);
 
-	gsDrivingSchoolActor[4] = CreateActor(7, -2033.6938,-127.0685,-50.8003,353.7462);
-	ApplyActorAnimation(gsDrivingSchoolActor[4], "PED", "SEAT_idle", 4.1, true, false, false, false, 0);
-	gsDrivingSchoolActor[5] = CreateActor(20, -2032.7848,-124.4842,-50.8003,358.2126);
-	ApplyActorAnimation(gsDrivingSchoolActor[5], "PED", "SEAT_idle", 4.1, true, false, false, false, 0);
-	gsDrivingSchoolActor[6] = CreateActor(22, -2029.3984,-124.5810,-50.8003,357.0949);
-	ApplyActorAnimation(gsDrivingSchoolActor[6], "PED", "SEAT_idle", 4.1, true, false, false, false, 0);
-	gsDrivingSchoolActor[7] = CreateActor(23, -2029.4875,-126.8990,-50.8003,352.1378);
-	ApplyActorAnimation(gsDrivingSchoolActor[7], "PED", "SEAT_idle", 4.1, true, false, false, false, 0);
+	gsDrivingSchoolActor[4] = CreateDynamicActor(7, -2033.6938,-127.0685,-50.8003,353.7462);
+	ApplyDynamicActorAnimation(gsDrivingSchoolActor[4], "PED", "SEAT_idle", 4.1, true, false, false, false, 0);
+	gsDrivingSchoolActor[5] = CreateDynamicActor(20, -2032.7848,-124.4842,-50.8003,358.2126);
+	ApplyDynamicActorAnimation(gsDrivingSchoolActor[5], "PED", "SEAT_idle", 4.1, true, false, false, false, 0);
+	gsDrivingSchoolActor[6] = CreateDynamicActor(22, -2029.3984,-124.5810,-50.8003,357.0949);
+	ApplyDynamicActorAnimation(gsDrivingSchoolActor[6], "PED", "SEAT_idle", 4.1, true, false, false, false, 0);
+	gsDrivingSchoolActor[7] = CreateDynamicActor(23, -2029.4875,-126.8990,-50.8003,352.1378);
+	ApplyDynamicActorAnimation(gsDrivingSchoolActor[7], "PED", "SEAT_idle", 4.1, true, false, false, false, 0);
 	
-	gsDrivingSchoolActor[8] = CreateActor(17, -2030.8129,-120.9944,-50.8003,179.1761);
-	ApplyActorAnimation(gsDrivingSchoolActor[8], "PED", "IDLE_CHAT", 4.1, true, false, false, false, 0);
+	gsDrivingSchoolActor[8] = CreateDynamicActor(17, -2030.8129,-120.9944,-50.8003,179.1761);
+	ApplyDynamicActorAnimation(gsDrivingSchoolActor[8], "PED", "IDLE_CHAT", 4.1, true, false, false, false, 0);
     return 1;
 }
 
