@@ -69,9 +69,9 @@ hook OnPlayerSpawn(playerid)
     if (!Player_GetLoggedStatus(playerid))
     {
         new string[102];
-		format(string, sizeof(string), "[AVISO]: O jogador %s foi kickado por ter spawnado ser ter realizado o login.", GetPlayerNameCustom(playerid));
-		SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
-		SendClientMessage(playerid, COLOR_LIGHTRED, "[AVISO]: Você foi kickado porque spawnou sem realizar o login.");
+		format(string, sizeof(string), "[Aviso]: O jogador %s foi kickado por ter spawnado ser ter realizado o login.", GetPlayerNameCustom(playerid));
+		SendAdminMessage(COLOR_YELLOW, string, HELPER);
+		SendClientMessage(playerid, COLOR_YELLOW, "[Aviso]: Você foi kickado porque spawnou sem realizar o login.");
 		KickPlayer(playerid);
 		return 1;
     }

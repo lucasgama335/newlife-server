@@ -112,7 +112,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 		    if (!response)
 			{
-				return SendClientMessage(playerid, COLOR_INVALID, "Você fechou o faq.");
+				return 1;
 			}
 			if (response)
 			{
@@ -273,7 +273,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 		    if (!response)
 			{
-				return SendClientMessage(playerid, COLOR_INVALID, "Você fechou o faq.");
+				return 1;
 			}
 			if (response)
 			{
@@ -914,7 +914,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							return 1;
 						}
 						Player_UpdateConfigData(playerid);
-						ShowPlayerConfig(playerid);
+						return ShowPlayerConfig(playerid);
 			        }
 					case 10:
 			        {
@@ -1146,6 +1146,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						Player_UpdateConfigData(playerid);
 			        }
 			    }
+				return ShowPlayerConfig(playerid);
 			}
 		}
     }
@@ -1167,7 +1168,7 @@ YCMD:id(playerid, params[], help)
 	new id;
 	if (sscanf(params, "u", id))
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "USE: /id [ID/Nick]");
+		return SendClientMessage(playerid, COLOR_INVALID, "USE: /id [id ou nome]");
 	}
     if (!IsValidPlayer(id))
 	{
@@ -1178,7 +1179,7 @@ YCMD:id(playerid, params[], help)
         return 0;
 	}
 
-	new string[55];
+	new string[52];
 	format(string, sizeof(string), "ID: (%d) %s - Level[%d].", id, GetPlayerNameCustom(id), Player_GetLevel(id));
     SendClientMessage(playerid, COLOR_GRAD1, string);
     return 1;
@@ -1255,7 +1256,7 @@ YCMD:nchat(playerid, params[], help)
 	}
 	if (!Player_GetNoobChatStatus(playerid))
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você está com o chat de dúvidas bloqueado, ative-o usando: (/config).");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você está com o chat de dúvidas bloqueado, ative-o usando: /config.");
 	}
 	if (Player_GetMutedTime(playerid) != 0)
 	{
@@ -1263,7 +1264,7 @@ YCMD:nchat(playerid, params[], help)
 	}
 	if (Player_GetNoobMutedTime(playerid) != 0)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode falar, está com o chat bloqueado.");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode falar, pois está com o chat bloqueado.");
 	}
 	if ((gettime() - talkChatNoob[playerid]) < 15)
 	{

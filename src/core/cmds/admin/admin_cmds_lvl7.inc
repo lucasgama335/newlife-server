@@ -18,7 +18,7 @@ YCMD:setpos(playerid, params[], help)
 	}
     if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 	new id, Float:x, Float:y, Float:z;
 	if (sscanf(params, "ufff", id, x, y, z))

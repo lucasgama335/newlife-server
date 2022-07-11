@@ -38,7 +38,7 @@ YCMD:gmx(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 
     new gmx[84];
@@ -63,7 +63,7 @@ YCMD:setmoedasvip(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 	new id, coins;
 	if (sscanf(params, "ud", id, coins))
@@ -75,10 +75,10 @@ YCMD:setmoedasvip(playerid, params[], help)
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
 
-	new string[150], coinsString[MAX_MONEY_STRING];
+	new string[126], coinsString[MAX_MONEY_STRING];
 	FormatMoneyString(coins, coinsString);
 	Player_SetCoins(playerid, coins);
-    format(string, sizeof(string), "ADMIN CMD: O Admin %s setou a quantidade de moedas vip de %s para R$[%d].", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id), coins);
+    format(string, sizeof(string), "[Administração]: O Admin %s setou a quantidade de moedas vip de %s para %s.", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id), coinsString);
 	SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
 	format(string, sizeof(string), "O administrador: %s setou suas moedas para [%s].", GetPlayerNameCustom(playerid), coinsString);
 	SendClientAlert(id, "MOEDAS VIP", string);
@@ -94,7 +94,7 @@ YCMD:darmoedasvip(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 	new id, coins;
 	if (sscanf(params, "ud", id, coins))
@@ -106,10 +106,10 @@ YCMD:darmoedasvip(playerid, params[], help)
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
 
-	new string[150], coinsString[MAX_MONEY_STRING];
+	new string[107], coinsString[MAX_MONEY_STRING];
 	FormatMoneyString(coins, coinsString);
 	Player_SetCoins(playerid, (Player_GetCoins(playerid) + coins));
-    format(string, sizeof(string), "ADMIN CMD: O Admin %s está dando [%s] moedas vip para %s.", GetPlayerNameCustom(playerid), coinsString, GetPlayerNameCustom(id));
+    format(string, sizeof(string), "[Administração]: %s está dando [%s] moedas vip para %s.", GetPlayerNameCustom(playerid), coinsString, GetPlayerNameCustom(id));
 	SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
 	format(string, sizeof(string), "Voce recebeu [%s] moedas vip do administrador: %s.", coinsString, GetPlayerNameCustom(playerid));
 	SendClientAlert(id, "MOEDAS VIP", string);
@@ -127,7 +127,7 @@ YCMD:hideadmin(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 
 	ShowPlayerDialog(playerid, DIALOG_ADMIN_HIDE, DIALOG_STYLE_MSGBOX, "Menu Admin Dono", "Escolha qual modo deseja ficar.", "Oculto", "Exibido");
@@ -142,7 +142,7 @@ YCMD:verpars(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 
 	if (Admin_GetViewAllPm(playerid))

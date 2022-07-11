@@ -54,22 +54,26 @@ stock Vehicle_SetEngineToPlayer(playerid, vehicleid, bool:status)
 	}
 	if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER && Vehicle_GetBrokenStatus(vehicleid))
 	{
-		return SendClientMessage(playerid, COLOR_LIGHTBLUE, "Seu veículo está quebrado, não pode mecher no motor !");
+		return SendClientMessage(playerid, COLOR_LIGHTBLUE, "Você não pode ligar o seu veículo, pois ele está quebrado.");
 	}
 	if (Vehicle_GetEngineStatus(vehicleid)  && GetPlayerState(playerid) == 2 && GetPlayerSpeed(playerid, true) > 1)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode mecher no motor do veículo em movimento.");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode mecher no motor do veículo com ele estando em movimento.");
 	}
 
+	new string[60];
     Vehicle_SetEngine(vehicleid, status);
 	if (Vehicle_GetEngineStatus(vehicleid))
     {
-	    SendClientMessage(playerid, 0xFFFFFFFF, "Veiculo: {228B22}Ligado!");
+	    SendClientMessage(playerid, 0xFFFFFFFF, "[Veículo]: {228B22}Ligado!");
+		format(string, sizeof(string), "* %s deu partida no motor do veículo.", GetPlayerNameCustom(playerid));
     }
     else
     {
-	    SendClientMessage(playerid, 0xFFFFFFFF, "Veiculo: {FF0000}Desligado!");
+	    SendClientMessage(playerid, 0xFFFFFFFF, "[Veículo]: {FF0000}Desligado!");
+		format(string, sizeof(string), "* %s desligou o motor do veículo.", GetPlayerNameCustom(playerid));
     }
+	SendMessageInRange(20.0, playerid, string, COLOR_LIGHTPU, COLOR_LIGHTPU, COLOR_LIGHTPU, COLOR_LIGHTPU, COLOR_LIGHTPU);
     return 1;
 }
 

@@ -19,7 +19,7 @@ YCMD:explodir(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 	new id;
 	if (sscanf(params, "u", id))
@@ -35,11 +35,11 @@ YCMD:explodir(playerid, params[], help)
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode explodir um Admin Dono !");
 	}
 
-	new string[80], Float:boomx, Float:boomy, Float:boomz;
+	new string[87], Float:boomx, Float:boomy, Float:boomz;
 	SetPlayerHealth(id, 10);
 	GetPlayerPos(id, boomx, boomy, boomz);
 	CreateExplosion(boomx, boomy , boomz, 7, 10);
-	format(string, sizeof(string), "ADMIN CMD: %s foi explodido por %s.", GetPlayerNameCustom(id), GetPlayerNameCustom(playerid));
+	format(string, sizeof(string), "[Administração]: %s explodiu o jogador %s.", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id));
 	SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
 	return 1;
 }
@@ -52,7 +52,7 @@ YCMD:setskin(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 	new id, skinid;
 	if (sscanf(params, "ud", id, skinid))
@@ -83,7 +83,7 @@ YCMD:irveiculo(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 	new vid;
 	if (sscanf(params, "d", vid))
@@ -110,7 +110,7 @@ YCMD:trazerveiculo(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 	new vid;
 	if (sscanf(params, "d", vid))
@@ -141,7 +141,7 @@ CMD:darlicencas(playerid, params[])
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 	new id;
 	if (sscanf(params, "u", id))
@@ -153,7 +153,7 @@ CMD:darlicencas(playerid, params[])
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
 
-	new string[90];
+	new string[96];
 	Player_SetCarLicense(playerid, 80);
 	Player_SetMotorCycleLicense(playerid, 70);
 	Player_SetFlyLicense(playerid, 110);
@@ -161,9 +161,9 @@ CMD:darlicencas(playerid, params[])
 	Player_SetTruckLicense(playerid, 100);
 	Player_SetGunLicense(playerid, 120);
 	Player_SaveLicensesData(playerid);
-    format(string, sizeof(string), "O Administrador: %s lhe deu todas as licenças.", GetPlayerNameCustom(playerid));
+    format(string, sizeof(string), "O administrador: %s lhe deu todas as licenças.", GetPlayerNameCustom(playerid));
 	SendClientMessage(id, COLOR_LIGHTBLUE, string);
-	format(string, sizeof(string), "ADMIN CMD: %s deu todas as licenças para: %s.", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id));
+	format(string, sizeof(string), "[Administração]: %s deu todas as licenças para: %s.", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id));
 	SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
 	return 1;
 }
@@ -176,7 +176,7 @@ CMD:retirarlicencas(playerid, params[])
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 	new id;
 	if (sscanf(params, "u", id))
@@ -188,7 +188,7 @@ CMD:retirarlicencas(playerid, params[])
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
 
-	new string[86];
+	new string[92];
 	ResetPlayerWeapons(id);
 	Player_SetCarLicense(playerid, 0);
 	Player_SetMotorCycleLicense(playerid, 0);
@@ -197,9 +197,9 @@ CMD:retirarlicencas(playerid, params[])
 	Player_SetTruckLicense(playerid, 0);
 	Player_SetGunLicense(playerid, 0);
 	Player_SaveLicensesData(playerid);
-    format(string, sizeof(string), "O Administrador: %s retirou todas as suas licenças.", GetPlayerNameCustom(playerid));
+    format(string, sizeof(string), "O administrador: %s retirou todas as suas licenças.", GetPlayerNameCustom(playerid));
 	SendClientMessage(id, COLOR_LIGHTBLUE, string);
-	format(string, sizeof(string), "ADMIN CMD: %s retirou as licenças de: %s.", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id));
+	format(string, sizeof(string), "[Administração]: %s retirou as licenças de: %s.", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id));
 	SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
 	return 1;
 }
@@ -212,12 +212,12 @@ YCMD:abastecercarros(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 
-	new string[63];
+	new string[69];
 	RefuelAllVehicles();
-	format(string, sizeof(string), "ADMIN CMD: %s abasteceu todos os carros.", GetPlayerNameCustom(playerid));
+	format(string, sizeof(string), "[Administração]: %s abasteceu todos os carros.", GetPlayerNameCustom(playerid));
 	SendClientMessageToAll(COLOR_LIGHTRED, string);
 	return 1;
 }
@@ -231,12 +231,12 @@ YCMD:respawncarros(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 
-	new string[88];
+	new string[83];
 	RespawnAllVehicles();
-	format(string, sizeof(string), "[%s]: Todos os carros foram para seus locais de início. By: %s.", SERVER_TAG, GetPlayerNameCustom(playerid));
+	format(string, sizeof(string), "[Administração]: %s respawnou todos os veículos do servidor.", GetPlayerNameCustom(playerid));
 	SendClientMessageToAll(0x80FF8096, string);
 	return 1;
 }

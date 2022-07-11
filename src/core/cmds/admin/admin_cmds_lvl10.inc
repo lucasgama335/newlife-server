@@ -33,11 +33,11 @@ YCMD:daradmin(playerid, params[], help)
         return SendClientMessage(playerid, COLOR_INVALID, "Nível de admin inválido.");
 	}
 
-	new string[100];
+	new string[104];
 	Player_SetAdminLevel(id, level, true);
-	format(string, sizeof(string), "Você foi promovido para level %d de Admin - Por %s.", level, GetPlayerNameCustom(playerid));
+	format(string, sizeof(string), "Você foi promovido para level %d de administrador - Por %s.", level, GetPlayerNameCustom(playerid));
     SendClientMessage(id, COLOR_LIGHTBLUE, string);
-	format(string, sizeof(string), "Você promoveu %s para o level %d de Admin.", GetPlayerNameCustom(id), level);
+	format(string, sizeof(string), "Você promoveu %s para o level %d de administrador.", GetPlayerNameCustom(id), level);
 	SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
     return 1;
 }
@@ -63,11 +63,11 @@ YCMD:retiraradmin(playerid, params[], help)
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode retirar o status de admin de um Dono.");
 	}
 
-	new string[68];
+	new string[65];
 	Player_SetAdminLevel(id, NO_ADMIN, true);
-	format(string, sizeof(string), "Seu Admin foi retirado pelo Administrador: %s.", GetPlayerNameCustom(playerid));
+	format(string, sizeof(string), "Você foi removido da administração por %s.", GetPlayerNameCustom(playerid));
     SendClientMessage(id, COLOR_LIGHTBLUE, string);
-	format(string, sizeof(string), "Você retirou o Admin de %s.", GetPlayerNameCustom(id));
+	format(string, sizeof(string), "Você removeu %s da administração.", GetPlayerNameCustom(id));
 	SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
     return 1;
 }

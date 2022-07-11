@@ -154,18 +154,9 @@ stock TeleportPlayer(playerid, Float:x, Float:y, Float:z, interiorId, worldId, e
 	Streamer_UpdateEx(playerid, x, y, z, worldId, interiorId, STREAMER_TYPE_OBJECT, freezeTime, freeze);
 	if (IsPlayerInAnyVehicle(playerid) && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
 	{
-	    new vehicleid = GetPlayerVehicleID(playerid);
-		if (vehicleid != INVALID_VEHICLE_ID)
-		{
-			LinkVehicleToInterior(vehicleid, GetPlayerInterior(playerid));
-			SetVehicleVirtualWorld(vehicleid, GetPlayerVirtualWorld(playerid));
-			SetVehiclePos(vehicleid, x, y, z);
-		}
+	    RemovePlayerFromVehicle(playerid);
 	}
-	else
-	{
-	    SetPlayerPos(playerid, x, y, z);
-	}
+	SetPlayerPos(playerid, x, y, z);
 	return 1;
 }
 

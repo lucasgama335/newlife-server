@@ -36,6 +36,54 @@ static const gscVehicleNames[212][] =
     {"Utility Trailer"}
 };
 
+enum e_VEHICLE_FLAGS
+{
+    e_VEHICLE_FLAGS_CAT_Unknown,
+	e_VEHICLE_FLAGS_CAT_Airplane,
+	e_VEHICLE_FLAGS_CAT_Helicopter,
+	e_VEHICLE_FLAGS_CAT_Bike,
+	e_VEHICLE_FLAGS_CAT_Convertible,
+	e_VEHICLE_FLAGS_CAT_Industrial,
+	e_VEHICLE_FLAGS_CAT_Lowrider,
+	e_VEHICLE_FLAGS_CAT_OffRoad,
+	e_VEHICLE_FLAGS_CAT_Public,
+	e_VEHICLE_FLAGS_CAT_Saloon,
+	e_VEHICLE_FLAGS_CAT_Sport,
+	e_VEHICLE_FLAGS_CAT_Station,
+	e_VEHICLE_FLAGS_CAT_Boat,
+	e_VEHICLE_FLAGS_CAT_Trailer,
+	e_VEHICLE_FLAGS_CAT_Unique,
+	e_VEHICLE_FLAGS_CAT_RC,
+	e_VEHICLE_FLAGS_CATEGORY,
+	e_VEHICLE_FLAGS_Car,
+	e_VEHICLE_FLAGS_Truck,
+	e_VEHICLE_FLAGS_Van,
+	e_VEHICLE_FLAGS_Fire,
+	e_VEHICLE_FLAGS_Police,
+	e_VEHICLE_FLAGS_FBI,
+	e_VEHICLE_FLAGS_SWAT,
+	e_VEHICLE_FLAGS_Military,
+	e_VEHICLE_FLAGS_Weaponised,
+	e_VEHICLE_FLAGS_Helicopter,
+	e_VEHICLE_FLAGS_Boat,
+	e_VEHICLE_FLAGS_Plane,
+	e_VEHICLE_FLAGS_Bike,
+	e_VEHICLE_FLAGS_Manual,
+	e_VEHICLE_FLAGS_Ambulance,
+	e_VEHICLE_FLAGS_Taxi,
+	e_VEHICLE_FLAGS_OnWater,
+	e_VEHICLE_FLAGS_Coastguard,
+	e_VEHICLE_FLAGS_Train,
+	e_VEHICLE_FLAGS_LS,
+	e_VEHICLE_FLAGS_SF,
+	e_VEHICLE_FLAGS_LV,
+	e_VEHICLE_FLAGS_Tank,
+	e_VEHICLE_FLAGS_Flowerpot,
+	e_VEHICLE_FLAGS_Transport,
+	e_VEHICLE_FLAGS_Armed
+};
+
+
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock GetVehicleName(model, vehicleString[], lenght = sizeof(vehicleString))
 {
@@ -50,9 +98,13 @@ stock GetVehicleName(model, vehicleString[], lenght = sizeof(vehicleString))
 
 stock GetVehicleSpeed(vehicleid)
 {
-    new Float:xPos[3];
-    GetVehicleVelocity(vehicleid, xPos[0], xPos[1], xPos[2]);
-    return floatround(floatsqroot(xPos[0] * xPos[0] + xPos[1] * xPos[1] + xPos[2] * xPos[2]) * 170.00);
+    static 
+		Float:Vx = 0.0,
+		Float:Vy = 0.0,
+		Float:Vz = 0.0
+	;
+	GetVehicleVelocity(vehicleid, Vx, Vy, Vz);
+	return floatround(VectorSize(Vx, Vy, Vz) * 136.666667);
 }
 
 stock bool:IsPlayerNearVehicle(Float:radi, playerid, vehicleid)

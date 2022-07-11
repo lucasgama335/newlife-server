@@ -17,7 +17,7 @@ YCMD:sethora(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 	new hourtime;
 	if (sscanf(params, "d", hourtime))
@@ -25,10 +25,10 @@ YCMD:sethora(playerid, params[], help)
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: /sethora [hora do dia(0-23)]");
 	}
 
-	new string[35];
+	new string[90];
 	SetWorldTime(hourtime);
-	format(string, sizeof(string), "Tempo definido para [%d] hora(s).", hourtime);
-	SendClientMessageToAll(COLOR_INVALID, string);
+	format(string, sizeof(string), "[Administração]: %s definiu o horário do servidor para: %d hora(s).", hourtime);
+	SendClientMessageToAll(COLOR_LIGHTRED, string);
 	return 1;
 }
 
@@ -40,7 +40,7 @@ YCMD:verip(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 	new id;
 	if (sscanf(params, "d", id))
@@ -52,8 +52,8 @@ YCMD:verip(playerid, params[], help)
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
 
-	new string[67];
-	format(string, sizeof(string), "ADMIN CMD: Jogador %s - [IP: %s].", GetPlayerNameCustom(id), GetPlayerIpCustom(id));
+	new string[78];
+	format(string, sizeof(string), "[Administração]: Jogador %s - [IP: %s].", GetPlayerNameCustom(id), GetPlayerIpCustom(id));
 	SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
 	return 1;
 }
@@ -66,7 +66,7 @@ YCMD:rt(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 
 	new Float:slx, Float:sly, Float:slz;
@@ -83,7 +83,7 @@ YCMD:lt(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 
 	new Float:slx, Float:sly, Float:slz;
@@ -100,7 +100,7 @@ YCMD:dn(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 
 	new Float:slx, Float:sly, Float:slz;
@@ -117,7 +117,7 @@ YCMD:up(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 
 	new Float:slx, Float:sly, Float:slz;
@@ -134,7 +134,7 @@ YCMD:entrarveh(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 	new vehicleid;
 	if (sscanf(params, "d", vehicleid))
@@ -143,7 +143,7 @@ YCMD:entrarveh(playerid, params[], help)
 	}
 
 	PutPlayerInVehicle(playerid, vehicleid, 1);
-	SendClientMessage(playerid, COLOR_INVALID, "Você foi teleportado pelo Administrador!");
+	SendClientMessage(playerid, COLOR_INVALID, "Você foi teleportado por um administrador!");
 	return 1;
 }
 
@@ -155,7 +155,7 @@ YCMD:entrarveh2(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 	new vehicleid;
 	if (sscanf(params, "d", vehicleid))
@@ -164,7 +164,7 @@ YCMD:entrarveh2(playerid, params[], help)
 	}
 
 	PutPlayerInVehicle(playerid, vehicleid, 0);
-	SendClientMessage(playerid, COLOR_INVALID, "Você foi teleportado pelo Administrador!");
+	SendClientMessage(playerid, COLOR_INVALID, "Você foi teleportado por um administrador!");
 	return 1;
 }
 
@@ -176,7 +176,7 @@ YCMD:fogo(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 	new id;
 	if (sscanf(params, "u", id))
@@ -189,14 +189,14 @@ YCMD:fogo(playerid, params[], help)
 	}
 	if (Player_GetAdminLevel(id) >= HELPER_OWNER && Player_GetAdminLevel(playerid) != OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode colocar fogo em um Admin Dono !");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode colocar fogo em um admin dono.");
 	}
 
-	new string[56];
+	new string[88];
 	new Float:burnx, Float:burny, Float:burnz;
 	GetPlayerPos(id, burnx, burny, burnz);
 	CreateExplosion(burnx, burny , burnz + 3, 1, 3);
-	format(string, sizeof(string), "ADMIN CMD: %s colocou fogo em %s.", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id));
+	format(string, sizeof(string), "[Administração]: %s incendiou o jogador %s.", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id));
 	SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
 	return 1;
 }
@@ -209,7 +209,7 @@ YCMD:boasvindas(playerid, params[], help)
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está trabalhando! (/trabalhar)");
+		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
 	}
 	new id;
 	if (sscanf(params, "u", id))
@@ -229,16 +229,14 @@ YCMD:boasvindas(playerid, params[], help)
 		return SendClientMessage(playerid, COLOR_INVALID, "Você só pode dar boas vindas a jogadores novatos.");
 	}
 
-	new string[280], moneyString[MAX_MONEY_STRING], coinsString[MAX_MONEY_STRING];
-	FormatMoneyString(Player_GetMoney(id), moneyString);
-	FormatMoneyString(Player_GetCoins(id), coinsString);
+	new string[104];
     Player_SetHoursPlayed(id, 15);
 	Player_SetLevel(id, 5);
 	Player_SetCoins(id, 2);
     Player_SaveScoreData(id);
 	format(string, sizeof(string), "{FFFFFF}Parabéns novato, você recebeu:\n{9900ff}> {FFFFFF}Level: {00FF00}5\n{9900ff}> {FFFFFF}Horas Jogadas: {00FF00}15\n{9900ff}> {FFFFFF}Moedas VIP: {00FF00}2\n{FFFFFF}> Todas as licenças para veículos\n{FFFFFF}Administrador: %s\n{FFFFFF}Divulgue o Servidor!", GetPlayerNameCustom(playerid));
 	ShowPlayerDialog(id, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX, "Boas Vindas", string, "Fechar", "");
-	format(string, sizeof(string), "ADMIN YCMD: %s deu as boas vindas ao jogador %s[%d] [Level: %d | Dinheiro: %s | Moedas VIP| %s].", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id), id, Player_GetLevel(id), moneyString, coinsString);
+	format(string, sizeof(string), "[Administração]: %s deu as boas vindas ao jogador %s[%d].", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id), id);
 	SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
 	return 1;
 }

@@ -113,12 +113,12 @@ hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
     {
     	if (Vehicle_IsCivilVehicle(vehicleid))
         {
-			SendClientMessage(playerid, COLOR_NEONGREEN, "Novato, você pode chegar aos locais digitando /gps ou falando com um admin /relatorio.");
-	    	SendClientMessage(playerid, COLOR_NEONGREEN, "Consiga Seu Emprego /gps - Prefeitura | Digite /faq para tirar todas as suas dúvidas.");		}
+			SendClientMessage(playerid, COLOR_NEONGREEN, "Novato, você pode achar aos locais digitando: /gps.");
+	    	SendClientMessage(playerid, COLOR_NEONGREEN, "Em caso de dúvidas use: /faq, ou fale diretamente com os administradores: /relatorio.");		
+		}
         else
 		{
-		    SendClientMessage(playerid, COLORDGREEN, "[VEÍCULO]: Para dirigir em primeira pessoa digite {FFFFFF}/camera{228b22} ou {FFFFFF}/ajuda{228b22} para ver os comandos!");
-			SendClientMessage(playerid, COLORDGREEN, "[VEÍCULO]: Para ligar o motor deste veículo pressione {FFFFFF}N{228b22} ou digite {FFFFFF}/motor{228b22}!");
+			SendClientMessage(playerid, COLORDGREEN, "[Veículo]: Para ligar o motor deste veículo pressione {FFFFFF}N{228b22} ou digite {FFFFFF}/motor{228b22}.");
 		}
         return 1;
     }

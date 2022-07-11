@@ -32,7 +32,7 @@ YCMD:kitadmdono(playerid, params[], help)
 	GivePlayerWeapon(playerid, 16, 49);
 	SetPlayerArmour(playerid, 100);
 	SetPlayerHealth(playerid, 100);
-	SendClientMessage(playerid, COLOR_DARKGREEN, "Você pegou o seu kit administrador dono!");
+	SendClientMessage(playerid, COLOR_DARKGREEN, "Administrador: {B4B5B7}Você pegou o seu kit adm dono.");
     return 1;
 }
 
@@ -43,11 +43,11 @@ YCMD:deslogartodos(playerid, params[], help)
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
 	}
 
-    new string[62];
- 	foreach(new i: Player)
+    new string[86];
+ 	format(string, sizeof(string), "[Administração]: %s desconectou todos os jogadores do servidor.", GetPlayerNameCustom(playerid));
+	SendClientMessageToAll(COLOR_LIGHTRED, string);
+	foreach(new i: Player)
 	{
-		format(string, sizeof(string), "ADMIN CMD: %s deslogou todos os players.", GetPlayerNameCustom(playerid));
-		SendClientMessage(i, COLOR_LIGHTRED, string);
 		KickPlayer(i);
 	}
 	SendClientMessage(playerid, COLOR_INVALID, "Todos os players deslogados.");

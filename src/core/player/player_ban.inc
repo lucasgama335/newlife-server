@@ -50,11 +50,11 @@ stock AdminBanPlayer(playerid, adminId, days, const reason[])
                     new banString[144];
                     if (days <= 0)
                     {
-                        format(banString, sizeof(banString), "[BAN]: %s foi banido por %s permanentemente. [Motivo]: %s.", GetPlayerNameCustom(playerid), Player_GetBanAdminName(playerid), reasonCopyInline);
+                        format(banString, sizeof(banString), "[Administração]: %s foi banido por %s permanentemente. [Motivo]: %s.", GetPlayerNameCustom(playerid), Player_GetBanAdminName(playerid), reasonCopyInline);
                     }
                     else
                     {
-                        format(banString, sizeof(banString), "[BAN]: %s foi banido por %s durante [%d] dia(s). [Motivo]: %s.", GetPlayerNameCustom(playerid), Player_GetBanAdminName(playerid), days, reasonCopyInline);
+                        format(banString, sizeof(banString), "[Administração]: %s foi banido por %s durante [%d] dia(s). [Motivo]: %s.", GetPlayerNameCustom(playerid), Player_GetBanAdminName(playerid), days, reasonCopyInline);
                     }
                     SendClientMessageToAll(COLOR_LIGHTRED, banString);
                     ShowPlayerBanDialog(playerid, playerIpCopy, Player_GetBanAdminName(playerid), Chrono_ConvertToTimestamp(banTime), Chrono_ConvertToTimestamp(unBanTime), (days <= 0 ? true : false), reasonCopyInline);
@@ -120,12 +120,12 @@ stock SystemBanPlayer(playerid, days, const reason[])
                     new banString[144];
                     if (days <= 0)
                     {
-                        format(banString, sizeof(banString), "[BAN]: %s foi banido permanentemente pelo sistema. [Motivo]: %s.", GetPlayerNameCustom(playerid), reasonCopyInline);
+                        format(banString, sizeof(banString), "[Administração]: %s foi banido permanentemente pelo sistema. [Motivo]: %s.", GetPlayerNameCustom(playerid), reasonCopyInline);
 
                     }
                     else
                     {
-                        format(banString, sizeof(banString), "[BAN]: %s foi banido por pelo sistema durante [%d] dia(s). [Motivo]: %s.", GetPlayerNameCustom(playerid), days, reasonCopyInline);
+                        format(banString, sizeof(banString), "[Administração]: %s foi banido por pelo sistema durante [%d] dia(s). [Motivo]: %s.", GetPlayerNameCustom(playerid), days, reasonCopyInline);
                     }
                     SendClientMessageToAll(COLOR_LIGHTRED, banString);
                     ShowPlayerBanDialog(playerid, playerIpCopy, Player_GetBanAdminName(playerid), Chrono_ConvertToTimestamp(banTime), Chrono_ConvertToTimestamp(unBanTime), (days <= 0 ? true : false), reasonCopyInline);
@@ -191,11 +191,11 @@ stock AdminBanPlayerByName(const name[], adminId, days, const reason[])
                             new banString[188];
                             if (days <= 0)
                             {
-                                format(banString, sizeof(banString), "[BAN]: %s agendou o banimento de %s permanentemente. [Motivo]: %s.", GetPlayerNameCustom(adminId), playerNameCopy2, reasonCopy2);
+                                format(banString, sizeof(banString), "[Administração]: %s agendou o banimento de %s permanentemente. [Motivo]: %s.", GetPlayerNameCustom(adminId), playerNameCopy2, reasonCopy2);
                             }
                             else
                             {
-                                format(banString, sizeof(banString), "[BAN]: %s agendou o banimento de %s durante [%d] dia(s). [Motivo]: %s.", GetPlayerNameCustom(adminId), playerNameCopy2, days, reasonCopy2);
+                                format(banString, sizeof(banString), "[Administração]: %s agendou o banimento de %s durante [%d] dia(s). [Motivo]: %s.", GetPlayerNameCustom(adminId), playerNameCopy2, days, reasonCopy2);
                             }
                             SendClientMessageToAll(COLOR_LIGHTRED, banString);
 

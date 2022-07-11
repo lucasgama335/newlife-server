@@ -29,7 +29,7 @@ YCMD:sentar(playerid, params[], help)
 {
     if (IsPlayerInVehicle(playerid, GetPlayerVehicleID(playerid)))
 	{
-		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 
     ApplyAnimation(playerid, "PED", "SEAT_idle", 1.0, true, false, false, false, 0);
@@ -41,7 +41,7 @@ YCMD:dance(playerid, params[], help)
 {
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT)
 	{
-	    return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+	    return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 	new danceStyle;
 	if (sscanf(params, "d", danceStyle))
@@ -68,7 +68,7 @@ YCMD:animcopa(playerid, params[], help)
 {
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT)
 	{
-	    return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+	    return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 	new animStyle;
 	if (sscanf(params, "d", animStyle))
@@ -103,7 +103,7 @@ YCMD:strip(playerid, params[], help)
 {
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT)
 	{
-	    return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+	    return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 	new animStyle;
 	if (sscanf(params, "d", animStyle))
@@ -133,7 +133,7 @@ YCMD:gang(playerid, params[], help)
 {
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT)
 	{
-	    return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+	    return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 	new animStyle;
 	if (sscanf(params, "d", animStyle))
@@ -163,7 +163,7 @@ YCMD:animdance(playerid, params[], help)
 {
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT)
 	{
-	    return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+	    return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 	new animStyle;
 	if (sscanf(params, "d", animStyle))
@@ -199,7 +199,7 @@ YCMD:animcrack(playerid, params[], help)
 {
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT)
 	{
-	    return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+	    return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 	new animStyle;
 	if (sscanf(params, "d", animStyle))
@@ -231,7 +231,7 @@ YCMD:animfood(playerid, params[], help)
 {
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT)
 	{
-	    return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+	    return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 	new animStyle;
 	if (sscanf(params, "d", animStyle))
@@ -287,7 +287,7 @@ YCMD:animcolt(playerid, params[], help)
 {
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT)
 	{
-	    return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+	    return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 	new animStyle;
 	if (sscanf(params, "d", animStyle))
@@ -317,7 +317,7 @@ YCMD:robman(playerid, params[], help)
 {
 	if (IsPlayerInVehicle(playerid, GetPlayerVehicleID(playerid)))
 	{
-		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 
 	ApplyAnimation(playerid, "SHOP", "ROB_Loop_Threat", 4.0, true, false, false, false, 0); // Rob
@@ -329,7 +329,7 @@ YCMD:creu(playerid, params[], help)
 {
 	if (IsPlayerInVehicle(playerid, GetPlayerVehicleID(playerid)))
 	{
-		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 
 	ApplyAnimation(playerid,"CHOPPA","CHOPPA_back",4.1,true, true, true, true,1);
@@ -342,7 +342,7 @@ YCMD:handsup(playerid, params[], help)
 	// Verificações
 	if (IsPlayerInVehicle(playerid, GetPlayerVehicleID(playerid)))
 	{
-		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
     if (Player_GetWantedLevel(playerid) == 0)
 	{
@@ -364,7 +364,7 @@ YCMD:angry(playerid, params[], help)
 {
 	if (IsPlayerInVehicle(playerid, GetPlayerVehicleID(playerid)))
 	{
-		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 
 	ApplyAnimation(playerid,"RIOT","RIOT_ANGRY",4.0,false,false,false,false,0);
@@ -376,7 +376,7 @@ YCMD:deitar(playerid, params[], help)
 {
 	if (IsPlayerInVehicle(playerid, GetPlayerVehicleID(playerid)))
 	{
-		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 
 	ApplyAnimation(playerid, "BEACH", "bather", 4.0, true, false, false, false, 0);
@@ -388,7 +388,7 @@ YCMD:fumar(playerid, params[], help)
 {
 	if (IsPlayerInVehicle(playerid, GetPlayerVehicleID(playerid)))
 	{
-		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 
 	ApplyAnimation(playerid, "SMOKING", "F_smklean_loop", 4.0, true, false, false, false, 0);
@@ -401,7 +401,7 @@ YCMD:hide(playerid, params[], help)
 {
 	if (IsPlayerInVehicle(playerid, GetPlayerVehicleID(playerid)))
 	{
-		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 
 	ApplyAnimation(playerid, "ped", "cower", 3.0, true, false, false, false, 0);
@@ -413,7 +413,7 @@ YCMD:vomitar(playerid, params[], help)
 {
 	if (IsPlayerInVehicle(playerid, GetPlayerVehicleID(playerid)))
 	{
-		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 
 	ApplyAnimation(playerid, "FOOD", "EAT_Vomit_P", 3.0, false, false, false, false, 0);
@@ -425,7 +425,7 @@ YCMD:wave(playerid, params[], help)
 {
 	if (IsPlayerInVehicle(playerid, GetPlayerVehicleID(playerid)))
 	{
-		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 
 	ApplyAnimation(playerid, "ON_LOOKERS", "wave_loop", 4.0, true, false, false, false, 0);
@@ -437,7 +437,7 @@ YCMD:taichi(playerid, params[], help)
 {
 	if (IsPlayerInVehicle(playerid, GetPlayerVehicleID(playerid)))
 	{
-		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 
 	ApplyAnimation(playerid, "PARK", "Tai_Chi_Loop", 4.0, true, false, false, false, 0);
@@ -449,7 +449,7 @@ YCMD:getarrested(playerid, params[], help)
 {
 	if (IsPlayerInVehicle(playerid, GetPlayerVehicleID(playerid)))
 	{
-		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 
 	ApplyAnimation(playerid,"ped", "ARRESTgun", 4.0, false, true, true, true, -1);
@@ -461,7 +461,7 @@ YCMD:punheta(playerid, params[], help)
 {
 	if (IsPlayerInVehicle(playerid, GetPlayerVehicleID(playerid)))
 	{
-		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 
 	ApplyAnimation(playerid,"PAULNMAC", "wank_loop", 1.800001, true, false, false, true, 600);
@@ -473,7 +473,7 @@ YCMD:mijar(playerid, params[], help)
 {
 	if (IsPlayerInVehicle(playerid, GetPlayerVehicleID(playerid)))
 	{
-		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 
 	SetPlayerSpecialAction(playerid, 68);
@@ -485,7 +485,7 @@ YCMD:chat(playerid, params[], help)
 {
 	if (IsPlayerInVehicle(playerid, GetPlayerVehicleID(playerid)))
 	{
-		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 
 	ApplyAnimation(playerid, "PED", "IDLE_CHAT", 4.0, true, false, false, false, 0);
@@ -497,7 +497,7 @@ YCMD:gro(playerid, params[], help)
 {
 	if (IsPlayerInVehicle(playerid, GetPlayerVehicleID(playerid)))
 	{
-		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar este comando dentro de um veículo!");
+		return SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar animações dentro de um veículo.");
 	}
 
 	ApplyAnimation(playerid, "BEACH", "ParkSit_M_loop", 4.0, true, false, false, false, 0);
