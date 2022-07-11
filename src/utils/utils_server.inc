@@ -28,9 +28,9 @@ stock PrintLog(const folder[], const string[], maxlength = sizeof(string))
     return 1;
 }
 
-stock FormatMoneyString(number)
+stock FormatMoneyString(number, moneyString[], lenght = sizeof(moneyString))
 {
-    new real, mil, milhao, milhaor, bilhao, bilhaor, string[100];
+    new real, mil, milhao, milhaor, bilhao, bilhaor;
     if (number > 999999999)
     {
         bilhao = number / 1000000000;
@@ -52,23 +52,24 @@ stock FormatMoneyString(number)
         mil = number / 1000;
         real = number % 1000;
     }
+    
     if (number > 999999999)
     {
-        format(string, 100, "%d.%03d.%03d.%03d", bilhao, milhao, mil, real);
+        format(moneyString, lenght, "%d.%03d.%03d.%03d", bilhao, milhao, mil, real);
     }
     else if (number > 999999)
     {
-        format(string, 100, "%d.%03d.%03d", milhao, mil, real);
+        format(moneyString, lenght, "%d.%03d.%03d", milhao, mil, real);
     }
     else if (number > 999)
     {
-        format(string, 100, "%d.%03d", mil, real);
+        format(moneyString, lenght, "%d.%03d", mil, real);
     }
     else
     {
-        format(string, 100, "%d", number);
+        format(moneyString, lenght, "%d", number);
     }
-    return string;
+    return 1;
 }
 
 stock GetPlayerWeaponName(gun)

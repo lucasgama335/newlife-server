@@ -104,11 +104,10 @@ stock bool:Player_SetTutorialStatus(playerid, bool:status)
 
 // ============== LAST LOGIN ACCESSORS ============== //
 // Getters
-stock Player_GetLastLoginFormated(playerid)
+stock Player_GetLastLoginFormated(playerid, timeString[], lenght = sizeof(timeString))
 {
-    new date[20];
-    format(date, sizeof(date), "%s", Chrono_GetFullDate(gsGeneralInfo[playerid][p_LAST_LOGIN_TIME]));
-    return date;
+    Chrono_GetFullDate(gsGeneralInfo[playerid][p_LAST_LOGIN_TIME], timeString, lenght);
+    return 1;
 }
 
 stock Timestamp:Player_GetLastLoginTemp(playerid)

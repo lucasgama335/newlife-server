@@ -76,7 +76,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						{
 							stop gsFillUpTimer[playerid];
 						}
-						gsFillUpTimer[playerid] = defer FillUp(playerid, vehicleid, 1, 60, false);
+						gsFillUpTimer[playerid] = defer FillUp(playerid, vehicleid, 1, 60);
 	                }
 	                case 1:
 	                {
@@ -100,7 +100,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						{
 							stop gsFillUpTimer[playerid];
 						}
-						gsFillUpTimer[playerid] = defer FillUp(playerid, vehicleid, 2, 150, false);
+						gsFillUpTimer[playerid] = defer FillUp(playerid, vehicleid, 2, 150);
 	                }
 	                case 2:
 	                {
@@ -124,7 +124,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						{
 							stop gsFillUpTimer[playerid];
 						}
-						gsFillUpTimer[playerid] = defer FillUp(playerid, vehicleid, 3, 300, false);
+						gsFillUpTimer[playerid] = defer FillUp(playerid, vehicleid, 3, 300);
 	                }
 	            }
 			}

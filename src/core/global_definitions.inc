@@ -28,9 +28,6 @@
 // Configuration
 #define	INVALID_VALUE			-1
 
-#define	MAX_PASS_LEN			15
-#define	MIN_PASS_LEN			8
-#define MAX_LOG_STRING  		118
 #define	TIME_WEATHER_FORECAST	7200
 
 #define DEFAULT_SKIN_MALE		23
@@ -76,9 +73,19 @@
 #define	PLAYER_OBJECT_9			8
 #define	PLAYER_OBJECT_10		9
 
+// Strings Limits
+#define	MAX_PASS_LEN			15
+#define	MIN_PASS_LEN			8
+#define MAX_LOG_STRING  		118
 #define MAX_IP_STRING           16
 #define MAX_REASON_STRING       65
-
+#define	MAX_ADMIN_ROLE_STRING	11
+#define	MAX_FULL_DATE_STRING	20
+#define	MAX_DAY_NAME_STRING		14
+#define	MAX_DATE_STRING			9
+#define	MAX_HOUR_STRING			9
+#define	MAX_MONEY_STRING		100
+#define	MAX_VEHICLE_NAME_STRING 75
 // Admin Levels
 enum e_ADMIN_LEVELS
 {

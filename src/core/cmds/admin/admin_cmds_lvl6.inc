@@ -175,10 +175,11 @@ YCMD:setgrana(playerid, params[], help)
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
 
-	new string[126];
+	new string[126], moneyString[MAX_MONEY_STRING];
+	FormatMoneyString(money, moneyString);
 	ResetPlayerMoneyCustom(playerid);
 	SetPlayerMoneyCustom(id, money);
-    format(string, sizeof(string), "ADMIN CMD: O Admin %s setou a grana de %s para R$[%s].", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id), FormatMoneyString(money));
+    format(string, sizeof(string), "ADMIN CMD: O Admin %s setou a grana de %s para R$[%s].", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id), moneyString);
 	SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
     PrintLog(FOLDER_ADMIN_SETMONEY, string);
     return 1;
@@ -204,9 +205,10 @@ YCMD:dargrana(playerid, params[], help)
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
 
-	new string[126];
+	new string[126], moneyString[MAX_MONEY_STRING];
+	FormatMoneyString(money, moneyString);
 	SetPlayerMoneyCustom(id, (Player_GetMoney(id) + money));
-    format(string, sizeof(string), "ADMIN CMD: O Admin %s está dando R$[%s] para %s.", GetPlayerNameCustom(playerid), FormatMoneyString(money), GetPlayerNameCustom(id));
+    format(string, sizeof(string), "ADMIN CMD: O Admin %s está dando R$[%s] para %s.", GetPlayerNameCustom(playerid), moneyString, GetPlayerNameCustom(id));
 	SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
     PrintLog(FOLDER_ADMIN_SETMONEY, string);
     return 1;

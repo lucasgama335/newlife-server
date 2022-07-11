@@ -20,16 +20,20 @@ hook FirstSpawnOnLogin(playerid)
     }
     else
     {
+        new lastLoginString[MAX_FULL_DATE_STRING];
+        Player_GetLastLoginFormated(playerid, lastLoginString);
         SendClientMessage(playerid, COLOR_WHITE, "________________________________________________________________________________________________");
         format(string, sizeof(string), "* [Aviso]: Seja Bem Vindo(a): {FFFFFF}%s{33ccff}.", GetPlayerNameCustom(playerid));
         SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
         SendClientMessage(playerid, COLOR_LIGHTBLUE, "* [Aviso]: Para voltar na última posição de onde saiu pela última vez digite ({FFFFFF}/irposicao{33ccff})!");
         SendClientMessage(playerid, COLOR_LIGHTBLUE, "* [Aviso]: Retire suas dúvidas usando ({FFFFFF}/relato{33ccff}) ou com o chat de dúvidas ({FFFFFF}/nchat{33ccff}).");
-        format(string, sizeof(string), "* [Aviso]: Último login no dia: {FFFFFF}%s {33ccff}durante {FFFFFF}%d{33ccff} hora(s).", Player_GetLastLoginFormated(playerid), Player_GetLastConnectedTime(playerid));
+        format(string, sizeof(string), "* [Aviso]: Último login no dia: {FFFFFF}%s {33ccff}durante {FFFFFF}%d{33ccff} hora(s).", lastLoginString, Player_GetLastConnectedTime(playerid));
  		SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
         if (Player_GetAdminLevel(playerid) >= HELPER)
         {
-            format(string, sizeof(string), "[{FFFFFF}ADMIN{33ccff}]: Você Logou Como Admin: [{FFFFFF}%s{33ccff}].", GetAdminRoleName(Player_GetAdminLevel(playerid)));
+            new roleName[MAX_ADMIN_ROLE_STRING];
+            GetAdminRoleName(Player_GetAdminLevel(playerid), roleName);
+            format(string, sizeof(string), "[{FFFFFF}ADMIN{33ccff}]: Você Logou Como Admin: [{FFFFFF}%s{33ccff}].", roleName);
             SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
         }
 		if (Player_GetAdminLevel(playerid) >= HELPER && Player_GetAdminLevel(playerid) < SUB_OWNER)
@@ -42,8 +46,9 @@ hook FirstSpawnOnLogin(playerid)
         GameTextForPlayer(playerid, string, 5000, 1);
         if (Player_GetAdminLevel(playerid) >= HELPER_OWNER)
         {
-            new admPassDialog[300];
-            format(admPassDialog, sizeof(admPassDialog), "{FFFFFF}Conta: {0080ff}%s\n{FFFFFF}Você logou com Admin ({0080ff}%s{FFFFFF})\n\n{FFFFFF}Você precisa autenticar a senha de segurança para poder\n{FFFFFF}logar em sua conta!\n\n{ff6347}OBS: {FFFFFF}Você só tem uma tentativa ou será desconectado do servidor.\n\n\n{6e6e6e}Insira abaixo a senha da administração:", GetPlayerNameCustom(playerid), GetAdminRoleName(Player_GetAdminLevel(playerid)));
+            new admPassDialog[300], roleName[MAX_ADMIN_ROLE_STRING];
+            GetAdminRoleName(Player_GetAdminLevel(playerid), roleName);
+            format(admPassDialog, sizeof(admPassDialog), "{FFFFFF}Conta: {0080ff}%s\n{FFFFFF}Você logou com Admin ({0080ff}%s{FFFFFF})\n\n{FFFFFF}Você precisa autenticar a senha de segurança para poder\n{FFFFFF}logar em sua conta!\n\n{ff6347}OBS: {FFFFFF}Você só tem uma tentativa ou será desconectado do servidor.\n\n\n{6e6e6e}Insira abaixo a senha da administração:", GetPlayerNameCustom(playerid), roleName);
             ShowPlayerDialog(playerid, DIALOG_AUTH_ADMIN, DIALOG_STYLE_PASSWORD, "Proteção de Conta", admPassDialog, "Validar", "");
         }
     }

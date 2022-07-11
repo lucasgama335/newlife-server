@@ -476,7 +476,12 @@ stock UpdatePlayerHud(playerid, Timestamp:time, hungry, drink, paydayTime)
     GetPlayerPos(playerid, playerX, playerY, playerZ);
     if (gsHudTextdraw[playerid][2] != INVALID_PLAYER_TEXT_DRAW)
     {
-        PlayerTextDrawSetString(playerid, gsHudTextdraw[playerid][2], Chrono_FormatHudDate(time));
+        static timeString[38], dayName[MAX_DAY_NAME_STRING], dateString[MAX_DATE_STRING], hourString[MAX_HOUR_STRING];
+        Chrono_GetDayName(time, dayName);
+        Chrono_GetDate(time, dateString);
+        Chrono_GetHour(time, hourString);
+        format(timeString, sizeof(timeString), "%s, %s - %s", dayName, dateString, hourString);
+        PlayerTextDrawSetString(playerid, gsHudTextdraw[playerid][2], timeString);
     }
 
     if (gsHudTextdraw[playerid][10] != INVALID_PLAYER_TEXT_DRAW)

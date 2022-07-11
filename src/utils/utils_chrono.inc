@@ -43,77 +43,71 @@ stock Timestamp:Chrono_SubtractDays(Timestamp:ts, days)
 	return ts;
 }
 
-stock Chrono_GetFullDate(Timestamp:tsTimezone)
+stock Chrono_GetFullDate(Timestamp:tsTimezone, timeString[], lenght = sizeof(timeString))
 {
 	CorrectTimezone(tsTimezone);
 
-	new fullOutput[20];
-	TimeFormat(tsTimezone, "%d/%m/%Y %H:%M:%S", fullOutput);
-	return fullOutput;
+	TimeFormat(tsTimezone, "%d/%m/%Y %H:%M:%S", timeString, lenght);
+	return 1;
 }
 
-stock Chrono_GetDayName(Timestamp:tsTimezone)
+stock Chrono_GetDayName(Timestamp:tsTimezone, dayString[], lenght = sizeof(dayString))
 {
 	CorrectTimezone(tsTimezone);
 
-	new output[14];
-	TimeFormat(tsTimezone, WEEKDAY_NAME, output);
-	if (!strcmp("Monday", output, true)) format(output, sizeof(output), "Segunda-Feira");
-	else if (!strcmp("Tuesday", output, true)) format(output, sizeof(output), "Terça-Feira");
-	else if (!strcmp("Wednesday", output, true)) format(output, sizeof(output), "Quarta-Feira");
-	else if (!strcmp("Thursday", output, true)) format(output, sizeof(output), "Quinta-Feira");
-	else if (!strcmp("Friday", output, true)) format(output, sizeof(output), "Sexta-Feira");
-	else if (!strcmp("Saturday", output, true)) format(output, sizeof(output), "Sabado");
-	else if (!strcmp("Sunday", output, true)) format(output, sizeof(output), "Domingo");
-	return output;
+	TimeFormat(tsTimezone, WEEKDAY_NAME, dayString, lenght);
+	if (!strcmp("Monday", dayString, true)) format(dayString, lenght, "Segunda-Feira");
+	else if (!strcmp("Tuesday", dayString, true)) format(dayString, lenght, "Terça-Feira");
+	else if (!strcmp("Wednesday", dayString, true)) format(dayString, lenght, "Quarta-Feira");
+	else if (!strcmp("Thursday", dayString, true)) format(dayString, lenght, "Quinta-Feira");
+	else if (!strcmp("Friday", dayString, true)) format(dayString, lenght, "Sexta-Feira");
+	else if (!strcmp("Saturday", dayString, true)) format(dayString, lenght, "Sabado");
+	else if (!strcmp("Sunday", dayString, true)) format(dayString, lenght, "Domingo");
+	return 1;
 }
 
-stock Chrono_GetDate(Timestamp:tsTimezone)
+stock Chrono_GetDate(Timestamp:tsTimezone, dateString[], lenght = sizeof(dateString))
 {
 	CorrectTimezone(tsTimezone);
 
-	new output[9];
-	TimeFormat(tsTimezone, HUMAN_DATE, output);
-	return output;
+	TimeFormat(tsTimezone, HUMAN_DATE, dateString, lenght);
+	return 1;
 }
 
-stock Chrono_GetDay(Timestamp:tsTimezone)
+stock Chrono_GetDay(Timestamp:tsTimezone, dayString[], lenght = sizeof(dayString))
 {
 	CorrectTimezone(tsTimezone);
 
-	new output[3];
-	TimeFormat(tsTimezone, "%d", output);
-	return output;
+	TimeFormat(tsTimezone, "%d", dayString, lenght);
+	return 1;
 }
 
-stock Chrono_GetHour(Timestamp:tsTimezone)
+stock Chrono_GetHour(Timestamp:tsTimezone, hourString[], lenght = sizeof(hourString))
 {
 	CorrectTimezone(tsTimezone);
 
-	new output[9];
-	TimeFormat(tsTimezone, "%H:%M:%S", output);
-	return output;
+	TimeFormat(tsTimezone, "%H:%M:%S", hourString, lenght);
+	return 1;
 }
 
-stock Chrono_GetMonth(Timestamp:tsTimezone)
+stock Chrono_GetMonth(Timestamp:tsTimezone, monthString[], lenght = sizeof(monthString))
 {
 	CorrectTimezone(tsTimezone);
 
-	new output[10];
-	TimeFormat(tsTimezone, "%B", output);
-	if (!strcmp("January", output, true)) format(output, sizeof(output), "Janeiro");
-	else if (!strcmp("February", output, true)) format(output, sizeof(output), "Fevereiro");
-	else if (!strcmp("March", output, true)) format(output, sizeof(output), "Março");
-	else if (!strcmp("April", output, true)) format(output, sizeof(output), "Abril");
-	else if (!strcmp("May", output, true)) format(output, sizeof(output), "Maio");
-	else if (!strcmp("June", output, true)) format(output, sizeof(output), "Junho");
-	else if (!strcmp("July", output, true)) format(output, sizeof(output), "Julho");
-	else if (!strcmp("August", output, true)) format(output, sizeof(output), "Agosto");
-	else if (!strcmp("September", output, true)) format(output, sizeof(output), "Setembro");
-	else if (!strcmp("October", output, true)) format(output, sizeof(output), "Outubro");
-	else if (!strcmp("November", output, true)) format(output, sizeof(output), "Novembro");
-	else if (!strcmp("December", output, true)) format(output, sizeof(output), "Dezembro");
-	return output;
+	TimeFormat(tsTimezone, "%B", monthString, lenght);
+	if (!strcmp("January", monthString, true)) format(output, lenght, "Janeiro");
+	else if (!strcmp("February", monthString, true)) format(output, lenght, "Fevereiro");
+	else if (!strcmp("March", monthString, true)) format(output, lenght, "Março");
+	else if (!strcmp("April", monthString, true)) format(output, lenght, "Abril");
+	else if (!strcmp("May", monthString, true)) format(output, lenght, "Maio");
+	else if (!strcmp("June", monthString, true)) format(output, lenght, "Junho");
+	else if (!strcmp("July", monthString, true)) format(output, lenght, "Julho");
+	else if (!strcmp("August", monthString, true)) format(output, lenght, "Agosto");
+	else if (!strcmp("September", monthString, true)) format(output, lenght, "Setembro");
+	else if (!strcmp("October", monthString, true)) format(output, lenght, "Outubro");
+	else if (!strcmp("November", monthString, true)) format(output, lenght, "Novembro");
+	else if (!strcmp("December", monthString, true)) format(output, lenght, "Dezembro");
+	return 1;
 }
 
 stock Chrono_GetHourDigit(Timestamp:tsTimezone)
@@ -141,13 +135,6 @@ stock Server_FormatSecondDigit(Timestamp:tsTimezone)
 	new output[3];
 	TimeFormat(tsTimezone, "%S", output);
 	return strval(output);
-}
-
-stock Chrono_FormatHudDate(Timestamp:time)
-{
-	static timeString[38];
-	format(timeString, sizeof(timeString), "%s, %s - %s", Chrono_GetDayName(time), Chrono_GetDate(time), Chrono_GetHour(time));
-	return timeString;
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------

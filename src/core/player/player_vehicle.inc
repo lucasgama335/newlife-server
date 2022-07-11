@@ -27,8 +27,9 @@ stock StartSpeedometerTimer(playerid, vehicleid)
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 static stock ShowActualVehicleName(playerid, vehicleid)
 {
-	new string[100];
-	format(string, sizeof(string), "~g~%s[%d]", GetVehicleName(GetVehicleModel(vehicleid)), GetVehicleModel(vehicleid));
+	new string[100], vehicleName[MAX_VEHICLE_NAME_STRING];
+	GetVehicleName(GetVehicleModel(vehicleid), vehicleName);
+	format(string, sizeof(string), "~g~%s[%d]", vehicleName, GetVehicleModel(vehicleid));
 	GameTextForPlayer(playerid, string, 6000, 1);
 	return 1;
 }

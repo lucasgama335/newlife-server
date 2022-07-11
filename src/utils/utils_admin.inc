@@ -6,11 +6,10 @@
 static gsAdminRole[MAX_ADMIN_ROLES][] = { "Nenhum", "Estagiário", "Ajudante", "Moderador", "Supervisor", "Master", "Master +", "Master ++", "Gerente", "Sub-Dono", "Dono" };
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-stock GetAdminRoleName(role)
+stock GetAdminRoleName(role, string[], lenght = sizeof(string))
 {
-    new string[11];
-    format(string, sizeof(string), "%s", gsAdminRole[role]);
-    return string;
+    format(string, lenght, "%s", gsAdminRole[role]);
+    return 1;
 }
 
 stock TeleportPlayer(playerid, Float:x, Float:y, Float:z, Float:a, interior, world)

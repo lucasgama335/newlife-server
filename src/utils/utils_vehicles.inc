@@ -37,16 +37,15 @@ static const gscVehicleNames[212][] =
 };
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-stock GetVehicleName(model)
+stock GetVehicleName(model, vehicleString[], lenght = sizeof(vehicleString))
 {
-    new nameVeh[75];
     if (model < 400 || model > 611)
 	{
-    	strcat(nameVeh, "Nenhum");
-        return nameVeh;
+        format(vehicleString, lenght, "Nenhum");
+        return 1;
     }
-    strcat(nameVeh, gscVehicleNames[model - 400]);
-    return nameVeh;
+    format(vehicleString, lenght, "%s", gscVehicleNames[model - 400]);
+    return 1;
 }
 
 stock GetVehicleSpeed(vehicleid)

@@ -41,7 +41,10 @@ stock Admin_GetSpectateTimerId(playerid)
 
 stock UpdateSpectatePlayer(playerid, id)
 {
-	new string[120];
+	new string[120], moneyString[MAX_MONEY_STRING], vehicleName[MAX_VEHICLE_NAME_STRING];
+	FormatMoneyString(Player_GetMoney(id), moneyString);
+	GetVehicleName(GetVehicleModel(GetPlayerVehicleID(id)), vehicleName);
+	
 	PlayerTextDrawHide(playerid, GetSpectateTextdrawId(playerid, 1));
 	PlayerTextDrawSetPreviewModel(playerid, GetSpectateTextdrawId(playerid, 1), GetPlayerSkin(id));
 	PlayerTextDrawShow(playerid, GetSpectateTextdrawId(playerid, 1));
@@ -60,9 +63,9 @@ stock UpdateSpectatePlayer(playerid, id)
 	format(string, sizeof(string), "%i", GetPlayerWeaponAmmo(id, GetPlayerWeapon(id)));
 	PlayerTextDrawSetString(playerid, GetSpectateTextdrawId(playerid, 13), string);
 	PlayerTextDrawSetString(playerid, GetSpectateTextdrawId(playerid, 15), (Player_GetUsingAndroidStatus(id) ? "Android" : "PC"));
-	format(string, sizeof(string), "%s", FormatMoneyString(Player_GetMoney(id)));
+	format(string, sizeof(string), "%s", moneyString);
 	PlayerTextDrawSetString(playerid, GetSpectateTextdrawId(playerid, 17), string);
-	format(string, sizeof(string), "%s", GetVehicleName(GetVehicleModel(GetPlayerVehicleID(id))));
+	format(string, sizeof(string), "%s", vehicleName);
 	PlayerTextDrawSetString(playerid, GetSpectateTextdrawId(playerid, 19), string);
 	format(string, sizeof(string), "%d", GetPlayerSpeed(id, true));
 	PlayerTextDrawSetString(playerid, GetSpectateTextdrawId(playerid, 21), string);

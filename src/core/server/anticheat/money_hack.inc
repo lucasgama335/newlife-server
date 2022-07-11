@@ -31,9 +31,11 @@ hook OnPlayerUpdate(playerid)
         new hacked_money = GetPlayerMoney(playerid); 
         if (hacked_money != Player_GetMoney(playerid))
         {
+            new moneyString[MAX_MONEY_STRING];
+            FormatMoneyString((hacked_money - Player_GetMoney(playerid)), moneyString);
             SetPlayerMoneyCustom(playerid, Player_GetMoney(playerid));
             new string[MAX_LOG_STRING];
-            format(string, sizeof(string), "Anti-Cheat: %s possivelmente usou money hack R$ [%s], ou o seu dinheiro bugou.", GetPlayerNameCustom(playerid), FormatMoneyString((hacked_money - Player_GetMoney(playerid))));
+            format(string, sizeof(string), "Anti-Cheat: %s possivelmente usou money hack R$ [%s], ou o seu dinheiro bugou.", GetPlayerNameCustom(playerid), moneyString);
             PrintLog(FOLDER_ANTICHEAT_MONEY, string);
         }
     }

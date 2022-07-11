@@ -59,7 +59,7 @@ stock SetPlayerRefueling(playerid, bool:status)
 }
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
-timer FillUp[5000](playerid, vehicleid, type, price, bool:detran)
+timer FillUp[5000](playerid, vehicleid, type, price)
 {
 	switch(type)
 	{
@@ -90,13 +90,12 @@ timer FillUp[5000](playerid, vehicleid, type, price, bool:detran)
 			Vehicle_SetFuel(vehicleid, 100);
 		}
 	}
-	new string[63 + 1];
+	new string[63 + 1], moneyString[MAX_MONEY_STRING];
+	FormatMoneyString(price, moneyString);
 	SetPlayerRefueling(playerid, false);
 	SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - price));
 	TogglePlayerControllable(playerid, true);
-	// if (!detran) Bizz_GiveMoney(11, price);
-	if (detran) format(string, sizeof(string), "[Detran]: Seu veículo foi abastecido, custo R$ %s!", FormatMoneyString(price));
-	else format(string, sizeof(string), "[Posto de Gasolina]: Seu veículo foi abastecido, custo R$ %s!", FormatMoneyString(price));
+	format(string, sizeof(string), "[Posto de Gasolina]: Seu veículo foi abastecido, custo R$ %s!", moneyString);
 	SendClientMessage(playerid, COLOR_YELLOW2, string);
 	return 1;
 }

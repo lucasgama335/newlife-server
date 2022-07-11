@@ -76,20 +76,23 @@ timer PlayerUpdateStatus[1000](playerid)
 
 stock PlayerGetPayday(playerid)
 {
-    new string[160], salaryReceived = 0;
+    new string[160], salaryReceived = 0, moneyString[MAX_MONEY_STRING], salaryString[MAX_MONEY_STRING];
+    FormatMoneyString(Player_GetSalary(playerid), moneyString);
+    FormatMoneyString(salaryReceived, salaryString);
+
     SendClientMessage(playerid, COLOR_WHITE, "___________[ Salário(PayDay) ]___________");
     if (salaryReceived > 0)
     {
-        format(string, sizeof(string), "Salário: R$ [{00FF00}%s{FFFFFF}] | Organização: R$ [{00FF00}%s{FFFFFF}]", FormatMoneyString(Player_GetSalary(playerid)), FormatMoneyString(salaryReceived));
+        format(string, sizeof(string), "Salário: R$ [{00FF00}%s{FFFFFF}] | Organização: R$ [{00FF00}%s{FFFFFF}]", moneyString, salaryString);
     }
     else
     {
-        format(string, sizeof(string), "Salário: R$ [{00FF00}%s{FFFFFF}]", FormatMoneyString(Player_GetSalary(playerid)));
+        format(string, sizeof(string), "Salário: R$ [{00FF00}%s{FFFFFF}]", moneyString);
     }
     SendClientMessage(playerid, COLOR_WHITE, string);
 
 
-    new vip_money = 0, vip_exp = 0;
+    new vip_money = 0, vip_exp = 0, moneyVipString[MAX_MONEY_STRING];
     switch(Player_GetVipLevel(playerid))
     {
         case 1:
@@ -97,7 +100,8 @@ stock PlayerGetPayday(playerid)
             new moneyVip = 3000 + random(2000);
             vip_exp += 1;
             vip_money += moneyVip;
-            format(string, sizeof(string), "{FFFF00}Bônus VIP: {FFFFFF}Experiência: {00FF00}+1 {FFFFFF} | Dinheiro Extra: R$ [{00FF00}%s{FFFFFF}]", FormatMoneyString(moneyVip));
+            FormatMoneyString(moneyVip, moneyVipString);
+            format(string, sizeof(string), "{FFFF00}Bônus VIP: {FFFFFF}Experiência: {00FF00}+1 {FFFFFF} | Dinheiro Extra: R$ [{00FF00}%s{FFFFFF}]", moneyVipString);
             SendClientMessage(playerid, COLOR_WHITE, string);	
         }
         case 2:
@@ -105,7 +109,7 @@ stock PlayerGetPayday(playerid)
             new moneyVip = 5000 + random(2000);
             vip_exp += 2;
             vip_money += moneyVip;
-            format(string, sizeof(string), "{FFFF00}Bônus VIP: {FFFFFF}Experiência: {00FF00}+2 {FFFFFF} | Dinheiro Extra: R$ [{00FF00}%s{FFFFFF}]", FormatMoneyString(moneyVip));
+            format(string, sizeof(string), "{FFFF00}Bônus VIP: {FFFFFF}Experiência: {00FF00}+2 {FFFFFF} | Dinheiro Extra: R$ [{00FF00}%s{FFFFFF}]", moneyVipString);
             SendClientMessage(playerid, COLOR_WHITE, string);
         }
     }
@@ -116,7 +120,8 @@ stock PlayerGetPayday(playerid)
             new moneySocio = 6000 + random(3000);
             vip_exp += 3;
             vip_money += moneySocio;
-            format(string, sizeof(string), "{FFFF00}Bônus Sócio: {FFFFFF}Experiência: {00FF00}+3 {FFFFFF} | Dinheiro Extra: R$ [{00FF00}%s{FFFFFF}]", FormatMoneyString(moneySocio));
+            FormatMoneyString(moneySocio, moneyVipString);
+            format(string, sizeof(string), "{FFFF00}Bônus Sócio: {FFFFFF}Experiência: {00FF00}+3 {FFFFFF} | Dinheiro Extra: R$ [{00FF00}%s{FFFFFF}]", moneyVipString);
             SendClientMessage(playerid, COLOR_WHITE, string);	
         }
         case 2:
@@ -124,7 +129,8 @@ stock PlayerGetPayday(playerid)
             new moneySocio = 10000 + random(5000);
             vip_exp += 4;
             vip_money += moneySocio;
-            format(string, sizeof(string), "{FFFF00}Bônus Sócio: {FFFFFF}Experiência: {00FF00}+4 {FFFFFF} | Dinheiro Extra: R$ [{00FF00}%s{FFFFFF}]", FormatMoneyString(moneySocio));
+            FormatMoneyString(moneySocio, moneyVipString);
+            format(string, sizeof(string), "{FFFF00}Bônus Sócio: {FFFFFF}Experiência: {00FF00}+4 {FFFFFF} | Dinheiro Extra: R$ [{00FF00}%s{FFFFFF}]", moneyVipString);
             SendClientMessage(playerid, COLOR_WHITE, string);
         }
     }

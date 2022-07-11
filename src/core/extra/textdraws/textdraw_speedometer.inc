@@ -307,7 +307,9 @@ stock UpdatePlayerSpeedometer(playerid, vehicleid, type)
 
 			if (modernSpeedometer[playerid][8] != INVALID_PLAYER_TEXT_DRAW)
 			{
-	            PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][8], GetVehicleName(GetVehicleModel(vehicleid)));
+				new vehicleName[MAX_VEHICLE_NAME_STRING];
+				GetVehicleName(GetVehicleModel(vehicleid), vehicleName);
+	            PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][8], vehicleName);
 			}
 
 			if (modernSpeedometer[playerid][17] != INVALID_PLAYER_TEXT_DRAW)
@@ -356,7 +358,9 @@ stock UpdatePlayerSpeedometer(playerid, vehicleid, type)
 
 			if (compactSpeedometer[playerid][5] != INVALID_PLAYER_TEXT_DRAW)
 			{
-	            PlayerTextDrawSetString(playerid, compactSpeedometer[playerid][5], GetVehicleName(GetVehicleModel(vehicleid)));
+				new vehicleName[MAX_VEHICLE_NAME_STRING];
+				GetVehicleName(GetVehicleModel(vehicleid), vehicleName);
+	            PlayerTextDrawSetString(playerid, compactSpeedometer[playerid][5], vehicleName);
 			}
 
 			if (compactSpeedometer[playerid][2] != INVALID_PLAYER_TEXT_DRAW)
