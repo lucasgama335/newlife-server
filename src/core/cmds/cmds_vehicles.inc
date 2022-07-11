@@ -137,7 +137,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 YCMD:motor(playerid, params[], help)
 {
 	new vehicleid = GetPlayerVehicleID(playerid);
-	return Vehicle_SetEngineToPlayer(playerid, vehicleid, (Vehicle_GetEngineStatus(vehicleid) ? false : true));
+	Vehicle_SetEngineToPlayer(playerid, vehicleid, (Vehicle_GetEngineStatus(vehicleid) ? false : true));
+	return 1;
 }
 
 YCMD:abastecerposto(playerid, params[], help)

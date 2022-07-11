@@ -184,15 +184,14 @@ static stock ResetPlayerDrivingTest(playerid, bool:updatePos = true)
     ResetPlayerDrivingData(playerid);
     HideDriveSchoolHud(playerid);
     DisablePlayerRaceCheckpoint(playerid);
-    if (updatePos)
-    {
-        SetPlayerWorldCustom(playerid, DRIVING_SCHOOL_LOCALE, 0, DRIVING_SCHOOL_LOCALE);
-        Streamer_UpdateEx(playerid, PLAYER_FINISH_DRIVING_TEST, 0, DRIVING_SCHOOL_LOCALE, STREAMER_TYPE_OBJECT, 3000, 1);
-        SetPlayerPos(playerid, PLAYER_FINISH_DRIVING_TEST);
-    }
     if (vehicleid != INVALID_VEHICLE_ID && IsValidVehicle(vehicleid))
     {
+        RemovePlayerFromVehicle(playerid);
         SetVehicleToRespawn(vehicleid);
+    }
+    if (updatePos)
+    {
+        TeleportPlayer(playerid, PLAYER_FINISH_DRIVING_TEST, DRIVING_SCHOOL_LOCALE, 0, DRIVING_SCHOOL_LOCALE, true, 3000);
     }
     if (Timer_IsRunning(gsDriveSchoolTimer[playerid]))
     {
@@ -272,8 +271,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     gsMaxSpeedTest[playerid] = 80;
                     gsDrivingTestType[playerid] = e_DRIVING_TEST_CAR;
                     SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 1500));
-                    SetPlayerWorldCustom(playerid, 0, DRIVE_SCHOOL_VEHICLES_WORLD, NO_INTERIOR);
-                    SetPlayerPos(playerid, -2067.2366, -92.3412, 35.1641);
+                    TeleportPlayer(playerid, -2067.2366, -92.3412, 35.1641, 0, DRIVE_SCHOOL_VEHICLES_WORLD, NO_INTERIOR);
                     SetPlayerRaceCheckpoint(playerid, 0, gsCarRouteTest[gsActualTestCheckpoint[playerid]][0], gsCarRouteTest[gsActualTestCheckpoint[playerid]][1], gsCarRouteTest[gsActualTestCheckpoint[playerid]][2], gsCarRouteTest[(gsActualTestCheckpoint[playerid] + 1)][0], gsCarRouteTest[(gsActualTestCheckpoint[playerid] + 1)][1], gsCarRouteTest[(gsActualTestCheckpoint[playerid] + 1)][2], 2.0);
                     GameTextForPlayer(playerid,"~r~siga as marcas vermelhas. ~n~ va devagar e nao bata !", 5000, 1);
                     SendClientMessage(playerid, COLOR_DARKGREEN, "Você pagou para iniciar o teste para conseguir sua licença de carro.");
@@ -307,8 +305,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     gsMaxSpeedTest[playerid] = 100;
                     gsDrivingTestType[playerid] = e_DRIVING_TEST_MOTORCYCLE;
                     SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 1500));
-                    SetPlayerWorldCustom(playerid, 0, DRIVE_SCHOOL_MOTORCYCLE_WORLD, NO_INTERIOR);
-                    SetPlayerPos(playerid, 1546.6271, 20.8116, 24.1406);
+                    TeleportPlayer(playerid, 1546.6271, 20.8116, 24.1406, 0, DRIVE_SCHOOL_MOTORCYCLE_WORLD, NO_INTERIOR);
                     SetPlayerRaceCheckpoint(playerid, 0, gsMotorcycleRouteTest[gsActualTestCheckpoint[playerid]][0], gsMotorcycleRouteTest[gsActualTestCheckpoint[playerid]][1], gsMotorcycleRouteTest[gsActualTestCheckpoint[playerid]][2], gsMotorcycleRouteTest[(gsActualTestCheckpoint[playerid] + 1)][0], gsMotorcycleRouteTest[(gsActualTestCheckpoint[playerid] + 1)][1], gsMotorcycleRouteTest[(gsActualTestCheckpoint[playerid] + 1)][2], 2.0);
                     GameTextForPlayer(playerid,"~r~siga as marcas vermelhas. ~n~ va devagar e nao bata !", 5000, 1);
                     SendClientMessage(playerid, COLOR_DARKGREEN, "Você pagou para iniciar o teste para conseguir sua licença de carro.");
@@ -342,8 +339,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     gsMaxSpeedTest[playerid] = 100;
                     gsDrivingTestType[playerid] = e_DRIVING_TEST_FLY;
                     SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 3500));
-                    SetPlayerWorldCustom(playerid, 0, DRIVE_SCHOOL_FLY_WORLD, NO_INTERIOR);
-                    SetPlayerPos(playerid,-1108.5317, -209.0739, 14.1440);
+                    TeleportPlayer(playerid, -1108.5317, -209.0739, 14.144, 0, DRIVE_SCHOOL_FLY_WORLD, NO_INTERIOR);
                     SetPlayerRaceCheckpoint(playerid, 4, gsFlyRouteTest[gsActualTestCheckpoint[playerid]][0], gsFlyRouteTest[gsActualTestCheckpoint[playerid]][1], gsFlyRouteTest[gsActualTestCheckpoint[playerid]][2], gsFlyRouteTest[(gsActualTestCheckpoint[playerid] + 1)][0], gsFlyRouteTest[(gsActualTestCheckpoint[playerid] + 1)][1], gsFlyRouteTest[(gsActualTestCheckpoint[playerid] + 1)][2], 4.0);
                     GameTextForPlayer(playerid,"~r~siga as marcas vermelhas. ~n~ va devagar e nao bata !", 5000, 1);
                     SendClientMessage(playerid, COLOR_DARKGREEN, "Você pagou para iniciar o teste para conseguir sua licença de carro.");
@@ -377,8 +373,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     gsMaxSpeedTest[playerid] = 150;
                     gsDrivingTestType[playerid] = e_DRIVING_TEST_BOAT;
                     SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 3000));
-                    SetPlayerWorldCustom(playerid, 0, DRIVE_SCHOOL_BOAT_WORLD, NO_INTERIOR);
-                    SetPlayerPos(playerid, 2577.2090, -2202.4290, -0.2188);
+                    TeleportPlayer(playerid, 2577.2090, -2202.4290, -0.2188, 0, DRIVE_SCHOOL_BOAT_WORLD, NO_INTERIOR);
                     SetPlayerRaceCheckpoint(playerid, 0, gsBoatRouteTest[gsActualTestCheckpoint[playerid]][0], gsBoatRouteTest[gsActualTestCheckpoint[playerid]][1], gsBoatRouteTest[gsActualTestCheckpoint[playerid]][2], gsBoatRouteTest[(gsActualTestCheckpoint[playerid] + 1)][0], gsBoatRouteTest[(gsActualTestCheckpoint[playerid] + 1)][1], gsBoatRouteTest[(gsActualTestCheckpoint[playerid] + 1)][2], 4.0);
                     GameTextForPlayer(playerid,"~r~siga as marcas vermelhas. ~n~ va devagar e nao bata !", 5000, 1);
                     SendClientMessage(playerid, COLOR_DARKGREEN, "Você pagou para iniciar o teste para conseguir sua licença de carro.");
@@ -412,8 +407,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     gsMaxSpeedTest[playerid] = 90;
                     gsDrivingTestType[playerid] = e_DRIVING_TEST_TRUCK;
                     SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 2500));
-                    SetPlayerWorldCustom(playerid, 0, DRIVE_SCHOOL_TRUCK_WORLD, NO_INTERIOR);
-                    SetPlayerPos(playerid, -2137.1187, -248.2467, 36.5156);
+                    TeleportPlayer(playerid, -2137.1187, -248.2467, 36.5156, 0, DRIVE_SCHOOL_TRUCK_WORLD, NO_INTERIOR);
                     SetPlayerRaceCheckpoint(playerid, 0, gsTruckRouteTest[gsActualTestCheckpoint[playerid]][0], gsTruckRouteTest[gsActualTestCheckpoint[playerid]][1], gsTruckRouteTest[gsActualTestCheckpoint[playerid]][2], gsTruckRouteTest[(gsActualTestCheckpoint[playerid] + 1)][0], gsTruckRouteTest[(gsActualTestCheckpoint[playerid] + 1)][1], gsTruckRouteTest[(gsActualTestCheckpoint[playerid] + 1)][2], 4.0);
                     GameTextForPlayer(playerid,"~r~siga as marcas vermelhas. ~n~ va devagar e nao bata !", 5000, 1);
                     SendClientMessage(playerid, COLOR_DARKGREEN, "Você pagou para iniciar o teste para conseguir sua licença de carro.");

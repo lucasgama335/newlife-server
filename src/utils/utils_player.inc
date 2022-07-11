@@ -146,11 +146,26 @@ stock SendDuvidaMessage(color, const string[])
 	return 1;
 }
 
-stock SetPlayerWorldCustom(playerid, interiorId, worldId, e_INTERIOR_LOCALES:localeId)
+stock TeleportPlayer(playerid, Float:x, Float:y, Float:z, interiorId, worldId, e_INTERIOR_LOCALES:localeId = NO_INTERIOR, bool:freeze = false, freezeTime = 0)
 {
 	SetPlayerInterior(playerid, interiorId);
 	SetPlayerVirtualWorld(playerid, worldId);
 	Player_SetInteriorLocale(playerid, localeId);
+	Streamer_UpdateEx(playerid, x, y, z, worldId, interiorId, STREAMER_TYPE_OBJECT, freezeTime, freeze);
+	if (IsPlayerInAnyVehicle(playerid) && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
+	{
+	    new vehicleid = GetPlayerVehicleID(playerid);
+		if (vehicleid != INVALID_VEHICLE_ID)
+		{
+			LinkVehicleToInterior(vehicleid, GetPlayerInterior(playerid));
+			SetVehicleVirtualWorld(vehicleid, GetPlayerVirtualWorld(playerid));
+			SetVehiclePos(vehicleid, x, y, z);
+		}
+	}
+	else
+	{
+	    SetPlayerPos(playerid, x, y, z);
+	}
 	return 1;
 }
 

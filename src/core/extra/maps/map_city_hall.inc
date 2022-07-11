@@ -248,15 +248,13 @@ hook OnPlayerPressF(playerid)
 	{
 	    PlayAudioStreamForPlayer(playerid, "https://www.dropbox.com/s/53d0kb63zneqa1i/playstory%20PREFEITURA.mp3?dl=1");
         GameTextForPlayer(playerid, "~w~bem vindo a prefeitura ls !", 5000, 1);
-		SetPlayerWorldCustom(playerid, 3, 0, CITY_HALL_INTERIOR);
-		SetPlayerPos(playerid, CITY_HALL_EXIT);
+		TeleportPlayer(playerid, CITY_HALL_EXIT, 3, 0, CITY_HALL_INTERIOR);
    	}
 	// Exit
 	if (IsPlayerInRangeOfPoint(playerid, 3.0, CITY_HALL_EXIT))
 	{
 	    StopAudioStreamForPlayer(playerid);
-		SetPlayerWorldCustom(playerid, 0, 0, NO_INTERIOR);
-		SetPlayerPos(playerid, CITY_HALL_ENTRANCE);
+		TeleportPlayer(playerid, CITY_HALL_ENTRANCE, 0, 0, NO_INTERIOR);
 	}
 	return 1;
 }

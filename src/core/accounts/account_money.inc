@@ -58,7 +58,12 @@ stock Player_SetMoney(playerid, money)
 {
     if (!IsPlayerConnected(playerid)) return 0;
 
-    return gsMoneyInfo[playerid][p_MONEY] = money;
+    gsMoneyInfo[playerid][p_MONEY] = money;
+    if (Player_GetLoggedStatus(playerid))
+    {
+        Player_SaveMoneyData(playerid);
+    }
+    return 1;
 }
 
 // ============== ILLEGAL MONEY ACCESSORS ============== //

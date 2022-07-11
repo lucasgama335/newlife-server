@@ -32,7 +32,7 @@ YCMD:kitadmdono(playerid, params[], help)
 	GivePlayerWeapon(playerid, 16, 49);
 	SetPlayerArmour(playerid, 100);
 	SetPlayerHealth(playerid, 100);
-	SendClientMessage(playerid, COLOR_DARKGREEN, "Você pegou o seu Kit Admin Dono!");
+	SendClientMessage(playerid, COLOR_DARKGREEN, "Você pegou o seu kit administrador dono!");
     return 1;
 }
 

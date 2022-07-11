@@ -10,7 +10,6 @@ stock SetPlayerMoneyCustom(playerid, quantity)
     ResetPlayerMoney(playerid);
     Player_SetMoney(playerid, quantity);
     GivePlayerMoney(playerid, Player_GetMoney(playerid));
-    Player_SaveMoneyData(playerid);
     return quantity;
 }
 
@@ -19,7 +18,6 @@ stock ResetPlayerMoneyCustom(playerid)
     ResetPlayerMoney(playerid);
     Player_SetMoney(playerid, 0);
     GivePlayerMoney(playerid, 0);
-    Player_SaveMoneyData(playerid);
     return 1;
 }
 

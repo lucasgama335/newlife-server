@@ -1130,16 +1130,14 @@ hook OnPlayerPressF(playerid)
 	if (IsPlayerInRangeOfPoint(playerid, 3.0, DRIVING_SCHOOL_ENTRANCE))
 	{
         GameTextForPlayer(playerid, "~w~auto escola", 5000, 1);
-		Streamer_UpdateEx(playerid, DRIVING_SCHOOL_EXIT, 0, DRIVING_SCHOOL_LOCALE, STREAMER_TYPE_OBJECT, 3000, 1);
-		SetPlayerWorldCustom(playerid, DRIVING_SCHOOL_LOCALE, 0, DRIVING_SCHOOL_LOCALE);
-		SetPlayerPos(playerid, DRIVING_SCHOOL_EXIT);
+		TeleportPlayer(playerid, DRIVING_SCHOOL_EXIT, DRIVING_SCHOOL_LOCALE, 0, DRIVING_SCHOOL_LOCALE, true, 3000);
+
    	}
 	// Exit
 	if (IsPlayerInRangeOfPoint(playerid, 3.0, DRIVING_SCHOOL_EXIT))
 	{
 	    StopAudioStreamForPlayer(playerid);
-		SetPlayerWorldCustom(playerid, 0, 0, NO_INTERIOR);
-		SetPlayerPos(playerid, DRIVING_SCHOOL_ENTRANCE);
+		TeleportPlayer(playerid, DRIVING_SCHOOL_ENTRANCE, 0, 0, NO_INTERIOR);
 	}
 	return 1;
 }

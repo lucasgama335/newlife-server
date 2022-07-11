@@ -12,26 +12,6 @@ stock GetAdminRoleName(role, string[], lenght = sizeof(string))
     return 1;
 }
 
-stock TeleportPlayer(playerid, Float:x, Float:y, Float:z, Float:a, interior, world)
-{
-	SetPlayerInterior(playerid, interior);
-	SetPlayerVirtualWorld(playerid, world);
-	if (IsPlayerInAnyVehicle(playerid) && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
-	{
-	    new vid = GetPlayerVehicleID(playerid);
-	    LinkVehicleToInterior(vid, GetPlayerInterior(playerid));
-		SetVehicleVirtualWorld(vid, GetPlayerVirtualWorld(playerid));
-		SetVehiclePos(vid, x, y, z);
-		SetVehicleZAngle(vid, a);
-	}
-	else
-	{
-	    SetPlayerPos(playerid, x, y, z);
-		SetPlayerFacingAngle(playerid, a);
-	}
-	return 1;
-}
-
 stock Admin_SendPrivateMessage(playerid, id, COLOR, const string[])
 {
 	SendClientMessage(id, COLOR, string);

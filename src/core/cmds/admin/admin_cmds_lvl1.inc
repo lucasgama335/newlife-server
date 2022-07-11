@@ -277,7 +277,6 @@ YCMD:kitadm(playerid, params[], help)
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não possui porte de armas, retire-o na prefeitura.");
 	}
 
-	new string[51];
 	GivePlayerWeapon(playerid, 46, 1);
 	GivePlayerWeapon(playerid, 35, 999);
 	GivePlayerWeapon(playerid, 24, 299);
@@ -291,9 +290,7 @@ YCMD:kitadm(playerid, params[], help)
 	GivePlayerWeapon(playerid, 42, 1999);
 	SetPlayerArmour(playerid, 100);
 	SetPlayerHealth(playerid, 100);
-	SendClientMessage(playerid, COLOR_LIGHTBLUE, "ADM: {B4B5B7}Você pegou o seu KitAdmin!");
-	format(string, sizeof(string), "Admin: %s Pegou Seu KitAdmin.", GetPlayerNameCustom(playerid));
-	SendMessageInRange(30.0, playerid, string, COLOR_LIGHTPU, COLOR_LIGHTPU, COLOR_LIGHTPU, COLOR_LIGHTPU, COLOR_LIGHTPU);
+	SendClientMessage(playerid, COLOR_LIGHTBLUE, "ADM: {B4B5B7}Você pegou o seu kit administrador.");
     return 1;
 }
 
@@ -478,12 +475,11 @@ YCMD:ir(playerid, params[], help)
 	}
 
 	new string[66];
-	new Float:x, Float:y, Float:z, Float:a;
+	new Float:x, Float:y, Float:z;
 	GetPlayerPos(id, x, y, z);
-	GetPlayerFacingAngle(id, a);
 	StopAudioStreamForPlayer(playerid);
 	Player_SetInteriorLocale(playerid, Player_GetInteriorLocale(id));
-	TeleportPlayer(playerid, x, y+4, z, a, GetPlayerInterior(id), GetPlayerVirtualWorld(id));
+	TeleportPlayer(playerid, x, (y + 4), z, GetPlayerInterior(id), GetPlayerVirtualWorld(id), Player_GetInteriorLocale(playerid));
 	SendClientMessage(playerid, 0x33FF00FF, "Você foi teleportado pelo Administrador !");
     format(string, sizeof(string), "O Admin %s Foi Até %s.", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id));
 	SendMessageInRange(30.0, playerid, string, 0x33FF00FF, 0x33FF00FF, 0x33FF00FF, 0x33FF00FF, 0x33FF00FF);
@@ -511,12 +507,11 @@ YCMD:trazer(playerid, params[], help)
 	}
 
 	new string[63];
-	new Float:x, Float:y, Float:z, Float:a;
+	new Float:x, Float:y, Float:z;
 	GetPlayerPos(playerid, x, y, z);
-	GetPlayerFacingAngle(playerid, a);
 	StopAudioStreamForPlayer(playerid);
 	Player_SetInteriorLocale(id, Player_GetInteriorLocale(playerid));
-	TeleportPlayer(id, x, (y+4), z, a, GetPlayerInterior(playerid), GetPlayerVirtualWorld(playerid));
+	TeleportPlayer(id, x, (y + 4), z, GetPlayerInterior(playerid), GetPlayerVirtualWorld(playerid), Player_GetInteriorLocale(playerid));
 	SendClientMessage(id, 0x33FF00FF, "Você foi teleportado pelo Admin !");
 	format(string, sizeof(string), "Admin %s Trouxe %s.", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id));
 	SendMessageInRange(30.0, playerid, string, COLOR_NEONGREEN, COLOR_NEONGREEN, COLOR_NEONGREEN, COLOR_NEONGREEN, COLOR_NEONGREEN);
