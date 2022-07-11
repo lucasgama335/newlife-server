@@ -341,7 +341,6 @@ stock Player_UpdateConfigData(playerid)
     gsConfigInfo[playerid][p_TRACKER_TYPE] = Player_GetTracker(playerid);
     gsConfigInfo[playerid][p_HIT_SOUND_TYPE] = Player_GetHitSound(playerid);
     gsConfigInfo[playerid][p_SCREEN_TYPE] = Player_GetScreenSize(playerid);
-    Player_SaveConfigData(playerid);
     return 1;
 }
 
@@ -353,7 +352,6 @@ stock Player_UpdateConfigChatsData(playerid)
     gsConfigInfo[playerid][p_NOOB_CHAT] = Player_GetNoobChatStatus(playerid);
     gsConfigInfo[playerid][p_LEADER_CHAT] = Player_GetLeaderChatStatus(playerid);
     gsConfigInfo[playerid][p_STREAM_MUSIC] = Player_GetMusicStreamStatus(playerid);
-    Player_SaveConfigData(playerid);
     return 1;
 }
 

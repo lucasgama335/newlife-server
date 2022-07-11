@@ -158,7 +158,7 @@ stock PlayerGetPayday(playerid)
 
     Player_SetPaydayTime(playerid, 3600);
     Player_SaveScoreData(playerid);
-    Player_SaveMoneyData(playerid);
+    Player_SaveStatusData(playerid);
     return 1;
 }
 
@@ -189,10 +189,9 @@ public OnPlayerDisconnect(playerid, reason)
     CallLocalFunction("BeforeSaveOnDisconnect", "i", playerid);
     Player_SetLastLogin(playerid, Player_GetLastLoginTemp(playerid));
     Player_SaveGeneralData(playerid);
-    Player_SaveStatusData(playerid);
-    Player_SaveMoneyData(playerid);
     Player_SaveScoreData(playerid);
     Player_SaveAppearenceData(playerid);
+    Player_SaveConfigData(playerid);
     return 1;
 }
 

@@ -236,7 +236,6 @@ YCMD:boasvindas(playerid, params[], help)
 	Player_SetLevel(id, 5);
 	Player_SetCoins(id, 2);
     Player_SaveScoreData(id);
-    Player_SaveMoneyData(id);
 	format(string, sizeof(string), "{FFFFFF}Parabéns novato, você recebeu:\n{9900ff}> {FFFFFF}Level: {00FF00}5\n{9900ff}> {FFFFFF}Horas Jogadas: {00FF00}15\n{9900ff}> {FFFFFF}Moedas VIP: {00FF00}2\n{FFFFFF}> Todas as licenças para veículos\n{FFFFFF}Administrador: %s\n{FFFFFF}Divulgue o Servidor!", GetPlayerNameCustom(playerid));
 	ShowPlayerDialog(id, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX, "Boas Vindas", string, "Fechar", "");
 	format(string, sizeof(string), "ADMIN YCMD: %s deu as boas vindas ao jogador %s[%d] [Level: %d | Dinheiro: %s | Moedas VIP| %s].", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id), id, Player_GetLevel(id), moneyString, coinsString);
