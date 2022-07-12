@@ -225,6 +225,7 @@ public OnPlayerConnect(playerid)
             AdaptSpeedometerToScreen(playerid);
             AdaptAlertToScreen(playerid);
             AdaptDriveSchoolHudToScreen(playerid);
+            AdaptFuelTextdrawToScreen(playerid);
 
             ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
             SendClientMessage(playerid, COLOR_SOFTGREY, "* Dados Carregados com sucesso, pressione em 'Fazer Login'.");

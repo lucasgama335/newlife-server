@@ -3,7 +3,6 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static Timer:gsFillUpTimer[MAX_PLAYERS];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock ShowPlayerGasStationDialog(playerid)
@@ -26,12 +25,17 @@ stock ShowPlayerGasStationDialog(playerid)
 	    return SendClientMessage(playerid, COLOR_INVALID, "O motor do veículo precisa estar desligado para ser abastecido.");
 	}
 
-    // Execução do Comando
-	new StrCat[120];
-	strcat(StrCat, "Tipo\tRecupera\tPreço\n");
- 	strcat(StrCat, "{FFFFFF}Pouco\t+20\tR$ 60\n");
- 	strcat(StrCat, "{FFFFFF}Médio\t+50\tR$ 150\n");
- 	strcat(StrCat, "{FFFFFF}Completo\t+100\tR$ 300\n");
+	new StrCat[120], priceString[MAX_MONEY_STRING], string[(27 + MAX_MONEY_STRING)];
+	strcat(StrCat, "Tipo\tPreço\n");
+	FormatMoneyString(PETROL_PRICE, priceString);
+	format(string, sizeof(string), "{FFFFFF}Gasolina\tR$ %s/L\n", priceString);
+ 	strcat(StrCat, string);
+ 	FormatMoneyString(DIESEL_PRICE, priceString);
+	format(string, sizeof(string), "{FFFFFF}Diesel\tR$ %s/L\n", priceString);
+ 	strcat(StrCat, string);
+	FormatMoneyString(ELECTRIC_PRICE, priceString);
+	format(string, sizeof(string), "{FFFFFF}Eletricidade\tR$ %s/L\n", priceString);
+ 	strcat(StrCat, string);
 	ShowPlayerDialog(playerid, DIALOG_GAS_STATION, DIALOG_STYLE_TABLIST_HEADERS, "Abastecimento de Veículos", StrCat, "Abastecer", "Fechar");
 	return 1;
 }
@@ -60,23 +64,29 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			            {
 		                    return SendClientMessage(playerid, COLOR_INVALID, "Você não está em um posto de gasolina !");
 			            }
-			            if (Player_GetMoney(playerid) < 60)
-		                {
-		                    return SendClientMessage(playerid, COLOR_INVALID, "Você não tem dinheiro o suficiente !");
-		                }
-		                if (Vehicle_GetFuel(vehicleid) >= 100)
-				        {
-				            return SendClientMessage(playerid, COLOR_INVALID, "O Seu tanque já está completo !");
-				        }
-						SetPlayerRefueling(playerid, true);
-						TogglePlayerControllable(playerid, false);
-						GameTextForPlayer(playerid,"~n~~w~Reabastecendo~n~ ~r~~h~Aguarde", 5000, 3);
-						SendClientMessage(playerid, COLOR_YELLOW2, "[Posto de Gasolina]: Abastecendo veículo...");
-						if (Timer_IsRunning(gsFillUpTimer[playerid]))
+						if (GetVehicleFuelType(GetVehicleModel(vehicleid)) != e_VEHICLE_FUEL_PETROL)
 						{
-							stop gsFillUpTimer[playerid];
+							new fuelName[MAX_VEHICLE_FUEL_STRING], string[(42 + MAX_VEHICLE_FUEL_STRING)];
+							GetVehicleFuelName(GetVehicleModel(vehicleid), fuelName);
+							format(string, sizeof(string), "O seu veículo só aceita %s como combustível.", fuelName);
+							SendClientMessage(playerid, COLOR_INVALID, string);
+							return 1;
 						}
-						gsFillUpTimer[playerid] = defer FillUp(playerid, vehicleid, 1, 60);
+						new totalPrice = floatround(GetVehicleFuelCapacity(GetVehicleModel(vehicleid)) * PETROL_PRICE);
+			            if (Player_GetMoney(playerid) < totalPrice)
+		                {
+							new string[(69 + MAX_MONEY_STRING)], priceString[MAX_MONEY_STRING];
+							FormatMoneyString(totalPrice, priceString);
+							format(string, sizeof(string), "Você não possui dinheiro suficiente. O custo do abastecimento é: R$ %s.", priceString);
+							SendClientMessage(playerid, COLOR_INVALID, string);
+		                    return 1;
+		                }
+		                if (Vehicle_GetFuel(vehicleid) >= GetVehicleFuelCapacity(GetVehicleModel(vehicleid)))
+				        {
+				            return SendClientMessage(playerid, COLOR_INVALID, "O tanque do seu veículo está cheio.");
+				        }
+						GasStationStartFuel(playerid, vehicleid, totalPrice);
+						return 1;
 	                }
 	                case 1:
 	                {
@@ -84,23 +94,29 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			            {
 		                    return SendClientMessage(playerid, COLOR_INVALID, "Você não está em um posto de gasolina !");
 			            }
-			            if (Player_GetMoney(playerid) < 150)
-		                {
-		                    return SendClientMessage(playerid, COLOR_INVALID, "Você não tem dinheiro o suficiente !");
-		                }
-		                if (Vehicle_GetFuel(vehicleid) >= 100)
-				        {
-				            return SendClientMessage(playerid, COLOR_INVALID, "O Seu tanque já está completo !");
-				        }
-						SetPlayerRefueling(playerid, true);
-						TogglePlayerControllable(playerid, false);
-						GameTextForPlayer(playerid,"~n~~w~Reabastecendo~n~ ~r~~h~Aguarde", 5000, 3);
-						SendClientMessage(playerid, COLOR_YELLOW2, "[Posto de Gasolina]: Abastecendo veículo...");
-						if (Timer_IsRunning(gsFillUpTimer[playerid]))
+						if (GetVehicleFuelType(GetVehicleModel(vehicleid)) != e_VEHICLE_FUEL_DIESEL)
 						{
-							stop gsFillUpTimer[playerid];
+							new fuelName[MAX_VEHICLE_FUEL_STRING], string[(42 + MAX_VEHICLE_FUEL_STRING)];
+							GetVehicleFuelName(GetVehicleModel(vehicleid), fuelName);
+							format(string, sizeof(string), "O seu veículo só aceita %s como combustível.", fuelName);
+							SendClientMessage(playerid, COLOR_INVALID, string);
+							return 1;
 						}
-						gsFillUpTimer[playerid] = defer FillUp(playerid, vehicleid, 2, 150);
+						new totalPrice = floatround(GetVehicleFuelCapacity(GetVehicleModel(vehicleid)) * DIESEL_PRICE);
+			            if (Player_GetMoney(playerid) < totalPrice)
+		                {
+							new string[(69 + MAX_MONEY_STRING)], priceString[MAX_MONEY_STRING];
+							FormatMoneyString(totalPrice, priceString);
+							format(string, sizeof(string), "Você não possui dinheiro suficiente. O custo do abastecimento é: R$ %s.", priceString);
+							SendClientMessage(playerid, COLOR_INVALID, string);
+		                    return 1;
+		                }
+		                if (Vehicle_GetFuel(vehicleid) >= GetVehicleFuelCapacity(GetVehicleModel(vehicleid)))
+				        {
+				            return SendClientMessage(playerid, COLOR_INVALID, "O tanque do seu veículo está cheio.");
+				        }
+						GasStationStartFuel(playerid, vehicleid, totalPrice);
+						return 1;
 	                }
 	                case 2:
 	                {
@@ -108,23 +124,29 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			            {
 		                    return SendClientMessage(playerid, COLOR_INVALID, "Você não está em um posto de gasolina !");
 			            }
-			            if (Player_GetMoney(playerid) < 300)
-		                {
-		                    return SendClientMessage(playerid, COLOR_INVALID, "Você não tem dinheiro o suficiente !");
-		                }
-		                if (Vehicle_GetFuel(vehicleid) >= 100)
-				        {
-				            return SendClientMessage(playerid, COLOR_INVALID, "O Seu tanque já está completo !");
-				        }
-						SetPlayerRefueling(playerid, true);
-						TogglePlayerControllable(playerid, false);
-						GameTextForPlayer(playerid,"~n~~w~Reabastecendo~n~ ~r~~h~Aguarde", 5000, 3);
-						SendClientMessage(playerid, COLOR_YELLOW2, "[Posto de Gasolina]: Abastecendo veículo...");
-						if (Timer_IsRunning(gsFillUpTimer[playerid]))
+						if (GetVehicleFuelType(GetVehicleModel(vehicleid)) != e_VEHICLE_FUEL_ELECTRIC)
 						{
-							stop gsFillUpTimer[playerid];
+							new fuelName[MAX_VEHICLE_FUEL_STRING], string[(42 + MAX_VEHICLE_FUEL_STRING)];
+							GetVehicleFuelName(GetVehicleModel(vehicleid), fuelName);
+							format(string, sizeof(string), "O seu veículo só aceita %s como combustível.", fuelName);
+							SendClientMessage(playerid, COLOR_INVALID, string);
+							return 1;
 						}
-						gsFillUpTimer[playerid] = defer FillUp(playerid, vehicleid, 3, 300);
+						new totalPrice = floatround(GetVehicleFuelCapacity(GetVehicleModel(vehicleid)) * ELECTRIC_PRICE);
+			            if (Player_GetMoney(playerid) < totalPrice)
+		                {
+							new string[(69 + MAX_MONEY_STRING)], priceString[MAX_MONEY_STRING];
+							FormatMoneyString(totalPrice, priceString);
+							format(string, sizeof(string), "Você não possui dinheiro suficiente. O custo do abastecimento é: R$ %s.", priceString);
+							SendClientMessage(playerid, COLOR_INVALID, string);
+		                    return 1;
+		                }
+		                if (Vehicle_GetFuel(vehicleid) >= GetVehicleFuelCapacity(GetVehicleModel(vehicleid)))
+				        {
+				            return SendClientMessage(playerid, COLOR_INVALID, "O tanque do seu veículo está cheio.");
+				        }
+						GasStationStartFuel(playerid, vehicleid, totalPrice);
+						return 1;
 	                }
 	            }
 			}

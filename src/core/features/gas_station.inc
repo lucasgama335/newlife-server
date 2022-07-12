@@ -5,6 +5,7 @@
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static bool:gsIsPlayerRefueling[MAX_PLAYERS];
+static Timer:gsFuelTimer[MAX_PLAYERS];
 
 static Float:gsFuelPumps[][3] =
 {
@@ -34,7 +35,44 @@ static Float:gsFuelPumps[][3] =
 	{ 838.3388, -1750.3429, 13.6911 }
 };
 
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+timer FillUp[200](playerid, vehicleid, price)
+{
+	new fillUp = (Vehicle_GetFuel(vehicleid) + 1);
+	Vehicle_SetFuel(vehicleid, fillUp);
+	UpdateFuelTextdraw(playerid, GetVehicleModel(vehicleid), fillUp, price);
+	if (Vehicle_GetFuel(vehicleid) >= GetVehicleFuelCapacity(GetVehicleModel(vehicleid)))
+	{
+		GasStationFinishFuel(playerid, price);
+	}
+	return 1;
+}
+
+static stock GasStationFinishFuel(playerid, price)
+{
+	if (Timer_IsRunning(gsFuelTimer[playerid]))
+	{
+		stop gsFuelTimer[playerid];
+	}
+	SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - price));
+	TogglePlayerControllable(playerid, true);
+	SendClientMessage(playerid, COLOR_YELLOW2, "[Posto de Gasolina]: O tanque do seu veículo foi reabastecido completamente.");
+	HideFuelTextDraw(playerid);
+}
+
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+stock GasStationStartFuel(playerid, vehicleid, price)
+{
+	ShowFuelTextdraw(playerid);
+	if (Timer_IsRunning(gsFuelTimer[playerid]))
+	{
+		stop gsFuelTimer[playerid];
+	}
+	gsFuelTimer[playerid] = repeat FillUp(playerid, vehicleid, price);
+	TogglePlayerControllable(playerid, false);
+	SendClientMessage(playerid, COLOR_YELLOW2, "[Posto de Gasolina]: Abastecimendo do veículo iniciado. Aguarde até completar o tanque...");
+}
+
 stock bool:IsPlayerInGasStation(playerid)
 {
     for (new i; i < sizeof(gsFuelPumps); i++)
@@ -56,48 +94,6 @@ stock SetPlayerRefueling(playerid, bool:status)
 {
     gsIsPlayerRefueling[playerid] = status;
     return 1;
-}
-
-//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
-timer FillUp[5000](playerid, vehicleid, type, price)
-{
-	switch(type)
-	{
-		case 1:
-		{
-			if (Vehicle_GetFuel(vehicleid) <= 80)
-			{
-				Vehicle_SetFuel(vehicleid, (Vehicle_GetFuel(vehicleid) + 20));
-			}
-			else if (Vehicle_GetFuel(vehicleid) >= 78)
-			{
-				Vehicle_SetFuel(vehicleid, 100);
-			}
-		}
-		case 2:
-		{
-			if (Vehicle_GetFuel(vehicleid) <= 49)
-			{
-				Vehicle_SetFuel(vehicleid, (Vehicle_GetFuel(vehicleid) + 50));
-			}
-			else if (Vehicle_GetFuel(vehicleid) >= 50)
-			{
-				Vehicle_SetFuel(vehicleid, 100);
-			}
-		}
-		case 3:
-		{
-			Vehicle_SetFuel(vehicleid, 100);
-		}
-	}
-	new string[63 + 1], moneyString[MAX_MONEY_STRING];
-	FormatMoneyString(price, moneyString);
-	SetPlayerRefueling(playerid, false);
-	SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - price));
-	TogglePlayerControllable(playerid, true);
-	format(string, sizeof(string), "[Posto de Gasolina]: Seu veículo foi abastecido, custo R$ %s!", moneyString);
-	SendClientMessage(playerid, COLOR_YELLOW2, string);
-	return 1;
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------

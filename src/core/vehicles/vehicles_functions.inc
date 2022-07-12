@@ -13,7 +13,6 @@ stock AddStaticVehicleCustom(modelId, Float:posX, Float:posY, Float:posZ, Float:
 	new tempVehicleId = AddStaticVehicleEx(modelId, posX, posY, posZ, posA, colorOne, colorTwo, timeToRespawn, siren);
 	if (tempVehicleId != INVALID_VEHICLE_ID)
 	{
-		printf("MODELO: %d | CAPACIDADE: %d", modelId, GetVehicleFuelCapacity(modelId));
 		Vehicle_SetColor(tempVehicleId, colorOne, colorTwo);
 		Vehicle_SetFuel(tempVehicleId, GetVehicleFuelCapacity(modelId));
 		Vehicle_SetShield(tempVehicleId, 0);

@@ -544,6 +544,32 @@ stock bool:Vehicle_IsRc(model)
 	return false;
 }
 
+stock GetVehicleFuelName(model, string[], lenght = sizeof(string))
+{
+	if (model < 400 || model > 611)
+	{
+		return 0;
+	}
+
+	format(string, lenght, "Desconhecido");
+	switch (gsVehicleData[(model - 400)][v_VEHICLE_FUEL_TYPE])
+	{
+		case e_VEHICLE_FUEL_PETROL:
+		{
+			format(string, lenght, "Gasolina");
+		}
+		case e_VEHICLE_FUEL_DIESEL:
+		{
+			format(string, lenght, "Diesel");
+		}
+		case e_VEHICLE_FUEL_ELECTRIC:
+		{
+			format(string, lenght, "Eletricidade");
+		}
+	}
+	return 1;
+}
+
 stock bool:IsPlayerNearVehicle(Float:radi, playerid, vehicleid)
 {
 	new Float:PX, Float:PY, Float:PZ, Float:X, Float:Y, Float:Z;

@@ -86,6 +86,13 @@
 #define	MAX_HOUR_STRING			9
 #define	MAX_MONEY_STRING		100
 #define	MAX_VEHICLE_NAME_STRING 29
+#define	MAX_VEHICLE_FUEL_STRING 13
+
+// Others
+#define	PETROL_PRICE			6
+#define	DIESEL_PRICE			7
+#define	ELECTRIC_PRICE			5
+
 // Admin Levels
 enum e_ADMIN_LEVELS
 {
