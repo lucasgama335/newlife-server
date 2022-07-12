@@ -10,7 +10,7 @@
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
-task CheckVehicleFuel[15000]()
+task CheckVehicleFuel[18000]()
 {
 	VehicleDecreaseGlobalFuel();
 	return 1;

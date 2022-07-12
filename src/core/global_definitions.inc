@@ -85,7 +85,7 @@
 #define	MAX_DATE_STRING			9
 #define	MAX_HOUR_STRING			9
 #define	MAX_MONEY_STRING		100
-#define	MAX_VEHICLE_NAME_STRING 75
+#define	MAX_VEHICLE_NAME_STRING 29
 // Admin Levels
 enum e_ADMIN_LEVELS
 {
