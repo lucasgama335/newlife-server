@@ -18,5 +18,8 @@ hook OnGameModeInit()
 
     printf("[DATABASE]: Setting up '%s' table...", BAN_TABLE_NAME);
     Database_CreateBansTable();
+
+    printf("[DATABASE]: Setting up '%s' table...", INVENTORY_TABLE_NAME);
+    Database_CreateInventoryTable();
     return 1;
 }

@@ -2,6 +2,7 @@
 
 #include <players_table>
 #include <banned_players>
+#include <inventory_players>
 #if MYSQL_SETUP_TABLES
 #include <create_tables>
 #endif

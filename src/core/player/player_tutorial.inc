@@ -161,7 +161,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 TutTime[playerid] = 5;
 	            NoTuto[playerid] = true;
                 tutorialTimer[playerid] = repeat NextStepTutorial(playerid);
-
+		
 				PlayAudioStreamForPlayer(playerid, "https://www.dropbox.com/s/f8nrr60p9wkk4c9/tutorial.mp3?dl=1");
 				ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 	            TogglePlayerControllable(playerid, false);
