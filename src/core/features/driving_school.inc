@@ -308,7 +308,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     TeleportPlayer(playerid, 1546.6271, 20.8116, 24.1406, 0, DRIVE_SCHOOL_MOTORCYCLE_WORLD, NO_INTERIOR);
                     SetPlayerRaceCheckpoint(playerid, 0, gsMotorcycleRouteTest[gsActualTestCheckpoint[playerid]][0], gsMotorcycleRouteTest[gsActualTestCheckpoint[playerid]][1], gsMotorcycleRouteTest[gsActualTestCheckpoint[playerid]][2], gsMotorcycleRouteTest[(gsActualTestCheckpoint[playerid] + 1)][0], gsMotorcycleRouteTest[(gsActualTestCheckpoint[playerid] + 1)][1], gsMotorcycleRouteTest[(gsActualTestCheckpoint[playerid] + 1)][2], 2.0);
                     GameTextForPlayer(playerid,"~r~siga as marcas vermelhas. ~n~ va devagar e nao bata !", 5000, 1);
-                    SendClientMessage(playerid, COLOR_DARKGREEN, "Você pagou para iniciar o teste para conseguir sua licença de carro.");
+                    SendClientMessage(playerid, COLOR_DARKGREEN, "Você pagou para iniciar o teste para conseguir sua licença de moto.");
                     SendClientMessage(playerid, COLOR_DARKGREEN, "O limite de velocidade é de 100 km/h, não ultrapasse e não bata em nada !");
                     if (Timer_IsRunning(gsDriveSchoolTimer[playerid]))
                     {
@@ -336,13 +336,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     gsActualTestCheckpoint[playerid] = 0;
                     gsMaxTestCheckpoints[playerid] = (MAX_FLY_ROUTES - 1);
                     gsDriveSchoolTimeToFinish[playerid] = 420;
-                    gsMaxSpeedTest[playerid] = 100;
+                    gsMaxSpeedTest[playerid] = 90;
                     gsDrivingTestType[playerid] = e_DRIVING_TEST_FLY;
                     SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 3500));
                     TeleportPlayer(playerid, -1108.5317, -209.0739, 14.144, 0, DRIVE_SCHOOL_FLY_WORLD, NO_INTERIOR);
                     SetPlayerRaceCheckpoint(playerid, 4, gsFlyRouteTest[gsActualTestCheckpoint[playerid]][0], gsFlyRouteTest[gsActualTestCheckpoint[playerid]][1], gsFlyRouteTest[gsActualTestCheckpoint[playerid]][2], gsFlyRouteTest[(gsActualTestCheckpoint[playerid] + 1)][0], gsFlyRouteTest[(gsActualTestCheckpoint[playerid] + 1)][1], gsFlyRouteTest[(gsActualTestCheckpoint[playerid] + 1)][2], 4.0);
                     GameTextForPlayer(playerid,"~r~siga as marcas vermelhas. ~n~ va devagar e nao bata !", 5000, 1);
-                    SendClientMessage(playerid, COLOR_DARKGREEN, "Você pagou para iniciar o teste para conseguir sua licença de carro.");
+                    SendClientMessage(playerid, COLOR_DARKGREEN, "Você pagou para iniciar o teste para conseguir sua licença de voo.");
                     SendClientMessage(playerid, COLOR_DARKGREEN, "O limite de velocidade é de 100 km/h, não ultrapasse e não bata em nada !");
                     if (Timer_IsRunning(gsDriveSchoolTimer[playerid]))
                     {
@@ -370,13 +370,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     gsActualTestCheckpoint[playerid] = 0;
                     gsMaxTestCheckpoints[playerid] = (MAX_BOAT_ROUTES - 1);
                     gsDriveSchoolTimeToFinish[playerid] = 300;
-                    gsMaxSpeedTest[playerid] = 150;
+                    gsMaxSpeedTest[playerid] = 100;
                     gsDrivingTestType[playerid] = e_DRIVING_TEST_BOAT;
                     SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 3000));
                     TeleportPlayer(playerid, 2577.2090, -2202.4290, -0.2188, 0, DRIVE_SCHOOL_BOAT_WORLD, NO_INTERIOR);
                     SetPlayerRaceCheckpoint(playerid, 0, gsBoatRouteTest[gsActualTestCheckpoint[playerid]][0], gsBoatRouteTest[gsActualTestCheckpoint[playerid]][1], gsBoatRouteTest[gsActualTestCheckpoint[playerid]][2], gsBoatRouteTest[(gsActualTestCheckpoint[playerid] + 1)][0], gsBoatRouteTest[(gsActualTestCheckpoint[playerid] + 1)][1], gsBoatRouteTest[(gsActualTestCheckpoint[playerid] + 1)][2], 4.0);
                     GameTextForPlayer(playerid,"~r~siga as marcas vermelhas. ~n~ va devagar e nao bata !", 5000, 1);
-                    SendClientMessage(playerid, COLOR_DARKGREEN, "Você pagou para iniciar o teste para conseguir sua licença de carro.");
+                    SendClientMessage(playerid, COLOR_DARKGREEN, "Você pagou para iniciar o teste para conseguir sua licença de barcos.");
                     SendClientMessage(playerid, COLOR_DARKGREEN, "O limite de velocidade é de 150 km/h, não ultrapasse e não bata em nada !");
                     if (Timer_IsRunning(gsDriveSchoolTimer[playerid]))
                     {
@@ -410,7 +410,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     TeleportPlayer(playerid, -2137.1187, -248.2467, 36.5156, 0, DRIVE_SCHOOL_TRUCK_WORLD, NO_INTERIOR);
                     SetPlayerRaceCheckpoint(playerid, 0, gsTruckRouteTest[gsActualTestCheckpoint[playerid]][0], gsTruckRouteTest[gsActualTestCheckpoint[playerid]][1], gsTruckRouteTest[gsActualTestCheckpoint[playerid]][2], gsTruckRouteTest[(gsActualTestCheckpoint[playerid] + 1)][0], gsTruckRouteTest[(gsActualTestCheckpoint[playerid] + 1)][1], gsTruckRouteTest[(gsActualTestCheckpoint[playerid] + 1)][2], 4.0);
                     GameTextForPlayer(playerid,"~r~siga as marcas vermelhas. ~n~ va devagar e nao bata !", 5000, 1);
-                    SendClientMessage(playerid, COLOR_DARKGREEN, "Você pagou para iniciar o teste para conseguir sua licença de carro.");
+                    SendClientMessage(playerid, COLOR_DARKGREEN, "Você pagou para iniciar o teste para conseguir sua licença de caminhões e ônibus.");
                     SendClientMessage(playerid, COLOR_DARKGREEN, "O limite de velocidade é de 90 km/h, não ultrapasse e não bata em nada !");
                     if (Timer_IsRunning(gsDriveSchoolTimer[playerid]))
                     {
@@ -445,7 +445,7 @@ hook OnPlayerEnterRaceCP(playerid)
             return 1;
         }
 
-        if (GetVehicleSpeed(vehicleid) > gsMaxSpeedTest[playerid])
+        if (GetVehicleSpeed(vehicleid, false) > gsMaxSpeedTest[playerid])
         {
             if (gsSpeedWarnings[playerid] >= 3)
             {

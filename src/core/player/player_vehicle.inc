@@ -143,6 +143,10 @@ hook OnPlayerStateChange(playerid, newstate, oldstate)
 			{
 				Vehicle_SetEngineToPlayer(playerid, vehicleid, true);
 			}
+			if (Vehicle_IsBike(GetVehicleModel(vehicleid)) && !Vehicle_GetEngineStatus(vehicleid))
+			{
+				Vehicle_SetEngine(vehicleid, true);
+			}
 		}
 		if (gsPlayerLastCarEntered[playerid] != vehicleid)
 		{

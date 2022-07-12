@@ -1129,7 +1129,7 @@ hook OnPlayerPressF(playerid)
 	// Entrance
 	if (IsPlayerInRangeOfPoint(playerid, 3.0, DRIVING_SCHOOL_ENTRANCE))
 	{
-        GameTextForPlayer(playerid, "~w~auto escola", 5000, 1);
+        GameTextForPlayer(playerid, "~w~auto escola", 3000, 1);
 		TeleportPlayer(playerid, DRIVING_SCHOOL_EXIT, DRIVING_SCHOOL_LOCALE, 0, DRIVING_SCHOOL_LOCALE, true, 3000);
 
    	}

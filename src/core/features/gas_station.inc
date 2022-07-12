@@ -36,14 +36,16 @@ static Float:gsFuelPumps[][3] =
 };
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
-timer FillUp[200](playerid, vehicleid, price)
+timer FillUp[250](playerid, vehicleid, totalPrice, pricePerLiter)
 {
-	new fillUp = (Vehicle_GetFuel(vehicleid) + 1);
+    new fillUp = (Vehicle_GetFuel(vehicleid) + 1);
 	Vehicle_SetFuel(vehicleid, fillUp);
-	UpdateFuelTextdraw(playerid, GetVehicleModel(vehicleid), fillUp, price);
+    new priceActual = floatround(((GetVehicleFuelCapacity(GetVehicleModel(vehicleid)) - Vehicle_GetFuel(vehicleid)) * pricePerLiter));
+    priceActual = (totalPrice - priceActual);
+	UpdateFuelTextdraw(playerid, GetVehicleModel(vehicleid), fillUp, priceActual);
 	if (Vehicle_GetFuel(vehicleid) >= GetVehicleFuelCapacity(GetVehicleModel(vehicleid)))
 	{
-		GasStationFinishFuel(playerid, price);
+		GasStationFinishFuel(playerid, totalPrice);
 	}
 	return 1;
 }
@@ -61,14 +63,14 @@ static stock GasStationFinishFuel(playerid, price)
 }
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-stock GasStationStartFuel(playerid, vehicleid, price)
+stock GasStationStartFuel(playerid, vehicleid, totalPrice, pricePerLiter)
 {
 	ShowFuelTextdraw(playerid);
 	if (Timer_IsRunning(gsFuelTimer[playerid]))
 	{
 		stop gsFuelTimer[playerid];
 	}
-	gsFuelTimer[playerid] = repeat FillUp(playerid, vehicleid, price);
+	gsFuelTimer[playerid] = repeat FillUp(playerid, vehicleid, totalPrice, pricePerLiter);
 	TogglePlayerControllable(playerid, false);
 	SendClientMessage(playerid, COLOR_YELLOW2, "[Posto de Gasolina]: Abastecimendo do veículo iniciado. Aguarde até completar o tanque...");
 }

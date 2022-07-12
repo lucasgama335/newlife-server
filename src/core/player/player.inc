@@ -8,10 +8,10 @@
 #include <YSI_Coding\y_hooks>
 
 //------------------------- Definitions and constants -------------------------
-#define MAX_CONNECTIONS_FROM_IP     3
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static Timer:gsPlayerUpdateStatusTimer[MAX_PLAYERS];
+static gsLastDeath[MAX_PLAYERS];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
@@ -165,12 +165,7 @@ stock PlayerGetPayday(playerid)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerConnect(playerid)
 {
-    new numPlayersInSameIp = GetPlayersInSameIp(GetPlayerIpCustom(playerid));
-    if (numPlayersInSameIp > MAX_CONNECTIONS_FROM_IP)
-	{
-        printf("MAXIPs: O Jogador[%d] excedeu o número de conexões [%d] por IP: [%s].", playerid, MAX_CONNECTIONS_FROM_IP, GetPlayerIpCustom(playerid));
-        Kick(playerid);
-    }
+    gsLastDeath[playerid] = 0;
     return 1;
 }
 
@@ -192,6 +187,20 @@ public OnPlayerDisconnect(playerid, reason)
     Player_SaveScoreData(playerid);
     Player_SaveAppearenceData(playerid);
     Player_SaveConfigData(playerid);
+    return 1;
+}
+
+hook OnPlayerDeath(playerid, killerid, reason)
+{
+    if ((gettime() - gsLastDeath[playerid]) < 3)
+    {
+		new cheatString[128];
+		format(cheatString, sizeof(cheatString), "Anti-Cheat: %s[%d] foi kickado por suspeita de fake-kill.", GetPlayerNameCustom(playerid), playerid);
+		SendClientMessageToAll(COLOR_LIGHTRED, cheatString);
+		DelayedKick(playerid);
+    }
+	gsLastDeath[playerid] = gettime();
+    SendDeathMessage(killerid, playerid, reason);
     return 1;
 }
 

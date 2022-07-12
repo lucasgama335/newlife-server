@@ -1,6 +1,7 @@
 #include <YSI_Coding\y_hooks>
 
 //------------------------- Definitions and constants -------------------------
+#define MAX_CONNECTIONS_FROM_IP     3
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static loginAttempts[MAX_PLAYERS],
@@ -71,6 +72,13 @@ static stock ShowRegisterDialog(playerid)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 public OnPlayerConnect(playerid)
 {
+    new numPlayersInSameIp = GetPlayersInSameIp(GetPlayerIpCustom(playerid));
+    if (numPlayersInSameIp > MAX_CONNECTIONS_FROM_IP)
+	{
+        printf("MAXIPs: O Jogador[%d] excedeu o número de conexões [%d] por IP: [%s].", playerid, MAX_CONNECTIONS_FROM_IP, GetPlayerIpCustom(playerid));
+        Kick(playerid);
+    }
+
     new race_check = Database_IncrementRaceCheck(playerid);
     Player_ClearLoginVars(playerid);
 

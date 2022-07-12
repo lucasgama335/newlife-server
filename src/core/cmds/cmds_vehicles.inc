@@ -20,6 +20,10 @@ stock ShowPlayerGasStationDialog(playerid)
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não está é o motorista do veículo.");
 	}
 	new vehicleid = GetPlayerVehicleID(playerid);
+	if (Vehicle_IsBike(GetVehicleModel(vehicleid)))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse veículo não precisa ser abastecido.");
+	}
 	if (Vehicle_GetEngineStatus(vehicleid))
 	{
 	    return SendClientMessage(playerid, COLOR_INVALID, "O motor do veículo precisa estar desligado para ser abastecido.");
@@ -72,7 +76,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							SendClientMessage(playerid, COLOR_INVALID, string);
 							return 1;
 						}
-						new totalPrice = floatround(GetVehicleFuelCapacity(GetVehicleModel(vehicleid)) * PETROL_PRICE);
+						new totalPrice = floatround((GetVehicleFuelCapacity(GetVehicleModel(vehicleid)) - Vehicle_GetFuel(vehicleid)) * PETROL_PRICE);
 			            if (Player_GetMoney(playerid) < totalPrice)
 		                {
 							new string[(69 + MAX_MONEY_STRING)], priceString[MAX_MONEY_STRING];
@@ -85,7 +89,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				        {
 				            return SendClientMessage(playerid, COLOR_INVALID, "O tanque do seu veículo está cheio.");
 				        }
-						GasStationStartFuel(playerid, vehicleid, totalPrice);
+						GasStationStartFuel(playerid, vehicleid, totalPrice, PETROL_PRICE);
 						return 1;
 	                }
 	                case 1:
@@ -102,7 +106,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							SendClientMessage(playerid, COLOR_INVALID, string);
 							return 1;
 						}
-						new totalPrice = floatround(GetVehicleFuelCapacity(GetVehicleModel(vehicleid)) * DIESEL_PRICE);
+						new totalPrice = floatround((GetVehicleFuelCapacity(GetVehicleModel(vehicleid)) - Vehicle_GetFuel(vehicleid)) * DIESEL_PRICE);
 			            if (Player_GetMoney(playerid) < totalPrice)
 		                {
 							new string[(69 + MAX_MONEY_STRING)], priceString[MAX_MONEY_STRING];
@@ -115,7 +119,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				        {
 				            return SendClientMessage(playerid, COLOR_INVALID, "O tanque do seu veículo está cheio.");
 				        }
-						GasStationStartFuel(playerid, vehicleid, totalPrice);
+						GasStationStartFuel(playerid, vehicleid, totalPrice, DIESEL_PRICE);
 						return 1;
 	                }
 	                case 2:
@@ -132,7 +136,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							SendClientMessage(playerid, COLOR_INVALID, string);
 							return 1;
 						}
-						new totalPrice = floatround(GetVehicleFuelCapacity(GetVehicleModel(vehicleid)) * ELECTRIC_PRICE);
+						new totalPrice = floatround((GetVehicleFuelCapacity(GetVehicleModel(vehicleid)) - Vehicle_GetFuel(vehicleid)) * ELECTRIC_PRICE);
 			            if (Player_GetMoney(playerid) < totalPrice)
 		                {
 							new string[(69 + MAX_MONEY_STRING)], priceString[MAX_MONEY_STRING];
@@ -145,7 +149,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				        {
 				            return SendClientMessage(playerid, COLOR_INVALID, "O tanque do seu veículo está cheio.");
 				        }
-						GasStationStartFuel(playerid, vehicleid, totalPrice);
+						GasStationStartFuel(playerid, vehicleid, totalPrice, ELECTRIC_PRICE);
 						return 1;
 	                }
 	            }

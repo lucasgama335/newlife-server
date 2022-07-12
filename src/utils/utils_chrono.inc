@@ -57,7 +57,7 @@ stock Chrono_GetDayName(Timestamp:tsTimezone, dayString[], lenght = sizeof(daySt
 
 	TimeFormat(tsTimezone, WEEKDAY_NAME, dayString, lenght);
 	if (!strcmp("Monday", dayString, true)) format(dayString, lenght, "Segunda-Feira");
-	else if (!strcmp("Tuesday", dayString, true)) format(dayString, lenght, "Terça-Feira");
+	else if (!strcmp("Tuesday", dayString, true)) format(dayString, lenght, "Terca-Feira");
 	else if (!strcmp("Wednesday", dayString, true)) format(dayString, lenght, "Quarta-Feira");
 	else if (!strcmp("Thursday", dayString, true)) format(dayString, lenght, "Quinta-Feira");
 	else if (!strcmp("Friday", dayString, true)) format(dayString, lenght, "Sexta-Feira");
@@ -97,7 +97,7 @@ stock Chrono_GetMonth(Timestamp:tsTimezone, monthString[], lenght = sizeof(month
 	TimeFormat(tsTimezone, "%B", monthString, lenght);
 	if (!strcmp("January", monthString, true)) format(output, lenght, "Janeiro");
 	else if (!strcmp("February", monthString, true)) format(output, lenght, "Fevereiro");
-	else if (!strcmp("March", monthString, true)) format(output, lenght, "Março");
+	else if (!strcmp("March", monthString, true)) format(output, lenght, "Marco");
 	else if (!strcmp("April", monthString, true)) format(output, lenght, "Abril");
 	else if (!strcmp("May", monthString, true)) format(output, lenght, "Maio");
 	else if (!strcmp("June", monthString, true)) format(output, lenght, "Junho");

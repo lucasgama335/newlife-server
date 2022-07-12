@@ -117,6 +117,10 @@ YCMD:darvida(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
 	}
+	if (quantidade < 0)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Para matar o jogador, use: /kill.");
+	}
 
 	new string[108];
 	SetPlayerHealth(id, quantidade);
@@ -151,6 +155,10 @@ YCMD:kill(playerid, params[], help)
 	}
 
 	new string[84];
+	if (IsPlayerInAnyVehicle(id))
+	{
+		RemovePlayerFromVehicle(id);
+	}
 	SetPlayerHealth(id, 0);
 	format(string, sizeof(string), "* Você matou o jogador %s.", GetPlayerNameCustom(id));
     SendClientMessage(playerid, COLOR_INVALID, string);

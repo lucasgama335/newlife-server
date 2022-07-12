@@ -48,6 +48,10 @@ stock Vehicle_SetEngineToPlayer(playerid, vehicleid, bool:status)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Você não é o motorista desse veículo.");
 	}
+	if (Vehicle_IsBike(GetVehicleModel(vehicleid)))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "Esse veículo não possui um motor.");
+	}
 	if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER && Vehicle_GetFuel(vehicleid) <= 0)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "Seu veículo está sem gasolina, use um galão.");

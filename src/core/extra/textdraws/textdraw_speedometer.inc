@@ -861,6 +861,21 @@ stock UpdatePlayerSpeedometer(playerid, vehicleid, type)
             spd3 = spd2 % 10;
             spd2 = spd2 / 10;
 
+			if (Vehicle_IsBoat(GetVehicleModel(vehicleid)) || Vehicle_IsPlane(GetVehicleModel(vehicleid)) || Vehicle_IsHelicopter(GetVehicleModel(vehicleid)))
+			{
+				if (modernSpeedometer[playerid][16] != INVALID_PLAYER_TEXT_DRAW)
+				{
+					PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][16], "NOS");
+				}
+			}
+			else
+			{
+				if (modernSpeedometer[playerid][16] != INVALID_PLAYER_TEXT_DRAW)
+				{
+					PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][16], "KM/H");
+				}
+			}
+
 			if (modernSpeedometer[playerid][15] != INVALID_PLAYER_TEXT_DRAW)
 			{
 				if (!Vehicle_GetLockedStatus(vehicleid))
@@ -918,6 +933,21 @@ stock UpdatePlayerSpeedometer(playerid, vehicleid, type)
         }
         case 1:
         {
+			if (Vehicle_IsBoat(GetVehicleModel(vehicleid)) || Vehicle_IsPlane(GetVehicleModel(vehicleid)) || Vehicle_IsHelicopter(GetVehicleModel(vehicleid)))
+			{
+				if (compactSpeedometer[playerid][3] != INVALID_PLAYER_TEXT_DRAW)
+				{
+					PlayerTextDrawSetString(playerid, compactSpeedometer[playerid][3], "NOS");
+				}
+			}
+			else
+			{
+				if (compactSpeedometer[playerid][3] != INVALID_PLAYER_TEXT_DRAW)
+				{
+					PlayerTextDrawSetString(playerid, compactSpeedometer[playerid][3], "KM/H");
+				}
+			}
+
 			if (compactSpeedometer[playerid][6] != INVALID_PLAYER_TEXT_DRAW)
 			{
 				PlayerTextDrawSetPreviewModel(playerid, compactSpeedometer[playerid][6], GetVehicleModel(vehicleid));

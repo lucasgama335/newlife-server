@@ -310,13 +310,6 @@ stock GetVehicleName(model, vehicleString[], lenght = sizeof(vehicleString))
     return 1;
 }
 
-stock GetVehicleSpeed(vehicleid)
-{
-    static Float:Vx = 0.0, Float:Vy = 0.0, Float:Vz = 0.0;
-	GetVehicleVelocity(vehicleid, Vx, Vy, Vz);
-	return floatround(VectorSize(Vx, Vy, Vz) * 136.666667);
-}
-
 stock e_VEHICLE_TYPE:GetVehicleType(model)
 {
 	if (model < 400 || model > 611)
@@ -376,7 +369,7 @@ stock bool:Vehicle_IsCar(model)
 	return false;
 }
 
-stock bool:Vehicle_IsMotorByke(model)
+stock bool:Vehicle_IsMotorBike(model)
 {
 	if (model < 400 || model > 611)
 	{
@@ -390,7 +383,7 @@ stock bool:Vehicle_IsMotorByke(model)
 	return false;
 }
 
-stock bool:Vehicle_IsByke(model)
+stock bool:Vehicle_IsBike(model)
 {
 	if (model < 400 || model > 611)
 	{
@@ -544,6 +537,20 @@ stock bool:Vehicle_IsRc(model)
 	return false;
 }
 
+stock GetVehicleSpeed(vehicleid, adaptToModel = true)
+{
+    static Float:Vx = 0.0, Float:Vy = 0.0, Float:Vz = 0.0;
+	GetVehicleVelocity(vehicleid, Vx, Vy, Vz);
+	if (adaptToModel)
+	{
+		if (Vehicle_IsBoat(GetVehicleModel(vehicleid)) || Vehicle_IsPlane(GetVehicleModel(vehicleid)) || Vehicle_IsHelicopter(GetVehicleModel(vehicleid)))
+		{
+			return (floatround(floatround(VectorSize(Vx, Vy, Vz) * 136.666667) * 0.54));
+		}
+	}
+	return floatround(VectorSize(Vx, Vy, Vz) * 136.666667);
+}
+
 stock GetVehicleFuelName(model, string[], lenght = sizeof(string))
 {
 	if (model < 400 || model > 611)
@@ -551,7 +558,7 @@ stock GetVehicleFuelName(model, string[], lenght = sizeof(string))
 		return 0;
 	}
 
-	format(string, lenght, "Desconhecido");
+	format(string, lenght, "Unknown");
 	switch (gsVehicleData[(model - 400)][v_VEHICLE_FUEL_TYPE])
 	{
 		case e_VEHICLE_FUEL_PETROL:
