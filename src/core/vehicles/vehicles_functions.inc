@@ -6,6 +6,19 @@
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static Iterator:Vehicles<MAX_VEHICLES>;
+static const Float:gsPaynsprayLocales[][] =
+{
+    {1025.05, -1024.23, 32.1}, // LS Temple
+    {487.68, -1740.87, 11.13}, // LS Santa Maria
+    {-1420.73, 2583.37, 55.56}, // El Quebrados
+    {-1904.39, 284.97, 40.75}, // Wang Cars
+    {-2425.91, 1022.33, 50.10}, // Juniper Hill
+    {1975.60, 2162.16, 10.77}, // LV Redsands
+    {2065.38, -1831.51, 13.25}, // Idlewood
+    {-99.55, 1118.36, 19.44}, // Fort Carson
+    {721.07, -455.94, 16.04}, // Dillimore
+    {2393.74, 1493.01, 10.52} // LV Unused (Pyramid)
+};
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock AddStaticVehicleCustom(modelId, Float:posX, Float:posY, Float:posZ, Float:posA, colorOne, colorTwo, timeToRespawn, bool:siren = false)
@@ -21,7 +34,7 @@ stock AddStaticVehicleCustom(modelId, Float:posX, Float:posY, Float:posZ, Float:
 		Vehicle_SetLockedStatus(tempVehicleId, false);
 		Vehicle_SetPlate(tempVehicleId, "");
 		Vehicle_SetEngine(tempVehicleId, false);
-		Vehicle_SetHealth(tempVehicleId, 1000.0);
+		Vehicle_SetHealth(tempVehicleId, MAX_VEHICLE_HEALTH);
 		Iter_Add(Vehicles, tempVehicleId);
 	}
 	return tempVehicleId;
@@ -94,10 +107,27 @@ hook OnPlayerUpdate(playerid)
 		{
 			new vehicleid = GetPlayerVehicleID(playerid), Float:oldHealth = Vehicle_GetHealth(vehicleid), Float:actualHealth;
 			GetVehicleHealth(vehicleid, actualHealth);
-			if (oldHealth > actualHealth && actualHealth < 1000.0 && (oldHealth - actualHealth) >= 1.0)
+
+			if(actualHealth == 1000.0)
+			{
+				SetVehicleHealth(vehicleid, MAX_VEHICLE_HEALTH);
+				Vehicle_SetHealth(vehicleid, MAX_VEHICLE_HEALTH);
+				for(new i = sizeof(gsPaynsprayLocales) - 1; i != -1; --i)
+				{
+					if(IsPlayerInRangeOfPoint(playerid, 10.0, gsPaynsprayLocales[i][0], gsPaynsprayLocales[i][1], gsPaynsprayLocales[i][2]))
+					{
+						CallRemoteFunction("OnVehicleRespray", "iiii", playerid, vehicleid, -1, -1);
+						return 1;
+					}
+				}
+			}
+
+			
+			if (oldHealth != actualHealth && (oldHealth - actualHealth) >= 1.0)
 			{
 				Vehicle_SetHealth(vehicleid, actualHealth);
 				CallLocalFunction("OnVehicleHealthChange", "iiff", vehicleid, playerid, oldHealth, actualHealth);
+				return 1;
 			}
 		}
 	}

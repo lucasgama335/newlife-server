@@ -851,6 +851,10 @@ stock UpdatePlayerSpeedometer(playerid, vehicleid, type)
 	
     new speedometerString[20], Float:vehicleHealth;
     GetVehicleHealth(vehicleid, vehicleHealth);
+	if (vehicleHealth == MAX_VEHICLE_HEALTH)
+	{
+		vehicleHealth = 1000.0;
+	}
     switch (type)
     {
         case 0:

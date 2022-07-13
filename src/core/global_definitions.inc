@@ -73,6 +73,8 @@
 #define	PLAYER_OBJECT_9			8
 #define	PLAYER_OBJECT_10		9
 
+#define	MAX_VEHICLE_HEALTH		999.9
+
 // Strings Limits
 #define	MAX_PASS_LEN			15
 #define	MIN_PASS_LEN			8

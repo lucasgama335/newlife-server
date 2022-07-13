@@ -95,6 +95,7 @@ hook OnVehicleSpawn(vehicleid)
 hook OnVehicleHealthChange(vehicleid, playerid, Float:oldHealth, Float:actualHealth)
 {
 	new lostHealth = floatround((oldHealth - actualHealth), floatround_round);
+	SendClientMessage(playerid, -1, "CHAMOU A ONVEHICLEHEALTHCHANGE.");
 	if (lostHealth > 0)
 	{
 		if (actualHealth <= 300.0)
