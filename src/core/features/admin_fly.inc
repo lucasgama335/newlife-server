@@ -5,7 +5,7 @@
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static Timer:gsAdminFlyTimer[MAX_PLAYERS];
 
-//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) ------------------------
+//------------------------- Timers (Timers used in the module.) -------------------------
 timer AdminFly[100](playerid)
 {
 	new k, ud, lr;
@@ -62,6 +62,9 @@ timer AdminFly[100](playerid)
 	return 1;
 }
 
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+
+//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) ------------------------
 stock bool:StartFly(playerid)
 {
 	new Float:xf, Float:yf, Float:zf;
@@ -92,8 +95,6 @@ stock bool:StopFly(playerid)
 	return true;
 }
 
-//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
-
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerConnect(playerid)
 {
@@ -109,3 +110,5 @@ hook OnPlayerDisconnect(playerid)
 	}
 	return 1;
 }
+
+//------------------------- Commands (Module related commands) -------------------------

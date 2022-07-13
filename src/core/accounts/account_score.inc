@@ -15,6 +15,10 @@ enum p_SCORE_DATA
 }
 static gsScoreInfo[MAX_PLAYERS][p_SCORE_DATA];
 
+//------------------------- Timers (Timers used in the module.) -------------------------
+
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 // ============== SAVE DB INFO ============== //
 stock Player_SaveScoreData(playerid)
@@ -165,6 +169,6 @@ stock Player_SetNoobAnswers(playerid, quantity)
     return gsScoreInfo[playerid][p_NOOB_ANSWERS] = quantity;
 }
 
-//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
-
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+
+//------------------------- Commands (Module related commands) -------------------------

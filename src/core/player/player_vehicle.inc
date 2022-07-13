@@ -8,22 +8,25 @@ static Timer:gsPlayerSpeedometerTimer[MAX_PLAYERS];
 static Timer:gsPlayerCheckFuelTimer[MAX_PLAYERS];
 static Timer:gsPlayerCheckBrokenTimer[MAX_PLAYERS];
 
-//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+//------------------------- Timers (Timers used in the module.) -------------------------
 timer UpdateVehicleSpeedometer[500](playerid, vehicleid, type)
 {
 	UpdatePlayerSpeedometer(playerid, vehicleid, type);
 	return 1;
 }
 
-stock StartSpeedometerTimer(playerid, vehicleid)
+timer RemovePlayerVehicleEmptyGas[5000](playerid)
 {
-	if (Timer_IsRunning(gsPlayerSpeedometerTimer[playerid]))
-	{
-		stop gsPlayerSpeedometerTimer[playerid];
-	}
-	gsPlayerSpeedometerTimer[playerid] = repeat UpdateVehicleSpeedometer(playerid, vehicleid, Player_GetSpeedometer(playerid));
+	RemovePlayerFromVehicle(playerid);
 	return 1;
 }
+
+timer RemovePlayerVehicleBroken[5000](playerid)
+{
+	RemovePlayerFromVehicle(playerid);
+	return 1;
+}
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 static stock ShowActualVehicleName(playerid, vehicleid)
 {
@@ -31,12 +34,6 @@ static stock ShowActualVehicleName(playerid, vehicleid)
 	GetVehicleName(GetVehicleModel(vehicleid), vehicleName);
 	format(string, sizeof(string), "~g~%s[%d]", vehicleName, GetVehicleModel(vehicleid));
 	GameTextForPlayer(playerid, string, 6000, 1);
-	return 1;
-}
-
-timer RemovePlayerVehicleEmptyGas[5000](playerid)
-{
-	RemovePlayerFromVehicle(playerid);
 	return 1;
 }
 
@@ -62,13 +59,6 @@ static stock PlayerCheckVehicleFuel(playerid, vehicleid)
 	}
 	return 1;
 }
-
-timer RemovePlayerVehicleBroken[5000](playerid)
-{
-	RemovePlayerFromVehicle(playerid);
-	return 1;
-}
-
 static stock PlayerCheckVehicleBroken(playerid, vehicleid)
 {
 	if (Vehicle_GetBrokenStatus(vehicleid))
@@ -88,6 +78,17 @@ static stock PlayerCheckVehicleBroken(playerid, vehicleid)
 			stop gsPlayerCheckBrokenTimer[playerid];
 		}
 	}
+	return 1;
+}
+
+//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+stock StartSpeedometerTimer(playerid, vehicleid)
+{
+	if (Timer_IsRunning(gsPlayerSpeedometerTimer[playerid]))
+	{
+		stop gsPlayerSpeedometerTimer[playerid];
+	}
+	gsPlayerSpeedometerTimer[playerid] = repeat UpdateVehicleSpeedometer(playerid, vehicleid, Player_GetSpeedometer(playerid));
 	return 1;
 }
 
@@ -172,3 +173,5 @@ hook OnPlayerUpdateScreenSize(playerid)
 	}
 	return 1;
 }
+
+//------------------------- Commands (Module related commands) -------------------------

@@ -35,7 +35,7 @@ static Float:gsFuelPumps[][3] =
 	{ 838.3388, -1750.3429, 13.6911 }
 };
 
-//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+//------------------------- Timers (Timers used in the module.) -------------------------
 timer FillUp[250](playerid, vehicleid, totalPrice, pricePerLiter)
 {
     new fillUp = (Vehicle_GetFuel(vehicleid) + 1);
@@ -50,6 +50,7 @@ timer FillUp[250](playerid, vehicleid, totalPrice, pricePerLiter)
 	return 1;
 }
 
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 static stock GasStationFinishFuel(playerid, price)
 {
 	if (Timer_IsRunning(gsFuelTimer[playerid]))
@@ -104,3 +105,5 @@ hook OnPlayerConnect(playerid)
     gsIsPlayerRefueling[playerid] = false;
     return 1;
 }
+
+//------------------------- Commands (Module related commands) -------------------------

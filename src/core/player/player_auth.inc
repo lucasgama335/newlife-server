@@ -10,20 +10,7 @@ static loginAttempts[MAX_PLAYERS],
 
 static Timer:timerToKickPlayer[MAX_PLAYERS];
 
-//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-stock SpawnPlayerLogged(playerid)
-{
-    if (Player_GetLoggedStatus(playerid))
-    {
-        SetPlayerInterior(playerid, 0);
-        SetCameraBehindPlayer(playerid);
-        SetSpawnInfo(playerid, -1, (Player_GetGender(playerid) == 1 ? DEFAULT_SKIN_MALE : DEFAULT_SKIN_FEMALE), SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA, 0, 0, 0, 0, 0, 0);
-        SpawnPlayer(playerid);
-    }
-    return 1;
-}
-
-//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+//------------------------- Timers (Timers used in the module.) -------------------------
 timer OnLoginTimeout[60000](playerid)
 {
     ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX, "Fazer Login ", "{FFFFFF}Você foi kickado automaticamente por ficar\nmuito tempo no processo de login sem realizar tentativas válidas.\nPor favor, logue novamente!.", "Okay", "");
@@ -31,6 +18,7 @@ timer OnLoginTimeout[60000](playerid)
     return 1;
 }
 
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 static stock Player_ClearLoginVars(playerid) 
 {
     // Temporary Vars
@@ -66,6 +54,19 @@ static stock ShowRegisterDialog(playerid)
     SendClientMessage(playerid, 0xffcc99FF, "[CONTA]: Sua conta não está registrada, digite uma senha para se registrar.");
     format(string, sizeof(string), "{FFFFFF}Bem Vindo ao {33CCFF}%s{FFFFFF}!\n\nSua Conta: {33CCFF}%s{FFFFFF}.\nStatus: {FF0000}Não Registrada{FFFFFF}.\n\n{B4B5B7}Insira a senha abaixo para registrar.", SERVER_NAME, GetPlayerNameCustom(playerid));
     ShowPlayerDialog(playerid, DIALOG_REGISTER, DIALOG_STYLE_PASSWORD, "Fazer Cadastro", string, "Registrar", "Cancelar");
+    return 1;
+}
+
+//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+stock SpawnPlayerLogged(playerid)
+{
+    if (Player_GetLoggedStatus(playerid))
+    {
+        SetPlayerInterior(playerid, 0);
+        SetCameraBehindPlayer(playerid);
+        SetSpawnInfo(playerid, -1, (Player_GetGender(playerid) == 1 ? DEFAULT_SKIN_MALE : DEFAULT_SKIN_FEMALE), SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ, SPAWN_POSA, 0, 0, 0, 0, 0, 0);
+        SpawnPlayer(playerid);
+    }
     return 1;
 }
 
@@ -535,3 +536,5 @@ function:OnPlayerLogin(playerid)
     SpawnPlayer(playerid);
     return 1;
 }
+
+//------------------------- Commands (Module related commands) -------------------------

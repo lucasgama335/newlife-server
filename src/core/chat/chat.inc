@@ -10,9 +10,11 @@ enum e_CHAT_GROUPS
 static e_CHAT_GROUPS:gsChatGroup = e_OPEN_WORLD;
 static gsFloodTimer[MAX_PLAYERS];
 
-//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+//------------------------- Timers (Timers used in the module.) -------------------------
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+
+//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 public OnPlayerText(playerid, text[])
@@ -54,3 +56,5 @@ public OnPlayerText(playerid, text[])
     }
     return 1;
 }
+
+//------------------------- Commands (Module related commands) -------------------------

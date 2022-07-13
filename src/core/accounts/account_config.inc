@@ -22,6 +22,10 @@ enum p_CONFIG_DATA
 }
 static gsConfigInfo[MAX_PLAYERS][p_CONFIG_DATA];
 
+//------------------------- Timers (Timers used in the module.) -------------------------
+
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 // ============== SAVE DB INFO ============== //
 stock Player_SaveConfigData(playerid)
@@ -355,6 +359,6 @@ stock Player_UpdateConfigChatsData(playerid)
     return 1;
 }
 
-//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
-
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+
+//------------------------- Commands (Module related commands) -------------------------

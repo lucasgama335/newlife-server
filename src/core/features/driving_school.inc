@@ -152,17 +152,19 @@ static Float:gsTruckRouteTest[MAX_TRUCK_ROUTES][3] =
     {-1117.2954,-1620.1775,76.3739}
 };
 
-//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-stock ShowPlayerLicensesMenu(playerid)
+//------------------------- Timers (Timers used in the module.) -------------------------
+timer DriveSchoolTimer[1000](playerid, maxCp)
 {
-    new stringLicenses[271 + 1];
-    strcat(stringLicenses, "Licença\tCusto\tStatus\n");
-    strcat(stringLicenses, (Player_GetCarLicense(playerid) > 0 ? "{FFFFFF}Carros\tR$ 1500\t{228B22}[POSSUI]\n" : "{FFFFFF}Carros\tR$ 1500\t{FF0000}[NÃO POSSUI]\n"));
-    strcat(stringLicenses, (Player_GetMotorCycleLicense(playerid) > 0 ? "{FFFFFF}Motos\tR$ 1500\t{228B22}[POSSUI]\n" : "{FFFFFF}Motos\tR$ 1500\t{FF0000}[NÃO POSSUI]\n"));
-    strcat(stringLicenses, (Player_GetFlyLicense(playerid) > 0 ? "{FFFFFF}Avião/Heli\tR$ 3500\t{228B22}[POSSUI]\n" : "{FFFFFF}Avião/Heli\tR$ 3500\t{FF0000}[NÃO POSSUI]\n"));
-    strcat(stringLicenses, (Player_GetBoatLicense(playerid) > 0 ? "{FFFFFF}Barcos\tR$ 3000\t{228B22}[POSSUI]\n" : "{FFFFFF}Barcos\tR$ 3000\t{FF0000}[NÃO POSSUI]\n"));
-    strcat(stringLicenses, (Player_GetTruckLicense(playerid) > 0 ? "{FFFFFF}Caminhão/Ônibus\tR$ 2500\t{228B22}[POSSUI]\n" : "{FFFFFF}Caminhão/Ônibus\tR$ 2500\t{FF0000}[NÃO POSSUI]\n"));
-    ShowPlayerDialog(playerid, DIALOG_DRIVE_SCHOOL, DIALOG_STYLE_TABLIST_HEADERS, "{FFFFFF}Autoescola - Habilitações", stringLicenses, "Selecionar", "Voltar");
+    gsDriveSchoolTimeToFinish[playerid] --;
+    if (gsDriveSchoolTimeToFinish[playerid] <= 0)
+    {
+        ResetPlayerDrivingTest(playerid);
+        SendClientMessage(playerid, COLOR_LIGHTRED, "[Autoescola]: Você não finalizou o teste a tempo e por isso foi finalizado.");
+    }
+    else
+    {
+        UpdateDriveSchoolHud(playerid, gsDriveSchoolTimeToFinish[playerid], gsActualTestCheckpoint[playerid], (maxCp - 1));
+    }
     return 1;
 }
 
@@ -200,18 +202,17 @@ static stock ResetPlayerDrivingTest(playerid, bool:updatePos = true)
     return 1;
 }
 
-timer DriveSchoolTimer[1000](playerid, maxCp)
+//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+stock ShowPlayerLicensesMenu(playerid)
 {
-    gsDriveSchoolTimeToFinish[playerid] --;
-    if (gsDriveSchoolTimeToFinish[playerid] <= 0)
-    {
-        ResetPlayerDrivingTest(playerid);
-        SendClientMessage(playerid, COLOR_LIGHTRED, "[Autoescola]: Você não finalizou o teste a tempo e por isso foi finalizado.");
-    }
-    else
-    {
-        UpdateDriveSchoolHud(playerid, gsDriveSchoolTimeToFinish[playerid], gsActualTestCheckpoint[playerid], (maxCp - 1));
-    }
+    new stringLicenses[271 + 1];
+    strcat(stringLicenses, "Licença\tCusto\tStatus\n");
+    strcat(stringLicenses, (Player_GetCarLicense(playerid) > 0 ? "{FFFFFF}Carros\tR$ 1500\t{228B22}[POSSUI]\n" : "{FFFFFF}Carros\tR$ 1500\t{FF0000}[NÃO POSSUI]\n"));
+    strcat(stringLicenses, (Player_GetMotorCycleLicense(playerid) > 0 ? "{FFFFFF}Motos\tR$ 1500\t{228B22}[POSSUI]\n" : "{FFFFFF}Motos\tR$ 1500\t{FF0000}[NÃO POSSUI]\n"));
+    strcat(stringLicenses, (Player_GetFlyLicense(playerid) > 0 ? "{FFFFFF}Avião/Heli\tR$ 3500\t{228B22}[POSSUI]\n" : "{FFFFFF}Avião/Heli\tR$ 3500\t{FF0000}[NÃO POSSUI]\n"));
+    strcat(stringLicenses, (Player_GetBoatLicense(playerid) > 0 ? "{FFFFFF}Barcos\tR$ 3000\t{228B22}[POSSUI]\n" : "{FFFFFF}Barcos\tR$ 3000\t{FF0000}[NÃO POSSUI]\n"));
+    strcat(stringLicenses, (Player_GetTruckLicense(playerid) > 0 ? "{FFFFFF}Caminhão/Ônibus\tR$ 2500\t{228B22}[POSSUI]\n" : "{FFFFFF}Caminhão/Ônibus\tR$ 2500\t{FF0000}[NÃO POSSUI]\n"));
+    ShowPlayerDialog(playerid, DIALOG_DRIVE_SCHOOL, DIALOG_STYLE_TABLIST_HEADERS, "{FFFFFF}Autoescola - Habilitações", stringLicenses, "Selecionar", "Voltar");
     return 1;
 }
 
@@ -528,6 +529,7 @@ hook OnPlayerUpdateScreenSize(playerid)
     return 1;
 }
 
+//------------------------- Commands (Module related commands) -------------------------
 YCMD:licencas(playerid, params[], help)
 {
 	if (!IsPlayerInRangeOfPoint(playerid, 2.0, LICENSES_MENU_PICKUP))

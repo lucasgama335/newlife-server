@@ -6,6 +6,7 @@
 #include <textdraw_speedometer>
 #include <textdraw_drive_school>
 #include <textdraw_gas_station>
+#include <textdraw_inventory>
 
 #include <YSI_Coding\y_hooks>
 

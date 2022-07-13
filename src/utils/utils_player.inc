@@ -5,12 +5,14 @@
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static Timer:gsPlayerMusic[MAX_PLAYERS];
 
-//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+//------------------------- Timers (Timers used in the module.) -------------------------
 timer StopPlayerMusic[5000](playerid)
 {
 	PlayerPlaySound(playerid, 0, 0.0, 0.0, 0.0);
 	return 1;
 }
+
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock GetPlayerNameCustom(playerid)
@@ -162,3 +164,4 @@ stock TeleportPlayer(playerid, Float:x, Float:y, Float:z, interiorId, worldId, e
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 
+//------------------------- Commands (Module related commands) -------------------------

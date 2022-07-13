@@ -13,6 +13,10 @@
 static MySQL:gsDatabaseConnection;
 static gsMysqlRaceCheck[MAX_PLAYERS];
 
+//------------------------- Timers (Timers used in the module.) -------------------------
+
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock MySQL:Database_GetConnection()
 {
@@ -28,9 +32,6 @@ stock Database_GetRaceCheck(playerid)
 {
     return gsMysqlRaceCheck[playerid];
 }
-
-
-//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnGameModeInit()
@@ -81,3 +82,5 @@ public OnQueryError(errorid, const error[], const callback[], const query[], MyS
     PrintLog(FOLDER_MYSQL_LOG, string);
 	return 1;
 }
+
+//------------------------- Commands (Module related commands) -------------------------

@@ -4,6 +4,10 @@
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 
+//------------------------- Timers (Timers used in the module.) -------------------------
+
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock ShowPlayerGasStationDialog(playerid)
 {
@@ -160,6 +164,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	return 1;
 }
 
+//------------------------- Commands (Module related commands) -------------------------
 YCMD:motor(playerid, params[], help)
 {
 	new vehicleid = GetPlayerVehicleID(playerid);

@@ -6,32 +6,7 @@ static talkChatNoob[MAX_PLAYERS];
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 
-//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-stock ShowPlayerFaqList(playerid)
-{
-	new titleDialog[10];
-    new faqList[858];
-    format(titleDialog, sizeof(titleDialog), "FAQ %s", SERVER_TAG);
-    strcat(faqList, "1º Começou agora e não sabe o que fazer ?\n");
-    strcat(faqList, "2º Como eu faço para localizar um local ?\n");
-    strcat(faqList, "3º Nasceu no meio do nada e deseja mudar ?\n");
-    strcat(faqList, "4º Como eu consigo um emprego ?\n");
-    strcat(faqList, "5º Como eu adquiro level ?\n");
-    strcat(faqList, "6º Como eu faço para entrar em contato com outros jogadores?\n");
-    strcat(faqList, "7º Como eu adquiro minhas licenças de direção ?\n");
-	strcat(faqList, "8º Como eu faço para adquirir armamento ?\n");
-	strcat(faqList, "9º Como eu faço para ser um jogador VIP ?\n");
-	strcat(faqList, "10º Vim de outro servidor, quero jogar aqui, como edito meu /rg ?\n");
-	strcat(faqList, "11º Como eu entro em alguma organização ?\n");
-	strcat(faqList, "12º Entrei no meu emprego, não sei o que fazer!\n");
-	strcat(faqList, "13º Estou crashando com frequência, o que pode ser ?\n");
-	strcat(faqList, "14º Podem mudar meu nick ?\n");
-	strcat(faqList, "15º Criei uma conta no fórum, quanto tempo preciso esperar ?\n");
-	strcat(faqList, "16º Fiz doação e estou perdido, o que fazer?\n");
-	strcat(faqList, "17º Estão te matando sem motivo e não sabe o que fazer ?\n");
-	strcat(faqList, "18º Qual a diferença entre Orgs e Empregos ?\n");
-    return ShowPlayerDialog(playerid, DIALOG_FAQ_LIST, DIALOG_STYLE_LIST, titleDialog, faqList, "Confirmar", "Cancelar");
-}
+//------------------------- Timers (Timers used in the module.) -------------------------
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 static stock ShowHelpDialog(playerid)
@@ -92,6 +67,33 @@ static stock ShowPlayerConfig(playerid)
 	strcat(configDialog, "{0080ff}• {FFFFFF}Menu Hit(Sino do Dano)\t{848484}Clique para Configurar\n");
 	format(string, sizeof(string), "{FFFFFF}Configurações da Conta: ({0080ff}%s{FFFFFF})", SERVER_TAG);
 	return ShowPlayerDialog(playerid, DIALOG_CONFIG_LIST, DIALOG_STYLE_TABLIST_HEADERS, string, configDialog, "Selecionar", "Fechar");
+}
+
+//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+stock ShowPlayerFaqList(playerid)
+{
+	new titleDialog[10];
+    new faqList[858];
+    format(titleDialog, sizeof(titleDialog), "FAQ %s", SERVER_TAG);
+    strcat(faqList, "1º Começou agora e não sabe o que fazer ?\n");
+    strcat(faqList, "2º Como eu faço para localizar um local ?\n");
+    strcat(faqList, "3º Nasceu no meio do nada e deseja mudar ?\n");
+    strcat(faqList, "4º Como eu consigo um emprego ?\n");
+    strcat(faqList, "5º Como eu adquiro level ?\n");
+    strcat(faqList, "6º Como eu faço para entrar em contato com outros jogadores?\n");
+    strcat(faqList, "7º Como eu adquiro minhas licenças de direção ?\n");
+	strcat(faqList, "8º Como eu faço para adquirir armamento ?\n");
+	strcat(faqList, "9º Como eu faço para ser um jogador VIP ?\n");
+	strcat(faqList, "10º Vim de outro servidor, quero jogar aqui, como edito meu /rg ?\n");
+	strcat(faqList, "11º Como eu entro em alguma organização ?\n");
+	strcat(faqList, "12º Entrei no meu emprego, não sei o que fazer!\n");
+	strcat(faqList, "13º Estou crashando com frequência, o que pode ser ?\n");
+	strcat(faqList, "14º Podem mudar meu nick ?\n");
+	strcat(faqList, "15º Criei uma conta no fórum, quanto tempo preciso esperar ?\n");
+	strcat(faqList, "16º Fiz doação e estou perdido, o que fazer?\n");
+	strcat(faqList, "17º Estão te matando sem motivo e não sabe o que fazer ?\n");
+	strcat(faqList, "18º Qual a diferença entre Orgs e Empregos ?\n");
+    return ShowPlayerDialog(playerid, DIALOG_FAQ_LIST, DIALOG_STYLE_LIST, titleDialog, faqList, "Confirmar", "Cancelar");
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
@@ -1153,6 +1155,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
     return 1;
 }
 
+//------------------------- Commands (Module related commands) -------------------------
 YCMD:ajuda(playerid, params[], help)
 {
 	return ShowHelpDialog(playerid);

@@ -4,6 +4,34 @@
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 
+//------------------------- Timers (Timers used in the module.) -------------------------
+
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+static stock ShowPlayerBanDialog(playerid, const playerIp[], const adminName[], Timestamp:banTime, Timestamp:unBanTime, bool:banForever, const reason[])
+{
+    new string[350], banDateString[MAX_FULL_DATE_STRING];
+    SendClientMessage(playerid, COLOR_YELLOW, "|________________Instruções para Revisão de Ban________________|");
+    SendClientMessage(playerid, COLOR_SKIN, "Tire uma SS da tela apertando F8 imediatamente");
+    SendClientMessage(playerid, COLOR_SKIN, "E acesse o nosso fórum para solicitar uma revisão de banimento");
+    SendClientMessage(playerid, COLOR_LIGHTRED, "Atenção: Você só será desbanido se for inocente !");
+    GameTextForPlayer(playerid, "~r~banido", 2500, 3);
+    if (banForever)
+    {
+        Chrono_GetFullDate(banTime, banDateString);
+        format(string, sizeof(string), "Conta: %s\n\nIP: %s\n\nAdmin: %s\n\nMotivo: %s\n\nBanimento: Permanente\n\nData do Banimento: %s\n\n\n\nAcha isso um erro? Peça uma revisão em nosso fórum.", GetPlayerNameCustom(playerid), playerIp, adminName, reason, banDateString);
+	    ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX, "SERVIDOR - Conta Banida", string, "Ok", "Sair");
+    }
+    else
+    {
+        new unBanDateString[MAX_FULL_DATE_STRING];
+        Chrono_GetFullDate(unBanTime, unBanDateString);
+        format(string, sizeof(string), "Conta: %s\n\nIP: %s\n\nAdmin: %s\n\nMotivo: %s\n\nBanimento: Temporário\n\nData do Banimento: %s\n\nData do Desbanimento: %s\n\n\n\nAcha isso um erro? Peça uma revisão em nosso fórum.", GetPlayerNameCustom(playerid), playerIp, adminName, reason, banDateString, unBanDateString);
+	    ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX, "SERVIDOR - Conta Banida", string, "Ok", "Sair");
+    }
+    KickPlayer(playerid);
+    return 1;
+}
+
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock AdminBanPlayer(playerid, adminId, days, const reason[])
 {
@@ -328,35 +356,12 @@ stock LoadPlayerBan(playerid)
     return 1;
 }
 
-//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
-static stock ShowPlayerBanDialog(playerid, const playerIp[], const adminName[], Timestamp:banTime, Timestamp:unBanTime, bool:banForever, const reason[])
-{
-    new string[350], banDateString[MAX_FULL_DATE_STRING];
-    SendClientMessage(playerid, COLOR_YELLOW, "|________________Instruções para Revisão de Ban________________|");
-    SendClientMessage(playerid, COLOR_SKIN, "Tire uma SS da tela apertando F8 imediatamente");
-    SendClientMessage(playerid, COLOR_SKIN, "E acesse o nosso fórum para solicitar uma revisão de banimento");
-    SendClientMessage(playerid, COLOR_LIGHTRED, "Atenção: Você só será desbanido se for inocente !");
-    GameTextForPlayer(playerid, "~r~banido", 2500, 3);
-    if (banForever)
-    {
-        Chrono_GetFullDate(banTime, banDateString);
-        format(string, sizeof(string), "Conta: %s\n\nIP: %s\n\nAdmin: %s\n\nMotivo: %s\n\nBanimento: Permanente\n\nData do Banimento: %s\n\n\n\nAcha isso um erro? Peça uma revisão em nosso fórum.", GetPlayerNameCustom(playerid), playerIp, adminName, reason, banDateString);
-	    ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX, "SERVIDOR - Conta Banida", string, "Ok", "Sair");
-    }
-    else
-    {
-        new unBanDateString[MAX_FULL_DATE_STRING];
-        Chrono_GetFullDate(unBanTime, unBanDateString);
-        format(string, sizeof(string), "Conta: %s\n\nIP: %s\n\nAdmin: %s\n\nMotivo: %s\n\nBanimento: Temporário\n\nData do Banimento: %s\n\nData do Desbanimento: %s\n\n\n\nAcha isso um erro? Peça uma revisão em nosso fórum.", GetPlayerNameCustom(playerid), playerIp, adminName, reason, banDateString, unBanDateString);
-	    ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX, "SERVIDOR - Conta Banida", string, "Ok", "Sair");
-    }
-    KickPlayer(playerid);
-    return 1;
-}
-
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook FirstSpawnOnLogin(playerid)
 {
     LoadPlayerBan(playerid);
     return 1;
 }
+
+//------------------------- Commands (Module related commands) -------------------------
+

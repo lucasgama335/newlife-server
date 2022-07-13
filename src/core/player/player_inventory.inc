@@ -1,11 +1,3 @@
-// General Features
-#include <real_time>
-#include <gas_station>
-// Player Features
-#include <admin_spectate>
-#include <admin_fly>
-#include <driving_school>
-
 #include <YSI_Coding\y_hooks>
 
 //------------------------- Definitions and constants -------------------------

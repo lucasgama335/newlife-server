@@ -14,6 +14,10 @@ enum p_LICENSES_DATA
 }
 static gsLicensesInfo[MAX_PLAYERS][p_LICENSES_DATA];
 
+//------------------------- Timers (Timers used in the module.) -------------------------
+
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 // ============== RESET INFO ============== //
 stock Player_ResetLicensesData(playerid)
@@ -144,6 +148,6 @@ stock Player_SetGunLicense(playerid, quantity)
     return gsLicensesInfo[playerid][p_GUN_LICENSE] = quantity;
 }
 
-//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
-
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+
+//------------------------- Commands (Module related commands) -------------------------

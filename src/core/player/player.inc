@@ -1,6 +1,7 @@
 #include <player_auth>
 #include <player_tutorial>
 #include <player_ban>
+#include <player_inventory>
 #include <player_anims>
 #include <player_spawn>
 #include <player_vehicle>
@@ -13,9 +14,7 @@
 static Timer:gsPlayerUpdateStatusTimer[MAX_PLAYERS];
 static gsLastDeath[MAX_PLAYERS];
 
-//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-
-//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+//------------------------- Timers (Timers used in the module.) -------------------------
 timer PlayerUpdateStatus[1000](playerid)
 {
     // Tag System
@@ -74,6 +73,9 @@ timer PlayerUpdateStatus[1000](playerid)
     return 1;
 }
 
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+
+//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock PlayerGetPayday(playerid)
 {
     new string[160], salaryReceived = 0, moneyString[MAX_MONEY_STRING], salaryString[MAX_MONEY_STRING];
@@ -210,3 +212,5 @@ hook OnPlayerUpdateScreenSize(playerid)
     ShowPlayerHud(playerid);
     return 1;
 }
+
+//------------------------- Commands (Module related commands) -------------------------

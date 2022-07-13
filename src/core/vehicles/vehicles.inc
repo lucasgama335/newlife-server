@@ -9,12 +9,14 @@
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 
-//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+//------------------------- Timers (Timers used in the module.) -------------------------
 task CheckVehicleFuel[18000]()
 {
 	VehicleDecreaseGlobalFuel();
 	return 1;
 }
+
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock Vehicle_SetEngine(vehicleid, bool:status)
@@ -123,3 +125,5 @@ hook OnVehicleHealthChange(vehicleid, playerid, Float:oldHealth, Float:actualHea
 	}
 	return 1;
 }
+
+//------------------------- Commands (Module related commands) -------------------------

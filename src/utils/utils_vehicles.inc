@@ -296,6 +296,10 @@ static gsVehicleData[][v_VEHICLE_INFO] =
 	{ "Utility Trailer", e_VEHICLE_TYPE_TRAILER, e_VEHICLE_CAT_TRAILERS, 160.0, 20.0, e_VEHICLE_DRIVE_REAR, e_VEHICLE_FUEL_ELECTRIC, TRAILERS_FUEL_CAPACITY }
 };
 
+//------------------------- Timers (Timers used in the module.) -------------------------
+
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
@@ -618,3 +622,5 @@ stock RepairVehicleCustom(vehicleid)
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+
+//------------------------- Commands (Module related commands) -------------------------

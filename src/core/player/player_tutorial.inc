@@ -56,21 +56,7 @@ static TutTime[MAX_PLAYERS],
        bool:NoTuto[MAX_PLAYERS];
 static Timer:tutorialTimer[MAX_PLAYERS];
 
-//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-stock ShowGenderDialog(playerid)
-{
-    new string[150];
-    format(string, sizeof(string),"{FFFFFF}Bem Vindo(a): {FFFF00}%s\n\n{FFFFFF}Escolha o seu Sexo Abaixo:\n", GetPlayerNameCustom(playerid));
-    ShowPlayerDialog(playerid, DIALOG_CHOOSE_SEX, DIALOG_STYLE_MSGBOX,"{FFFFFF}Servidor - Registro", string, "Masculino", "Feminino");
-    return 1;
-}
-
-stock bool:Player_IsInTutorial(playerid)
-{
-	return NoTuto[playerid];
-}
-
-//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+//------------------------- Timers (Timers used in the module.) -------------------------
 timer NextStepTutorial[1000](playerid)
 {
     if (TutTime[playerid] > 0)
@@ -89,6 +75,7 @@ timer NextStepTutorial[1000](playerid)
 	return 1;
 }
 
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 static stock Database_SaveTutorial(playerid)
 {
     if (!IsPlayerConnected(playerid)) return false;
@@ -102,6 +89,20 @@ static stock Database_SaveTutorial(playerid)
     Player_GetId(playerid));
     mysql_tquery(Database_GetConnection(), query_string);
     return 1;
+}
+
+//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+stock ShowGenderDialog(playerid)
+{
+    new string[150];
+    format(string, sizeof(string),"{FFFFFF}Bem Vindo(a): {FFFF00}%s\n\n{FFFFFF}Escolha o seu Sexo Abaixo:\n", GetPlayerNameCustom(playerid));
+    ShowPlayerDialog(playerid, DIALOG_CHOOSE_SEX, DIALOG_STYLE_MSGBOX,"{FFFFFF}Servidor - Registro", string, "Masculino", "Feminino");
+    return 1;
+}
+
+stock bool:Player_IsInTutorial(playerid)
+{
+	return NoTuto[playerid];
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
@@ -525,3 +526,5 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
     }
     return 1;
 }
+
+//------------------------- Commands (Module related commands) -------------------------

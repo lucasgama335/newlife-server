@@ -11,6 +11,10 @@ enum p_JOB_DATA
 }
 static gsJobInfo[MAX_PLAYERS][p_JOB_DATA];
 
+//------------------------- Timers (Timers used in the module.) -------------------------
+
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 // ============== RESET INFO ============== //
 stock Player_ResetJobData(playerid)
@@ -80,6 +84,6 @@ stock Player_SetOrg(playerid, orgId, role)
     return 1;
 }
 
-//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
-
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+
+//------------------------- Commands (Module related commands) -------------------------

@@ -11,6 +11,10 @@ enum p_VIP_DATA
 }
 static gsVipInfo[MAX_PLAYERS][p_VIP_DATA];
 
+//------------------------- Timers (Timers used in the module.) -------------------------
+
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 // ============== SAVE DB INFO ============== //
 stock Player_SaveVipData(playerid)
@@ -88,6 +92,6 @@ stock Player_SetVipDays(playerid, days)
     return gsVipInfo[playerid][p_VIP_DAYS] = days;
 }
 
-//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
-
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+
+//------------------------- Commands (Module related commands) -------------------------

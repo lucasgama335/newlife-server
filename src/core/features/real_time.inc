@@ -19,14 +19,7 @@
 static gsChangeWeatherCounter = TIME_WEATHER_FORECAST; // this is for change weather each 2 hour
 static bool:gsWeatherForeactStatus;
 
-//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-stock Server_SetWeatherForecast(bool:status)
-{
-	gsWeatherForeactStatus = status;
-	return 1;
-}
-
-//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+//------------------------- Timers (Timers used in the module.) -------------------------
 task SyncRealTime[1000]()
 {
     new Timestamp:timeNow = Chrono_GetTimeNow(), minutes = Server_FormatMinuteDigit(timeNow), seconds = Server_FormatSecondDigit(timeNow);
@@ -48,6 +41,7 @@ task SyncRealTime[1000]()
 	return 1;
 }
 
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 static stock UpdateWorldTime(Timestamp:time)
 {
     switch (Chrono_GetHourDigit(time))
@@ -154,6 +148,15 @@ static stock WeatherForecast()
     return 1;
 }
 
+//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+stock Server_SetWeatherForecast(bool:status)
+{
+	gsWeatherForeactStatus = status;
+	return 1;
+}
+
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnGameModeInit()
 {
@@ -162,3 +165,5 @@ hook OnGameModeInit()
     SetWeather(0);
     return 1;
 }
+
+//------------------------- Commands (Module related commands) -------------------------

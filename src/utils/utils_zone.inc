@@ -755,6 +755,8 @@ static const MapZoneAreaData[][E_MAP_ZONE_AREA_DATA] =
 	{ZONE_LINDEN_STATION, 2811.250000, 1229.589965, -39.594001, 2861.250000, 1407.589965, 60.405998}
 };
 
+//------------------------- Timers (Timers used in the module.) -------------------------
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 static stock _GetMapZoneLoopStartIndex(Float:x) {
 	new size = sizeof(MapZoneAreaData), index, left = EXCLUDED_MAP_ZONE_AREA_COUNT, right = size - 1, bool:found;
@@ -957,3 +959,5 @@ stock GetMapZoneAreaPos(MapZone:id, &Float:minX = 0.0, &Float:minY = 0.0, &Float
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+
+//------------------------- Commands (Module related commands) -------------------------
