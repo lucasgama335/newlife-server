@@ -73,7 +73,7 @@ stock SpawnPlayerLogged(playerid)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 public OnPlayerConnect(playerid)
 {
-    new numPlayersInSameIp = GetPlayersInSameIp(GetPlayerIpCustom(playerid));
+    new numPlayersInSameIp = GetPlayersInSameIp(playerid);
     if (numPlayersInSameIp > MAX_CONNECTIONS_FROM_IP)
 	{
         printf("MAXIPs: O Jogador[%d] excedeu o número de conexões [%d] por IP: [%s].", playerid, MAX_CONNECTIONS_FROM_IP, GetPlayerIpCustom(playerid));
@@ -255,8 +255,6 @@ public OnPlayerConnect(playerid)
 
         HideLoadingScreen(playerid);
         ShowLoginScreen(playerid);
-
-        SelectTextDraw(playerid, COLOR_ORANGE);
     }
     Player_UpdateLastLoginTemp(playerid, Chrono_GetTimeNow());
 	PlayAudioStreamForPlayer(playerid, "https://www.dropbox.com/s/ocpam5bletkz3j8/intro.mp3?dl=1");
@@ -316,14 +314,16 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid)
         {
             ShowRegisterDialog(playerid);
         }
+        return 1;
 	}
 	// Login Screen: Info Button
-	else if (clickedid == GetLoginScreenTextdrawId(6))
+	if (clickedid == GetLoginScreenTextdrawId(6))
 	{
 		ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,  "Informações Gerais", "{FFFFFF}O NewLife é um servidor RPG, que tem como principal objetivo a simulação da vida real.\n\nNele haverá guerra entre facções criminosas, operacções policiais, roubos, sequestro, assaltos, emboscadas dentre outras coisas.\n\nNo servidor também é possível adquirir propriedade privada, como: empresas, casas, mansões, veículo próprio, celular, itens e etc.\n\n{6e6e6e}De início, todos os jogadores deverão ir ao centro de licenças conseguir suas habilitações para veículos motorizados\ne depois devem seguir para a prefeitura para conseguir o seu primeiro emprego, de uma maneira bem simples. Caso não saiba\nonde fica localizado, basta digitar: /gps no chat.\nConseguir o seu primeiro emprego é de extrema importância, pois é aravés dele, que você conseguirá juntar seu primeiro dinheiro para adquirir suas coisas no servidor. \n\nNesse período que você estiver trabalhando em seu emprego, irá evoluindo de nível, após atingir o nível requisitdo pelos líderes, poderá participar de uma ORGANIZAÇÃO.\nNo servidor, possuímos organizações, criminosas, policiais e outros tipos variados.\nSaiba que os empregos são diferentes das organizações.\nEmpregos são adquiridos facilmente na prefeitura, organizações são diferentes.\nPara participar de uma é necessário cumprir os requisitos exigidos pelo líder e conhecer muito bem as regras do servidor e de cada organização.\nEm nosso servidor não é obrigatório o uso de programas de comunicação para entrar em uma organização, essa exigência ficará a encargo de cada líder.\n\n{FFFFFF}Para qualquer dúvida relacionada ao servidor, dificuldade para se registrar no servidor ou fórum, dicas, compra de VIP e etc,\nentre em contato através dos nossos meios de comunicação(/sites).", "Entendi", "");
-	}
+        return 1;
+    }
 	// Login Screen: Credits Button
-	else if (clickedid == GetLoginScreenTextdrawId(7))
+	if (clickedid == GetLoginScreenTextdrawId(7))
 	{
         new MEGAString[93], string[67];
         if (Player_GetAdminLevel(playerid) < HELPER)
@@ -334,12 +334,14 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid)
         strcat(MEGAString, "{FFFFFF}»  RhaegarX: {696969}(Fundador/Scripter)\n");
         strcat(MEGAString, "{FFFFFF}»  Rick_M: {696969}(Beta Tester)\n");
         ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX, "Créditos do Servidor", MEGAString, "Fechar", "");
+        return 1;
 	}
 	// Login Screen: Exit Button
-	else if (clickedid == GetLoginScreenTextdrawId(8))
+	if (clickedid == GetLoginScreenTextdrawId(8))
 	{
 		SendClientMessage(playerid, COLOR_YELLOW, "[Servidor]: Você optou por sair do servidor.");
 		KickPlayer(playerid);
+        return 1;
 	}
 	return 1;
 }

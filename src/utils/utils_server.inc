@@ -141,14 +141,14 @@ stock GetPlayerWeaponAmmo(playerid, weaponid)
     return 0;
 }
 
-stock GetPlayersInSameIp(const test_ip[])
+stock GetPlayersInSameIp(playerid)
 {
-	new against_ip[32+1];
-    new ip_count = 0;
+	new ip_count = 0, playerIp[MAX_IP_STRING], against_ip[MAX_IP_STRING];
+    GetPlayerIp(playerid, playerIp, MAX_IP_STRING);
     foreach(new i: Player)
 	{
-        GetPlayerIp(i, against_ip, 32);
-        if (!strcmp(against_ip, test_ip))
+        GetPlayerIp(i, against_ip, MAX_IP_STRING);
+        if (!strcmp(playerIp, against_ip))
 	   	{
 	    	ip_count++;
 		}

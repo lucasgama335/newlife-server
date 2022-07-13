@@ -118,6 +118,13 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				}
 			}
 		}
+		case KEY_Y:
+		{
+			if (newkeys == KEY_Y && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
+			{
+				CallLocalFunction("OnPlayerPressY", "i", playerid);
+			}
+		}
 	}
 	return 1;
 }

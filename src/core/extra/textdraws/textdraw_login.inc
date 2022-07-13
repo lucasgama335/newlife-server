@@ -15,6 +15,7 @@ stock ShowLoginScreen(playerid)
 			TextDrawShowForPlayer(playerid, gsLoginScreenTextdraw[i]);
 		}
 	}
+	SelectTextDraw(playerid, COLOR_ORANGE);
 	return 1;
 }
 
