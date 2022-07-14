@@ -13,7 +13,8 @@ enum i_INVENTORY_DATA
 };
 static gsPlayerInventory[MAX_PLAYERS][MAX_INVENTORY_SLOTS][i_INVENTORY_DATA];
 static gsItemSelect[MAX_PLAYERS];
-static gsLastItemSelect[MAX_PLAYERS];
+static gsLastItemSelected[MAX_PLAYERS];
+static bool:gsIsInventoryOpened[MAX_PLAYERS];
 
 //------------------------- Timers (Timers used in the module.) -------------------------
 
@@ -28,6 +29,7 @@ static stock ShowPlayerInventory(playerid)
     HidePlayerHud(playerid);
     Inventory_UpdateBoxInfo(playerid);
     Inventory_Show(playerid);
+    gsIsInventoryOpened[playerid] = true;
     return 1;
 }
 
@@ -46,12 +48,23 @@ stock Inventory_ResetAllSlots(playerid)
     return 1;
 }
 
+stock bool:IsPlayerInventoryOpened(playerid)
+{
+    if (!IsValidPlayer(playerid))
+    {
+        return false;
+    }
+    
+    return gsIsInventoryOpened[playerid];
+}
+
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerConnect(playerid)
 {
     Inventory_ResetAllSlots(playerid);
     gsItemSelect[playerid] = INVALID_VALUE;
-    gsLastItemSelect[playerid] = INVALID_VALUE;
+    gsLastItemSelected[playerid] = INVALID_VALUE;
+    gsIsInventoryOpened[playerid] = false;
     return 1;
 }
 
@@ -61,20 +74,26 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
     if (playertextid == Inventory_GetTextdraw(playerid, 41))
     {
         // Reset Box Color of last item select
-        if (gsLastItemSelect[playerid] != INVALID_VALUE)
+        if (gsLastItemSelected[playerid] != INVALID_VALUE)
         {
-            Inventory_ChangeItemBoxColor(playerid, gsLastItemSelect[playerid], 1296911746);
+            Inventory_ChangeItemBoxColor(playerid, gsLastItemSelected[playerid], 1296911746);
         }
+        gsLastItemSelected[playerid] = INVALID_VALUE;
         Inventory_Hide(playerid);
         ShowPlayerHud(playerid);
         CancelSelectTextDraw(playerid);
+        gsIsInventoryOpened[playerid] = false;
         return 1;
     }
 
     // Reset Button
     if (playertextid == Inventory_GetTextdraw(playerid, 9))
     {
-        Inventory_ChangeItemBoxColor(playerid, gsLastItemSelect[playerid], 1296911746);
+        if (gsLastItemSelected[playerid] != INVALID_VALUE)
+        {
+            Inventory_ChangeItemBoxColor(playerid, gsLastItemSelected[playerid], 1296911746);
+        }
+        gsLastItemSelected[playerid] = INVALID_VALUE;
         Inventory_HideItemOptions(playerid);
         Inventory_UpdateBoxInfo(playerid);
         return 1;
@@ -93,12 +112,12 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         if (index != INVALID_VALUE)
         {
             // Reset Box Color of last item select
-            if (gsLastItemSelect[playerid] != INVALID_VALUE)
+            if (gsLastItemSelected[playerid] != INVALID_VALUE)
             {
-                Inventory_ChangeItemBoxColor(playerid, gsLastItemSelect[playerid], 1296911746);
+                Inventory_ChangeItemBoxColor(playerid, gsLastItemSelected[playerid], 1296911746);
             }
-            gsLastItemSelect[playerid] = index;
-            Inventory_ChangeItemBoxColor(playerid, gsLastItemSelect[playerid], -764862721);
+            gsLastItemSelected[playerid] = index;
+            Inventory_ChangeItemBoxColor(playerid, gsLastItemSelected[playerid], -764862721);
             Inventory_UpdateBoxInfoItem(playerid, index, gsPlayerInventory[playerid][index][i_INVENTORY_ID], "Desconhecido", 0, "Desconhecida");
             Inventory_ShowItemOptions(playerid);
             return 1;
