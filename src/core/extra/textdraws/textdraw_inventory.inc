@@ -738,7 +738,7 @@ stock Inventory_CreateItemsBox(playerid, e_SCREENS:screenType = SCREEN_NORMAL)
         PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][11], 0);
         PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][11], 0);
         PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][11], 1);
-        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][11], -1061109505);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][11], -1);
         PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][11], 1296911746);
         PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][11], 255);
         PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][11], 0);
@@ -1507,14 +1507,14 @@ stock Inventory_ChangeItemBoxColor(playerid, index, color)
     return 1;
 }
 
-stock Inventory_UpdateBoxInfoItem(playerid, invIdex, itemId, const name[], quantity, const rarity[])
+stock Inventory_UpdateBoxInfoItem(playerid, invSlot, itemId, const name[], quantity, const rarity[])
 {
     PlayerTextDrawHide(playerid, gsInventoryTextdraw[playerid][2]);
     PlayerTextDrawSetPreviewModel(playerid, gsInventoryTextdraw[playerid][2], (itemId == 0 ? 18631 : itemId));
     PlayerTextDrawShow(playerid, gsInventoryTextdraw[playerid][2]);
 
     new txtString[(31 + MAX_MONEY_STRING)], formatMoney[MAX_MONEY_STRING];
-    format(txtString, sizeof(txtString), "ITEM[%d]: %s", invIdex, name);
+    format(txtString, sizeof(txtString), "ITEM[%d]: %s", invSlot, name);
     PlayerTextDrawSetString(playerid, gsInventoryTextdraw[playerid][4], txtString);
 
     FormatMoneyString(Player_GetMoney(playerid), formatMoney);
@@ -1523,6 +1523,14 @@ stock Inventory_UpdateBoxInfoItem(playerid, invIdex, itemId, const name[], quant
 
     format(txtString, sizeof(txtString), "RARIDADE: %s", rarity);
     PlayerTextDrawSetString(playerid, gsInventoryTextdraw[playerid][6], txtString);
+    return 1;
+}
+
+stock Inventory_UpdatePageText(playerid, page, maxPages)
+{
+    new txtString[15];
+    format(txtString, sizeof(txtString), "PAGINA: %d/%d", page, maxPages);
+    PlayerTextDrawSetString(playerid, gsInventoryTextdraw[playerid][34], txtString);
     return 1;
 }
 

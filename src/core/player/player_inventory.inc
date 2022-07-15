@@ -2,6 +2,11 @@
 
 //------------------------- Definitions and constants -------------------------
 #define MAX_INVENTORY_SLOTS         80
+#define MAX_ITEMS_PER_PAGE          20
+#define INVENTORY_FIRST_PAGE        0
+#define MAX_INVENTORY_PAGES         4
+#define TEXTDRAW_UNSELECTED_COLOR   1296911746
+#define TEXTDRAW_SELECTED_COLOR     -764862721
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 enum i_INVENTORY_DATA
@@ -13,7 +18,9 @@ enum i_INVENTORY_DATA
 };
 static gsPlayerInventory[MAX_PLAYERS][MAX_INVENTORY_SLOTS][i_INVENTORY_DATA];
 static gsItemSelect[MAX_PLAYERS];
-static gsLastItemSelected[MAX_PLAYERS];
+static gsLastTextdrawSelected[MAX_PLAYERS];
+static gsInventoryPage[MAX_PLAYERS];
+static gsInventorySlotSelected[MAX_PLAYERS];
 static bool:gsIsInventoryOpened[MAX_PLAYERS];
 
 //------------------------- Timers (Timers used in the module.) -------------------------
@@ -30,6 +37,8 @@ static stock ShowPlayerInventory(playerid)
     Inventory_UpdateBoxInfo(playerid);
     Inventory_Show(playerid);
     gsIsInventoryOpened[playerid] = true;
+    gsInventoryPage[playerid] = INVENTORY_FIRST_PAGE;
+    gsInventorySlotSelected[playerid] = INVALID_VALUE;
     return 1;
 }
 
@@ -63,8 +72,10 @@ hook OnPlayerConnect(playerid)
 {
     Inventory_ResetAllSlots(playerid);
     gsItemSelect[playerid] = INVALID_VALUE;
-    gsLastItemSelected[playerid] = INVALID_VALUE;
+    gsLastTextdrawSelected[playerid] = INVALID_VALUE;
     gsIsInventoryOpened[playerid] = false;
+    gsInventoryPage[playerid] = INVENTORY_FIRST_PAGE;
+    gsInventorySlotSelected[playerid] = INVALID_VALUE;
     return 1;
 }
 
@@ -74,11 +85,12 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
     if (playertextid == Inventory_GetTextdraw(playerid, 41))
     {
         // Reset Box Color of last item select
-        if (gsLastItemSelected[playerid] != INVALID_VALUE)
+        if (gsLastTextdrawSelected[playerid] != INVALID_VALUE)
         {
-            Inventory_ChangeItemBoxColor(playerid, gsLastItemSelected[playerid], 1296911746);
+            Inventory_ChangeItemBoxColor(playerid, gsLastTextdrawSelected[playerid], TEXTDRAW_UNSELECTED_COLOR);
         }
-        gsLastItemSelected[playerid] = INVALID_VALUE;
+        gsLastTextdrawSelected[playerid] = INVALID_VALUE;
+        gsInventorySlotSelected[playerid] = INVALID_VALUE;
         Inventory_Hide(playerid);
         ShowPlayerHud(playerid);
         CancelSelectTextDraw(playerid);
@@ -89,11 +101,12 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
     // Reset Button
     if (playertextid == Inventory_GetTextdraw(playerid, 9))
     {
-        if (gsLastItemSelected[playerid] != INVALID_VALUE)
+        if (gsLastTextdrawSelected[playerid] != INVALID_VALUE)
         {
-            Inventory_ChangeItemBoxColor(playerid, gsLastItemSelected[playerid], 1296911746);
+            Inventory_ChangeItemBoxColor(playerid, gsLastTextdrawSelected[playerid], TEXTDRAW_UNSELECTED_COLOR);
         }
-        gsLastItemSelected[playerid] = INVALID_VALUE;
+        gsLastTextdrawSelected[playerid] = INVALID_VALUE;
+        gsInventorySlotSelected[playerid] = INVALID_VALUE;
         Inventory_HideItemOptions(playerid);
         Inventory_UpdateBoxInfo(playerid);
         return 1;
@@ -109,19 +122,60 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
     || playertextid == Inventory_GetTextdraw(playerid, 29) || playertextid == Inventory_GetTextdraw(playerid, 30))
     {
         new index = Inventory_GetTextdrawIndex(playerid, playertextid);
+        gsInventorySlotSelected[playerid] = (index - 11) + (gsInventoryPage[playerid] * MAX_ITEMS_PER_PAGE);
         if (index != INVALID_VALUE)
         {
             // Reset Box Color of last item select
-            if (gsLastItemSelected[playerid] != INVALID_VALUE)
+            if (gsLastTextdrawSelected[playerid] != INVALID_VALUE)
             {
-                Inventory_ChangeItemBoxColor(playerid, gsLastItemSelected[playerid], 1296911746);
+                Inventory_ChangeItemBoxColor(playerid, gsLastTextdrawSelected[playerid], TEXTDRAW_UNSELECTED_COLOR);
             }
-            gsLastItemSelected[playerid] = index;
-            Inventory_ChangeItemBoxColor(playerid, gsLastItemSelected[playerid], -764862721);
-            Inventory_UpdateBoxInfoItem(playerid, index, gsPlayerInventory[playerid][index][i_INVENTORY_ID], "Desconhecido", 0, "Desconhecida");
+            gsLastTextdrawSelected[playerid] = index;
+            Inventory_ChangeItemBoxColor(playerid, gsLastTextdrawSelected[playerid], TEXTDRAW_SELECTED_COLOR);
+            Inventory_UpdateBoxInfoItem(playerid, gsInventorySlotSelected[playerid], gsPlayerInventory[playerid][index][i_INVENTORY_ID], "Desconhecido", 0, "Desconhecida");
             Inventory_ShowItemOptions(playerid);
             return 1;
         }
+    }
+
+    // Prev Page
+    if (playertextid == Inventory_GetTextdraw(playerid, 32))
+    {
+        // Reset Box Color of last item select
+        if (gsLastTextdrawSelected[playerid] != INVALID_VALUE)
+        {
+            Inventory_ChangeItemBoxColor(playerid, gsLastTextdrawSelected[playerid], TEXTDRAW_UNSELECTED_COLOR);
+            gsLastTextdrawSelected[playerid] = INVALID_VALUE;
+        }
+
+        gsInventorySlotSelected[playerid] = INVALID_VALUE;
+        gsInventoryPage[playerid] --;
+        if (gsInventoryPage[playerid] < INVENTORY_FIRST_PAGE)
+        {
+            gsInventoryPage[playerid] = INVENTORY_FIRST_PAGE;
+            SendClientMessage(playerid, COLOR_INVALID, "Você já está na primeira página.");
+        }
+        Inventory_UpdatePageText(playerid, (gsInventoryPage[playerid] + 1), MAX_INVENTORY_PAGES);
+    }
+
+    // Next Page
+    if (playertextid == Inventory_GetTextdraw(playerid, 33))
+    {
+        // Reset Box Color of last item select
+        if (gsLastTextdrawSelected[playerid] != INVALID_VALUE)
+        {
+            Inventory_ChangeItemBoxColor(playerid, gsLastTextdrawSelected[playerid], TEXTDRAW_UNSELECTED_COLOR);
+            gsLastTextdrawSelected[playerid] = INVALID_VALUE;
+        }
+        
+        gsInventorySlotSelected[playerid] = INVALID_VALUE;
+        gsInventoryPage[playerid] ++;
+        if (gsInventoryPage[playerid] > (MAX_INVENTORY_PAGES - 1))
+        {
+            gsInventoryPage[playerid] = (MAX_INVENTORY_PAGES - 1);
+            SendClientMessage(playerid, COLOR_INVALID, "Você já está na última página.");
+        }
+        Inventory_UpdatePageText(playerid, (gsInventoryPage[playerid] + 1), MAX_INVENTORY_PAGES);
     }
     return 1;
 }
