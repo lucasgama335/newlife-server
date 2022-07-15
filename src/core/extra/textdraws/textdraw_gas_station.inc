@@ -446,6 +446,8 @@ hook OnPlayerConnect(playerid)
 
 hook OnPlayerDisconnect(playerid, reason)
 {
+    #pragma unused reason // need this directive, on account of YSI which shows warnings in case the parameter is not used.
+    
     HideFuelTextDraw(playerid);
     DestroyFuelTextdraw(playerid);
 	return 1;

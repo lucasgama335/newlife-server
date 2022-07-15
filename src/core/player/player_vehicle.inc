@@ -130,6 +130,8 @@ hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 
 hook OnPlayerStateChange(playerid, newstate, oldstate)
 {
+	#pragma unused oldstate // need this directive, on account of YSI which shows warnings in case the parameter is not used.
+
 	if (newstate == PLAYER_STATE_DRIVER || newstate == PLAYER_STATE_PASSENGER)
 	{
 		new vehicleid = GetPlayerVehicleID(playerid);

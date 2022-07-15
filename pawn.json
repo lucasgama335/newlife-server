@@ -22,7 +22,7 @@
 		"port": 7777,
 		"hostname": "NewLife RPG",
 		"maxplayers": 50,
-		"language": "Português BR/PT",
+		"language": "Portuguï¿½s BR/PT",
 		"mapname": "San Andreas",
 		"weburl": "www.nlrpg.forumeiros.com",
 		"gamemodetext": "main",
@@ -62,9 +62,9 @@
 			"args": [
 				"-;+",
 				"-(+",
-				"-d3",
 				"-E",
-				"-Z"
+				"-d3",
+				"-Z+"
 			],
 			"includes": [
 				"legacy",

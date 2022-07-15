@@ -1543,6 +1543,8 @@ hook OnPlayerConnect(playerid)
 
 hook OnPlayerDisconnect(playerid, reason)
 {
+    #pragma unused reason // need this directive, on account of YSI which shows warnings in case the parameter is not used.
+    
     Inventory_Hide(playerid);
     Inventory_Destroy(playerid);
 	return 1;

@@ -24,6 +24,8 @@ static stock ShowCommandsListDialog(playerid)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
+	#pragma unused inputtext // need this directive, on account of YSI which shows warnings in case the parameter is not used.
+	
     switch (dialogid)
     {
         case DIALOG_ADMIN_CMDS:

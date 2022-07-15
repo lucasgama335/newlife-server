@@ -86,6 +86,8 @@ public e_COMMAND_ERRORS:OnPlayerCommandPerformed(playerid, cmdtext[], e_COMMAND_
 
 hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
+	#pragma unused oldkeys // need this directive, on account of YSI which shows warnings in case the parameter is not used.
+
 	switch (newkeys)
 	{
 		case KEY_F: 

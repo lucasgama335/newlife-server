@@ -170,6 +170,8 @@ hook OnPlayerConnect(playerid)
 
 hook OnPlayerDisconnect(playerid, reason)
 {
+	#pragma unused reason // need this directive, on account of YSI which shows warnings in case the parameter is not used.
+
 	HideClientAlert(playerid);
 	DestroyClientAlert(playerid);
 	return 1;

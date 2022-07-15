@@ -284,6 +284,8 @@ hook OnPlayerDisconnect(playerid, reason)
 
 hook OnPlayerRequestClass(playerid, classid)
 {
+    #pragma unused classid // need this directive, on account of YSI which shows warnings in case the parameter is not used.
+
     if (IsPlayerNPC(playerid))
 	{
 		return 1;
@@ -349,6 +351,9 @@ hook OnPlayerClickTextDraw(playerid, Text:clickedid)
 
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
+    #pragma unused listitem // need this directive, on account of YSI which shows warnings in case the parameter is not used.
+    #pragma unused inputtext // need this directive, on account of YSI which shows warnings in case the parameter is not used.
+
     switch(dialogid)
     {
         // Auth

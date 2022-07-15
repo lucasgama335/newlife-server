@@ -244,6 +244,9 @@ hook OnPlayerDeath(playerid)
 
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
+    #pragma unused response // need this directive, on account of YSI which shows warnings in case the parameter is not used.
+	#pragma unused inputtext // need this directive, on account of YSI which shows warnings in case the parameter is not used.
+
     switch (dialogid)
     {
         case DIALOG_DRIVE_SCHOOL:
