@@ -1491,7 +1491,7 @@ stock Inventory_UpdateItemPreview(playerid, index, itemId, bool:reDrawing = fals
     {
        PlayerTextDrawHide(playerid, gsInventoryTextdraw[playerid][index]); 
     }
-    PlayerTextDrawSetPreviewModel(playerid, gsInventoryTextdraw[playerid][index], (itemId == 0 ? 18631 : itemId));
+    PlayerTextDrawSetPreviewModel(playerid, gsInventoryTextdraw[playerid][index], itemId);
     if (reDrawing)
     {
        PlayerTextDrawShow(playerid, gsInventoryTextdraw[playerid][index]); 
@@ -1510,7 +1510,7 @@ stock Inventory_ChangeItemBoxColor(playerid, index, color)
 stock Inventory_UpdateBoxInfoItem(playerid, invSlot, itemId, const name[], quantity, const rarity[])
 {
     PlayerTextDrawHide(playerid, gsInventoryTextdraw[playerid][2]);
-    PlayerTextDrawSetPreviewModel(playerid, gsInventoryTextdraw[playerid][2], (itemId == 0 ? 18631 : itemId));
+    PlayerTextDrawSetPreviewModel(playerid, gsInventoryTextdraw[playerid][2], itemId);
     PlayerTextDrawShow(playerid, gsInventoryTextdraw[playerid][2]);
 
     new txtString[(31 + MAX_MONEY_STRING)], formatMoney[MAX_MONEY_STRING];

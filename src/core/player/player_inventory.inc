@@ -7,6 +7,7 @@
 #define MAX_INVENTORY_PAGES         4
 #define TEXTDRAW_UNSELECTED_COLOR   1296911746
 #define TEXTDRAW_SELECTED_COLOR     -764862721
+#define INVENTORY_INVALID_PICKUP    18631
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 enum i_INVENTORY_DATA
@@ -32,6 +33,10 @@ static stock ShowPlayerInventory(playerid)
     {
         return SendClientMessage(playerid, COLOR_INVALID, "Você precisa estar logado para abrir o inventário.");
     }
+    if (gsIsInventoryOpened[playerid])
+    {
+        return SendClientMessage(playerid, -1, "O inventário já está aberto.");
+    }
 
     HidePlayerHud(playerid);
     Inventory_UpdateBoxInfo(playerid);
@@ -42,12 +47,37 @@ static stock ShowPlayerInventory(playerid)
     return 1;
 }
 
+static stock HidePlayerInventory(playerid)
+{
+    if (!IsValidPlayer(playerid))
+    {
+        return SendClientMessage(playerid, COLOR_INVALID, "Você precisa estar logado para fechar o inventário.");
+    }
+    if (!gsIsInventoryOpened[playerid])
+    {
+        return SendClientMessage(playerid, -1, "O inventário não está aberto.");
+    }
+
+    ShowPlayerHud(playerid);
+    Inventory_Hide(playerid);
+    CancelSelectTextDraw(playerid);
+    gsIsInventoryOpened[playerid] = false;
+    gsInventoryPage[playerid] = INVENTORY_FIRST_PAGE;
+    gsInventorySlotSelected[playerid] = INVALID_VALUE;
+    return 1;
+}
+
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock Inventory_ResetAllSlots(playerid)
 {
     // Reset Inventory Data
-    static const scEmptyData[MAX_INVENTORY_SLOTS][i_INVENTORY_DATA];
-    gsPlayerInventory[playerid] = scEmptyData;
+    for (new i; i < MAX_INVENTORY_SLOTS; i++)
+    {
+        gsPlayerInventory[playerid][i][i_INVENTORY_ID] = INVALID_VALUE;
+        gsPlayerInventory[playerid][i][i_INVENTORY_ITEM_ID] = INVENTORY_INVALID_PICKUP;
+        gsPlayerInventory[playerid][i][i_INVENTORY_ITEM_QUANTITY] = 0;
+        gsPlayerInventory[playerid][i][i_INVENTORY_ITEM_SLOT] = INVALID_VALUE;
+    }
 
     // Reset All Textdraw Item Preview
     for (new i = 11; i < 31; i++)
@@ -182,13 +212,19 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
 
 hook OnPlayerPressY(playerid)
 {
-    ShowPlayerInventory(playerid);
+    if (!gsIsInventoryOpened[playerid])
+    {
+        ShowPlayerInventory(playerid);
+    }
     return 1;
 }
 
 //------------------------- Commands (Module related commands) -------------------------
 YCMD:inventario(playerid, params[], help)
 {
-    ShowPlayerInventory(playerid);
+    if (!gsIsInventoryOpened[playerid])
+    {
+        ShowPlayerInventory(playerid);
+    }
     return 1;
 }
