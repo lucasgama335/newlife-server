@@ -1353,7 +1353,6 @@ static stock Inventory_CreateTextdraw(playerid, e_SCREENS:screenType = SCREEN_NO
     return 1;
 }
 
-
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock Inventory_Show(playerid)
 {
@@ -1481,18 +1480,18 @@ stock Inventory_UpdateBoxInfo(playerid)
     return 1;
 }
 
-stock Inventory_UpdateItemPreview(playerid, index, itemId, bool:reDrawing = false)
+stock Inventory_UpdateItemPreview(playerid, index, itemId, bool:isInventoryOpened)
 {
     if (index < 11 || index > 30)
     {
         return 0;
     }
-    if (reDrawing)
+    if (isInventoryOpened)
     {
        PlayerTextDrawHide(playerid, gsInventoryTextdraw[playerid][index]); 
     }
     PlayerTextDrawSetPreviewModel(playerid, gsInventoryTextdraw[playerid][index], itemId);
-    if (reDrawing)
+    if (isInventoryOpened)
     {
        PlayerTextDrawShow(playerid, gsInventoryTextdraw[playerid][index]); 
     }
@@ -1531,6 +1530,14 @@ stock Inventory_UpdatePageText(playerid, page, maxPages)
     new txtString[15];
     format(txtString, sizeof(txtString), "PAGINA: %d/%d", page, maxPages);
     PlayerTextDrawSetString(playerid, gsInventoryTextdraw[playerid][34], txtString);
+    return 1;
+}
+
+stock Inventory_UpdateTotalItens(playerid, validItems, totalItems)
+{
+    new txtString[13];
+    format(txtString, sizeof(txtString), "ITEMS: %d/%d", validItems, totalItems);
+    PlayerTextDrawSetString(playerid, gsInventoryTextdraw[playerid][31], txtString);
     return 1;
 }
 

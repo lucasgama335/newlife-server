@@ -56,65 +56,33 @@
 			"crashdetect_log": "crashinfo.txt"
 		}
 	},
-	"builds": [
-		{
-			"name": "dev",
-			"args": [
-				"-;+",
-				"-(+",
-				"-E",
-				"-d3",
-				"-Z+"
-			],
-			"includes": [
-				"legacy",
-				"src/utils",
-				"src/core",
-				"src/core/accounts",
-				"src/core/extra",
-				"src/core/extra/maps",
-				"src/core/extra/textdraws",
-				"src/core/player",
-				"src/core/cmds",
-				"src/core/cmds/admin",
-				"src/core/chat",
-				"src/core/server",
-				"src/core/server/anticheat",
-				"src/core/server/database",
-				"src/core/server/database/tables",
-				"src/core/features",
-				"src/core/vehicles",
-				"src/core/vehicles/data"
-			]
-		},
-		{
-			"name": "live",
-			"args": [
-				"-;+",
-				"-(+",
-				"-O1",
-				"-Z+"
-			],
-			"includes": [
-				"legacy",
-				"src/utils",
-				"src/core",
-				"src/core/accounts",
-				"src/core/extra",
-				"src/core/extra/maps",
-				"src/core/extra/textdraws",
-				"src/core/player",
-				"src/core/cmds",
-				"src/core/cmds/admin",
-				"src/core/chat",
-				"src/core/server",
-				"src/core/server/anticheat",
-				"src/core/server/database",
-				"src/core/server/database/tables",
-				"src/core/features",
-				"src/core/vehicles",
-				"src/core/vehicles/data"
-			]
-		}
-	]
+	"build": {
+		"args": [
+			"-;+",
+			"-(+",
+			"-\\+",
+			"-d3",
+			"-Z+"
+		],
+		"includes": [
+			"legacy",
+			"src/utils",
+			"src/core",
+			"src/core/accounts",
+			"src/core/extra",
+			"src/core/extra/maps",
+			"src/core/extra/textdraws",
+			"src/core/player",
+			"src/core/cmds",
+			"src/core/cmds/admin",
+			"src/core/chat",
+			"src/core/server",
+			"src/core/server/anticheat",
+			"src/core/server/database",
+			"src/core/server/database/tables",
+			"src/core/features",
+			"src/core/vehicles",
+			"src/core/vehicles/data"
+		]
+	}
 }
