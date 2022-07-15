@@ -122,7 +122,7 @@ hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		}
 		case KEY_Y:
 		{
-			if (newkeys == KEY_Y && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
+			if (newkeys == KEY_Y)
 			{
 				CallLocalFunction("OnPlayerPressY", "i", playerid);
 			}

@@ -29,7 +29,7 @@ static bool:gsInventoryIsSyncDb[MAX_PLAYERS];
 //------------------------- Timers (Timers used in the module.) -------------------------
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
-static stock ShowPlayerInventory(playerid)
+static stock OpenPlayerInventory(playerid)
 {
     if (!IsValidPlayer(playerid))
     {
@@ -52,10 +52,14 @@ static stock ShowPlayerInventory(playerid)
     gsIsInventoryOpened[playerid] = true;
     gsInventoryPage[playerid] = INVENTORY_FIRST_PAGE;
     gsInventorySlotSelected[playerid] = INVALID_VALUE;
+    if (!IsPlayerInAnyVehicle(playerid))
+    {
+        ApplyAnimation(playerid, "BOMBER", "BOM_Plant_2Idle", 4.1, false, true, true, false, 0);
+    }
     return 1;
 }
 
-static stock HidePlayerInventory(playerid)
+static stock ClosePlayerInventory(playerid)
 {
     if (!IsValidPlayer(playerid))
     {
@@ -141,7 +145,7 @@ hook OnPlayerPressY(playerid)
 {
     if (!gsIsInventoryOpened[playerid])
     {
-        ShowPlayerInventory(playerid);
+        OpenPlayerInventory(playerid);
     }
     return 1;
 }
@@ -290,7 +294,7 @@ YCMD:inventario(playerid, params[], help)
 {
     if (!gsIsInventoryOpened[playerid])
     {
-        ShowPlayerInventory(playerid);
+        OpenPlayerInventory(playerid);
     }
     return 1;
 }
