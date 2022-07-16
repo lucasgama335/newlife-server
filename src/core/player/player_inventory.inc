@@ -4,10 +4,13 @@
 
 //------------------------- Definitions and constants -------------------------
 #define TEXTDRAW_UNSELECTED_COLOR   1296911746
-#define TEXTDRAW_SELECTED_COLOR     -764862721
+#define TEXTDRAW_SELECTED_COLOR     -764862851 // 764862721
+#define TEXTDRAW_DEFAULT_X_ROT      -10.000000
+#define TEXTDRAW_DEFAULT_Z_ROT      -8.000000
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-
+static Float:gsLastPreviewRotX[MAX_PLAYERS];
+static Float:gsLastPreviewRotZ[MAX_PLAYERS];
 
 //------------------------- Timers (Timers used in the module.) -------------------------
 
@@ -37,15 +40,30 @@ static stock SyncInventoryDataWithTextdraws(playerid, page)
 {
     if (page <= INVENTORY_MAX_PAGES && page >= 0)
     {
-        new txtIndex = 11;
+        new txtPreviewIndex = 11, txtDescriptionIndex = 47, itemName[INVENTORY_MAX_ITEM_NAME];
         for (new i = (((page + 1) * INVENTORY_ITEMS_PER_PAGE) - INVENTORY_ITEMS_PER_PAGE); i < ((page + 1) * INVENTORY_ITEMS_PER_PAGE); i++)
         {
-            if (txtIndex > 30)
+            if (txtPreviewIndex > 30)
             {
-                txtIndex = 11;
+                txtPreviewIndex = 11;
             }   
-            UpdateInventoryItemPreview(playerid, txtIndex, GetInventoryItemObjectId(Inventory_GetItemId(playerid, i)), Inventory_GetIsOpenedStatus(playerid));
-            txtIndex++;
+            if (txtDescriptionIndex > 66)
+            {
+                txtDescriptionIndex = 47;
+            }   
+            UpdateInventoryItemPreview(playerid, txtPreviewIndex, GetInventoryItemObjectId(Inventory_GetItemId(playerid, i)), Inventory_GetIsOpenedStatus(playerid));
+            if (Inventory_GetItemId(playerid, i) != i_ITEM_INVALID)
+            {
+                GetInventoryItemName(Inventory_GetItemId(playerid, i), itemName);
+                ShowPreviewDescription(playerid, txtDescriptionIndex);
+                UpdateInventoryPreviewDesc(playerid, txtDescriptionIndex, itemName, Inventory_GetItemQuantity(playerid, i));
+            }
+            else
+            {
+                HidePreviewDescription(playerid, txtDescriptionIndex);
+            }
+            txtPreviewIndex++;
+            txtDescriptionIndex++;
         }
     }
     return 1;
@@ -65,7 +83,7 @@ static stock UnselectInventoryItem(playerid)
 static stock UpdateInventoryTotalItens(playerid, quantity)
 {
     Inventory_SetTotalValidItems(playerid, quantity);
-    Inventory_UpdateTotalItens(playerid, Inventory_GetTotalValidItems(playerid), INVENTORY_MAX_SLOTS);
+    ChangeInventoryTotalItens(playerid, Inventory_GetTotalValidItems(playerid), INVENTORY_MAX_SLOTS);
     return 1;
 }
 
@@ -96,7 +114,8 @@ stock OpenPlayerInventory(playerid)
     SyncInventoryDataWithTextdraws(playerid, Inventory_GetActualPage(playerid));
     UpdateInventoryTotalItens(playerid, Inventory_GetTotalValidItems(playerid));
     Inventory_Show(playerid);
-    
+    gsLastPreviewRotX[playerid] = TEXTDRAW_DEFAULT_X_ROT;
+    gsLastPreviewRotZ[playerid] = TEXTDRAW_DEFAULT_Z_ROT;
     if (!IsPlayerInAnyVehicle(playerid))
     {
         ApplyAnimation(playerid, "BOMBER", "BOM_Plant_2Idle", 4.1, false, true, true, false, 0);
@@ -150,7 +169,7 @@ stock Inventory_AddItem(playerid, i_ITEM_LIST:itemId, quantity)
     Inventory_SetItemQuantity(playerid, freeSlot, quantity);
     Inventory_SetItemSlot(playerid, freeSlot, freeSlot);
     
-    UpdateInventoryTotalItens(playerid, (Inventory_GetTotalValidItems(playerid) + 1));
+    Inventory_SetTotalValidItems(playerid, (Inventory_GetTotalValidItems(playerid) + 1));
     if (Inventory_GetIsOpenedStatus(playerid))
     {
         SyncInventoryDataWithTextdraws(playerid, Inventory_GetActualPage(playerid));
@@ -196,7 +215,7 @@ stock Inventory_RemoveItem(playerid, itemDbId, slot)
     }
 
     HideInventoryItemOptions(playerid);
-    UpdateInventoryTotalItens(playerid, (Inventory_GetTotalValidItems(playerid) - 1));
+    Inventory_SetTotalValidItems(playerid, (Inventory_GetTotalValidItems(playerid) - 1));
 
     new sqlString[71];
     mysql_format(Database_GetConnection(), sqlString, sizeof(sqlString), "DELETE FROM %s WHERE %s = %d", INVENTORY_TABLE_NAME, INVENTORY_FIELD_ID, itemDbId);
@@ -293,7 +312,7 @@ hook FirstSpawnOnLogin(playerid)
 hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
 {
     // Close Button
-    if (playertextid == Inventory_GetTextdraw(playerid, 41))
+    if (playertextid == Inventory_GetTextdraw(playerid, 42))
     {
         Inventory_SetIsOpenedStatus(playerid, false);
 
@@ -311,6 +330,8 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         UnselectInventoryItem(playerid);
         HideInventoryItemOptions(playerid);
         ResetInventoryBoxInfo(playerid);
+        gsLastPreviewRotX[playerid] = TEXTDRAW_DEFAULT_X_ROT;
+        gsLastPreviewRotZ[playerid] = TEXTDRAW_DEFAULT_Z_ROT;
         return 1;
     }
 
@@ -338,8 +359,11 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
             UpdateInventoryItemBoxColor(playerid, Inventory_GetTextdrawSelected(playerid), TEXTDRAW_SELECTED_COLOR);
             UpdateInventoryBoxInfo(playerid, Inventory_GetSlotSelected(playerid), GetInventoryItemObjectId(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))), itemName, Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)), GetInventoryItemRarity(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))));
             Inventory_ShowItemOptions(playerid);
-            return 1;
+
+            gsLastPreviewRotX[playerid] = TEXTDRAW_DEFAULT_X_ROT;
+            gsLastPreviewRotZ[playerid] = TEXTDRAW_DEFAULT_Z_ROT;
         }
+        return 1;
     }
 
     // Prev Page
@@ -356,9 +380,12 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         UnselectInventoryItem(playerid);
         ResetInventoryBoxInfo(playerid);
         HideInventoryItemOptions(playerid);
+        gsLastPreviewRotX[playerid] = TEXTDRAW_DEFAULT_X_ROT;
+        gsLastPreviewRotZ[playerid] = TEXTDRAW_DEFAULT_Z_ROT;
 
         UpdateInventoryPageText(playerid, (Inventory_GetActualPage(playerid) + 1), INVENTORY_MAX_PAGES);
         SyncInventoryDataWithTextdraws(playerid, Inventory_GetActualPage(playerid));
+        return 1;
     }
 
     // Next Page
@@ -375,9 +402,12 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         UnselectInventoryItem(playerid);
         ResetInventoryBoxInfo(playerid);
         HideInventoryItemOptions(playerid);
+        gsLastPreviewRotX[playerid] = TEXTDRAW_DEFAULT_X_ROT;
+        gsLastPreviewRotZ[playerid] = TEXTDRAW_DEFAULT_Z_ROT;
         
         UpdateInventoryPageText(playerid, (Inventory_GetActualPage(playerid) + 1), INVENTORY_MAX_PAGES);
         SyncInventoryDataWithTextdraws(playerid, Inventory_GetActualPage(playerid));
+        return 1;
     }
 
     // Use Item
@@ -405,6 +435,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
             Inventory_RemoveItem(playerid, Inventory_GetDbId(playerid, Inventory_GetSlotSelected(playerid)), Inventory_GetSlotSelected(playerid));
             ResetInventorySlot(playerid, Inventory_GetSlotSelected(playerid));
             ResetInventoryBoxInfo(playerid);
+            HidePreviewDescription(playerid, (Inventory_GetTextdrawSelected(playerid) + 36));
             UpdateInventoryItemPreview(playerid, Inventory_GetTextdrawSelected(playerid), GetInventoryItemObjectId(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))), Inventory_GetIsOpenedStatus(playerid));
             UnselectInventoryItem(playerid);
         }
@@ -412,10 +443,12 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         {
             Inventory_UpdateItemQuantity(playerid, Inventory_GetDbId(playerid, Inventory_GetSlotSelected(playerid)), Inventory_GetSlotSelected(playerid), (itemQuantity - 1));
             UpdateInventoryBoxInfo(playerid, Inventory_GetSlotSelected(playerid), GetInventoryItemObjectId(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))), itemName, Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)), GetInventoryItemRarity(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))));
+            UpdateInventoryPreviewDesc(playerid, (Inventory_GetTextdrawSelected(playerid) + 36), itemName, Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)));
         }   
         return 1;
     }
 
+    // Organize Inventory
     if (playertextid == Inventory_GetTextdraw(playerid, 8))
     {
         for (new i; i < INVENTORY_MAX_SLOTS; i++)
@@ -461,9 +494,42 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         ResetInventorySlot(playerid, Inventory_GetSlotSelected(playerid));
         ResetInventoryBoxInfo(playerid);
 
+        HidePreviewDescription(playerid, (Inventory_GetTextdrawSelected(playerid) + 36));
         UpdateInventoryItemPreview(playerid, Inventory_GetTextdrawSelected(playerid), GetInventoryItemObjectId(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))), Inventory_GetIsOpenedStatus(playerid));
         
         UnselectInventoryItem(playerid);
+        return 1;
+    }
+
+    // Box Preview Rotation (X+)
+    if (playertextid == Inventory_GetTextdraw(playerid, 43))
+    {
+        gsLastPreviewRotX[playerid] += 5.0;
+        UpdateBoxPreviewRotation(playerid, gsLastPreviewRotX[playerid], gsLastPreviewRotZ[playerid], Inventory_GetIsOpenedStatus(playerid));
+        return 1;
+    }
+
+    // Box Preview Rotation (X-)
+    if (playertextid == Inventory_GetTextdraw(playerid, 44))
+    {
+        gsLastPreviewRotX[playerid] -= 5.0;
+        UpdateBoxPreviewRotation(playerid, gsLastPreviewRotX[playerid], gsLastPreviewRotZ[playerid], Inventory_GetIsOpenedStatus(playerid));
+        return 1;
+    }
+
+    // Box Preview Rotation (Z+)
+    if (playertextid == Inventory_GetTextdraw(playerid, 45))
+    {
+        gsLastPreviewRotZ[playerid] += 5.0;
+        UpdateBoxPreviewRotation(playerid, gsLastPreviewRotX[playerid], gsLastPreviewRotZ[playerid], Inventory_GetIsOpenedStatus(playerid));
+        return 1;
+    }
+
+    // Box Preview Rotation (Z-)
+    if (playertextid == Inventory_GetTextdraw(playerid, 46))
+    {
+        gsLastPreviewRotZ[playerid] -= 5.0;
+        UpdateBoxPreviewRotation(playerid, gsLastPreviewRotX[playerid], gsLastPreviewRotZ[playerid], Inventory_GetIsOpenedStatus(playerid));
         return 1;
     }
     return 1;

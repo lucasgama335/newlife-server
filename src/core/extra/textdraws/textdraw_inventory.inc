@@ -1,7 +1,7 @@
 #include <YSI_Coding\y_hooks>
 
 //------------------------- Definitions and constants -------------------------
-#define TEXTDRAW_ARRAY_SIZE     42
+#define TEXTDRAW_ARRAY_SIZE     67
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static PlayerText:gsInventoryTextdraw[MAX_PLAYERS][TEXTDRAW_ARRAY_SIZE];
 
@@ -57,7 +57,7 @@ stock Inventory_CreateInfoBox(playerid, e_SCREENS:screenType = SCREEN_NORMAL)
 
         gsInventoryTextdraw[playerid][3] = CreatePlayerTextDraw(playerid, 189.000000, 255.000000, "I");
         PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][3], 1);
-        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][3], 14.183364, -0.149995);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][3], 14.183362, -0.149994);
         PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][3], 400.000000, 17.000000);
         PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][3], 0);
         PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][3], 0);
@@ -83,7 +83,7 @@ stock Inventory_CreateInfoBox(playerid, e_SCREENS:screenType = SCREEN_NORMAL)
         PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][4], 1);
         PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][4], 0);
 
-        gsInventoryTextdraw[playerid][5] = CreatePlayerTextDraw(playerid, 193.000000, 226.000000, "QUANTIDADE: 20");
+        gsInventoryTextdraw[playerid][5] = CreatePlayerTextDraw(playerid, 193.000000, 229.000000, "QUANTIDADE: 20");
         PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][5], 3);
         PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][5], 0.136996, 0.849999);
         PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][5], 400.000000, 17.000000);
@@ -97,7 +97,7 @@ stock Inventory_CreateInfoBox(playerid, e_SCREENS:screenType = SCREEN_NORMAL)
         PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][5], 1);
         PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][5], 0);
 
-        gsInventoryTextdraw[playerid][6] = CreatePlayerTextDraw(playerid, 193.000000, 237.000000, "RARIDADE: DESCONHECIDA");
+        gsInventoryTextdraw[playerid][6] = CreatePlayerTextDraw(playerid, 193.000000, 243.000000, "RARIDADE: DESCONHECIDA");
         PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][6], 3);
         PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][6], 0.136996, 0.849999);
         PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][6], 400.000000, 17.000000);
@@ -113,7 +113,7 @@ stock Inventory_CreateInfoBox(playerid, e_SCREENS:screenType = SCREEN_NORMAL)
 
         gsInventoryTextdraw[playerid][7] = CreatePlayerTextDraw(playerid, 189.000000, 213.000000, "I");
         PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][7], 1);
-        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][7], 14.183364, -0.149995);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][7], 14.183362, -0.149994);
         PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][7], 400.000000, 17.000000);
         PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][7], 0);
         PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][7], 0);
@@ -1136,7 +1136,7 @@ stock Inventory_CreateItemOptions(playerid, e_SCREENS:screenType = SCREEN_NORMAL
     {
         gsInventoryTextdraw[playerid][35] = CreatePlayerTextDraw(playerid, 232.000000, 283.000000, "_");
         PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][35], 1);
-        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][35], 0.600000, 7.300070);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][35], 0.600000, 7.300068);
         PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][35], 298.500000, 76.500000);
         PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][35], 1);
         PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][35], 0);
@@ -1176,7 +1176,7 @@ stock Inventory_CreateItemOptions(playerid, e_SCREENS:screenType = SCREEN_NORMAL
         PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][37], 1);
         PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][37], 1);
 
-        gsInventoryTextdraw[playerid][38] = CreatePlayerTextDraw(playerid, 212.000000, 312.000000, "JUNTAR");
+        gsInventoryTextdraw[playerid][38] = CreatePlayerTextDraw(playerid, 212.000000, 313.000000, "JUNTAR");
         PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][38], 2);
         PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][38], 0.108332, 0.800000);
         PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][38], 16.500000, 33.500000);
@@ -1190,7 +1190,7 @@ stock Inventory_CreateItemOptions(playerid, e_SCREENS:screenType = SCREEN_NORMAL
         PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][38], 1);
         PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][38], 1);
 
-        gsInventoryTextdraw[playerid][39] = CreatePlayerTextDraw(playerid, 252.000000, 312.000000, "SEPARAR");
+        gsInventoryTextdraw[playerid][39] = CreatePlayerTextDraw(playerid, 252.000000, 313.000000, "SEPARAR");
         PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][39], 2);
         PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][39], 0.108332, 0.800000);
         PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][39], 16.500000, 33.500000);
@@ -1204,10 +1204,10 @@ stock Inventory_CreateItemOptions(playerid, e_SCREENS:screenType = SCREEN_NORMAL
         PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][39], 1);
         PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][39], 1);
 
-        gsInventoryTextdraw[playerid][40] = CreatePlayerTextDraw(playerid, 231.500000, 337.000000, "NEGOCIAR");
+        gsInventoryTextdraw[playerid][40] = CreatePlayerTextDraw(playerid, 212.000000, 337.000000, "NEGOCIAR");
         PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][40], 2);
         PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][40], 0.108332, 0.800000);
-        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][40], 16.500000, 72.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][40], 16.500000, 33.500000);
         PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][40], 1);
         PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][40], 0);
         PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][40], 2);
@@ -1217,6 +1217,20 @@ stock Inventory_CreateItemOptions(playerid, e_SCREENS:screenType = SCREEN_NORMAL
         PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][40], 1);
         PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][40], 1);
         PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][40], 1);
+
+        gsInventoryTextdraw[playerid][41] = CreatePlayerTextDraw(playerid, 252.000000, 337.000000, "MOVER");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][41], 2);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][41], 0.108332, 0.800000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][41], 16.500000, 33.500000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][41], 1);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][41], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][41], 2);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][41], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][41], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][41], 1296911816);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][41], 1);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][41], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][41], 1);
     }
     else
     {
@@ -1290,10 +1304,10 @@ stock Inventory_CreateItemOptions(playerid, e_SCREENS:screenType = SCREEN_NORMAL
         PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][39], 1);
         PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][39], 1);
 
-        gsInventoryTextdraw[playerid][40] = CreatePlayerTextDraw(playerid, 196.500000, 389.000000, "NEGOCIAR");
+        gsInventoryTextdraw[playerid][40] = CreatePlayerTextDraw(playerid, 212.000000, 337.000000, "NEGOCIAR");
         PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][40], 2);
         PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][40], 0.108332, 0.800000);
-        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][40], 16.500000, 91.000000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][40], 16.500000, 33.500000);
         PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][40], 1);
         PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][40], 0);
         PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][40], 2);
@@ -1303,6 +1317,20 @@ stock Inventory_CreateItemOptions(playerid, e_SCREENS:screenType = SCREEN_NORMAL
         PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][40], 1);
         PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][40], 1);
         PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][40], 1);
+
+        gsInventoryTextdraw[playerid][41] = CreatePlayerTextDraw(playerid, 252.000000, 337.000000, "MOVER");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][41], 2);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][41], 0.108332, 0.800000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][41], 16.500000, 33.500000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][41], 1);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][41], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][41], 2);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][41], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][41], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][41], 1296911816);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][41], 1);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][41], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][41], 1);
     }
     return 1;
 }
@@ -1311,37 +1339,726 @@ stock Inventory_CreateCloseButton(playerid, e_SCREENS:screenType = SCREEN_NORMAL
 {
     if (screenType == SCREEN_ULTRAWIDE)
     {
-        gsInventoryTextdraw[playerid][41] = CreatePlayerTextDraw(playerid, 453.000000, 97.000000, "X");
-        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][41], 2);
-        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][41], 0.137499, 0.850000);
-        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][41], 16.500000, 5.000000);
-        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][41], 1);
-        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][41], 0);
-        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][41], 2);
-        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][41], -16776961);
-        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][41], 255);
-        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][41], 0);
-        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][41], 1);
-        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][41], 1);
-        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][41], 1);
+        gsInventoryTextdraw[playerid][42] = CreatePlayerTextDraw(playerid, 453.000000, 97.000000, "X");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][42], 2);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][42], 0.137499, 0.850000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][42], 16.500000, 5.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][42], 1);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][42], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][42], 2);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][42], -16776961);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][42], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][42], 0);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][42], 1);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][42], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][42], 1);
     }
     else
     {
-        gsInventoryTextdraw[playerid][41] = CreatePlayerTextDraw(playerid, 528.000000, 95.000000, "X");
-        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][41], 2);
-        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][41], 0.270832, 1.449998);
-        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][41], 16.500000, 10.000000);
-        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][41], 1);
-        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][41], 0);
-        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][41], 2);
-        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][41], -16776961);
-        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][41], 255);
-        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][41], 0);
-        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][41], 1);
-        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][41], 1);
-        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][41], 1);
+        gsInventoryTextdraw[playerid][42] = CreatePlayerTextDraw(playerid, 528.000000, 95.000000, "X");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][42], 2);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][42], 0.270832, 1.449998);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][42], 16.500000, 10.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][42], 1);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][42], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][42], 2);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][42], -16776961);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][42], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][42], 0);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][42], 1);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][42], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][42], 1);
     }
     return 1;
+}
+
+static stock Inventory_CreatePreviewOptions(playerid, e_SCREENS:screenType = SCREEN_NORMAL)
+{
+    if (screenType == SCREEN_ULTRAWIDE)
+    {
+        gsInventoryTextdraw[playerid][43] = CreatePlayerTextDraw(playerid, 196.000000, 122.000000, "ld_beat:up");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][43], 4);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][43], 0.600000, 2.000000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][43], 7.500000, 10.500000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][43], 1);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][43], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][43], 1);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][43], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][43], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][43], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][43], 1);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][43], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][43], 1);
+
+        gsInventoryTextdraw[playerid][44] = CreatePlayerTextDraw(playerid, 196.000000, 145.000000, "ld_beat:down");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][44], 4);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][44], 0.600000, 2.000000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][44], 7.500000, 10.500000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][44], 1);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][44], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][44], 1);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][44], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][44], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][44], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][44], 1);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][44], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][44], 1);
+
+        gsInventoryTextdraw[playerid][45] = CreatePlayerTextDraw(playerid, 196.000000, 167.000000, "ld_beat:right");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][45], 4);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][45], 0.600000, 2.000000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][45], 7.500000, 10.500000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][45], 1);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][45], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][45], 1);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][45], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][45], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][45], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][45], 1);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][45], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][45], 1);
+
+        gsInventoryTextdraw[playerid][46] = CreatePlayerTextDraw(playerid, 196.000000, 187.000000, "ld_beat:left");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][46], 4);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][46], 0.600000, 2.000000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][46], 7.500000, 10.500000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][46], 1);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][46], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][46], 1);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][46], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][46], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][46], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][46], 1);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][46], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][46], 1);
+    }
+    else
+    {
+        gsInventoryTextdraw[playerid][43] = CreatePlayerTextDraw(playerid, 196.000000, 122.000000, "ld_beat:up");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][43], 4);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][43], 0.600000, 2.000000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][43], 7.500000, 10.500000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][43], 1);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][43], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][43], 1);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][43], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][43], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][43], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][43], 1);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][43], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][43], 1);
+
+        gsInventoryTextdraw[playerid][44] = CreatePlayerTextDraw(playerid, 196.000000, 145.000000, "ld_beat:down");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][44], 4);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][44], 0.600000, 2.000000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][44], 7.500000, 10.500000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][44], 1);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][44], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][44], 1);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][44], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][44], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][44], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][44], 1);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][44], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][44], 1);
+
+        gsInventoryTextdraw[playerid][45] = CreatePlayerTextDraw(playerid, 196.000000, 167.000000, "ld_beat:right");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][45], 4);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][45], 0.600000, 2.000000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][45], 7.500000, 10.500000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][45], 1);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][45], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][45], 1);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][45], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][45], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][45], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][45], 1);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][45], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][45], 1);
+
+        gsInventoryTextdraw[playerid][46] = CreatePlayerTextDraw(playerid, 196.000000, 187.000000, "ld_beat:left");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][46], 4);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][46], 0.600000, 2.000000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][46], 7.500000, 10.500000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][46], 1);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][46], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][46], 1);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][46], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][46], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][46], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][46], 1);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][46], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][46], 1);
+    }
+    return 1;
+}
+
+static stock Inventory_CreatePreviewDesc(playerid, e_SCREENS:screenType = SCREEN_NORMAL)
+{
+    if (screenType == SCREEN_ULTRAWIDE)
+    {
+        gsInventoryTextdraw[playerid][47] = CreatePlayerTextDraw(playerid, 310.000000, 158.000000, "CAIXINHA PLATINA (~b~10~w~)");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][47], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][47], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][47], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][47], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][47], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][47], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][47], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][47], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][47], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][47], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][47], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][47], 0);
+
+        gsInventoryTextdraw[playerid][48] = CreatePlayerTextDraw(playerid, 346.000000, 158.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][48], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][48], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][48], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][48], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][48], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][48], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][48], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][48], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][48], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][48], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][48], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][48], 0);
+
+        gsInventoryTextdraw[playerid][49] = CreatePlayerTextDraw(playerid, 382.000000, 158.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][49], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][49], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][49], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][49], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][49], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][49], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][49], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][49], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][49], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][49], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][49], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][49], 0);
+
+        gsInventoryTextdraw[playerid][50] = CreatePlayerTextDraw(playerid, 418.000000, 158.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][50], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][50], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][50], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][50], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][50], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][50], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][50], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][50], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][50], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][50], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][50], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][50], 0);
+
+        gsInventoryTextdraw[playerid][51] = CreatePlayerTextDraw(playerid, 454.000000, 158.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][51], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][51], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][51], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][51], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][51], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][51], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][51], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][51], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][51], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][51], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][51], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][51], 0);
+
+        gsInventoryTextdraw[playerid][52] = CreatePlayerTextDraw(playerid, 310.000000, 213.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][52], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][52], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][52], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][52], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][52], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][52], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][52], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][52], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][52], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][52], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][52], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][52], 0);
+
+        gsInventoryTextdraw[playerid][53] = CreatePlayerTextDraw(playerid, 346.000000, 213.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][53], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][53], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][53], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][53], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][53], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][53], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][53], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][53], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][53], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][53], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][53], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][53], 0);
+
+        gsInventoryTextdraw[playerid][54] = CreatePlayerTextDraw(playerid, 382.000000, 213.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][54], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][54], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][54], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][54], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][54], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][54], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][54], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][54], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][54], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][54], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][54], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][54], 0);
+
+        gsInventoryTextdraw[playerid][55] = CreatePlayerTextDraw(playerid, 418.000000, 213.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][55], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][55], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][55], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][55], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][55], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][55], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][55], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][55], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][55], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][55], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][55], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][55], 0);
+
+        gsInventoryTextdraw[playerid][56] = CreatePlayerTextDraw(playerid, 454.000000, 213.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][56], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][56], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][56], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][56], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][56], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][56], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][56], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][56], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][56], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][56], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][56], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][56], 0);
+
+        gsInventoryTextdraw[playerid][57] = CreatePlayerTextDraw(playerid, 310.000000, 268.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][57], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][57], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][57], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][57], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][57], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][57], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][57], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][57], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][57], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][57], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][57], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][57], 0);
+
+        gsInventoryTextdraw[playerid][58] = CreatePlayerTextDraw(playerid, 346.000000, 268.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][58], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][58], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][58], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][58], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][58], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][58], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][58], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][58], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][58], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][58], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][58], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][58], 0);
+
+        gsInventoryTextdraw[playerid][59] = CreatePlayerTextDraw(playerid, 382.000000, 268.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][59], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][59], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][59], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][59], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][59], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][59], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][59], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][59], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][59], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][59], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][59], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][59], 0);
+
+        gsInventoryTextdraw[playerid][60] = CreatePlayerTextDraw(playerid, 418.000000, 268.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][60], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][60], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][60], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][60], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][60], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][60], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][60], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][60], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][60], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][60], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][60], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][60], 0);
+
+        gsInventoryTextdraw[playerid][61] = CreatePlayerTextDraw(playerid, 454.000000, 268.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][61], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][61], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][61], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][61], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][61], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][61], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][61], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][61], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][61], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][61], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][61], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][61], 0);
+
+        gsInventoryTextdraw[playerid][62] = CreatePlayerTextDraw(playerid, 310.000000, 323.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][62], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][62], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][62], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][62], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][62], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][62], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][62], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][62], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][62], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][62], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][62], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][62], 0);
+
+        gsInventoryTextdraw[playerid][63] = CreatePlayerTextDraw(playerid, 346.000000, 323.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][63], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][63], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][63], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][63], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][63], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][63], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][63], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][63], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][63], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][63], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][63], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][63], 0);
+
+        gsInventoryTextdraw[playerid][64] = CreatePlayerTextDraw(playerid, 382.000000, 323.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][64], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][64], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][64], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][64], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][64], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][64], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][64], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][64], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][64], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][64], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][64], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][64], 0);
+
+        gsInventoryTextdraw[playerid][65] = CreatePlayerTextDraw(playerid, 418.000000, 323.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][65], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][65], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][65], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][65], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][65], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][65], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][65], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][65], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][65], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][65], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][65], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][65], 0);
+
+        gsInventoryTextdraw[playerid][66] = CreatePlayerTextDraw(playerid, 454.000000, 323.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][66], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][66], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][66], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][66], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][66], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][66], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][66], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][66], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][66], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][66], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][66], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][66], 0);
+    }
+    else
+    {
+        gsInventoryTextdraw[playerid][47] = CreatePlayerTextDraw(playerid, 310.000000, 158.000000, "CAIXINHA PLATINA (~b~10~w~)");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][47], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][47], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][47], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][47], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][47], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][47], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][47], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][47], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][47], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][47], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][47], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][47], 0);
+
+        gsInventoryTextdraw[playerid][48] = CreatePlayerTextDraw(playerid, 346.000000, 158.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][48], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][48], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][48], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][48], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][48], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][48], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][48], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][48], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][48], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][48], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][48], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][48], 0);
+
+        gsInventoryTextdraw[playerid][49] = CreatePlayerTextDraw(playerid, 382.000000, 158.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][49], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][49], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][49], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][49], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][49], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][49], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][49], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][49], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][49], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][49], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][49], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][49], 0);
+
+        gsInventoryTextdraw[playerid][50] = CreatePlayerTextDraw(playerid, 418.000000, 158.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][50], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][50], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][50], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][50], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][50], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][50], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][50], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][50], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][50], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][50], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][50], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][50], 0);
+
+        gsInventoryTextdraw[playerid][51] = CreatePlayerTextDraw(playerid, 454.000000, 158.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][51], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][51], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][51], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][51], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][51], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][51], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][51], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][51], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][51], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][51], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][51], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][51], 0);
+
+        gsInventoryTextdraw[playerid][52] = CreatePlayerTextDraw(playerid, 310.000000, 213.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][52], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][52], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][52], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][52], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][52], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][52], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][52], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][52], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][52], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][52], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][52], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][52], 0);
+
+        gsInventoryTextdraw[playerid][53] = CreatePlayerTextDraw(playerid, 346.000000, 213.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][53], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][53], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][53], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][53], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][53], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][53], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][53], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][53], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][53], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][53], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][53], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][53], 0);
+
+        gsInventoryTextdraw[playerid][54] = CreatePlayerTextDraw(playerid, 382.000000, 213.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][54], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][54], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][54], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][54], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][54], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][54], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][54], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][54], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][54], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][54], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][54], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][54], 0);
+
+        gsInventoryTextdraw[playerid][55] = CreatePlayerTextDraw(playerid, 418.000000, 213.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][55], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][55], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][55], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][55], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][55], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][55], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][55], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][55], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][55], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][55], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][55], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][55], 0);
+
+        gsInventoryTextdraw[playerid][56] = CreatePlayerTextDraw(playerid, 454.000000, 213.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][56], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][56], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][56], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][56], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][56], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][56], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][56], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][56], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][56], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][56], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][56], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][56], 0);
+
+        gsInventoryTextdraw[playerid][57] = CreatePlayerTextDraw(playerid, 310.000000, 268.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][57], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][57], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][57], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][57], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][57], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][57], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][57], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][57], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][57], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][57], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][57], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][57], 0);
+
+        gsInventoryTextdraw[playerid][58] = CreatePlayerTextDraw(playerid, 346.000000, 268.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][58], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][58], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][58], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][58], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][58], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][58], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][58], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][58], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][58], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][58], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][58], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][58], 0);
+
+        gsInventoryTextdraw[playerid][59] = CreatePlayerTextDraw(playerid, 382.000000, 268.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][59], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][59], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][59], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][59], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][59], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][59], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][59], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][59], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][59], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][59], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][59], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][59], 0);
+
+        gsInventoryTextdraw[playerid][60] = CreatePlayerTextDraw(playerid, 418.000000, 268.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][60], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][60], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][60], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][60], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][60], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][60], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][60], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][60], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][60], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][60], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][60], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][60], 0);
+
+        gsInventoryTextdraw[playerid][61] = CreatePlayerTextDraw(playerid, 454.000000, 268.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][61], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][61], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][61], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][61], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][61], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][61], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][61], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][61], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][61], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][61], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][61], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][61], 0);
+
+        gsInventoryTextdraw[playerid][62] = CreatePlayerTextDraw(playerid, 310.000000, 323.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][62], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][62], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][62], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][62], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][62], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][62], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][62], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][62], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][62], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][62], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][62], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][62], 0);
+
+        gsInventoryTextdraw[playerid][63] = CreatePlayerTextDraw(playerid, 346.000000, 323.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][63], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][63], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][63], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][63], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][63], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][63], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][63], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][63], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][63], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][63], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][63], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][63], 0);
+
+        gsInventoryTextdraw[playerid][64] = CreatePlayerTextDraw(playerid, 382.000000, 323.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][64], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][64], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][64], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][64], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][64], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][64], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][64], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][64], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][64], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][64], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][64], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][64], 0);
+
+        gsInventoryTextdraw[playerid][65] = CreatePlayerTextDraw(playerid, 418.000000, 323.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][65], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][65], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][65], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][65], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][65], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][65], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][65], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][65], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][65], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][65], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][65], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][65], 0);
+
+        gsInventoryTextdraw[playerid][66] = CreatePlayerTextDraw(playerid, 454.000000, 323.000000, "CAIXINHA PLATINA");
+        PlayerTextDrawFont(playerid, gsInventoryTextdraw[playerid][66], 1);
+        PlayerTextDrawLetterSize(playerid, gsInventoryTextdraw[playerid][66], 0.079166, 0.500000);
+        PlayerTextDrawTextSize(playerid, gsInventoryTextdraw[playerid][66], 400.000000, 17.000000);
+        PlayerTextDrawSetOutline(playerid, gsInventoryTextdraw[playerid][66], 0);
+        PlayerTextDrawSetShadow(playerid, gsInventoryTextdraw[playerid][66], 0);
+        PlayerTextDrawAlignment(playerid, gsInventoryTextdraw[playerid][66], 3);
+        PlayerTextDrawColor(playerid, gsInventoryTextdraw[playerid][66], -1);
+        PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][66], 255);
+        PlayerTextDrawBoxColor(playerid, gsInventoryTextdraw[playerid][66], 50);
+        PlayerTextDrawUseBox(playerid, gsInventoryTextdraw[playerid][66], 0);
+        PlayerTextDrawSetProportional(playerid, gsInventoryTextdraw[playerid][66], 1);
+        PlayerTextDrawSetSelectable(playerid, gsInventoryTextdraw[playerid][66], 0);
+    }
 }
 
 static stock Inventory_CreateTextdraw(playerid, e_SCREENS:screenType = SCREEN_NORMAL)
@@ -1350,13 +2067,15 @@ static stock Inventory_CreateTextdraw(playerid, e_SCREENS:screenType = SCREEN_NO
     Inventory_CreateItemsBox(playerid, screenType);
     Inventory_CreateItemOptions(playerid, screenType);
     Inventory_CreateCloseButton(playerid, screenType);
+    Inventory_CreatePreviewOptions(playerid, screenType);
+    Inventory_CreatePreviewDesc(playerid, screenType);
     return 1;
 }
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock Inventory_Show(playerid)
 {
-    for (new i; i < TEXTDRAW_ARRAY_SIZE; i++)
+    for (new i; i < (TEXTDRAW_ARRAY_SIZE - 20); i++)
     {
         // Show all textdraws, except item options
         if (gsInventoryTextdraw[playerid][i] != INVALID_PLAYER_TEXT_DRAW)
@@ -1402,7 +2121,7 @@ stock Inventory_ShowItemOptions(playerid)
 
 stock HideInventoryItemOptions(playerid)
 {
-    for (new i = 35; i < 41; i++)
+    for (new i = 35; i < 42; i++)
     {
         // Hide item options
         if (gsInventoryTextdraw[playerid][i] != INVALID_PLAYER_TEXT_DRAW)
@@ -1440,7 +2159,7 @@ stock Inventory_Destroy(playerid)
 
 stock PlayerText:Inventory_GetTextdraw(playerid, index)
 {
-    if (index < 0 || index > 41)
+    if (index < 0 || index > TEXTDRAW_ARRAY_SIZE)
     {
         return gsInventoryTextdraw[playerid][0];
     }
@@ -1464,6 +2183,7 @@ stock ResetInventoryBoxInfo(playerid)
 {
     PlayerTextDrawHide(playerid, gsInventoryTextdraw[playerid][2]);
     PlayerTextDrawSetPreviewModel(playerid, gsInventoryTextdraw[playerid][2], GetPlayerSkin(playerid));
+    PlayerTextDrawSetPreviewRot(playerid, gsInventoryTextdraw[playerid][2], -10.000000, 0.000000, -8.000000, 1.000000);
     PlayerTextDrawShow(playerid, gsInventoryTextdraw[playerid][2]);
     
     new txtString[(31 + MAX_MONEY_STRING)], formatMoney[MAX_MONEY_STRING];
@@ -1510,6 +2230,7 @@ stock UpdateInventoryBoxInfo(playerid, invSlot, itemId, const name[], quantity, 
 {
     PlayerTextDrawHide(playerid, gsInventoryTextdraw[playerid][2]);
     PlayerTextDrawSetPreviewModel(playerid, gsInventoryTextdraw[playerid][2], itemId);
+    PlayerTextDrawSetPreviewRot(playerid, gsInventoryTextdraw[playerid][2], -10.000000, 0.000000, -8.000000, 1.000000);
     PlayerTextDrawShow(playerid, gsInventoryTextdraw[playerid][2]);
 
     new txtString[(31 + MAX_MONEY_STRING)], formatMoney[MAX_MONEY_STRING];
@@ -1533,11 +2254,74 @@ stock UpdateInventoryPageText(playerid, page, maxPages)
     return 1;
 }
 
-stock Inventory_UpdateTotalItens(playerid, validItems, totalItems)
+stock ChangeInventoryTotalItens(playerid, validItems, totalItems)
 {
     new txtString[13];
     format(txtString, sizeof(txtString), "ITEMS: %d/%d", validItems, totalItems);
     PlayerTextDrawSetString(playerid, gsInventoryTextdraw[playerid][31], txtString);
+    return 1;
+}
+
+stock ShowPreviewDescription(playerid, index)
+{
+    if (index < 47 || index > 66)
+    {
+        return 0;
+    }
+
+    PlayerTextDrawShow(playerid, gsInventoryTextdraw[playerid][index]);
+    return 1;
+}
+
+stock HidePreviewDescription(playerid, index)
+{
+    if (index < 47 || index > 66)
+    {
+        return 0;
+    }
+
+    PlayerTextDrawHide(playerid, gsInventoryTextdraw[playerid][index]);
+    return 1;
+}
+
+stock HideAllPreviewDescription(playerid, index)
+{
+    for (new i = 47; i < 67; i++)
+    {
+        if (gsInventoryTextdraw[playerid][i] != INVALID_PLAYER_TEXT_DRAW)
+        {
+            PlayerTextDrawHide(playerid, gsInventoryTextdraw[playerid][i]);
+
+        }
+    }
+    return 1;
+}
+
+
+stock UpdateInventoryPreviewDesc(playerid, index, const name[], quantity)
+{
+    if (index < 47 || index > 66)
+    {
+        return 0;
+    }
+
+    new txtString[32];
+    format(txtString, sizeof(txtString), "%s (~p~%d~w~)", name, quantity);
+    PlayerTextDrawSetString(playerid, gsInventoryTextdraw[playerid][index], txtString);
+    return 1;
+}
+
+stock UpdateBoxPreviewRotation(playerid, Float:xRotation, Float:zRotation, bool:isOpened = false)
+{
+    if (isOpened)
+    {
+        PlayerTextDrawHide(playerid, gsInventoryTextdraw[playerid][2]);
+    }
+    PlayerTextDrawSetPreviewRot(playerid, gsInventoryTextdraw[playerid][2], xRotation, 0.000000, zRotation, 1.000000);
+    if (isOpened)
+    {
+        PlayerTextDrawShow(playerid, gsInventoryTextdraw[playerid][2]);
+    }
     return 1;
 }
 
