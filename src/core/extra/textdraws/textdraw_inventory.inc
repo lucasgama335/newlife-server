@@ -1460,7 +1460,7 @@ stock Inventory_GetTextdrawIndex(playerid, PlayerText:txtId)
     return INVALID_VALUE;
 }
 
-stock Inventory_UpdateBoxInfo(playerid)
+stock Inventory_ResetBoxInfo(playerid)
 {
     PlayerTextDrawHide(playerid, gsInventoryTextdraw[playerid][2]);
     PlayerTextDrawSetPreviewModel(playerid, gsInventoryTextdraw[playerid][2], GetPlayerSkin(playerid));
@@ -1506,7 +1506,7 @@ stock Inventory_ChangeItemBoxColor(playerid, index, color)
     return 1;
 }
 
-stock Inventory_UpdateBoxInfoItem(playerid, invSlot, itemId, const name[], quantity, const rarity[])
+stock Inventory_UpdateBoxInfo(playerid, invSlot, itemId, const name[], quantity, const rarity[])
 {
     PlayerTextDrawHide(playerid, gsInventoryTextdraw[playerid][2]);
     PlayerTextDrawSetPreviewModel(playerid, gsInventoryTextdraw[playerid][2], itemId);

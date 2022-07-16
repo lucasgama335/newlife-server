@@ -85,9 +85,9 @@ static stock OpenPlayerInventory(playerid)
     }   
 
     HidePlayerHud(playerid);
-    Inventory_UpdateBoxInfo(playerid);
+    Inventory_ResetBoxInfo(playerid);
     SyncInventoryDataWithTextdraws(playerid, gsInventoryPage[playerid]);
-    Inventory_UpdateTotalItens(playerid, gsInventoryTotalValidItems[playerid], MAX_INVENTORY_SLOTS);
+    UpdateInventoryTotalItens(playerid, gsInventoryTotalValidItems[playerid]);
     Inventory_Show(playerid);
     gsIsInventoryOpened[playerid] = true;
     gsInventoryPage[playerid] = INVENTORY_FIRST_PAGE;
@@ -135,7 +135,7 @@ static stock SyncInventoryDataWithTextdraws(playerid, page)
     if (page <= MAX_INVENTORY_PAGES && page >= 0)
     {
         new txtIndex = 11;
-        for (new i = (((page + 1) * MAX_ITEMS_PER_PAGE) - MAX_ITEMS_PER_PAGE); i < (((page + 1) * MAX_ITEMS_PER_PAGE) - 1); i++)
+        for (new i = (((page + 1) * MAX_ITEMS_PER_PAGE) - MAX_ITEMS_PER_PAGE); i < ((page + 1) * MAX_ITEMS_PER_PAGE); i++)
         {
             if (txtIndex > 30)
             {
@@ -179,6 +179,13 @@ static stock GetItemRarity(itemId)
         }
     }
     return INVALID_VALUE;
+}
+
+static stock UpdateInventoryTotalItens(playerid, items)
+{
+    gsInventoryTotalValidItems[playerid] = items;
+    Inventory_UpdateTotalItens(playerid, gsInventoryTotalValidItems[playerid], MAX_INVENTORY_SLOTS);
+    return 1;
 }
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
@@ -245,6 +252,7 @@ stock Inventory_AddItem(playerid, itemId, quantity)
         gsPlayerInventory[playerid][freeSlot][i_INVENTORY_ITEM_ID] = itemId;
         gsPlayerInventory[playerid][freeSlot][i_INVENTORY_ITEM_QUANTITY] = quantity;
         gsPlayerInventory[playerid][freeSlot][i_INVENTORY_ITEM_SLOT] = freeSlot;
+        UpdateInventoryTotalItens(playerid, (gsInventoryTotalValidItems[playerid] + 1));
         if (gsIsInventoryOpened[playerid])
         {
             SyncInventoryDataWithTextdraws(playerid, gsInventoryPage[playerid]);
@@ -287,6 +295,7 @@ stock Inventory_RemoveItem(playerid, itemDbId, slot)
     new sqlString[71];
     ResetInventorySlot(playerid, slot);
     Inventory_HideItemOptions(playerid);
+    UpdateInventoryTotalItens(playerid, (gsInventoryTotalValidItems[playerid] - 1));
     mysql_format(Database_GetConnection(), sqlString, sizeof(sqlString), "DELETE FROM %s WHERE %s = %d", INVENTORY_TABLE_NAME, INVENTORY_FIELD_ID, itemDbId);
     mysql_tquery(Database_GetConnection(), sqlString);
     return 1;
@@ -334,6 +343,32 @@ stock Inventory_GetItemRarity(itemId)
         } 
     }
     return string;
+}
+
+stock Inventory_SwapItemSlot(playerid, oldSlot, newSlot)
+{
+    if (oldSlot < 0 || oldSlot > MAX_INVENTORY_SLOTS)
+    {
+        return SendClientMessage(playerid, COLOR_INVALID, "Slot antigo inválido.");
+    }
+    if (newSlot < 0 || newSlot > MAX_INVENTORY_SLOTS)
+    {
+        return SendClientMessage(playerid, COLOR_INVALID, "Slot novo inválido.");
+    }
+
+    new sqlString[70], dbId = gsPlayerInventory[playerid][oldSlot][i_INVENTORY_ID];
+    gsPlayerInventory[playerid][newSlot][i_INVENTORY_ID] = gsPlayerInventory[playerid][oldSlot][i_INVENTORY_ID];
+    gsPlayerInventory[playerid][newSlot][i_INVENTORY_ITEM_ID] = gsPlayerInventory[playerid][oldSlot][i_INVENTORY_ITEM_ID];
+    gsPlayerInventory[playerid][newSlot][i_INVENTORY_ITEM_QUANTITY] = gsPlayerInventory[playerid][oldSlot][i_INVENTORY_ITEM_QUANTITY];
+    gsPlayerInventory[playerid][newSlot][i_INVENTORY_ITEM_SLOT] = gsPlayerInventory[playerid][oldSlot][i_INVENTORY_ITEM_SLOT];
+    ResetInventorySlot(playerid, oldSlot);
+
+    if (dbId != INVALID_VALUE)
+    {
+        mysql_format(Database_GetConnection(), sqlString, sizeof(sqlString), "UPDATE %s SET %s = %d WHERE %s = %d", INVENTORY_TABLE_NAME, INVENTORY_FIELD_ITEM_SLOT, newSlot, INVENTORY_FIELD_ID, dbId);
+        mysql_tquery(Database_GetConnection(), sqlString);
+    }
+    return 1;
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
@@ -402,7 +437,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
     {
         UnSelectLastTextdrawSelected(playerid);
         Inventory_HideItemOptions(playerid);
-        Inventory_UpdateBoxInfo(playerid);
+        Inventory_ResetBoxInfo(playerid);
         return 1;
     }
 
@@ -427,7 +462,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
 
             Inventory_GetItemName(gsPlayerInventory[playerid][gsInventorySlotSelected[playerid]][i_INVENTORY_ITEM_ID], itemName);
             Inventory_ChangeItemBoxColor(playerid, gsLastTextdrawSelected[playerid], TEXTDRAW_SELECTED_COLOR);
-            Inventory_UpdateBoxInfoItem(playerid, gsInventorySlotSelected[playerid], gsPlayerInventory[playerid][gsInventorySlotSelected[playerid]][i_INVENTORY_ITEM_ID], itemName, gsPlayerInventory[playerid][gsInventorySlotSelected[playerid]][i_INVENTORY_ITEM_QUANTITY], Inventory_GetItemRarity(gsPlayerInventory[playerid][gsInventorySlotSelected[playerid]][i_INVENTORY_ITEM_ID]));
+            Inventory_UpdateBoxInfo(playerid, gsInventorySlotSelected[playerid], gsPlayerInventory[playerid][gsInventorySlotSelected[playerid]][i_INVENTORY_ITEM_ID], itemName, gsPlayerInventory[playerid][gsInventorySlotSelected[playerid]][i_INVENTORY_ITEM_QUANTITY], Inventory_GetItemRarity(gsPlayerInventory[playerid][gsInventorySlotSelected[playerid]][i_INVENTORY_ITEM_ID]));
             Inventory_ShowItemOptions(playerid);
             return 1;
         }
@@ -437,7 +472,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
     if (playertextid == Inventory_GetTextdraw(playerid, 32))
     {
         UnSelectLastTextdrawSelected(playerid);
-        Inventory_UpdateBoxInfo(playerid);
+        Inventory_ResetBoxInfo(playerid);
         Inventory_HideItemOptions(playerid);
 
         // Change Page
@@ -455,7 +490,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
     if (playertextid == Inventory_GetTextdraw(playerid, 33))
     {
         UnSelectLastTextdrawSelected(playerid);
-        Inventory_UpdateBoxInfo(playerid);
+        Inventory_ResetBoxInfo(playerid);
         Inventory_HideItemOptions(playerid);
         
         gsInventoryPage[playerid] ++;
@@ -489,15 +524,62 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         if (itemQuantity <= 1)
         {
             Inventory_RemoveItem(playerid, gsPlayerInventory[playerid][gsInventorySlotSelected[playerid]][i_INVENTORY_ID], gsInventorySlotSelected[playerid]);
-            Inventory_UpdateBoxInfo(playerid);
+            Inventory_ResetBoxInfo(playerid);
             Inventory_UpdateItemPreview(playerid, gsLastTextdrawSelected[playerid], gsPlayerInventory[playerid][gsInventorySlotSelected[playerid]][i_INVENTORY_ITEM_ID], gsIsInventoryOpened[playerid]);
             UnSelectLastTextdrawSelected(playerid);
         }
         else
         {
             Inventory_SetItemQuantity(playerid, gsPlayerInventory[playerid][gsInventorySlotSelected[playerid]][i_INVENTORY_ID], gsInventorySlotSelected[playerid], (itemQuantity - 1));
-            Inventory_UpdateBoxInfoItem(playerid, gsInventorySlotSelected[playerid], gsPlayerInventory[playerid][gsInventorySlotSelected[playerid]][i_INVENTORY_ITEM_ID], itemName, gsPlayerInventory[playerid][gsInventorySlotSelected[playerid]][i_INVENTORY_ITEM_QUANTITY], Inventory_GetItemRarity(gsPlayerInventory[playerid][gsInventorySlotSelected[playerid]][i_INVENTORY_ITEM_ID]));
+            Inventory_UpdateBoxInfo(playerid, gsInventorySlotSelected[playerid], gsPlayerInventory[playerid][gsInventorySlotSelected[playerid]][i_INVENTORY_ITEM_ID], itemName, gsPlayerInventory[playerid][gsInventorySlotSelected[playerid]][i_INVENTORY_ITEM_QUANTITY], Inventory_GetItemRarity(gsPlayerInventory[playerid][gsInventorySlotSelected[playerid]][i_INVENTORY_ITEM_ID]));
         }   
+        return 1;
+    }
+
+    if (playertextid == Inventory_GetTextdraw(playerid, 8))
+    {
+        for (new i; i < MAX_INVENTORY_SLOTS; i++)
+        {
+            if (gsPlayerInventory[playerid][i][i_INVENTORY_ID] != INVALID_VALUE)
+            {
+                for (new x; x < MAX_INVENTORY_SLOTS; x++)
+                {
+                    if (gsPlayerInventory[playerid][x][i_INVENTORY_ID] == INVALID_VALUE && x < i)
+                    {
+                        Inventory_SwapItemSlot(playerid, i, x);
+                    }
+                }        
+            }
+        }
+        Inventory_ResetBoxInfo(playerid);
+        Inventory_HideItemOptions(playerid);
+        UnSelectLastTextdrawSelected(playerid);
+        SyncInventoryDataWithTextdraws(playerid, gsInventoryPage[playerid]);
+        SendClientMessage(playerid, COLOR_YELLOW, "* Inventário organizado.");
+        return 1;
+    }
+
+    // Remove Item
+    if (playertextid == Inventory_GetTextdraw(playerid, 37))
+    {
+        if (gsInventorySlotSelected[playerid] == INVALID_VALUE)
+        {
+            return SendClientMessage(playerid, COLOR_INVALID, "Você deve selecionar um item.");
+        }
+        if (gsPlayerInventory[playerid][gsInventorySlotSelected[playerid]][i_INVENTORY_ID] == INVALID_VALUE)
+        {
+            return SendClientMessage(playerid, COLOR_INVALID, "Não há nenhum item para ser usado nesse espaço.");
+        }
+
+        new string[(21 + MAX_INVENTORY_ITEM_NAME)], itemName[MAX_INVENTORY_ITEM_NAME];
+        Inventory_GetItemName(gsPlayerInventory[playerid][gsInventorySlotSelected[playerid]][i_INVENTORY_ITEM_ID], itemName);
+        format(string, sizeof(string), "* Você descartou o item: %s.", itemName);
+        SendClientMessage(playerid, COLOR_YELLOW, string);
+
+        Inventory_RemoveItem(playerid, gsPlayerInventory[playerid][gsInventorySlotSelected[playerid]][i_INVENTORY_ID], gsInventorySlotSelected[playerid]);
+        Inventory_ResetBoxInfo(playerid);
+        Inventory_UpdateItemPreview(playerid, gsLastTextdrawSelected[playerid], gsPlayerInventory[playerid][gsInventorySlotSelected[playerid]][i_INVENTORY_ITEM_ID], gsIsInventoryOpened[playerid]);
+        UnSelectLastTextdrawSelected(playerid);
         return 1;
     }
     return 1;
