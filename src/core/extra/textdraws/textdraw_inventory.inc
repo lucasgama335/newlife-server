@@ -2108,7 +2108,7 @@ stock Inventory_AdaptToScreen(playerid)
 
 stock Inventory_ShowItemOptions(playerid)
 {
-    for (new i = 35; i < 41; i++)
+    for (new i = 35; i < 42; i++)
     {
         // Show item options
         if (gsInventoryTextdraw[playerid][i] != INVALID_PLAYER_TEXT_DRAW)
