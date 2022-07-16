@@ -211,7 +211,7 @@ hook OnPlayerUpdateScreenSize(playerid)
     HidePlayerHud(playerid);
     ShowPlayerHud(playerid);
 
-    if (IsPlayerInventoryOpened(playerid))
+    if (Inventory_GetIsOpenedStatus(playerid))
     {
         Inventory_AdaptToScreen(playerid);
     }

@@ -1364,7 +1364,7 @@ stock Inventory_Show(playerid)
             PlayerTextDrawShow(playerid, gsInventoryTextdraw[playerid][i]);
         }
     }
-    Inventory_HideItemOptions(playerid);
+    HideInventoryItemOptions(playerid);
     SelectTextDraw(playerid, COLOR_ORANGE);
     return 1;
 }
@@ -1400,7 +1400,7 @@ stock Inventory_ShowItemOptions(playerid)
     return 1;
 }
 
-stock Inventory_HideItemOptions(playerid)
+stock HideInventoryItemOptions(playerid)
 {
     for (new i = 35; i < 41; i++)
     {
@@ -1447,7 +1447,7 @@ stock PlayerText:Inventory_GetTextdraw(playerid, index)
     return gsInventoryTextdraw[playerid][index];
 }
 
-stock Inventory_GetTextdrawIndex(playerid, PlayerText:txtId)
+stock GetInventoryTextdrawIndex(playerid, PlayerText:txtId)
 {
     for (new i; i < TEXTDRAW_ARRAY_SIZE; i++)
     {
@@ -1460,7 +1460,7 @@ stock Inventory_GetTextdrawIndex(playerid, PlayerText:txtId)
     return INVALID_VALUE;
 }
 
-stock Inventory_ResetBoxInfo(playerid)
+stock ResetInventoryBoxInfo(playerid)
 {
     PlayerTextDrawHide(playerid, gsInventoryTextdraw[playerid][2]);
     PlayerTextDrawSetPreviewModel(playerid, gsInventoryTextdraw[playerid][2], GetPlayerSkin(playerid));
@@ -1480,7 +1480,7 @@ stock Inventory_ResetBoxInfo(playerid)
     return 1;
 }
 
-stock Inventory_UpdateItemPreview(playerid, index, itemId, bool:isInventoryOpened)
+stock UpdateInventoryItemPreview(playerid, index, itemId, bool:isInventoryOpened)
 {
     if (index < 11 || index > 30)
     {
@@ -1498,7 +1498,7 @@ stock Inventory_UpdateItemPreview(playerid, index, itemId, bool:isInventoryOpene
     return 1;
 }
 
-stock Inventory_ChangeItemBoxColor(playerid, index, color)
+stock UpdateInventoryItemBoxColor(playerid, index, color)
 {
     PlayerTextDrawHide(playerid, gsInventoryTextdraw[playerid][index]);
     PlayerTextDrawBackgroundColor(playerid, gsInventoryTextdraw[playerid][index], color);
@@ -1506,7 +1506,7 @@ stock Inventory_ChangeItemBoxColor(playerid, index, color)
     return 1;
 }
 
-stock Inventory_UpdateBoxInfo(playerid, invSlot, itemId, const name[], quantity, const rarity[])
+stock UpdateInventoryBoxInfo(playerid, invSlot, itemId, const name[], quantity, const rarity[])
 {
     PlayerTextDrawHide(playerid, gsInventoryTextdraw[playerid][2]);
     PlayerTextDrawSetPreviewModel(playerid, gsInventoryTextdraw[playerid][2], itemId);
@@ -1525,7 +1525,7 @@ stock Inventory_UpdateBoxInfo(playerid, invSlot, itemId, const name[], quantity,
     return 1;
 }
 
-stock Inventory_UpdatePageText(playerid, page, maxPages)
+stock UpdateInventoryPageText(playerid, page, maxPages)
 {
     new txtString[15];
     format(txtString, sizeof(txtString), "PAGINA: %d/%d", page, maxPages);
