@@ -11,6 +11,7 @@
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static Float:gsLastPreviewRotX[MAX_PLAYERS];
 static Float:gsLastPreviewRotZ[MAX_PLAYERS];
+static bool:gsSwapItemsSlots[MAX_PLAYERS];
 
 //------------------------- Timers (Timers used in the module.) -------------------------
 
@@ -116,6 +117,7 @@ stock OpenPlayerInventory(playerid)
     Inventory_Show(playerid);
     gsLastPreviewRotX[playerid] = TEXTDRAW_DEFAULT_X_ROT;
     gsLastPreviewRotZ[playerid] = TEXTDRAW_DEFAULT_Z_ROT;
+    gsSwapItemsSlots[playerid] = false;
     if (!IsPlayerInAnyVehicle(playerid))
     {
         ApplyAnimation(playerid, "BOMBER", "BOM_Plant_2Idle", 4.1, false, true, true, false, 0);
@@ -268,6 +270,7 @@ hook OnPlayerConnect(playerid)
     Inventory_SetActualPage(playerid, INVENTORY_FIRST_PAGE);
     Inventory_SetSlotSelected(playerid, INVALID_VALUE);
     Inventory_SetTotalValidItems(playerid, 0);
+    gsSwapItemsSlots[playerid] = false;
     return 1;
 }
 
@@ -332,6 +335,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         ResetInventoryBoxInfo(playerid);
         gsLastPreviewRotX[playerid] = TEXTDRAW_DEFAULT_X_ROT;
         gsLastPreviewRotZ[playerid] = TEXTDRAW_DEFAULT_Z_ROT;
+        gsSwapItemsSlots[playerid] = false;
         return 1;
     }
 
@@ -348,20 +352,37 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         new index = GetInventoryTextdrawIndex(playerid, playertextid);
         if (index != INVALID_VALUE)
         {
-            UnselectInventoryItem(playerid);
+            if (!gsSwapItemsSlots[playerid])
+            {
+                UnselectInventoryItem(playerid);
 
-            Inventory_SetSlotSelected(playerid, ((index - 11) + (Inventory_GetActualPage(playerid) * INVENTORY_ITEMS_PER_PAGE)));
-            Inventory_SetTextdrawSelected(playerid, index);
+                Inventory_SetSlotSelected(playerid, ((index - 11) + (Inventory_GetActualPage(playerid) * INVENTORY_ITEMS_PER_PAGE)));
+                Inventory_SetTextdrawSelected(playerid, index);
 
-            new itemName[INVENTORY_MAX_ITEM_NAME];
-            GetInventoryItemName(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid)), itemName);
+                new itemName[INVENTORY_MAX_ITEM_NAME];
+                GetInventoryItemName(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid)), itemName);
 
-            UpdateInventoryItemBoxColor(playerid, Inventory_GetTextdrawSelected(playerid), TEXTDRAW_SELECTED_COLOR);
-            UpdateInventoryBoxInfo(playerid, Inventory_GetSlotSelected(playerid), GetInventoryItemObjectId(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))), itemName, Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)), GetInventoryItemRarity(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))));
-            Inventory_ShowItemOptions(playerid);
+                UpdateInventoryItemBoxColor(playerid, Inventory_GetTextdrawSelected(playerid), TEXTDRAW_SELECTED_COLOR);
+                UpdateInventoryBoxInfo(playerid, Inventory_GetSlotSelected(playerid), GetInventoryItemObjectId(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))), itemName, Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)), GetInventoryItemRarity(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))));
+                Inventory_ShowItemOptions(playerid);
 
-            gsLastPreviewRotX[playerid] = TEXTDRAW_DEFAULT_X_ROT;
-            gsLastPreviewRotZ[playerid] = TEXTDRAW_DEFAULT_Z_ROT;
+                gsLastPreviewRotX[playerid] = TEXTDRAW_DEFAULT_X_ROT;
+                gsLastPreviewRotZ[playerid] = TEXTDRAW_DEFAULT_Z_ROT;
+            }
+            else
+            {
+                if (Inventory_GetItemId(playerid, ((index - 11) + (Inventory_GetActualPage(playerid) * INVENTORY_ITEMS_PER_PAGE))) != i_ITEM_INVALID)
+                {
+                    return SendClientMessage(playerid, COLOR_INVALID, "Esse espaço está ocupado por um item, mova-o ou escolha outro espaço.");
+                }
+                Inventory_SwapItemSlot(playerid, Inventory_GetSlotSelected(playerid), ((index - 11) + (Inventory_GetActualPage(playerid) * INVENTORY_ITEMS_PER_PAGE)));
+
+                ResetInventoryBoxInfo(playerid);
+                HideInventoryItemOptions(playerid);
+                UnselectInventoryItem(playerid);
+                SyncInventoryDataWithTextdraws(playerid, Inventory_GetActualPage(playerid));
+                gsSwapItemsSlots[playerid] = false;
+            }
         }
         return 1;
     }
@@ -378,8 +399,8 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         }
 
         UnselectInventoryItem(playerid);
-        ResetInventoryBoxInfo(playerid);
-        HideInventoryItemOptions(playerid);
+        // ResetInventoryBoxInfo(playerid);
+        // HideInventoryItemOptions(playerid);
         gsLastPreviewRotX[playerid] = TEXTDRAW_DEFAULT_X_ROT;
         gsLastPreviewRotZ[playerid] = TEXTDRAW_DEFAULT_Z_ROT;
 
@@ -400,8 +421,8 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         }
 
         UnselectInventoryItem(playerid);
-        ResetInventoryBoxInfo(playerid);
-        HideInventoryItemOptions(playerid);
+        // ResetInventoryBoxInfo(playerid);
+        // HideInventoryItemOptions(playerid);
         gsLastPreviewRotX[playerid] = TEXTDRAW_DEFAULT_X_ROT;
         gsLastPreviewRotZ[playerid] = TEXTDRAW_DEFAULT_Z_ROT;
         
@@ -468,6 +489,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
 
         SyncInventoryDataWithTextdraws(playerid, Inventory_GetActualPage(playerid));
 
+        gsSwapItemsSlots[playerid] = false;
         SendClientMessage(playerid, COLOR_YELLOW, "* Inventário organizado.");
         return 1;
     }
@@ -498,6 +520,14 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         UpdateInventoryItemPreview(playerid, Inventory_GetTextdrawSelected(playerid), GetInventoryItemObjectId(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))), Inventory_GetIsOpenedStatus(playerid));
         
         UnselectInventoryItem(playerid);
+        return 1;
+    }
+
+    // Swap Item Slot
+    if (playertextid == Inventory_GetTextdraw(playerid, 41))
+    {
+        gsSwapItemsSlots[playerid] = true;
+        SendClientMessage(playerid, COLOR_YELLOW, "Selecione um espaço em branco para mudar o item de lugar.");
         return 1;
     }
 

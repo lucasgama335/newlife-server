@@ -2234,8 +2234,13 @@ stock UpdateInventoryBoxInfo(playerid, invSlot, itemId, const name[], quantity, 
     PlayerTextDrawShow(playerid, gsInventoryTextdraw[playerid][2]);
 
     new txtString[(31 + MAX_MONEY_STRING)], formatMoney[MAX_MONEY_STRING];
-    format(txtString, sizeof(txtString), "ITEM[%d]: %s", invSlot, name);
-    PlayerTextDrawSetString(playerid, gsInventoryTextdraw[playerid][4], txtString);
+    #if DEV_MODE
+        format(txtString, sizeof(txtString), "ITEM[%d]: %s", invSlot, name);
+        PlayerTextDrawSetString(playerid, gsInventoryTextdraw[playerid][4], txtString);
+    #else
+        format(txtString, sizeof(txtString), "ITEM: %s", name);
+        PlayerTextDrawSetString(playerid, gsInventoryTextdraw[playerid][4], txtString);
+    #endif
 
     FormatMoneyString(Player_GetMoney(playerid), formatMoney);
     format(txtString, sizeof(txtString), "QUANTIDADE: %d", quantity);
