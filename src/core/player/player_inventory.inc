@@ -171,7 +171,7 @@ stock Inventory_AddItem(playerid, i_ITEM_LIST:itemId, quantity)
     Inventory_SetItemQuantity(playerid, freeSlot, quantity);
     Inventory_SetItemSlot(playerid, freeSlot, freeSlot);
     
-    Inventory_SetTotalValidItems(playerid, (Inventory_GetTotalValidItems(playerid) + 1));
+    UpdateInventoryTotalItens(playerid, (Inventory_GetTotalValidItems(playerid) + 1));
     if (Inventory_GetIsOpenedStatus(playerid))
     {
         SyncInventoryDataWithTextdraws(playerid, Inventory_GetActualPage(playerid));
@@ -217,7 +217,7 @@ stock Inventory_RemoveItem(playerid, itemDbId, slot)
     }
 
     HideInventoryItemOptions(playerid);
-    Inventory_SetTotalValidItems(playerid, (Inventory_GetTotalValidItems(playerid) - 1));
+    UpdateInventoryTotalItens(playerid, (Inventory_GetTotalValidItems(playerid) - 1));
 
     new sqlString[71];
     mysql_format(Database_GetConnection(), sqlString, sizeof(sqlString), "DELETE FROM %s WHERE %s = %d", INVENTORY_TABLE_NAME, INVENTORY_FIELD_ID, itemDbId);
