@@ -12,6 +12,7 @@
 static Float:gsLastPreviewRotX[MAX_PLAYERS];
 static Float:gsLastPreviewRotZ[MAX_PLAYERS];
 static bool:gsSwapItemsSlots[MAX_PLAYERS];
+static bool:gsJoinItems[MAX_PLAYERS];
 
 //------------------------- Timers (Timers used in the module.) -------------------------
 
@@ -118,6 +119,7 @@ stock OpenPlayerInventory(playerid)
     gsLastPreviewRotX[playerid] = TEXTDRAW_DEFAULT_X_ROT;
     gsLastPreviewRotZ[playerid] = TEXTDRAW_DEFAULT_Z_ROT;
     gsSwapItemsSlots[playerid] = false;
+    gsJoinItems[playerid] = false;
     if (!IsPlayerInAnyVehicle(playerid))
     {
         ApplyAnimation(playerid, "BOMBER", "BOM_Plant_2Idle", 4.1, false, true, true, false, 0);
@@ -229,11 +231,18 @@ stock Inventory_SwapItemSlot(playerid, oldSlot, newSlot)
 {
     if (oldSlot < 0 || oldSlot > (INVENTORY_MAX_SLOTS - 1))
     {
-        return SendClientMessage(playerid, COLOR_INVALID, "Slot antigo inválido.");
+        SendClientMessage(playerid, COLOR_INVALID, "Slot antigo inválido.");
+        return INVALID_VALUE;
     }
     if (newSlot < 0 || newSlot > (INVENTORY_MAX_SLOTS - 1))
     {
-        return SendClientMessage(playerid, COLOR_INVALID, "Slot novo inválido.");
+        SendClientMessage(playerid, COLOR_INVALID, "Slot novo inválido.");
+        return INVALID_VALUE;
+    }
+    if (Inventory_GetItemId(playerid, newSlot) != i_ITEM_INVALID)
+    {
+        SendClientMessage(playerid, COLOR_INVALID, "Esse espaço está ocupado por um item, mova-o ou escolha outro espaço.");
+        return INVALID_VALUE;
     }
 
     Inventory_SetDbId(playerid, newSlot, Inventory_GetDbId(playerid, oldSlot));
@@ -245,6 +254,38 @@ stock Inventory_SwapItemSlot(playerid, oldSlot, newSlot)
     new sqlString[70];
     mysql_format(Database_GetConnection(), sqlString, sizeof(sqlString), "UPDATE %s SET %s = %d WHERE %s = %d", INVENTORY_TABLE_NAME, INVENTORY_FIELD_ITEM_SLOT, newSlot, INVENTORY_FIELD_ID, Inventory_GetDbId(playerid, newSlot));
     mysql_tquery(Database_GetConnection(), sqlString);
+    return 1;
+}
+
+stock Inventory_JoinItemSlot(playerid, toJoinSlot, toRemoveSlot)
+{
+    if (toJoinSlot < 0 || toJoinSlot > (INVENTORY_MAX_SLOTS - 1))
+    {
+        SendClientMessage(playerid, COLOR_INVALID, "Slot para juntar inválido.");
+        return INVALID_VALUE;
+    }
+    if (toRemoveSlot < 0 || toRemoveSlot > (INVENTORY_MAX_SLOTS - 1))
+    {
+        SendClientMessage(playerid, COLOR_INVALID, "Slot a ser removido inválido.");
+        return INVALID_VALUE;
+    }
+    if (Inventory_GetItemId(playerid, toJoinSlot) != Inventory_GetItemId(playerid, toRemoveSlot))
+    {
+        SendClientMessage(playerid, COLOR_INVALID, "Você só pode juntar itens iguais.");
+        return INVALID_VALUE;
+    }
+
+    new newQuantity = (Inventory_GetItemQuantity(playerid, toJoinSlot) + Inventory_GetItemQuantity(playerid, toRemoveSlot));
+    Inventory_SetItemQuantity(playerid, toJoinSlot, newQuantity);
+    
+    new sqlString[71];
+    mysql_format(Database_GetConnection(), sqlString, sizeof(sqlString), "UPDATE %s SET %s = %d WHERE %s = %d", INVENTORY_TABLE_NAME, INVENTORY_FIELD_ITEM_QUANTITY, newQuantity, INVENTORY_FIELD_ID, Inventory_GetDbId(playerid, toJoinSlot));
+    mysql_tquery(Database_GetConnection(), sqlString);
+
+    mysql_format(Database_GetConnection(), sqlString, sizeof(sqlString), "DELETE FROM %s WHERE %s = %d", INVENTORY_TABLE_NAME, INVENTORY_FIELD_ID, Inventory_GetDbId(playerid, toRemoveSlot));
+    mysql_tquery(Database_GetConnection(), sqlString);
+
+    ResetInventorySlot(playerid, toRemoveSlot);
     return 1;
 }
 
@@ -271,6 +312,7 @@ hook OnPlayerConnect(playerid)
     Inventory_SetSlotSelected(playerid, INVALID_VALUE);
     Inventory_SetTotalValidItems(playerid, 0);
     gsSwapItemsSlots[playerid] = false;
+    gsJoinItems[playerid] = false;
     return 1;
 }
 
@@ -336,6 +378,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         gsLastPreviewRotX[playerid] = TEXTDRAW_DEFAULT_X_ROT;
         gsLastPreviewRotZ[playerid] = TEXTDRAW_DEFAULT_Z_ROT;
         gsSwapItemsSlots[playerid] = false;
+        gsJoinItems[playerid] = false;
         return 1;
     }
 
@@ -350,39 +393,51 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
     {
         // Get Textdraw index array from textdraw id
         new index = GetInventoryTextdrawIndex(playerid, playertextid);
+        new slotSelected = ((index - 11) + (Inventory_GetActualPage(playerid) * INVENTORY_ITEMS_PER_PAGE));
         if (index != INVALID_VALUE)
         {
-            if (!gsSwapItemsSlots[playerid])
+            if (gsSwapItemsSlots[playerid])
             {
-                UnselectInventoryItem(playerid);
-
-                Inventory_SetSlotSelected(playerid, ((index - 11) + (Inventory_GetActualPage(playerid) * INVENTORY_ITEMS_PER_PAGE)));
-                Inventory_SetTextdrawSelected(playerid, index);
-
-                new itemName[INVENTORY_MAX_ITEM_NAME];
-                GetInventoryItemName(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid)), itemName);
-
-                UpdateInventoryItemBoxColor(playerid, Inventory_GetTextdrawSelected(playerid), TEXTDRAW_SELECTED_COLOR);
-                UpdateInventoryBoxInfo(playerid, Inventory_GetSlotSelected(playerid), GetInventoryItemObjectId(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))), itemName, Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)), GetInventoryItemRarity(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))));
-                Inventory_ShowItemOptions(playerid);
-
-                gsLastPreviewRotX[playerid] = TEXTDRAW_DEFAULT_X_ROT;
-                gsLastPreviewRotZ[playerid] = TEXTDRAW_DEFAULT_Z_ROT;
-            }
-            else
-            {
-                if (Inventory_GetItemId(playerid, ((index - 11) + (Inventory_GetActualPage(playerid) * INVENTORY_ITEMS_PER_PAGE))) != i_ITEM_INVALID)
+                if (Inventory_SwapItemSlot(playerid, Inventory_GetSlotSelected(playerid), slotSelected) != INVALID_VALUE)
                 {
-                    return SendClientMessage(playerid, COLOR_INVALID, "Esse espaço está ocupado por um item, mova-o ou escolha outro espaço.");
+                    ResetInventoryBoxInfo(playerid);
+                    HideInventoryItemOptions(playerid);
+                    UnselectInventoryItem(playerid);
+                    SyncInventoryDataWithTextdraws(playerid, Inventory_GetActualPage(playerid));
+                    gsSwapItemsSlots[playerid] = false;
+                    gsJoinItems[playerid] = false;
                 }
-                Inventory_SwapItemSlot(playerid, Inventory_GetSlotSelected(playerid), ((index - 11) + (Inventory_GetActualPage(playerid) * INVENTORY_ITEMS_PER_PAGE)));
-
-                ResetInventoryBoxInfo(playerid);
-                HideInventoryItemOptions(playerid);
-                UnselectInventoryItem(playerid);
-                SyncInventoryDataWithTextdraws(playerid, Inventory_GetActualPage(playerid));
-                gsSwapItemsSlots[playerid] = false;
+                return 1;
             }
+
+            if (gsJoinItems[playerid])
+            {
+                if (Inventory_JoinItemSlot(playerid, slotSelected, Inventory_GetSlotSelected(playerid)) != INVALID_VALUE)
+                {
+                    ResetInventoryBoxInfo(playerid);
+                    HideInventoryItemOptions(playerid);
+                    UnselectInventoryItem(playerid);
+                    SyncInventoryDataWithTextdraws(playerid, Inventory_GetActualPage(playerid));
+                    gsSwapItemsSlots[playerid] = false;
+                    gsJoinItems[playerid] = false;
+                }
+                return 1;
+            }
+
+            UnselectInventoryItem(playerid);
+
+            Inventory_SetSlotSelected(playerid, slotSelected);
+            Inventory_SetTextdrawSelected(playerid, index);
+
+            new itemName[INVENTORY_MAX_ITEM_NAME];
+            GetInventoryItemName(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid)), itemName);
+
+            UpdateInventoryItemBoxColor(playerid, Inventory_GetTextdrawSelected(playerid), TEXTDRAW_SELECTED_COLOR);
+            UpdateInventoryBoxInfo(playerid, Inventory_GetSlotSelected(playerid), GetInventoryItemObjectId(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))), itemName, Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)), GetInventoryItemRarity(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))));
+            Inventory_ShowItemOptions(playerid);
+
+            gsLastPreviewRotX[playerid] = TEXTDRAW_DEFAULT_X_ROT;
+            gsLastPreviewRotZ[playerid] = TEXTDRAW_DEFAULT_Z_ROT;
         }
         return 1;
     }
@@ -466,6 +521,8 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
             UpdateInventoryBoxInfo(playerid, Inventory_GetSlotSelected(playerid), GetInventoryItemObjectId(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))), itemName, Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)), GetInventoryItemRarity(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))));
             UpdateInventoryPreviewDesc(playerid, (Inventory_GetTextdrawSelected(playerid) + 36), itemName, Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)));
         }   
+        gsSwapItemsSlots[playerid] = false;
+        gsJoinItems[playerid] = false;
         return 1;
     }
 
@@ -520,14 +577,35 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         UpdateInventoryItemPreview(playerid, Inventory_GetTextdrawSelected(playerid), GetInventoryItemObjectId(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))), Inventory_GetIsOpenedStatus(playerid));
         
         UnselectInventoryItem(playerid);
+
+        gsSwapItemsSlots[playerid] = false;
+        gsJoinItems[playerid] = false;
         return 1;
     }
 
     // Swap Item Slot
     if (playertextid == Inventory_GetTextdraw(playerid, 41))
     {
+        if (Inventory_GetSlotSelected(playerid) == INVALID_VALUE)
+        {
+            return SendClientMessage(playerid, COLOR_INVALID, "Você deve selecionar um item primeiro.");
+        }
         gsSwapItemsSlots[playerid] = true;
+        gsJoinItems[playerid] = false;
         SendClientMessage(playerid, COLOR_YELLOW, "Selecione um espaço em branco para mudar o item de lugar.");
+        return 1;
+    }
+
+    // Join Items
+    if (playertextid == Inventory_GetTextdraw(playerid, 38))
+    {
+        if (Inventory_GetSlotSelected(playerid) == INVALID_VALUE)
+        {
+            return SendClientMessage(playerid, COLOR_INVALID, "Você deve selecionar um item primeiro.");
+        }
+        gsJoinItems[playerid] = true;
+        gsSwapItemsSlots[playerid] = false;
+        SendClientMessage(playerid, COLOR_YELLOW, "Selecione o item com o qual você deseja juntar.");
         return 1;
     }
 
