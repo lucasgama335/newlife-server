@@ -13,11 +13,11 @@ YCMD:setworld(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < MASTERP)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a utilizar esse comando.");
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está em modo de trabalho. Use: /trabalhar.");
 	}
 	new id, worldid;
 	if (sscanf(params, "ud", id, worldid))
@@ -26,7 +26,7 @@ YCMD:setworld(playerid, params[], help)
 	}
     if (!IsValidPlayer(id))
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Esse não é um jogador ativo.");
 	}
 
 	new string[99];
@@ -42,11 +42,11 @@ YCMD:setinterior(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < MASTERP)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a utilizar esse comando.");
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está em modo de trabalho. Use: /trabalhar.");
 	}
 	new id, interiorid;
 	if (sscanf(params, "ud", id, interiorid))
@@ -55,7 +55,7 @@ YCMD:setinterior(playerid, params[], help)
 	}
     if (!IsValidPlayer(id))
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Esse não é um jogador ativo.");
 	}
 
 	new string[95];
@@ -71,11 +71,11 @@ YCMD:darcolete(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < MASTERP)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a utilizar esse comando.");
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está em modo de trabalho. Use: /trabalhar.");
 	}
 	new id, quantidade;
 	if (sscanf(params, "ud", id, quantidade))
@@ -84,7 +84,7 @@ YCMD:darcolete(playerid, params[], help)
 	}
     if (!IsValidPlayer(id))
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Esse não é um jogador ativo.");
 	}
 
 	new string[110];
@@ -102,11 +102,11 @@ YCMD:darvida(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < MASTERP)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a utilizar esse comando.");
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está em modo de trabalho. Use: /trabalhar.");
 	}
 	new id, quantidade;
 	if (sscanf(params, "ud", id, quantidade))
@@ -115,11 +115,11 @@ YCMD:darvida(playerid, params[], help)
 	}
     if (!IsValidPlayer(id))
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Esse não é um jogador ativo.");
 	}
 	if (quantidade < 0)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Para matar o jogador, use: /kill.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Para matar o jogador, use: /kill.");
 	}
 
 	new string[108];
@@ -138,11 +138,11 @@ YCMD:kill(playerid, params[], help)
 {
     if (Player_GetAdminLevel(playerid) < MASTERP)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a utilizar esse comando.");
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está em modo de trabalho. Use: /trabalhar.");
 	}
 	new id;
 	if (sscanf(params, "u", id))
@@ -151,7 +151,7 @@ YCMD:kill(playerid, params[], help)
 	}
     if (!IsValidPlayer(id))
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Esse não é um jogador ativo.");
 	}
 
 	new string[84];
@@ -173,11 +173,11 @@ YCMD:setgrana(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < MASTERP)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a utilizar esse comando.");
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está em modo de trabalho. Use: /trabalhar.");
 	}
 	new id, money;
 	if (sscanf(params, "ud", id, money))
@@ -186,7 +186,7 @@ YCMD:setgrana(playerid, params[], help)
 	}
     if (!IsValidPlayer(id))
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Esse não é um jogador ativo.");
 	}
 
 	new string[110], moneyString[MAX_MONEY_STRING];
@@ -203,11 +203,11 @@ YCMD:dargrana(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < MASTERP)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a utilizar esse comando.");
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está em modo de trabalho. Use: /trabalhar.");
 	}
 	new id, money;
 	if (sscanf(params, "ud", id, money))
@@ -216,7 +216,7 @@ YCMD:dargrana(playerid, params[], help)
 	}
     if (!IsValidPlayer(id))
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Esse não é um jogador ativo.");
 	}
 
 	new string[97], moneyString[MAX_MONEY_STRING];

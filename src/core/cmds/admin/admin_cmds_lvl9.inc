@@ -13,11 +13,11 @@ YCMD:kitadmdono(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < SUB_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a utilizar esse comando.");
 	}
 	if (!Player_GetGunLicense(playerid))
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não possui porte de armas, retire-o na prefeitura.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não possui porte de armas, retire-o na prefeitura.");
 	}
 	
 	GivePlayerWeapon(playerid, 46, 1);
@@ -40,7 +40,7 @@ YCMD:deslogartodos(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < SUB_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a utilizar esse comando.");
 	}
 
     new string[86];
@@ -60,7 +60,7 @@ YCMD:tocarsom(playerid, params[], help)
 {
     if (Player_GetAdminLevel(playerid) < SUB_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a utilizar esse comando.");
 	}
 	new sound_id;
 	if (sscanf(params, "d", sound_id))
@@ -77,7 +77,7 @@ YCMD:pararsom(playerid, params[], help)
 {
     if (Player_GetAdminLevel(playerid) < SUB_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a utilizar esse comando.");
 	}
 
 	PlayerPlaySound(playerid, 0, 0.0, 0.0, 0.0);

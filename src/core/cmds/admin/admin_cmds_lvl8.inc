@@ -9,8 +9,8 @@
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 timer RestartServer[5000]()
 {
-	SendClientMessageToAll(COLOR_YELLOW, "[SERVIDOR]: Salvamento de dados concluído.");
-	SendClientMessageToAll(COLOR_YELLOW, "[SERVIDOR]: Reinicialização iniciada.");
+	SendClientMessageToAll(COLOR_YELLOW, "[Servidor]: Salvamento de dados concluído.");
+	SendClientMessageToAll(COLOR_YELLOW, "[Servidor]: Reinicialização iniciada.");
 	print("[Server]: Server is restarting...");
 	SendRconCommand("gmx");
 	return 1;
@@ -37,23 +37,23 @@ YCMD:gmx(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a utilizar esse comando.");
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está em modo de trabalho. Use: /trabalhar.");
 	}
 
-    new gmx[84];
+    new gmx[91 + 1];
 	Server_SetIsRestarting(true);
 	foreach(new i: Player)
 	{
         StopAudioStreamForPlayer(i);
-		ShowPlayerDialog(i, DIALOG_GMX, DIALOG_STYLE_MSGBOX, "GMX", "Reinicialização em andamento...\n\nIsso pode demorar alguns segundos\npor favor aguarde!\n\nAgradecemos sua compreensão.", "AGUARDE", "");
+		ShowPlayerDialog(i, DIALOG_GMX, DIALOG_STYLE_MSGBOX, "{FFFFFF}GMX", "{FFFFFF}Reinicialização em andamento...\n\nIsso pode demorar alguns segundos\npor favor aguarde!\n\nAgradecemos sua compreensão.", "AGUARDE", "");
 	}
-    format(gmx,sizeof(gmx),"Admin: %s está reinicializando o servidor, por favor aguarde!", GetPlayerNameCustom(playerid));
+    format(gmx,sizeof(gmx),"[Administração]: %s está reinicializando o servidor, por favor aguarde!", GetPlayerNameCustom(playerid));
 	SendClientMessageToAll(COLOR_YELLOW, gmx);
-	SendClientMessageToAll(COLOR_YELLOW, "[SERVIDOR]: Salvamento de dados iniciados...");
+	SendClientMessageToAll(COLOR_YELLOW, "[Servidor]: Salvamento de dados iniciados...");
 	defer RestartServer();
     return 1;
 }
@@ -62,11 +62,11 @@ YCMD:setmoedasvip(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a utilizar esse comando.");
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está em modo de trabalho. Use: /trabalhar.");
 	}
 	new id, coins;
 	if (sscanf(params, "ud", id, coins))
@@ -75,7 +75,7 @@ YCMD:setmoedasvip(playerid, params[], help)
 	}
     if (!IsValidPlayer(id))
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Esse não é um jogador ativo.");
 	}
 
 	new string[126], coinsString[MAX_MONEY_STRING];
@@ -93,11 +93,11 @@ YCMD:darmoedasvip(playerid, params[], help)
 {
     if (Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a utilizar esse comando.");
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está em modo de trabalho. Use: /trabalhar.");
 	}
 	new id, coins;
 	if (sscanf(params, "ud", id, coins))
@@ -106,7 +106,7 @@ YCMD:darmoedasvip(playerid, params[], help)
 	}
     if (!IsValidPlayer(id))
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Esse não é um jogador ativo.");
 	}
 
 	new string[107], coinsString[MAX_MONEY_STRING];
@@ -126,11 +126,11 @@ YCMD:hideadmin(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a utilizar esse comando.");
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está em modo de trabalho. Use: /trabalhar.");
 	}
 
 	ShowPlayerDialog(playerid, DIALOG_ADMIN_HIDE, DIALOG_STYLE_MSGBOX, "Menu Admin Dono", "Escolha qual modo deseja ficar.", "Oculto", "Exibido");
@@ -141,11 +141,11 @@ YCMD:verpars(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a utilizar esse comando.");
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está em modo de trabalho. Use: /trabalhar.");
 	}
 
 	if (Admin_GetViewAllPm(playerid))

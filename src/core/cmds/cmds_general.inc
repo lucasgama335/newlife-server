@@ -1176,7 +1176,7 @@ YCMD:id(playerid, params[], help)
 	}
     if (!IsValidPlayer(id))
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Esse não é um jogador ativo.");
 	}
 	if (Player_GetAdminLevel(id) >= HELPER_OWNER)
 	{
@@ -1256,27 +1256,27 @@ YCMD:nchat(playerid, params[], help)
 {
 	if (Player_GetHoursPlayed(playerid) < 2)
 	{
-	    return SendClientMessage(playerid, COLOR_INVALID, "É preciso ter 2+ horas jogos para falar no chat de dúvidas.");
+	    return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: É preciso ter 2+ horas jogos para falar no chat de dúvidas.");
 	}
 	if (!Player_GetNoobChatStatus(playerid))
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você está com o chat de dúvidas bloqueado, ative-o usando: /config.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você está com o chat de dúvidas bloqueado, ative-o usando: /config.");
 	}
 	if (Player_GetMutedTime(playerid) != 0)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode falar, pois foi calado.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não pode falar, pois foi calado.");
 	}
 	if (Player_GetNoobMutedTime(playerid) != 0)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode falar, pois está com o chat bloqueado.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não pode falar, pois está com o chat bloqueado.");
 	}
 	if ((gettime() - talkChatNoob[playerid]) < 15)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você só pode usar o chat de dúvidas a cada 15 segundos.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você só pode usar o chat de dúvidas a cada 15 segundos.");
 	}
 	if (!ChatNoobStatus)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "O chat de dúvidas está desatiado.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: O chat de dúvidas está desatiado.");
 	}
 	new text[120];
 	if (sscanf(params, "s[120]", text))

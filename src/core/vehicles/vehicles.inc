@@ -44,27 +44,27 @@ stock Vehicle_SetEngineToPlayer(playerid, vehicleid, bool:status)
 {
 	if (!IsPlayerInAnyVehicle(playerid) || vehicleid == INVALID_VEHICLE_ID)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em um veículo.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está em um veículo.");
 	}
 	if (GetPlayerState(playerid) != PLAYER_STATE_DRIVER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não é o motorista desse veículo.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não é o motorista desse veículo.");
 	}
 	if (Vehicle_IsBike(GetVehicleModel(vehicleid)))
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Esse veículo não possui um motor.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Esse veículo não possui um motor.");
 	}
 	if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER && Vehicle_GetFuel(vehicleid) <= 0)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Seu veículo está sem gasolina, use um galão.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Seu veículo está sem gasolina, use um galão.");
 	}
 	if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER && Vehicle_GetBrokenStatus(vehicleid))
 	{
-		return SendClientMessage(playerid, COLOR_LIGHTBLUE, "Você não pode ligar o seu veículo, pois ele está quebrado.");
+		return SendClientMessage(playerid, COLOR_LIGHTBLUE, "[Erro]: Você não pode ligar o seu veículo, pois ele está quebrado.");
 	}
 	if (Vehicle_GetEngineStatus(vehicleid)  && GetPlayerState(playerid) == 2 && GetPlayerSpeed(playerid, true) > 1)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode mecher no motor do veículo com ele estando em movimento.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não pode mecher no motor do veículo com ele estando em movimento.");
 	}
 
 	new string[60];

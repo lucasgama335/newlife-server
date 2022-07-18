@@ -13,24 +13,24 @@ stock ShowPlayerGasStationDialog(playerid)
 {
 	if (!IsPlayerInAnyVehicle(playerid))
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em um veículo.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está em um veículo.");
 	}
 	if (!IsPlayerInGasStation(playerid))
 	{
-	    return SendClientMessage(playerid, COLOR_INVALID, "Você não está em um posto de gasolina.");
+	    return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está em um posto de gasolina.");
 	}
 	if (GetPlayerState(playerid) != PLAYER_STATE_DRIVER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está é o motorista do veículo.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está é o motorista do veículo.");
 	}
 	new vehicleid = GetPlayerVehicleID(playerid);
 	if (Vehicle_IsBike(GetVehicleModel(vehicleid)))
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Esse veículo não precisa ser abastecido.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Esse veículo não precisa ser abastecido.");
 	}
 	if (Vehicle_GetEngineStatus(vehicleid))
 	{
-	    return SendClientMessage(playerid, COLOR_INVALID, "O motor do veículo precisa estar desligado para ser abastecido.");
+	    return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: O motor do veículo precisa estar desligado para ser abastecido.");
 	}
 
 	new StrCat[120], priceString[MAX_MONEY_STRING], string[(27 + MAX_MONEY_STRING)];

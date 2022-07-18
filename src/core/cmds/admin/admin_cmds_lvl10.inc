@@ -13,7 +13,7 @@ YCMD:daradmin(playerid, params[], help)
 {
     if (Player_GetAdminLevel(playerid) < OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a utilizar esse comando.");
 	}
 	new id, e_ADMIN_LEVELS:level;
 	if (sscanf(params, "ud", id, level))
@@ -22,15 +22,15 @@ YCMD:daradmin(playerid, params[], help)
 	}
     if (!IsValidPlayer(id))
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Esse não é um jogador ativo.");
 	}
 	if (Player_GetAdminLevel(id) == OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode alterar o nível de admin de um Dono.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não pode alterar o nível de admin de um Dono.");
 	}
 	if (level < NO_ADMIN || level > OWNER)
 	{
-        return SendClientMessage(playerid, COLOR_INVALID, "Nível de admin inválido.");
+        return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Nível de admin inválido.");
 	}
 
 	new string[104];
@@ -47,7 +47,7 @@ YCMD:retiraradmin(playerid, params[], help)
 {
     if (Player_GetAdminLevel(playerid) < OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a utilizar esse comando.");
 	}
 	new id;
 	if (sscanf(params, "u", id))
@@ -56,11 +56,11 @@ YCMD:retiraradmin(playerid, params[], help)
 	}
     if (!IsValidPlayer(id))
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Esse não é um player ativo.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Esse não é um jogador ativo.");
 	}
 	if (Player_GetAdminLevel(id) == OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não pode retirar o status de admin de um Dono.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não pode retirar o status de admin de um Dono.");
 	}
 
 	new string[65];
@@ -78,7 +78,7 @@ YCMD:iro(playerid, params[], help)
 {
     if (Player_GetAdminLevel(playerid) < OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a utilizar esse comando.");
 	}
 	new objid;
 	if (sscanf(params, "d", objid))

@@ -474,8 +474,8 @@ hook OnPlayerEnterRaceCP(playerid)
     {
         if (!IsPlayerInVehicle(playerid, vehicleid) || GetPlayerState(playerid) != PLAYER_STATE_DRIVER)
 		{
-	   		SendClientMessage(playerid, COLOR_INVALID, "Você deve estar em um carro da auto escola para fazer o teste !");
-	   		SendClientMessage(playerid, COLOR_INVALID, "Pegue um dos carros que estão ao seu lado e siga os checkpoints !");
+	   		SendClientMessage(playerid, COLOR_INVALID, "[Autoescola]: Você deve estar em um carro da auto escola para fazer o teste !");
+	   		SendClientMessage(playerid, COLOR_INVALID, "[Autoescola]: Pegue um dos carros que estão ao seu lado e siga os checkpoints !");
 	   		return 1;
 	 	}
         if (vehicleHealth < 980.0)

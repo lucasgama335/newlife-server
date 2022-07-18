@@ -94,15 +94,15 @@ stock OpenPlayerInventory(playerid)
 {
     if (!IsValidPlayer(playerid))
     {
-        return SendClientMessage(playerid, COLOR_INVALID, "Você precisa estar logado para abrir o inventário.");
+        return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você precisa estar logado para abrir o inventário.");
     }
     if (Inventory_GetIsOpenedStatus(playerid))
     {
-        return SendClientMessage(playerid, COLOR_INVALID, "O inventário já está aberto.");
+        return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: O inventário já está aberto.");
     }
     if (!Inventory_GetSyncStatus(playerid))
     {
-        return SendClientMessage(playerid, COLOR_INVALID, "Estamos carregando o seu inventário, aguarde...");
+        return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Estamos carregando o seu inventário, aguarde...");
     }   
     // Update Inventory Information
     Inventory_SetIsOpenedStatus(playerid, true);
@@ -135,11 +135,11 @@ stock ClosePlayerInventory(playerid)
 {
     if (!IsValidPlayer(playerid))
     {
-        return SendClientMessage(playerid, COLOR_INVALID, "Você precisa estar logado para fechar o inventário.");
+        return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você precisa estar logado para fechar o inventário.");
     }
     if (!Inventory_GetIsOpenedStatus(playerid))
     {
-        return SendClientMessage(playerid, COLOR_INVALID, "O inventário não está aberto.");
+        return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: O inventário não está aberto.");
     }
     // Update Inventory Information
     Inventory_SetIsOpenedStatus(playerid, false);
@@ -822,11 +822,11 @@ YCMD:pegaritem(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < ASPIRANT)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a usar esse comando.");
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está em modo trabalho. Use: /trabalhar.");
 	}
 	new i_ITEM_LIST:itemId, quantity;
 	if (sscanf(params, "dd", itemId, quantity))
@@ -835,11 +835,11 @@ YCMD:pegaritem(playerid, params[], help)
 	}
     if (!Inventory_ItemExists(itemId))
     {
-        return SendClientMessage(playerid, COLOR_GREY, "O item informado é inválido.");
+        return SendClientMessage(playerid, COLOR_GREY, "[Erro]: O item informado é inválido.");
     }
     if (quantity < 0)
     {
-        return SendClientMessage(playerid, COLOR_GREY, "Você deve informar uma quantidade para o item.");
+        return SendClientMessage(playerid, COLOR_GREY, "[Erro]: Você deve informar uma quantidade para o item.");
     }
 
     if (Inventory_AddItem(playerid, itemId, quantity) != INVALID_VALUE)
@@ -857,11 +857,11 @@ YCMD:pegaritems(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < ASPIRANT)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está autorizado a usar esse comando.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a usar esse comando.");
 	}
 	if (!Admin_GetWorkStatus(playerid) && Player_GetAdminLevel(playerid) < HELPER_OWNER)
 	{
-		return SendClientMessage(playerid, COLOR_INVALID, "Você não está em modo trabalho. Use: /trabalhar.");
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está em modo trabalho. Use: /trabalhar.");
 	}
 
     Inventory_AddItem(playerid, i_ITEM_HAMBURGER, 1);
