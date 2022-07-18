@@ -499,10 +499,20 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
             {
                 if (Inventory_JoinItemSlot(playerid, slotSelected, Inventory_GetSlotSelected(playerid)) != INVALID_VALUE)
                 {
+                    new itemName[INVENTORY_MAX_ITEM_NAME];
+                    // Update Joined Item
+                    GetInventoryItemName(Inventory_GetItemId(playerid, slotSelected), itemName);
+                    UpdateInventoryPreviewDesc(playerid, (index + 36), itemName, Inventory_GetItemQuantity(playerid, slotSelected));
+                    UpdateInventoryItemPreview(playerid, index, GetInventoryItemObjectId(Inventory_GetItemId(playerid, slotSelected)), Inventory_GetIsOpenedStatus(playerid));
+
+                    // Update Old Item Slot
+                    HidePreviewDescription(playerid, (Inventory_GetTextdrawSelected(playerid) + 36));
+                    UpdateInventoryItemPreview(playerid, Inventory_GetTextdrawSelected(playerid), GetInventoryItemObjectId(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))), Inventory_GetIsOpenedStatus(playerid));
+
                     ResetInventoryBoxInfo(playerid);
                     HideInventoryItemOptions(playerid);
                     UnselectInventoryItem(playerid);
-                    SyncInventoryDataWithTextdraws(playerid, Inventory_GetActualPage(playerid));
+
                     gsSwapItemsSlots[playerid] = false;
                     gsJoinItems[playerid] = false;
                 }
