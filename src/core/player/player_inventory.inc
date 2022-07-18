@@ -115,6 +115,7 @@ stock OpenPlayerInventory(playerid)
     ResetInventoryBoxInfo(playerid);
     SyncInventoryDataWithTextdraws(playerid, Inventory_GetActualPage(playerid));
     UpdateInventoryTotalItens(playerid, Inventory_GetTotalValidItems(playerid));
+    UpdateInventoryPageText(playerid, (Inventory_GetActualPage(playerid) + 1), INVENTORY_MAX_PAGES);
     Inventory_Show(playerid);
     gsLastPreviewRotX[playerid] = TEXTDRAW_DEFAULT_X_ROT;
     gsLastPreviewRotZ[playerid] = TEXTDRAW_DEFAULT_Z_ROT;
@@ -318,7 +319,7 @@ stock Inventory_UseItem(playerid, i_ITEM_LIST:itemId, slot)
         ResetInventorySlot(playerid, slot);
         ResetInventoryBoxInfo(playerid);
         HidePreviewDescription(playerid, (Inventory_GetTextdrawSelected(playerid) + 36));
-        UpdateInventoryItemPreview(playerid, Inventory_GetTextdrawSelected(playerid), GetInventoryItemObjectId(itemId), Inventory_GetIsOpenedStatus(playerid));
+        UpdateInventoryItemPreview(playerid, Inventory_GetTextdrawSelected(playerid), GetInventoryItemObjectId(Inventory_GetItemId(playerid, slot)), Inventory_GetIsOpenedStatus(playerid));
         UnselectInventoryItem(playerid);
     }
     else
