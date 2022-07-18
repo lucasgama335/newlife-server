@@ -422,15 +422,18 @@ hook FirstSpawnOnLogin(playerid)
             for (new i; i < rows; i++)
             {   
                 cache_get_value_name_int(i, INVENTORY_FIELD_ITEM_SLOT, slot);
-                Inventory_SetItemSlot(playerid, slot, slot);
 
                 cache_get_value_name_int(i, INVENTORY_FIELD_ID, dbId);
                 cache_get_value_name_int(i, INVENTORY_FIELD_ITEM_ID, itemId);
                 cache_get_value_name_int(i, INVENTORY_FIELD_ITEM_QUANTITY, quantity);
 
-                Inventory_SetDbId(playerid, slot, dbId);
-                Inventory_SetItemId(playerid, slot, itemId);
-                Inventory_SetItemQuantity(playerid, slot, quantity);
+                if (Inventory_ItemExists(itemId))
+                {
+                    Inventory_SetDbId(playerid, slot, dbId);
+                    Inventory_SetItemId(playerid, slot, itemId);
+                    Inventory_SetItemQuantity(playerid, slot, quantity);
+                    Inventory_SetItemSlot(playerid, slot, slot);
+                }
             }
         }
         Inventory_SetSyncStatus(playerid, true);
