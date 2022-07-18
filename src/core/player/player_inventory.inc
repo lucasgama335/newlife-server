@@ -292,6 +292,87 @@ stock Inventory_JoinItemSlot(playerid, toJoinSlot, toRemoveSlot)
     return 1;
 }
 
+stock Inventory_UseItem(playerid, i_ITEM_LIST:itemId, slot)
+{
+    if (!Inventory_ItemExists(itemId))
+    {
+        SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: O item selecionado não existe.");
+        return INVALID_VALUE;
+    }
+    if (slot < 0 || slot > (INVENTORY_MAX_SLOTS - 1))
+    {
+        SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Você deve selecionar um espaço com um item para usar.");
+        return INVALID_VALUE;
+    }
+    if (Inventory_GetItemId(playerid, slot) == i_ITEM_INVALID)
+    {
+        SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Não há nenhum item para ser usado nesse espaço.");
+        return INVALID_VALUE;
+    }
+
+    new itemQuantity = Inventory_GetItemQuantity(playerid, slot), itemName[INVENTORY_MAX_ITEM_NAME];
+    GetInventoryItemName(itemId, itemName);
+    if (itemQuantity <= 1)
+    {
+        Inventory_RemoveItem(playerid, Inventory_GetDbId(playerid, slot), slot);
+        ResetInventorySlot(playerid, slot);
+        ResetInventoryBoxInfo(playerid);
+        HidePreviewDescription(playerid, (Inventory_GetTextdrawSelected(playerid) + 36));
+        UpdateInventoryItemPreview(playerid, Inventory_GetTextdrawSelected(playerid), GetInventoryItemObjectId(itemId), Inventory_GetIsOpenedStatus(playerid));
+        UnselectInventoryItem(playerid);
+    }
+    else
+    {
+        Inventory_UpdateItemQuantity(playerid, slot, (itemQuantity - 1));
+        UpdateInventoryBoxInfo(playerid, slot, GetInventoryItemObjectId(itemId), itemName, Inventory_GetItemQuantity(playerid, slot), GetInventoryItemRarity(itemId));
+        UpdateInventoryPreviewDesc(playerid, (Inventory_GetTextdrawSelected(playerid) + 36), itemName, Inventory_GetItemQuantity(playerid, slot));
+    }
+
+    switch (GetItemCategory(itemId))
+    {
+        case i_ITEM_CATEGORY_FOOD:
+        {
+            new increaseHungry = (5 + random(5)), string[(58 + INVENTORY_MAX_ITEM_NAME)];
+            if ((Player_GetHungry(playerid) + increaseHungry) > 100)
+            {
+                Player_SetHungry(playerid, 100);
+                format(string, sizeof(string), "[Inventário]: Você comeu um(a): %s e ficou saciado.", itemName);
+                SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
+                return 1;
+            }
+
+            Player_SetHungry(playerid, (Player_GetHungry(playerid) + increaseHungry));
+            format(string, sizeof(string), "[Inventário]: Você comeu um(a): %s e recuperou [%d] de fome.", itemName, increaseHungry);
+            SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
+            return 1;
+        }
+        case i_ITEM_CATEGORY_DRINK:
+        {
+            new increaseDrink = (5 + random(5)), string[(58 + INVENTORY_MAX_ITEM_NAME)];
+            if ((Player_GetDrink(playerid) + increaseDrink) > 100)
+            {
+                Player_SetDrink(playerid, 100);
+                format(string, sizeof(string), "[Inventário]: Você bebeu um(a): %s e ficou saciado.", itemName);
+                SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
+                return 1;
+            }
+
+            Player_SetDrink(playerid, (Player_GetDrink(playerid) + increaseDrink));
+            format(string, sizeof(string), "[Inventário]: Você bebeu um(a): %s e recuperou [%d] de sede.", itemName, increaseDrink);
+            SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
+            return 1;
+        }
+        default:
+        {
+            new string[(37 + INVENTORY_MAX_ITEM_NAME)];
+            format(string, sizeof(string), "[Inventário]: Você utilizou o item: %s.", itemName);
+            SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
+            return 1;
+        }
+    }
+    return 1;
+}
+
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerConnect(playerid)
 {
@@ -501,31 +582,11 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
             return SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Não há nenhum item para ser usado nesse espaço.");
         }
 
-        new itemQuantity = Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid));
-        
-        new string[(37 + INVENTORY_MAX_ITEM_NAME)], itemName[INVENTORY_MAX_ITEM_NAME];
-        GetInventoryItemName(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid)), itemName);
-
-        format(string, sizeof(string), "[Inventário]: Você utilizou o item: %s.", itemName);
-        SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
-
-        if (itemQuantity <= 1)
+        if (Inventory_UseItem(playerid, Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid)), Inventory_GetSlotSelected(playerid)) != INVALID_VALUE)
         {
-            Inventory_RemoveItem(playerid, Inventory_GetDbId(playerid, Inventory_GetSlotSelected(playerid)), Inventory_GetSlotSelected(playerid));
-            ResetInventorySlot(playerid, Inventory_GetSlotSelected(playerid));
-            ResetInventoryBoxInfo(playerid);
-            HidePreviewDescription(playerid, (Inventory_GetTextdrawSelected(playerid) + 36));
-            UpdateInventoryItemPreview(playerid, Inventory_GetTextdrawSelected(playerid), GetInventoryItemObjectId(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))), Inventory_GetIsOpenedStatus(playerid));
-            UnselectInventoryItem(playerid);
+            gsSwapItemsSlots[playerid] = false;
+            gsJoinItems[playerid] = false;
         }
-        else
-        {
-            Inventory_UpdateItemQuantity(playerid, Inventory_GetSlotSelected(playerid), (itemQuantity - 1));
-            UpdateInventoryBoxInfo(playerid, Inventory_GetSlotSelected(playerid), GetInventoryItemObjectId(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))), itemName, Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)), GetInventoryItemRarity(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))));
-            UpdateInventoryPreviewDesc(playerid, (Inventory_GetTextdrawSelected(playerid) + 36), itemName, Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)));
-        }   
-        gsSwapItemsSlots[playerid] = false;
-        gsJoinItems[playerid] = false;
         return 1;
     }
 

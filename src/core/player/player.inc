@@ -188,6 +188,7 @@ public OnPlayerDisconnect(playerid, reason)
     Player_SaveGeneralData(playerid);
     Player_SaveScoreData(playerid);
     Player_SaveAppearenceData(playerid);
+    Player_SaveStatusData(playerid);
     Player_SaveConfigData(playerid);
     return 1;
 }

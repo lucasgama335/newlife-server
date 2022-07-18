@@ -303,6 +303,18 @@ stock GetInventoryItemRarity(i_ITEM_LIST:itemId)
     return string;
 }
 
+stock i_ITEM_CATEGORY:GetItemCategory(i_ITEM_LIST:itemId)
+{
+    for (new i; i < INVENTORY_MAX_ITEMS_LIST; i++)
+    {
+        if (gsItemsInfo[i][i_ITEM_ID] == itemId)
+        {
+            return gsItemsInfo[i][i_ITEM_TYPE];
+        }
+    }
+    return i_ITEM_CATEGORY_INVALID;
+}
+
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 
 //------------------------- Commands (Module related commands) -------------------------
