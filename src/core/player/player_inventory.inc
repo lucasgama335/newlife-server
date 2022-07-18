@@ -293,7 +293,7 @@ stock Inventory_JoinItemSlot(playerid, toJoinSlot, toRemoveSlot)
     return 1;
 }
 
-stock Inventory_UseItem(playerid, i_ITEM_LIST:itemId, slot)
+stock Inventory_UseItem(playerid, i_ITEM_LIST:itemId, slot, quantity)
 {
     if (!Inventory_ItemExists(itemId))
     {
@@ -310,10 +310,16 @@ stock Inventory_UseItem(playerid, i_ITEM_LIST:itemId, slot)
         SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Não há nenhum item para ser usado nesse espaço.");
         return INVALID_VALUE;
     }
+    new itemQuantity = Inventory_GetItemQuantity(playerid, slot);
+    if (itemQuantity < quantity)
+    {
+        SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Você não a quantidade necessária de itens.");
+        return INVALID_VALUE;
+    }
 
-    new itemQuantity = Inventory_GetItemQuantity(playerid, slot), itemName[INVENTORY_MAX_ITEM_NAME];
+    new itemName[INVENTORY_MAX_ITEM_NAME];
     GetInventoryItemName(itemId, itemName);
-    if (itemQuantity <= 1)
+    if (itemQuantity <= 1 || itemQuantity == quantity)
     {
         Inventory_RemoveItem(playerid, Inventory_GetDbId(playerid, slot), slot);
         ResetInventorySlot(playerid, slot);
@@ -324,7 +330,7 @@ stock Inventory_UseItem(playerid, i_ITEM_LIST:itemId, slot)
     }
     else
     {
-        Inventory_UpdateItemQuantity(playerid, slot, (itemQuantity - 1));
+        Inventory_UpdateItemQuantity(playerid, slot, (itemQuantity - quantity));
         UpdateInventoryBoxInfo(playerid, slot, GetInventoryItemObjectId(itemId), itemName, Inventory_GetItemQuantity(playerid, slot), GetInventoryItemRarity(itemId));
         UpdateInventoryPreviewDesc(playerid, (Inventory_GetTextdrawSelected(playerid) + 36), itemName, Inventory_GetItemQuantity(playerid, slot));
     }
@@ -596,7 +602,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
             return SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Não há nenhum item para ser usado nesse espaço.");
         }
 
-        if (Inventory_UseItem(playerid, Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid)), Inventory_GetSlotSelected(playerid)) != INVALID_VALUE)
+        if (Inventory_UseItem(playerid, Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid)), Inventory_GetSlotSelected(playerid), 1) != INVALID_VALUE)
         {
             gsSwapItemsSlots[playerid] = false;
             gsJoinItems[playerid] = false;
