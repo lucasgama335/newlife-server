@@ -189,7 +189,7 @@ stock Inventory_AddItem(playerid, i_ITEM_LIST:itemId, quantity)
     return 1;
 }
 
-stock Inventory_UpdateItemQuantity(playerid, itemDbId, slot, quantity)
+stock Inventory_UpdateItemQuantity(playerid, slot, quantity)
 {
     if (slot < 0 || slot > (INVENTORY_MAX_SLOTS - 1))
     {
@@ -198,14 +198,14 @@ stock Inventory_UpdateItemQuantity(playerid, itemDbId, slot, quantity)
     }
     if (quantity < 0)
     {
-        SendClientMessage(playerid, COLOR_INVALID, "Não foi possível adicionar o item, pois a quantidade não foi informada.");
+        SendClientMessage(playerid, COLOR_INVALID, "Não foi possível atualizar o item, pois a quantidade não foi informada.");
         return INVALID_VALUE;
     }
 
     Inventory_SetItemQuantity(playerid, slot, quantity);
 
     new sqlString[70];
-    mysql_format(Database_GetConnection(), sqlString, sizeof(sqlString), "UPDATE %s SET %s = %d WHERE %s = %d", INVENTORY_TABLE_NAME, INVENTORY_FIELD_ITEM_QUANTITY, quantity, INVENTORY_FIELD_ID, itemDbId);
+    mysql_format(Database_GetConnection(), sqlString, sizeof(sqlString), "UPDATE %s SET %s = %d WHERE %s = %d", INVENTORY_TABLE_NAME, INVENTORY_FIELD_ITEM_QUANTITY, quantity, INVENTORY_FIELD_ID, Inventory_GetDbId(playerid, slot));
     mysql_tquery(Database_GetConnection(), sqlString);
     return 1;
 }
@@ -517,7 +517,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         }
         else
         {
-            Inventory_UpdateItemQuantity(playerid, Inventory_GetDbId(playerid, Inventory_GetSlotSelected(playerid)), Inventory_GetSlotSelected(playerid), (itemQuantity - 1));
+            Inventory_UpdateItemQuantity(playerid, Inventory_GetSlotSelected(playerid), (itemQuantity - 1));
             UpdateInventoryBoxInfo(playerid, Inventory_GetSlotSelected(playerid), GetInventoryItemObjectId(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))), itemName, Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)), GetInventoryItemRarity(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))));
             UpdateInventoryPreviewDesc(playerid, (Inventory_GetTextdrawSelected(playerid) + 36), itemName, Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)));
         }   
@@ -609,6 +609,13 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         return 1;
     }
 
+    // Detach Items
+    if (playertextid == Inventory_GetTextdraw(playerid, 39))
+    {
+        ShowPlayerDialog(playerid, DIALOG_INVENTORY_DETACH_ITEMS, DIALOG_STYLE_INPUT, "Separando Item", "{FFFFFF}Digite a quantidade que você deseja separar.\n\n{ff6347}OBS: {8C8C8C}O valor deve ser acima de zero.", "Separar", "Cancelar");
+        return 1;
+    }
+
     // Box Preview Rotation (X+)
     if (playertextid == Inventory_GetTextdraw(playerid, 43))
     {
@@ -639,6 +646,59 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         gsLastPreviewRotZ[playerid] -= 5.0;
         UpdateBoxPreviewRotation(playerid, gsLastPreviewRotX[playerid], gsLastPreviewRotZ[playerid], Inventory_GetIsOpenedStatus(playerid));
         return 1;
+    }
+    return 1;
+}
+
+hook OnDialogResponse(playerid, dialogid, response, listitem, const inputtext[])
+{
+    #pragma unused listitem // need this directive, on account of YSI which shows warnings in case the parameter is not used.
+
+    switch (dialogid)
+    {
+        case DIALOG_INVENTORY_DETACH_ITEMS:
+        {
+            if (!response)
+            {
+                return 1;
+            }
+            if (response)
+            {
+                if (Inventory_GetSlotSelected(playerid) == INVALID_VALUE)
+                {
+                    return SendClientMessage(playerid, COLOR_INVALID, "Você deve selecionar um item primeiramente.");
+                }
+                if (strval(inputtext) <= 0)
+                {
+                    SendClientMessage(playerid, COLOR_INVALID, "Digite um valor acima de zero.");
+                    ShowPlayerDialog(playerid, DIALOG_INVENTORY_DETACH_ITEMS, DIALOG_STYLE_INPUT, "Separando Item", "{FFFFFF}Digite a quantidade que você deseja separar.\n\n{ff6347}OBS: {8C8C8C}O valor deve ser acima de zero.", "Separar", "Cancelar");
+                    return 1;
+                }
+                if (strval(inputtext) == Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)))
+                {
+                    return SendClientMessage(playerid, COLOR_INVALID, "Você não pode separar essa quantidade de itens.");
+                }
+                if (strval(inputtext) > Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)))
+                {
+                    SendClientMessage(playerid, COLOR_INVALID, "Você não tem toda essa quantidade de itens.");
+                    ShowPlayerDialog(playerid, DIALOG_INVENTORY_DETACH_ITEMS, DIALOG_STYLE_INPUT, "Separando Item", "{FFFFFF}Digite a quantidade que você deseja separar.\n\n{ff6347}OBS: {8C8C8C}O valor deve ser acima de zero.", "Separar", "Cancelar");
+                    return 1;
+                }
+
+                new quantity = strval(inputtext);
+
+                Inventory_UpdateItemQuantity(playerid, Inventory_GetSlotSelected(playerid), (Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)) - quantity));
+                Inventory_AddItem(playerid, Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid)), quantity);
+                SendClientMessage(playerid, COLOR_LIGHTBLUE, "Itens separados.");
+
+                ResetInventoryBoxInfo(playerid);
+                HideInventoryItemOptions(playerid);
+                UnselectInventoryItem(playerid);
+                gsSwapItemsSlots[playerid] = false;
+                gsJoinItems[playerid] = false;
+                return 1;
+            }
+        }
     }
     return 1;
 }
