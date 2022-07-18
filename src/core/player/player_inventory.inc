@@ -641,23 +641,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
             return SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Não há nenhum item para ser usado nesse espaço.");
         }
 
-        new string[(55 + INVENTORY_MAX_ITEM_NAME)], itemName[INVENTORY_MAX_ITEM_NAME];
-        GetInventoryItemName(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid)), itemName);
-       
-        format(string, sizeof(string), "[Inventário]: Você descartou o item: %s (Unidades: %d).", itemName, Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)));
-        SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
-
-        Inventory_RemoveItem(playerid, Inventory_GetDbId(playerid, Inventory_GetSlotSelected(playerid)), Inventory_GetSlotSelected(playerid));
-        ResetInventorySlot(playerid, Inventory_GetSlotSelected(playerid));
-        ResetInventoryBoxInfo(playerid);
-
-        HidePreviewDescription(playerid, (Inventory_GetTextdrawSelected(playerid) + 36));
-        UpdateInventoryItemPreview(playerid, Inventory_GetTextdrawSelected(playerid), GetInventoryItemObjectId(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))), Inventory_GetIsOpenedStatus(playerid));
-        
-        UnselectInventoryItem(playerid);
-
-        gsSwapItemsSlots[playerid] = false;
-        gsJoinItems[playerid] = false;
+        ShowPlayerDialog(playerid, DIALOG_INVENTORY_REMOVE_ITEM, DIALOG_STYLE_MSGBOX, "Descartar Item", "{FFFFFF}Você tem certeza que deseja descatar esse item?.\n\n{ff6347}OBS: {8C8C8C}O descarte de item é um processo irreversível\ne não poderá ser recuperado..", "Descartar", "Cancelar");
         return 1;
     }
 
@@ -668,9 +652,13 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         {
             return SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Você deve selecionar um item primeiro.");
         }
-        gsSwapItemsSlots[playerid] = true;
+
+        if (!gsSwapItemsSlots[playerid])
+        {
+            gsSwapItemsSlots[playerid] = true;
+            SendClientMessage(playerid, COLOR_LIGHTBLUE, "[Inventário]: Selecione um espaço vazio para mudar o item de lugar.");
+        }
         gsJoinItems[playerid] = false;
-        SendClientMessage(playerid, COLOR_YELLOW, "[Inventário]: Selecione um espaço vazio para mudar o item de lugar.");
         return 1;
     }
 
@@ -690,7 +678,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
     // Detach Items
     if (playertextid == Inventory_GetTextdraw(playerid, 39))
     {
-        ShowPlayerDialog(playerid, DIALOG_INVENTORY_DETACH_ITEMS, DIALOG_STYLE_INPUT, "Separando Item", "{FFFFFF}Digite a quantidade que você deseja separar.\n\n{ff6347}OBS: {8C8C8C}O valor deve ser acima de zero.", "Separar", "Cancelar");
+        ShowPlayerDialog(playerid, DIALOG_INVENTORY_DETACH_ITEMS, DIALOG_STYLE_INPUT, "Separar Item", "{FFFFFF}Digite a quantidade que você deseja separar.\n\n{ff6347}OBS: {8C8C8C}O valor deve ser acima de zero.", "Separar", "Cancelar");
         return 1;
     }
 
@@ -734,6 +722,36 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, const inputtext[])
 
     switch (dialogid)
     {
+        case DIALOG_INVENTORY_REMOVE_ITEM:
+        {
+            if (!response)
+            {
+                gsSwapItemsSlots[playerid] = false;
+                gsJoinItems[playerid] = false;
+                return 1;
+            }
+            if (response)
+            {
+                new string[(55 + INVENTORY_MAX_ITEM_NAME)], itemName[INVENTORY_MAX_ITEM_NAME];
+                GetInventoryItemName(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid)), itemName);
+            
+                format(string, sizeof(string), "[Inventário]: Você descartou o item: %s (Unidades: %d).", itemName, Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)));
+                SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
+
+                Inventory_RemoveItem(playerid, Inventory_GetDbId(playerid, Inventory_GetSlotSelected(playerid)), Inventory_GetSlotSelected(playerid));
+                ResetInventorySlot(playerid, Inventory_GetSlotSelected(playerid));
+                ResetInventoryBoxInfo(playerid);
+
+                HidePreviewDescription(playerid, (Inventory_GetTextdrawSelected(playerid) + 36));
+                UpdateInventoryItemPreview(playerid, Inventory_GetTextdrawSelected(playerid), GetInventoryItemObjectId(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))), Inventory_GetIsOpenedStatus(playerid));
+                
+                UnselectInventoryItem(playerid);
+
+                gsSwapItemsSlots[playerid] = false;
+                gsJoinItems[playerid] = false;
+                return 1;
+            }
+        }
         case DIALOG_INVENTORY_DETACH_ITEMS:
         {
             if (!response)
