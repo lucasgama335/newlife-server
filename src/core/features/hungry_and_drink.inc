@@ -171,7 +171,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         {
                             new string[(80 + INVENTORY_MAX_ITEM_NAME)], itemName[INVENTORY_MAX_ITEM_NAME];
                             GetInventoryItemName(i_ITEM_HAMBURGER, itemName);
-                            Player_SetMoney(playerid, (Player_GetMoney(playerid) - 15));
+                            SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 15));
                             format(string, sizeof(string), "Você comprou um(a): %s por R$ 15,00, e o produto foi adicionado ao seu inventário.", itemName);
                             SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
                             return 1;
@@ -190,7 +190,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         {
                             new string[(80 + INVENTORY_MAX_ITEM_NAME)], itemName[INVENTORY_MAX_ITEM_NAME];
                             GetInventoryItemName(i_ITEM_PIZZA, itemName);
-                            Player_SetMoney(playerid, (Player_GetMoney(playerid) - 30));
+                            SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 30));
                             format(string, sizeof(string), "Você comprou um(a): %s por R$ 30,00, e o produto foi adicionado ao seu inventário.", itemName);
                             SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
                             return 1;
@@ -209,7 +209,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         {
                             new string[(80 + INVENTORY_MAX_ITEM_NAME)], itemName[INVENTORY_MAX_ITEM_NAME];
                             GetInventoryItemName(i_ITEM_CHINESE_FOOD, itemName);
-                            Player_SetMoney(playerid, (Player_GetMoney(playerid) - 30));
+                            SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 30));
                             format(string, sizeof(string), "Você comprou um(a): %s por R$ 30,00, e o produto foi adicionado ao seu inventário.", itemName);
                             SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
                             return 1;
@@ -228,7 +228,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         {
                             new string[(80 + INVENTORY_MAX_ITEM_NAME)], itemName[INVENTORY_MAX_ITEM_NAME];
                             GetInventoryItemName(i_ITEM_CEREAL, itemName);
-                            Player_SetMoney(playerid, (Player_GetMoney(playerid) - 10));
+                            SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 10));
                             format(string, sizeof(string), "Você comprou um(a): %s por R$ 10,00, e o produto foi adicionado ao seu inventário.", itemName);
                             SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
                             return 1;
@@ -247,7 +247,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         {
                             new string[(80 + INVENTORY_MAX_ITEM_NAME)], itemName[INVENTORY_MAX_ITEM_NAME];
                             GetInventoryItemName(i_ITEM_BURRITO, itemName);
-                            Player_SetMoney(playerid, (Player_GetMoney(playerid) - 12));
+                            SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 12));
                             format(string, sizeof(string), "Você comprou um(a): %s por R$ 12,00, e o produto foi adicionado ao seu inventário.", itemName);
                             SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
                             return 1;
@@ -279,7 +279,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         {
                             new string[(80 + INVENTORY_MAX_ITEM_NAME)], itemName[INVENTORY_MAX_ITEM_NAME];
                             GetInventoryItemName(i_ITEM_APPLE_JUICE, itemName);
-                            Player_SetMoney(playerid, (Player_GetMoney(playerid) - 5));
+                            SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 5));
                             format(string, sizeof(string), "Você comprou um(a): %s por R$ 5,00, e o produto foi adicionado ao seu inventário.", itemName);
                             SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
                             return 1;
@@ -298,7 +298,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         {
                             new string[(80 + INVENTORY_MAX_ITEM_NAME)], itemName[INVENTORY_MAX_ITEM_NAME];
                             GetInventoryItemName(i_ITEM_ORANGE_JUICE, itemName);
-                            Player_SetMoney(playerid, (Player_GetMoney(playerid) - 5));
+                            SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 5));
                             format(string, sizeof(string), "Você comprou um(a): %s por R$ 5,00, e o produto foi adicionado ao seu inventário.", itemName);
                             SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
                             return 1;
@@ -317,7 +317,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         {
                             new string[(80 + INVENTORY_MAX_ITEM_NAME)], itemName[INVENTORY_MAX_ITEM_NAME];
                             GetInventoryItemName(i_ITEM_SODA, itemName);
-                            Player_SetMoney(playerid, (Player_GetMoney(playerid) - 10));
+                            SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 10));
                             format(string, sizeof(string), "Você comprou um(a): %s por R$ 10,00, e o produto foi adicionado ao seu inventário.", itemName);
                             SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
                             return 1;
@@ -336,7 +336,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         {
                             new string[(80 + INVENTORY_MAX_ITEM_NAME)], itemName[INVENTORY_MAX_ITEM_NAME];
                             GetInventoryItemName(i_ITEM_MILK, itemName);
-                            Player_SetMoney(playerid, (Player_GetMoney(playerid) - 5));
+                            SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 5));
                             format(string, sizeof(string), "Você comprou um(a): %s por R$ 5,00, e o produto foi adicionado ao seu inventário.", itemName);
                             SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
                             return 1;
@@ -355,7 +355,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         {
                             new string[(80 + INVENTORY_MAX_ITEM_NAME)], itemName[INVENTORY_MAX_ITEM_NAME];
                             GetInventoryItemName(i_ITEM_WINE, itemName);
-                            Player_SetMoney(playerid, (Player_GetMoney(playerid) - 20));
+                            SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 20));
                             format(string, sizeof(string), "Você comprou um(a): %s por R$ 20,00, e o produto foi adicionado ao seu inventário.", itemName);
                             SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
                             return 1;
@@ -374,7 +374,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         {
                             new string[(80 + INVENTORY_MAX_ITEM_NAME)], itemName[INVENTORY_MAX_ITEM_NAME];
                             GetInventoryItemName(i_ITEM_WHISKY, itemName);
-                            Player_SetMoney(playerid, (Player_GetMoney(playerid) - 30));
+                            SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 30));
                             format(string, sizeof(string), "Você comprou um(a): %s por R$ 30,00, e o produto foi adicionado ao seu inventário.", itemName);
                             SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
                             return 1;
@@ -393,7 +393,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                         {
                             new string[(80 + INVENTORY_MAX_ITEM_NAME)], itemName[INVENTORY_MAX_ITEM_NAME];
                             GetInventoryItemName(i_ITEM_LIQUOR, itemName);
-                            Player_SetMoney(playerid, (Player_GetMoney(playerid) - 15));
+                            SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 15));
                             format(string, sizeof(string), "Você comprou um(a): %s por R$ 15,00, e o produto foi adicionado ao seu inventário.", itemName);
                             SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
                             return 1;

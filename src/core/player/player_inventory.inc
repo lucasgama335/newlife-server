@@ -670,7 +670,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         }
         gsJoinItems[playerid] = true;
         gsSwapItemsSlots[playerid] = false;
-        SendClientMessage(playerid, COLOR_YELLOW, "[Inventário]: Selecione o item com o qual você deseja juntar.");
+        SendClientMessage(playerid, COLOR_LIGHTBLUE, "[Inventário]: Selecione o item com o qual você deseja juntar.");
         return 1;
     }
 
