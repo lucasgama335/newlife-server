@@ -1,13 +1,13 @@
 #include <YSI_Coding\y_hooks>
 
 //------------------------- Definitions and constants -------------------------
-#define MAX_CAR_ROUTES                     21
-#define MAX_MOTORCYCLE_ROUTES              21
-#define MAX_FLY_ROUTES                     21
-#define MAX_BOAT_ROUTES                    21
-#define MAX_TRUCK_ROUTES                   21
+#define MAX_CAR_ROUTES                      21
+#define MAX_MOTORCYCLE_ROUTES               21
+#define MAX_FLY_ROUTES                      21
+#define MAX_BOAT_ROUTES                     21
+#define MAX_TRUCK_ROUTES                    21
 
-#define PLAYER_FINISH_DRIVING_TEST  -2045.0015,-126.8082,-50.9141
+#define PLAYER_FINISH_DRIVING_TEST          -2045.0015,-126.8082,-50.9141
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 enum e_DRIVING_TEST_TYPE
@@ -216,6 +216,12 @@ stock ShowPlayerLicensesMenu(playerid)
     return 1;
 }
 
+stock ShowPlayerGunLincensesMenu(playerid)
+{
+    ShowPlayerDialog(playerid, DIALOG_GUN_LICENSE, DIALOG_STYLE_MSGBOX, "{FFFFFF}Porte de Armas - Los Santos", "{FFFFFF}Olá, em nosso servidor é necessário ter o porte de armas\npara utilizar qualquer tipo de armas disponível no servidor, assim como é na vida real.\nPor isso os jogadores precisam vir retirar seu porte de armas na prefeitura.\n\nCusto do Porte de Armas: R$ {33AA33}5.000{FFFFFF}.\n\n{ff6347}OBS: {8C8C8C}O porte de arma não dura para sempre, ele é descontado das suas licença\na cada payday. Quando seu porte de armas vencer você precisará renová-lo na prefeitura novamente.", "Comprar", "Fechar");
+    return 1;
+}
+
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerConnect(playerid)
 {
@@ -286,6 +292,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     gsDriveSchoolTimer[playerid] = repeat DriveSchoolTimer(playerid, MAX_CAR_ROUTES);
                     ShowDriveSchoolHud(playerid);
+                    return 1;
                 }
                 case 1:
                 {
@@ -320,6 +327,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     gsDriveSchoolTimer[playerid] = repeat DriveSchoolTimer(playerid, MAX_CAR_ROUTES);
                     ShowDriveSchoolHud(playerid);
+                    return 1;
                 }
                 case 2:
                 {
@@ -354,6 +362,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     gsDriveSchoolTimer[playerid] = repeat DriveSchoolTimer(playerid, MAX_CAR_ROUTES);
                     ShowDriveSchoolHud(playerid);
+                    return 1;
                 }
                 case 3:
                 {
@@ -388,6 +397,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     gsDriveSchoolTimer[playerid] = repeat DriveSchoolTimer(playerid, MAX_CAR_ROUTES);
                     ShowDriveSchoolHud(playerid);
+                    return 1;
                 }
                 case 4:
                 {
@@ -422,7 +432,33 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     }
                     gsDriveSchoolTimer[playerid] = repeat DriveSchoolTimer(playerid, MAX_CAR_ROUTES);
                     ShowDriveSchoolHud(playerid);
+                    return 1;
                 }
+            }
+        }
+
+        case DIALOG_GUN_LICENSE:
+        {
+            if (!response)
+            {
+                return 1;
+            }
+            if (response)
+            {
+                if (Player_GetGunLicense(playerid) > 0)
+                {
+                    return SendClientMessage(playerid, COLOR_INVALID, "[Atendente]: O seu porte de armas ainda não expirou, você só pode renová-lo quando ele expirar.");
+                }
+                if (Player_GetMoney(playerid) < 5000)
+                {
+                    return SendClientMessage(playerid, COLOR_INVALID, "[Atendente]: Você não possui dinheiro suficiente para retirar o porte de armas.");
+                }
+
+                SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 5000));
+                Player_SetGunLicense(playerid, 120);
+                Player_SaveLicensesData(playerid);
+                SendClientMessage(playerid, COLOR_LIGHTBLUE, "[Atendente]: Você adquiriu o porte de armas, você poderá acompanhar a duração utilizando: /minhaslicencas.");
+                return 1;
             }
         }
     }
@@ -517,6 +553,12 @@ hook OnPlayerPressF(playerid)
 	if (IsPlayerInRangeOfPoint(playerid, 2.0, LICENSES_MENU_PICKUP))
     {
         ShowPlayerLicensesMenu(playerid);
+        return 1;
+    }
+    if (IsPlayerInRangeOfPoint(playerid, 2.0, GUN_LICENSES_MENU))
+    {
+        ShowPlayerGunLincensesMenu(playerid);
+        return 1;
     }
 	return 1;
 }

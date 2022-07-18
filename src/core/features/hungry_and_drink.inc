@@ -86,11 +86,11 @@ static stock ShowFoodDialog(playerid)
 {
     new StrCat[194 + 1];
 	strcat(StrCat, "Item\tPreço\n");
- 	strcat(StrCat, "{FFFFFF}Hamburger\tR$ {00FF00}15,00\n");
- 	strcat(StrCat, "{FFFFFF}Pizza\tR$ {00FF00}30,00\n");
- 	strcat(StrCat, "{FFFFFF}Comida Chinesa\tR$ {00FF00}30,00\n");
- 	strcat(StrCat, "{FFFFFF}Cereal\tR$ {00FF00}10,00\n");
-    strcat(StrCat, "{FFFFFF}Burrito\tR$ {00FF00}12,00\n");
+ 	strcat(StrCat, "{FFFFFF}Hamburger\tR$ {33AA33}15,00\n");
+ 	strcat(StrCat, "{FFFFFF}Pizza\tR$ {33AA33}30,00\n");
+ 	strcat(StrCat, "{FFFFFF}Comida Chinesa\tR$ {33AA33}30,00\n");
+ 	strcat(StrCat, "{FFFFFF}Cereal\tR$ {33AA33}10,00\n");
+    strcat(StrCat, "{FFFFFF}Burrito\tR$ {33AA33}12,00\n");
 	ShowPlayerDialog(playerid, DIALOG_FOOD_LIST, DIALOG_STYLE_TABLIST_HEADERS, "Cardápio de Comidas", StrCat, "Comprar", "Fechar");
     return 1;
 }
@@ -99,13 +99,13 @@ static stock ShowDrinkDialog(playerid)
 {
     new StrCat[268 + 1];
 	strcat(StrCat, "Item\tPreço\n");
- 	strcat(StrCat, "{FFFFFF}Suco de Maçã\tR$ {00FF00}5,00\n");
- 	strcat(StrCat, "{FFFFFF}Suco de Laranja\tR$ {00FF00}5,00\n");
- 	strcat(StrCat, "{FFFFFF}Refrigerante\tR$ {00FF00}10,00\n");
- 	strcat(StrCat, "{FFFFFF}Leite\tR$ {00FF00}5,00\n");
-    strcat(StrCat, "{FFFFFF}Vinho\tR$ {00FF00}20,00\n");
-    strcat(StrCat, "{FFFFFF}Whisky\tR$ {00FF00}30,00\n");
-    strcat(StrCat, "{FFFFFF}Cachaça\tR$ {00FF00}15,00\n");
+ 	strcat(StrCat, "{FFFFFF}Suco de Maçã\tR$ {33AA33}5,00\n");
+ 	strcat(StrCat, "{FFFFFF}Suco de Laranja\tR$ {33AA33}5,00\n");
+ 	strcat(StrCat, "{FFFFFF}Refrigerante\tR$ {33AA33}10,00\n");
+ 	strcat(StrCat, "{FFFFFF}Leite\tR$ {33AA33}5,00\n");
+    strcat(StrCat, "{FFFFFF}Vinho\tR$ {33AA33}20,00\n");
+    strcat(StrCat, "{FFFFFF}Whisky\tR$ {33AA33}30,00\n");
+    strcat(StrCat, "{FFFFFF}Cachaça\tR$ {33AA33}15,00\n");
 	ShowPlayerDialog(playerid, DIALOG_DRINK_LIST, DIALOG_STYLE_TABLIST_HEADERS, "Cardápio de Bebidas", StrCat, "Comprar", "Fechar");
     return 1;
 }
@@ -130,6 +130,7 @@ hook OnPlayerPressF(playerid)
         if (IsPlayerInRangeOfPoint(playerid, 2.0, gsFoodBarList[i][f_POS_X], gsFoodBarList[i][f_POS_Y], gsFoodBarList[i][f_POS_Z]))
         {
             ShowFoodDialog(playerid);
+            return 1;
         }
     }
 
@@ -138,6 +139,7 @@ hook OnPlayerPressF(playerid)
         if (IsPlayerInRangeOfPoint(playerid, 2.0, gsDrinkBarList[i][d_POS_X], gsDrinkBarList[i][d_POS_Y], gsDrinkBarList[i][d_POS_Z]))
         {
             ShowDrinkDialog(playerid);
+            return 1;
         }
     }
     return 1;

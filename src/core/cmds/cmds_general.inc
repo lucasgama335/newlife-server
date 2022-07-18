@@ -72,28 +72,26 @@ static stock ShowPlayerConfig(playerid)
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock ShowPlayerFaqList(playerid)
 {
-	new titleDialog[10];
-    new faqList[858];
-    format(titleDialog, sizeof(titleDialog), "FAQ %s", SERVER_TAG);
-    strcat(faqList, "1º Começou agora e não sabe o que fazer ?\n");
-    strcat(faqList, "2º Como eu faço para localizar um local ?\n");
-    strcat(faqList, "3º Nasceu no meio do nada e deseja mudar ?\n");
-    strcat(faqList, "4º Como eu consigo um emprego ?\n");
-    strcat(faqList, "5º Como eu adquiro level ?\n");
-    strcat(faqList, "6º Como eu faço para entrar em contato com outros jogadores?\n");
-    strcat(faqList, "7º Como eu adquiro minhas licenças de direção ?\n");
-	strcat(faqList, "8º Como eu faço para adquirir armamento ?\n");
-	strcat(faqList, "9º Como eu faço para ser um jogador VIP ?\n");
-	strcat(faqList, "10º Vim de outro servidor, quero jogar aqui, como edito meu /rg ?\n");
-	strcat(faqList, "11º Como eu entro em alguma organização ?\n");
-	strcat(faqList, "12º Entrei no meu emprego, não sei o que fazer!\n");
-	strcat(faqList, "13º Estou crashando com frequência, o que pode ser ?\n");
-	strcat(faqList, "14º Podem mudar meu nick ?\n");
-	strcat(faqList, "15º Criei uma conta no fórum, quanto tempo preciso esperar ?\n");
-	strcat(faqList, "16º Fiz doação e estou perdido, o que fazer?\n");
-	strcat(faqList, "17º Estão te matando sem motivo e não sabe o que fazer ?\n");
-	strcat(faqList, "18º Qual a diferença entre Orgs e Empregos ?\n");
-    return ShowPlayerDialog(playerid, DIALOG_FAQ_LIST, DIALOG_STYLE_LIST, titleDialog, faqList, "Confirmar", "Cancelar");
+    new faqList[814 + 1];
+    strcat(faqList, "» Começou agora e não sabe o que fazer ?\n");
+    strcat(faqList, "» Como eu faço para localizar um local ?\n");
+    strcat(faqList, "» Nasceu no meio do nada e deseja mudar ?\n");
+    strcat(faqList, "» Como eu consigo um emprego ?\n");
+    strcat(faqList, "» Como eu adquiro level ?\n");
+    strcat(faqList, "» Como eu faço para entrar em contato com outros jogadores?\n");
+    strcat(faqList, "» Como eu adquiro minhas licenças de direção ?\n");
+	strcat(faqList, "» Como eu faço para adquirir armamento ?\n");
+	strcat(faqList, "» Como eu faço para ser um jogador VIP ?\n");
+	strcat(faqList, "» Vim de outro servidor, quero jogar aqui, como edito meu /rg ?\n");
+	strcat(faqList, "» Como eu entro em alguma organização ?\n");
+	strcat(faqList, "» Entrei no meu emprego, não sei o que fazer.\n");
+	strcat(faqList, "» Estou crashando com frequência, o que pode ser ?\n");
+	strcat(faqList, "» Podem mudar meu nick ?\n");
+	strcat(faqList, "» Criei uma conta no fórum, quanto tempo preciso esperar ?\n");
+	strcat(faqList, "» Fiz doação e estou perdido, o que fazer?\n");
+	strcat(faqList, "» Estão te matando sem motivo e não sabe o que fazer ?\n");
+	strcat(faqList, "» Qual a diferença entre Orgs e Empregos ?\n");
+    return ShowPlayerDialog(playerid, DIALOG_FAQ_LIST, DIALOG_STYLE_LIST, "{FFFFFF}Perguntas Frequentes", faqList, "Confirmar", "Cancelar");
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
@@ -102,6 +100,7 @@ hook OnPlayerPressF(playerid)
 	if (IsPlayerInRangeOfPoint(playerid, 2.0, 809.5279, -1341.4880, 13.5405))
 	{
 		ShowPlayerFaqList(playerid);
+		return 1;
 	}
 	return 1;
 }

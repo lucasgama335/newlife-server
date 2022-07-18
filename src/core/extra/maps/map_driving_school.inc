@@ -1131,6 +1131,7 @@ hook OnPlayerPressF(playerid)
 	{
         GameTextForPlayer(playerid, "~w~auto escola", 3000, 1);
 		TeleportPlayer(playerid, DRIVING_SCHOOL_EXIT, DRIVING_SCHOOL_LOCALE, 0, DRIVING_SCHOOL_LOCALE, true, 3000);
+		return 1;
 
    	}
 	// Exit
@@ -1138,6 +1139,7 @@ hook OnPlayerPressF(playerid)
 	{
 	    StopAudioStreamForPlayer(playerid);
 		TeleportPlayer(playerid, DRIVING_SCHOOL_ENTRANCE, 0, 0, NO_INTERIOR);
+		return 1;
 	}
 	return 1;
 }

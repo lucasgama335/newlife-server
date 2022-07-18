@@ -3,9 +3,10 @@
 //------------------------- Definitions and constants -------------------------
 #define	CITY_HALL_ENTRANCE		1481.0397,-1772.3135,18.7958
 #define	CITY_HALL_EXIT			390.7694,173.8226,1008.3828
+#define	GUN_LICENSES_MENU		358.2363,184.5656,1008.3828
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static gsCityHallActor[2];
+static gsCityHallActor[3];
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
@@ -16,10 +17,12 @@ hook OnGameModeInit()
 {
 	//=====================================[ 3DTEXT ]====================================||
     Create3DTextLabel("Prefeitura de {FFFFFF}Los Santos{B4B5B7}\nPara Entrar\nAperte '{FFFFFF}F{B4B5B7}'", COLOR_GRAD1, CITY_HALL_ENTRANCE, 20.0, 0);
+	Create3DTextLabel("Porte de Armas\nPara retirar seu porte\nAperte 'F'.", COLOR_ORANGE, GUN_LICENSES_MENU, 20.0, 0);
 
     //=====================================[ PICKUPS ]====================================||
-    AddStaticPickup(1318, 23, 1481.0397,-1772.3135,18.7958); // Entrance
+    AddStaticPickup(1318, 23, CITY_HALL_ENTRANCE); // Entrance
     AddStaticPickup(1318, 23, CITY_HALL_EXIT); // Exit
+	AddStaticPickup(2061, 23, GUN_LICENSES_MENU);
 
 	//=====================================[ OBJECTS ]====================================||
     CreateDynamicObject(1231, 1483.80566, -1750.43030, 17.18440,   0.00000, 0.00000, 0.00000);
@@ -224,7 +227,8 @@ hook OnGameModeInit()
     //=====================================[ ACTORS ]====================================||
     gsCityHallActor[0] = CreateDynamicActor(163, 358.3519,169.2911,1008.3828, 273.3107);
     gsCityHallActor[1] = CreateDynamicActor(164, 358.2496,177.5590,1008.3828, 267.0439);
-	for (new i; i < sizeof(gsCityHallActor); i++)
+	gsCityHallActor[2] = CreateDynamicActor(191, 356.2973, 184.6096, 1008.3762, 266.0688);
+	for (new i; i < (sizeof(gsCityHallActor) - 1); i++)
 	{
 		ApplyDynamicActorAnimation(gsCityHallActor[i], "COP_AMBIENT", "Coplook_loop", 4.1, true, false, false, false, 0);
 	}
@@ -249,12 +253,14 @@ hook OnPlayerPressF(playerid)
 	    PlayAudioStreamForPlayer(playerid, "https://www.dropbox.com/s/53d0kb63zneqa1i/playstory%20PREFEITURA.mp3?dl=1");
         GameTextForPlayer(playerid, "~w~bem vindo a prefeitura ls !", 3000, 1);
 		TeleportPlayer(playerid, CITY_HALL_EXIT, 3, 0, CITY_HALL_INTERIOR);
+		return 1;
    	}
 	// Exit
 	if (IsPlayerInRangeOfPoint(playerid, 3.0, CITY_HALL_EXIT))
 	{
 	    StopAudioStreamForPlayer(playerid);
 		TeleportPlayer(playerid, CITY_HALL_ENTRANCE, 0, 0, NO_INTERIOR);
+		return 1;
 	}
 	return 1;
 }
