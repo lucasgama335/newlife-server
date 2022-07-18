@@ -124,6 +124,9 @@ stock OpenPlayerInventory(playerid)
     {
         ApplyAnimation(playerid, "BOMBER", "BOM_Plant_2Idle", 4.1, false, true, true, false, 0);
     }
+    new string[47];
+    format(string, sizeof(string), "* %s abriu o inventário.", GetPlayerNameCustom(playerid));
+    SendMessageInRange(20.0, playerid, string, COLOR_LIGHTPU, COLOR_LIGHTPU, COLOR_LIGHTPU, COLOR_LIGHTPU, COLOR_LIGHTPU);
     return 1;
 }
 
@@ -154,18 +157,18 @@ stock Inventory_AddItem(playerid, i_ITEM_LIST:itemId, quantity)
 {
     if (!Inventory_ItemExists(itemId))
     {
-        SendClientMessage(playerid, COLOR_INVALID, "Esse item não existe.");
+        SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Esse item não existe.");
         return INVALID_VALUE;
     }
     if (quantity < 0)
     {
-        SendClientMessage(playerid, COLOR_INVALID, "Não foi possível adicionar o item, pois a quantidade não foi informada.");
+        SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Não foi possível adicionar o item, pois a quantidade não foi informada.");
         return INVALID_VALUE;
     }
     new freeSlot = GetInventoryFreeSlot(playerid);
     if (freeSlot == INVALID_VALUE)
     {
-        SendClientMessage(playerid, COLOR_INVALID, "Não foi possível adicionar o item, pois inventário está cheio.");
+        SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Não foi possível adicionar o item, pois inventário está cheio.");
         return INVALID_VALUE;
     }
 
@@ -193,12 +196,12 @@ stock Inventory_UpdateItemQuantity(playerid, slot, quantity)
 {
     if (slot < 0 || slot > (INVENTORY_MAX_SLOTS - 1))
     {
-        SendClientMessage(playerid, COLOR_INVALID, "O slot informado é inválido.");
+        SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: O slot informado é inválido.");
         return INVALID_VALUE;
     }
     if (quantity < 0)
     {
-        SendClientMessage(playerid, COLOR_INVALID, "Não foi possível atualizar o item, pois a quantidade não foi informada.");
+        SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Não foi possível atualizar o item, pois a quantidade não foi informada.");
         return INVALID_VALUE;
     }
 
@@ -214,7 +217,7 @@ stock Inventory_RemoveItem(playerid, itemDbId, slot)
 {
     if (slot < 0 || slot > (INVENTORY_MAX_SLOTS - 1))
     {
-        SendClientMessage(playerid, COLOR_INVALID, "O slot informado é inválido.");
+        SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: O slot informado é inválido.");
         return INVALID_VALUE;
     }
 
@@ -231,17 +234,17 @@ stock Inventory_SwapItemSlot(playerid, oldSlot, newSlot)
 {
     if (oldSlot < 0 || oldSlot > (INVENTORY_MAX_SLOTS - 1))
     {
-        SendClientMessage(playerid, COLOR_INVALID, "Slot antigo inválido.");
+        SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Slot antigo inválido.");
         return INVALID_VALUE;
     }
     if (newSlot < 0 || newSlot > (INVENTORY_MAX_SLOTS - 1))
     {
-        SendClientMessage(playerid, COLOR_INVALID, "Slot novo inválido.");
+        SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Slot novo inválido.");
         return INVALID_VALUE;
     }
     if (Inventory_GetItemId(playerid, newSlot) != i_ITEM_INVALID)
     {
-        SendClientMessage(playerid, COLOR_INVALID, "Esse espaço está ocupado por um item, mova-o ou escolha outro espaço.");
+        SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Esse espaço está ocupado por um item, escolha um espaço vazio.");
         return INVALID_VALUE;
     }
 
@@ -261,17 +264,17 @@ stock Inventory_JoinItemSlot(playerid, toJoinSlot, toRemoveSlot)
 {
     if (toJoinSlot < 0 || toJoinSlot > (INVENTORY_MAX_SLOTS - 1))
     {
-        SendClientMessage(playerid, COLOR_INVALID, "Slot para juntar inválido.");
+        SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Slot para juntar inválido.");
         return INVALID_VALUE;
     }
     if (toRemoveSlot < 0 || toRemoveSlot > (INVENTORY_MAX_SLOTS - 1))
     {
-        SendClientMessage(playerid, COLOR_INVALID, "Slot a ser removido inválido.");
+        SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Slot a ser removido inválido.");
         return INVALID_VALUE;
     }
     if (Inventory_GetItemId(playerid, toJoinSlot) != Inventory_GetItemId(playerid, toRemoveSlot))
     {
-        SendClientMessage(playerid, COLOR_INVALID, "Você só pode juntar itens iguais.");
+        SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Você só pode juntar itens iguais.");
         return INVALID_VALUE;
     }
 
@@ -450,7 +453,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         if (Inventory_GetActualPage(playerid) < INVENTORY_FIRST_PAGE)
         {
             Inventory_SetActualPage(playerid, INVENTORY_FIRST_PAGE);
-            return SendClientMessage(playerid, COLOR_INVALID, "Você já está na primeira página.");
+            return SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Você já está na primeira página.");
         }
 
         UnselectInventoryItem(playerid);
@@ -472,7 +475,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         if (Inventory_GetActualPage(playerid) > (INVENTORY_MAX_PAGES - 1))
         {
             Inventory_SetActualPage(playerid, (INVENTORY_MAX_PAGES - 1));
-            return SendClientMessage(playerid, COLOR_INVALID, "Você já está na última página");
+            return SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Você já está na última página");
         }
 
         UnselectInventoryItem(playerid);
@@ -491,20 +494,20 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
     {
         if (Inventory_GetSlotSelected(playerid) == INVALID_VALUE)
         {
-            return SendClientMessage(playerid, COLOR_INVALID, "Você deve selecionar um item.");
+            return SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Você deve selecionar um item para usá-lo.");
         }
         if (Inventory_GetDbId(playerid, Inventory_GetSlotSelected(playerid)) == INVALID_VALUE)
         {
-            return SendClientMessage(playerid, COLOR_INVALID, "Não há nenhum item para ser usado nesse espaço.");
+            return SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Não há nenhum item para ser usado nesse espaço.");
         }
 
         new itemQuantity = Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid));
         
-        new string[(21 + INVENTORY_MAX_ITEM_NAME)], itemName[INVENTORY_MAX_ITEM_NAME];
+        new string[(37 + INVENTORY_MAX_ITEM_NAME)], itemName[INVENTORY_MAX_ITEM_NAME];
         GetInventoryItemName(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid)), itemName);
 
-        format(string, sizeof(string), "* Você usou o item: %s.", itemName);
-        SendClientMessage(playerid, COLOR_YELLOW, string);
+        format(string, sizeof(string), "[Inventário]: Você utilizou o item: %s.", itemName);
+        SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
 
         if (itemQuantity <= 1)
         {
@@ -547,7 +550,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
         SyncInventoryDataWithTextdraws(playerid, Inventory_GetActualPage(playerid));
 
         gsSwapItemsSlots[playerid] = false;
-        SendClientMessage(playerid, COLOR_YELLOW, "* Inventário organizado.");
+        SendClientMessage(playerid, COLOR_LIGHTBLUE, "[Inventário]: Os itens foram organizados no seu inventário.");
         return 1;
     }
 
@@ -556,18 +559,18 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
     {
         if (Inventory_GetSlotSelected(playerid) == INVALID_VALUE)
         {
-            return SendClientMessage(playerid, COLOR_INVALID, "Você deve selecionar um item.");
+            return SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Você deve selecionar um item.");
         }
         if (Inventory_GetDbId(playerid, Inventory_GetSlotSelected(playerid)) == INVALID_VALUE)
         {
-            return SendClientMessage(playerid, COLOR_INVALID, "Não há nenhum item para ser usado nesse espaço.");
+            return SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Não há nenhum item para ser usado nesse espaço.");
         }
 
-        new string[(21 + INVENTORY_MAX_ITEM_NAME)], itemName[INVENTORY_MAX_ITEM_NAME];
+        new string[(55 + INVENTORY_MAX_ITEM_NAME)], itemName[INVENTORY_MAX_ITEM_NAME];
         GetInventoryItemName(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid)), itemName);
        
-        format(string, sizeof(string), "* Você descartou o item: %s.", itemName);
-        SendClientMessage(playerid, COLOR_YELLOW, string);
+        format(string, sizeof(string), "[Inventário]: Você descartou o item: %s (Unidades: %d).", itemName, Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)));
+        SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
 
         Inventory_RemoveItem(playerid, Inventory_GetDbId(playerid, Inventory_GetSlotSelected(playerid)), Inventory_GetSlotSelected(playerid));
         ResetInventorySlot(playerid, Inventory_GetSlotSelected(playerid));
@@ -588,11 +591,11 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
     {
         if (Inventory_GetSlotSelected(playerid) == INVALID_VALUE)
         {
-            return SendClientMessage(playerid, COLOR_INVALID, "Você deve selecionar um item primeiro.");
+            return SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Você deve selecionar um item primeiro.");
         }
         gsSwapItemsSlots[playerid] = true;
         gsJoinItems[playerid] = false;
-        SendClientMessage(playerid, COLOR_YELLOW, "Selecione um espaço em branco para mudar o item de lugar.");
+        SendClientMessage(playerid, COLOR_YELLOW, "[Inventário]: Selecione um espaço vazio para mudar o item de lugar.");
         return 1;
     }
 
@@ -601,11 +604,11 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
     {
         if (Inventory_GetSlotSelected(playerid) == INVALID_VALUE)
         {
-            return SendClientMessage(playerid, COLOR_INVALID, "Você deve selecionar um item primeiro.");
+            return SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Você deve selecionar um item primeiro.");
         }
         gsJoinItems[playerid] = true;
         gsSwapItemsSlots[playerid] = false;
-        SendClientMessage(playerid, COLOR_YELLOW, "Selecione o item com o qual você deseja juntar.");
+        SendClientMessage(playerid, COLOR_YELLOW, "[Inventário]: Selecione o item com o qual você deseja juntar.");
         return 1;
     }
 
@@ -666,30 +669,33 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, const inputtext[])
             {
                 if (Inventory_GetSlotSelected(playerid) == INVALID_VALUE)
                 {
-                    return SendClientMessage(playerid, COLOR_INVALID, "Você deve selecionar um item primeiramente.");
+                    return SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Você deve selecionar um item primeiramente.");
                 }
                 if (strval(inputtext) <= 0)
                 {
-                    SendClientMessage(playerid, COLOR_INVALID, "Digite um valor acima de zero.");
+                    SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Digite um valor acima de zero.");
                     ShowPlayerDialog(playerid, DIALOG_INVENTORY_DETACH_ITEMS, DIALOG_STYLE_INPUT, "Separando Item", "{FFFFFF}Digite a quantidade que você deseja separar.\n\n{ff6347}OBS: {8C8C8C}O valor deve ser acima de zero.", "Separar", "Cancelar");
                     return 1;
                 }
                 if (strval(inputtext) == Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)))
                 {
-                    return SendClientMessage(playerid, COLOR_INVALID, "Você não pode separar essa quantidade de itens.");
+                    return SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Você não pode separar essa quantidade de itens.");
                 }
                 if (strval(inputtext) > Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)))
                 {
-                    SendClientMessage(playerid, COLOR_INVALID, "Você não tem toda essa quantidade de itens.");
+                    SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Você não tem toda essa quantidade de itens.");
                     ShowPlayerDialog(playerid, DIALOG_INVENTORY_DETACH_ITEMS, DIALOG_STYLE_INPUT, "Separando Item", "{FFFFFF}Digite a quantidade que você deseja separar.\n\n{ff6347}OBS: {8C8C8C}O valor deve ser acima de zero.", "Separar", "Cancelar");
                     return 1;
                 }
 
-                new quantity = strval(inputtext);
+                new string[(53 + INVENTORY_MAX_ITEM_NAME)], itemName[INVENTORY_MAX_ITEM_NAME], quantity = strval(inputtext);
 
                 Inventory_UpdateItemQuantity(playerid, Inventory_GetSlotSelected(playerid), (Inventory_GetItemQuantity(playerid, Inventory_GetSlotSelected(playerid)) - quantity));
                 Inventory_AddItem(playerid, Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid)), quantity);
-                SendClientMessage(playerid, COLOR_LIGHTBLUE, "Itens separados.");
+                
+                GetInventoryItemName(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid)), itemName);
+                format(string, sizeof(string), "[Inventário]: Você separou o item: %s (Unidades: %d).", itemName, quantity);
+                SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
 
                 ResetInventoryBoxInfo(playerid);
                 HideInventoryItemOptions(playerid);
