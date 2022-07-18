@@ -57,6 +57,7 @@
 		}
 	},
 	"build": {
+		"name": "",
 		"args": [
 			"-;+",
 			"-(+",
@@ -83,6 +84,7 @@
 			"src/core/features",
 			"src/core/vehicles",
 			"src/core/vehicles/data"
-		]
+		],
+		"compiler": {}
 	}
 }

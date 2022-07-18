@@ -214,6 +214,12 @@ hook OnPlayerUpdateScreenSize(playerid)
 
     if (Inventory_GetIsOpenedStatus(playerid))
     {
+        ClosePlayerInventory(playerid);
+        Inventory_AdaptToScreen(playerid);
+        OpenPlayerInventory(playerid);
+    }
+    else
+    {
         Inventory_AdaptToScreen(playerid);
     }
     return 1;
