@@ -11,9 +11,7 @@ static talkChatNoob[MAX_PLAYERS];
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 static stock ShowHelpDialog(playerid)
 {
-    new helpList[559];
-    strcat(helpList, "{1e90ff}Ajuda » {ffffff}FAQ (Dúvidas Frequentes)\n{1e90ff}Ajuda » {ffffff}Inventário\n{1e90ff}Ajuda » {ffffff}Veículos\n{1e90ff}Ajuda » {ffffff}Veículo Próprio\n{1e90ff}Ajuda » {ffffff}Comandos do Servidor\n{1e90ff}Ajuda » {ffffff}Comandos do SA-MP\n{1e90ff}Ajuda » {ffffff}Casa\n{1e90ff}Ajuda » {ffffff}Empresa\n{1e90ff}Ajuda » {ffffff}Líder\n{1e90ff}Ajuda » {ffffff}Sub-Líder\n{1e90ff}Ajuda » {ffffff}Emprego\n{1e90ff}Ajuda » {ffffff}Organização\n{1e90ff}Ajuda » {ffffff}Acessórios\n{1e90ff}Ajuda » {ffffff}Caixa Surpresa\n{1e90ff}Ajuda » {ffffff}Animações");
-    return ShowPlayerDialog(playerid, DIALOG_HELP_LIST, DIALOG_STYLE_LIST, "{FFFFFF}» {1e90ff}Ajuda do Servidor", helpList, "Escolher", "Cancelar");
+    return ShowPlayerDialog(playerid, DIALOG_HELP_LIST, DIALOG_STYLE_LIST, "{FFFFFF}Ajuda do Servidor", "{1e90ff}Ajuda » {ffffff}FAQ (Dúvidas Frequentes)\n{1e90ff}Ajuda » {ffffff}Inventário\n{1e90ff}Ajuda » {ffffff}Veículos\n{1e90ff}Ajuda » {ffffff}Veículo Próprio\n{1e90ff}Ajuda » {ffffff}Comandos do Servidor\n{1e90ff}Ajuda » {ffffff}Comandos do SA-MP\n{1e90ff}Ajuda » {ffffff}Casa\n{1e90ff}Ajuda » {ffffff}Empresa\n{1e90ff}Ajuda » {ffffff}Líder\n{1e90ff}Ajuda » {ffffff}Sub-Líder\n{1e90ff}Ajuda » {ffffff}Emprego\n{1e90ff}Ajuda » {ffffff}Organização\n{1e90ff}Ajuda » {ffffff}Acessórios\n{1e90ff}Ajuda » {ffffff}Caixa Surpresa\n{1e90ff}Ajuda » {ffffff}Animações", "Escolher", "Cancelar");
 }
 
 static stock ShowPlayerConfig(playerid)
@@ -72,26 +70,24 @@ static stock ShowPlayerConfig(playerid)
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock ShowPlayerFaqList(playerid)
 {
-    new faqList[814 + 1];
-    strcat(faqList, "» Começou agora e não sabe o que fazer ?\n");
-    strcat(faqList, "» Como eu faço para localizar um local ?\n");
-    strcat(faqList, "» Nasceu no meio do nada e deseja mudar ?\n");
-    strcat(faqList, "» Como eu consigo um emprego ?\n");
-    strcat(faqList, "» Como eu adquiro level ?\n");
-    strcat(faqList, "» Como eu faço para entrar em contato com outros jogadores?\n");
-    strcat(faqList, "» Como eu adquiro minhas licenças de direção ?\n");
-	strcat(faqList, "» Como eu faço para adquirir armamento ?\n");
-	strcat(faqList, "» Como eu faço para ser um jogador VIP ?\n");
-	strcat(faqList, "» Vim de outro servidor, quero jogar aqui, como edito meu /rg ?\n");
-	strcat(faqList, "» Como eu entro em alguma organização ?\n");
-	strcat(faqList, "» Entrei no meu emprego, não sei o que fazer.\n");
-	strcat(faqList, "» Estou crashando com frequência, o que pode ser ?\n");
-	strcat(faqList, "» Podem mudar meu nick ?\n");
-	strcat(faqList, "» Criei uma conta no fórum, quanto tempo preciso esperar ?\n");
-	strcat(faqList, "» Fiz doação e estou perdido, o que fazer?\n");
-	strcat(faqList, "» Estão te matando sem motivo e não sabe o que fazer ?\n");
-	strcat(faqList, "» Qual a diferença entre Orgs e Empregos ?\n");
-    return ShowPlayerDialog(playerid, DIALOG_FAQ_LIST, DIALOG_STYLE_LIST, "{FFFFFF}Perguntas Frequentes", faqList, "Confirmar", "Cancelar");
+    new faqList[1239 + 1];
+    strcat(faqList, "{ff6347}Pergunta » {FFFFFF}Sou um jogador novo no servidor, o que eu preciso fazer?\n");
+    strcat(faqList, "{ff6347}Pergunta » {FFFFFF}O que é e porque o servidor é classificado como RPG?\n");
+    strcat(faqList, "{ff6347}Pergunta » {FFFFFF}O que devo fazer após começar minha vida no servidor?\n");
+    strcat(faqList, "{ff6347}Pergunta » {FFFFFF}Como eu localizo um local?\n");
+    strcat(faqList, "{ff6347}Pergunta » {FFFFFF}Como eu consigo um emprego?\n");
+    strcat(faqList, "{ff6347}Pergunta » {FFFFFF}Como eu entro em uma organização?\n");
+    strcat(faqList, "{ff6347}Pergunta » {FFFFFF}Como eu adquiro habilitação de veículos e porte de armas?\n");
+	strcat(faqList, "{ff6347}Pergunta » {FFFFFF}Como eu consigo armas no servidor?\n");
+	strcat(faqList, "{ff6347}Pergunta » {FFFFFF}Vim de outro servidor, posso ter meu progresso alterado?\n");
+	strcat(faqList, "{ff6347}Pergunta » {FFFFFF}Estou sofrendo algum tipo de abuso/bullying, o que devo fazer?\n");
+	strcat(faqList, "{ff6347}Pergunta » {FFFFFF}O que é o sistema de VIP e como eu consigo ser um jogador vip?\n");
+	strcat(faqList, "{ff6347}Pergunta » {FFFFFF}Meu GTA está crashando do nada, o que pode ser?\n");
+	strcat(faqList, "{ff6347}Pergunta » {FFFFFF}Como eu crio uma conta no fórum e por que preciso dela\n");
+	strcat(faqList, "{ff6347}Pergunta » {FFFFFF}Vi alguém quebrando as regras do servidor, como devo proceder?\n");
+	strcat(faqList, "{ff6347}Pergunta » {FFFFFF}Como eu passo de nível?\n");
+	strcat(faqList, "{ff6347}Pergunta » {FFFFFF}Eu posso mudar meu nome e/ou minha senha?\n");
+    return ShowPlayerDialog(playerid, DIALOG_FAQ_LIST, DIALOG_STYLE_LIST, "{FFFFFF}Perguntas Frequentes", faqList, "Ver", "Cancelar");
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
@@ -123,153 +119,71 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		        {
 		            case 0:
 					{
-					    new faqMessage[300];
-			    		strcat(faqMessage, "Primeiramente, você deve adquirir um emprego, use: /gps e vá até a prefeitura.\n");
-	                    strcat(faqMessage, "Se tiver outras dúvidas que não estejam respondidas aqui em nosso FAQ,\n");
-	                    strcat(faqMessage, "Entre em contato com a nossa equipe por /relatorio [texto] ou /duvida [texto].\n");
-	                    strcat(faqMessage, "Ficaremos felizes em atendê-lo em todas as suas questões.\n");
-						ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "Começou agora e não sabe o que fazer ?", faqMessage, "Voltar", "Fechar");
+						ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "{FFFFFF}Perguntas Frequentes", "{ff6347}Pergunta:\n{FFFFFF}Sou um jogador novo no SA-MP, o que eu preciso fazer?\n\n{f04b87}Resposta:\n{FFFFFF}Primeiramente, seja muito bem vindo!\nNosso servidor é estilo RPG e busca simular a vida real, por isso a primeira coisa que você deve fazer é \nir conseguir um emprego na prefeitura e a partir dai começar a explorar e se divertir em nosso servidor.\n\n{ff6347}OBS: {FFFFFF}Após um tempo é necessário que você consiga suas habilitações para conseguir usar os\nveículos e armas do servidor.", "Voltar", "Fechar");
 					}
 					case 1:
 					{
-					    new faqMessage[121];
-			    		strcat(faqMessage, "Digite: /gps e selecione um local, após isso irá aparecer um ponto vermelho em seu mapa.\n");
-	                    strcat(faqMessage, "É só ir até o local marcado.\n");
-						ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "Como eu faço para localizar um local ?", faqMessage, "Voltar", "Fechar");
+					    ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "{FFFFFF}Perguntas Frequentes", "{ff6347}Pergunta:\n{FFFFFF}O que é e porque o servidor é classificado como RPG?\n\n{f04b87}Resposta:\n{FFFFFF}O estilo RPG do nosso servidor é voltado em simular os amplos aspectos da vida real,\nna qual você precisa ter um emprego, conseguir uma casa, um veículo, ou seja você\nirá buscar ter uma segunda vida em nosso servidor.\n\n{ff6347}OBS: {FFFFFF}Em razão de um jogo não poder simular 100% da vida real, há regras a serem\nseguidas no servidor, que foram feitas visando a manter a pacificidade a jogabilidade\nde todos no servidor. Essas regras são constantemente atualizadas para se adaptarem\na comunidade do servidor.", "Voltar", "Fechar");
+
 					}
 					case 2:
 					{
-					    new faqMessage[166];
-			    		strcat(faqMessage, "Por padrão os jogadores nascem no último local que esteve antes de sair.\n");
-	                    strcat(faqMessage, "Porém é possível mudar o seu nascimento, para isso digite: /config > Local de Nascimento.\n");
-						ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "Nasceu no meio do nada e deseja mudar ?", faqMessage, "Voltar", "Fechar");
+					    ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "{FFFFFF}Perguntas Frequentes", "{ff6347}Pergunta:\n{FFFFFF}O que devo fazer após começar minha vida no servidor?\n\n{f04b87}Resposta:\n{FFFFFF}Para essa pergunta não existe uma resposta correta. O jogador, assim como na vida real\n é livre para seguir o seu modo de jogo como ele quiser (desde que cumpra as regras do\nservidor). Por isso você pode ficar em um emprego, entrar em uma organização, ou \nsimplesmente viver por aí conhecendo novas pessoas.", "Voltar", "Fechar");
 					}
 					case 3:
 					{
-					    new faqMessage[210];
-			    		strcat(faqMessage, "Para conseguir um emprego você terá que ir até a prefeitura,\n");
-	                    strcat(faqMessage, "Lá você irá encontrar o 'Menu de Empregos'\n");
-	                    strcat(faqMessage, "Você deverá escolher um emprego e iniciar sua jornada\n");
-	                    strcat(faqMessage, "Não sabe onde fica a prefeitura ? Use: /gps.\n");
-						ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "Como eu consigo um emprego ?", faqMessage, "Voltar", "Fechar");
+					    ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "{FFFFFF}Perguntas Frequentes", "{ff6347}Pergunta:\n{FFFFFF}Como eu localizo um local?\n\n{f04b87}Resposta:\n{FFFFFF}Para localizar um local você pode utilizar o comando: /gps.\nEsse comando listará todos os principais locais do servidor e ao \nescolher o local, uma marca vermelha aparecerá no seu mini-mapa.\n\n{ff6347}OBS: {FFFFFF}Caso não encontre o que deseja no gps, você pode entrar em\ncontato com algum administrador usando o comando: /relatorio.", "Voltar", "Fechar");
 					}
 					case 4:
 					{
-					    new faqMessage[185];
-			    		strcat(faqMessage, "A cada hora jogada você recebe experiência,\n");
-	                    strcat(faqMessage, "Ao chegar a experiência necessária para passar para o próximo level,\n");
-	                    strcat(faqMessage, "Você irá passar automaticamente de nível, sem custos adicionais.\n");
-						ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "Como eu adquiro level ?", faqMessage, "Voltar", "Fechar");
+					    ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "{FFFFFF}Perguntas Frequentes", "{ff6347}Pergunta:\n{FFFFFF}Como eu consigo um emprego?\n\n{f04b87}Resposta:\n{FFFFFF}O emprego é o estágio inicial para qualquer jogador é nele onde o jogador irá ter o primeiro\ncontato com o servidor e onde irá aprender a jogar.\nPara conseguir um emprego você deve ir até a prefeitura (você pode localizá-la usando o gps)\ne lá irá ter o menu de empregos no qual você pode escolher um dentre as várias opções que\nnosso servidor disponibiliza.", "Voltar", "Fechar");
 					}
 					case 5:
 					{
-					    new faqMessage[330];
-			    		strcat(faqMessage, "Use: /agenda [id] no jogador que você deseja ligar ou enviar sms e anote o número dele.\n");
-	                    strcat(faqMessage, "Para efetuar a ligação, digite: /ligar [número de telefone].\n");
-	                    strcat(faqMessage, "Para enviar sms, digite: /sms [número de telefone] [mensagem].\n");
-	                    strcat(faqMessage, "Agenda e créditos devem ser adquiridos em uma loja de conveniência (24/7) espalhadas pelos mapas. Use: /gps.\n");
-						ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "Como eu faço para entrar em contato com outros jogadores ?", faqMessage, "Voltar", "Fechar");
+					    ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "{FFFFFF}Perguntas Frequentes", "{ff6347}Pergunta:\n{FFFFFF}Como eu entro em uma organização?\n\n{f04b87}Resposta:\n{FFFFFF}As organizações são como os empregos, porém elas são mais complexas e são\ngerenciadas por um jogador, chamado de líder, o qual é escolhido por nossa\nadministração.\nPara conseguir entrar em uma organização é necessário entrar em contato\ncom o líder da organização e cumprir os requisitos exigidos por ele.\n\n{ff6347}OBS: {FFFFFF}Cada organização pode ter exigências diferentes, pois elas são definidas\npelo líder.", "Voltar", "Fechar");
 					}
 					case 6:
 					{
-					    new faqMessage[232];
-			    		strcat(faqMessage, "Você deve possuir +1 hora jogada e possuir o valor necessário da licença.\n");
-	                    strcat(faqMessage, "Ao cumprir os requisitos vá até o centro de licenças (/gps) e realize os testes.\n");
-	                    strcat(faqMessage, "Cada teste possui regras a serem seguidas, caso contrário você falhará.\n");
-						ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "Como eu adquiro minhas licenças de direção ?", faqMessage, "Voltar", "Fechar");
+					    ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "{FFFFFF}Perguntas Frequentes", "{ff6347}Pergunta:\n{FFFFFF}Como eu adquiro habilitação de veículos e porte de armas?\n\n{f04b87}Resposta:\n{FFFFFF}Para adquirir suas habilitações para veículos você deve ir até\na autoescola (você pode localizá-la no gps). Lá você encontrará\nos o menu com as diversas categorias para as quais você pode\nrealizar o teste prático.\nJá para adquirir o porte de armas, é necessário que você vá até\na prefeitura, é lá onde você irá solicitar o porte de armas.", "Voltar", "Fechar");
 					}
 					case 7:
 					{
-					    new faqMessage[280];
-			    		strcat(faqMessage, "Você deverá possui mais de 3 horas jogadas para comprar armas.\n");
-	                    strcat(faqMessage, "É o tempo necessário para aprender a como funciona o servidor e suas regras.\n");
-	                    strcat(faqMessage, "Ao chegar nas horas necessárias, você poderá comprar suas licenças de armas e comprar elas em uma loja de armas ou com um mafioso.\n");
-						ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "Como eu faço para adquirir armamento ?", faqMessage, "Voltar", "Fechar");
+					    ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "{FFFFFF}Perguntas Frequentes", "{ff6347}Pergunta:\n{FFFFFF}Como eu consigo armas no servidor?\n\n{f04b87}Resposta:\n{FFFFFF}Existem diversas formas de conseguir armas no servidor, você\npode comprar armas nas lojas de armas espalhadas pelo mapa.\nOu caso, você faça parte de uma organização você pode se equipar\nno menu que se encontra na HQ da sua organização.\nJá para jogadores Vips e Sócios, eles possuem o comando: \equipar ,\no qual permite que esses jogadores consigam armas em qualquer lugar\nque eles estejam.", "Voltar", "Fechar");
 					}
 					case 8:
 					{
-					    new faqMessage[480];
-			    		strcat(faqMessage, "Nosso servidor funciona de forma diferente dos demais encontrados no SA-MP.\n");
-	                    strcat(faqMessage, "Nós prezamos pela diversão e por isso 90% dos sistemas podem ser aproveitados e comprados com o dinheiro in-game.\n");
-	                    strcat(faqMessage, "No entanto, nós precisamos manter o servidor online, o que é bastante custoso.\n");
-	                    strcat(faqMessage, "Para isso, possuímos um sistema de VIP que contém algumas vantagens e novidades (/ajuda > Benefícios VIP).\n");
-	                    strcat(faqMessage, "Para se tornar um jogador VIP basta fazer uma doação de R$ 10,00 (VIP) ou R$ 20 (VIP Premium).\n");
-						ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "Como eu faço para ser um jogador VIP ?", faqMessage, "Voltar", "Fechar");
+					    ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "{FFFFFF}Perguntas Frequentes", "{ff6347}Pergunta:\n{FFFFFF}Vim de outro servidor, posso ter meu progresso alterado?\n\n{f04b87}Resposta:\n{FFFFFF}Sim. É possível trazer o progresso que você tinha em outro servidor\n para o nosso. Para isso você deve solicitar a edição da sua conta\nno nosso fórum e aguardar até que um administrador inicie esse\nprocesso.", "Voltar", "Fechar");
 					}
 					case 9:
 					{
-					    new faqMessage[305];
-			    		strcat(faqMessage, "Primeiramente, obrigado por confiar em nosso trabalho e vir jogar conosco.\n");
-	                    strcat(faqMessage, "Para não começar do 0 novamente, você pode solicitar sua edição de RG no nosso fórum e aguardar um administrar te contatar.\n");
-	                    strcat(faqMessage, "Observação: É necessário enviar um print do seu rg antigo no fórum para que você possa ser atendido.\n");
-						ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "Vim de outro servidor, quero jogar aqui, como edito meu /rg ?", faqMessage, "Voltar", "Fechar");
+					    ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "{FFFFFF}Perguntas Frequentes", "{ff6347}Pergunta:\n{FFFFFF}Estou sofrendo algum tipo de abuso/bullying, o que devo fazer?\n\n{f04b87}Resposta:\n{FFFFFF}Nós não toleramos nenhum tipo de abuso, preconceito, discriminação\nou difamação no nosso servidor. Isso é um caso grave de abuso de nossas\nregras.\nCaso você esteja sofrendo com algo similar, por favor entre em contato com\num administrador (no jogo ou no fórum) o mais rápido possível, que nós\niremos tomar todas as medidas cabíveis.", "Voltar", "Fechar");
 					}
 					case 10:
 					{
-					    new faqMessage[254];
-			    		strcat(faqMessage, "Para entrar em qualquer org do servidor é ncessário falar com o líder ou o sublíder.\n");
-	                    strcat(faqMessage, "Para ver os líderes ou sublíderes online, digite respectivamente: /lideres /sublideres.\n");
-	                    strcat(faqMessage, "Para falar com os líderes faça uma ligação (/ligar) ou mande um sms (/sms).\n");
-						ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "Como eu entro em alguma organização ?", faqMessage, "Voltar", "Fechar");
+					    ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "{FFFFFF}Perguntas Frequentes", "{ff6347}Pergunta:\n{FFFFFF}O que é o sistema de VIP e como eu consigo ser um jogador vip?\n\n{f04b87}Resposta:\n{FFFFFF}Nosso servidor foi construído com o intuito de não ser pay-to-win. Entretanto\nhá diversos custos para manter o servidor online e proporcionando diversão\npara todos os jogadores.\nPor isso criamos um sistema de Vip e Sócio, os quais liberam alguns recursos\npara os jogadores que realizam doações para o servidor. Esses recursos não\ndevem impactar diretamente sobre a vantagem de um jogador sobre o outro,\nmas deve facilitar algumas coisas para a gameplay dos jogadores vip e sócios\nbem como garantir alguns benefícios exclusivos.", "Voltar", "Fechar");
 					}
 					case 11:
 					{
-					    new faqMessage[130];
-			    		strcat(faqMessage, "Começou sua jornada e não sabe o que fazer ? Está perdido ?\n");
-	                    strcat(faqMessage, "Use: /ajuda > Emprego para visualizar seus comandos e boa sorte !\n");
-						ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "Entrou em um emprego e não sabe o que fazer ?", faqMessage, "Voltar", "Fechar");
+					    ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "{FFFFFF}Perguntas Frequentes", "{ff6347}Pergunta:\n{FFFFFF}Meu Gta está crashando do nada, o que pode ser?\n\n{f04b87}Resposta:\n{FFFFFF}Não existe uma resposta universal para essa pergunta. Diversos fatores\npodem fazer seu gta crashar ou travar.\nUm dos principais fatores que provocam isso são os mods, evite colocar\nmodificações muito pesadas em seu gta e matenha sempre seus drivers\natualizados.\n\n{ff6347}OBS: {FFFFFF}Existem casos onde esses travamentos e crashs podem ocorrer em razão\nde algum sistema ou bug de servidor, porém nossa equipe está sempre\nfazendo testes e otimizando o servidor para que não ocorra esse tipo de \nproblema. Caso você ache que seja um problema do servidor, por favor entre em\ncontato com algum administrador (no jogo ou no fórum).", "Voltar", "Fechar");
 					}
 					case 12:
 					{
-					    new faqMessage[175];
-			    		strcat(faqMessage, "Mods de aparência de veículos, armas e skins podem causar crashs.\n");
-	                    strcat(faqMessage, "Evite usá-los, lembrando que alguns mods são proibidos.\n");
-	                    strcat(faqMessage, "Dependendo do mod você poderá sofrer punições.\n");
-						ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "Estou crashando com frequência, o que pode ser ?", faqMessage, "Voltar", "Fechar");
+					    ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "{FFFFFF}Perguntas Frequentes", "{ff6347}Pergunta:\n{FFFFFF}Como eu crio uma conta no fórum e por que preciso dela\n\n{f04b87}Resposta:\n{FFFFFF}Uma conta em nosso fórum é essencial, pois é por lá que todas as atualizações\nsobre regras, sistemas, administração, denúncias e diversos outros tópicos são\nfeitas. É necessário que os jogadores possuam uma conta no fórum, pois é nele\nonde você irá interagir com a comunidade fora do jogo.\n\n{ff6347}OBS: {FFFFFF}Jogadores que não criem conta no fórum, correm o risco de terem suas\ncontas no servidor deletada.", "Voltar", "Fechar");
 					}
 					case 13:
 					{
-					    new faqMessage[155];
-			    		strcat(faqMessage, "Apenas jogadores VIP's podem realizar a troca de nick com a autorização de um administrador.\n");
-	                    strcat(faqMessage, "Um jogador não vip só poderá trocar o nick em caso de bug.\n");
-						ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "Podem mudar meu nick ?", faqMessage, "Voltar", "Fechar");
+					    ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "{FFFFFF}Perguntas Frequentes", "{ff6347}Pergunta:\n{FFFFFF}Vi alguém quebrando as regras do servidor, como devo proceder?\n\n{f04b87}Resposta:\n{FFFFFF}Em caso de alguém quebrar as regras, fazer atos anti RPG, ou quaisquer\noutras transgressões você deve imediatamente entrar em contato com\num administrador, ou realizar uma denúncia formal no nosso fórum.", "Voltar", "Fechar");
 					}
 					case 14:
 					{
-					    new faqMessage[195];
-			    		strcat(faqMessage, "Diariamente as contas são ativadas por nossos administradores.\n");
-	                    strcat(faqMessage, "Então aguarde, pois em breve sua conta será ativada.\n");
-	                    strcat(faqMessage, "Observação: Só será ativada as contas que possírem o mesmo nick in game.\n");
-						ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "Criei uma conta no fórum, quanto tempo preciso esperar ?", faqMessage, "Voltar", "Fechar");
+					    ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "{FFFFFF}Perguntas Frequentes", "{ff6347}Pergunta:\n{FFFFFF}Como eu passo de nível?\n\n{f04b87}Resposta:\n{FFFFFF}Para passar de nível é necessário que você possua\n a experiência e dinheiro necessário para avançar para\no próximo nível.\nCaso você cumpra esses requisitos basta utilizar o\ncomando: /passarnivel.", "Voltar", "Fechar");
 					}
 					case 15:
 					{
-					    new faqMessage[240];
-			    		strcat(faqMessage, "Após realizar uma doação vá até o nosso site e vá para seção de Confirmação VIP.\n");
-	                    strcat(faqMessage, "Uma vez lá, envie um print do comprovante de pagamento hospedado no imgur.\n");
-	                    strcat(faqMessage, "Após enviado o print, aguarde um administrador para liberar seus benefícios.\n");
-						ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "Fiz doação e estou perdido, o que fazer ?", faqMessage, "Voltar", "Fechar");
-					}
-					case 16:
-					{
-					    new faqMessage[211];
-			    		strcat(faqMessage, "Matar sem motivo é considerado DM(Death Match).\n");
-	                    strcat(faqMessage, "Se isto ocorrer, denuncie o jogador em nosso fórum, o jogador será devidamente punido.\n");
-	                    strcat(faqMessage, "Observação: Se aparecer que um contrato foi cumprido em você não é DM.\n");
-						ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "Estão te matando sem motivo e não sabe o que fazer ?", faqMessage, "Voltar", "Fechar");
-					}
-					case 17:
-					{
-					    new faqMessage[640];
-			    		strcat(faqMessage, "Os empregos são sua jornada inicial no servidor, é por meio deles que você conseguirá,\n");
-	                    strcat(faqMessage, "dinheiro para suas licenças e outras necessidades báscias da sua vida aqui.\n");
-	                    strcat(faqMessage, "As organizações são uma forma de emprego mais especializada que exigem mais experiência do jogador,\n");
-	                    strcat(faqMessage, "por isso as organizações possuem líderes responsáveis por selecionarem os jogadores preparados para desempenhar o seu papel.\n");
-	                    strcat(faqMessage, "As organizações são peças fundamentais no servidor, pois são elas que determinam o ritmo de vida desse mundo.\n");
-	                    strcat(faqMessage, "Por isso, a princípio, inicie sua jornada com um emprego e após se adaptar a vida no servidor busque entrar em uma organização.\n");
-						ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "Qual a diferença entre Orgs e Empregos ?", faqMessage, "Voltar", "Fechar");
+					    ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "{FFFFFF}Perguntas Frequentes", "{ff6347}Pergunta:\n{FFFFFF}Eu posso mudar meu nome e/ou minha senha?\n\n{f04b87}Resposta:\n{FFFFFF}É possível realizar a troca de nome e senha no servidor.\nA troca de é um recurso que deve ser comprado com\ndinheiro real, ao adquirir moedas vip no jogo, processo\npode ser realizado no próprio jogo.\nJá para a troca de senha é necessário que você crie uma\nsolicitação em nosso fórum e aguarde até que um administrador\nentre em contato com você.", "Voltar", "Fechar");
 					}
 				}
+				return 1;
 			}
 		}
 		case DIALOG_FAQ_ITEM:
@@ -295,7 +209,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		        {
 		            case 0:
 					{
-	     				return ShowHelpDialog(playerid);
+	     				return ShowPlayerFaqList(playerid);
 					}
 		            case 1:
 					{
