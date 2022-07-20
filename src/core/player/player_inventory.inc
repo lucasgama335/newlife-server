@@ -89,6 +89,23 @@ static stock UpdateInventoryTotalItens(playerid, quantity)
     return 1;
 }
 
+static stock UpdateInventorySlot(playerid, textdrawIndex, slot)
+{
+    new itemName[INVENTORY_MAX_ITEM_NAME];
+    GetInventoryItemName(Inventory_GetItemId(playerid, slot), itemName);
+    UpdateInventoryPreviewDesc(playerid, (textdrawIndex + 36), itemName, Inventory_GetItemQuantity(playerid, slot));
+    if (Inventory_GetItemId(playerid, slot) == i_ITEM_INVALID)
+    {
+        HidePreviewDescription(playerid, (textdrawIndex + 36));
+    }
+    else
+    {
+        ShowPreviewDescription(playerid, (textdrawIndex + 36));
+    }
+    UpdateInventoryItemPreview(playerid, textdrawIndex, GetInventoryItemObjectId(Inventory_GetItemId(playerid, slot)), Inventory_GetIsOpenedStatus(playerid));
+    return 1;
+}
+
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock OpenPlayerInventory(playerid)
 {
@@ -281,6 +298,7 @@ stock Inventory_JoinItemSlot(playerid, toJoinSlot, toRemoveSlot)
 
     new newQuantity = (Inventory_GetItemQuantity(playerid, toJoinSlot) + Inventory_GetItemQuantity(playerid, toRemoveSlot));
     Inventory_SetItemQuantity(playerid, toJoinSlot, newQuantity);
+    UpdateInventoryTotalItens(playerid, (Inventory_GetTotalValidItems(playerid) - 1));
     
     new sqlString[71];
     mysql_format(Database_GetConnection(), sqlString, sizeof(sqlString), "UPDATE %s SET %s = %d WHERE %s = %d", INVENTORY_TABLE_NAME, INVENTORY_FIELD_ITEM_QUANTITY, newQuantity, INVENTORY_FIELD_ID, Inventory_GetDbId(playerid, toJoinSlot));
@@ -494,10 +512,16 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
             {
                 if (Inventory_SwapItemSlot(playerid, Inventory_GetSlotSelected(playerid), slotSelected) != INVALID_VALUE)
                 {
+                    // Update New Slot Item
+                    UpdateInventorySlot(playerid, index, slotSelected);
+
+                    // Update Old Slot Item
+                    UpdateInventorySlot(playerid, Inventory_GetTextdrawSelected(playerid), Inventory_GetSlotSelected(playerid));
+
                     ResetInventoryBoxInfo(playerid);
                     HideInventoryItemOptions(playerid);
                     UnselectInventoryItem(playerid);
-                    SyncInventoryDataWithTextdraws(playerid, Inventory_GetActualPage(playerid));
+
                     gsSwapItemsSlots[playerid] = false;
                     gsJoinItems[playerid] = false;
                 }
@@ -508,15 +532,11 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
             {
                 if (Inventory_JoinItemSlot(playerid, slotSelected, Inventory_GetSlotSelected(playerid)) != INVALID_VALUE)
                 {
-                    new itemName[INVENTORY_MAX_ITEM_NAME];
                     // Update Joined Item
-                    GetInventoryItemName(Inventory_GetItemId(playerid, slotSelected), itemName);
-                    UpdateInventoryPreviewDesc(playerid, (index + 36), itemName, Inventory_GetItemQuantity(playerid, slotSelected));
-                    UpdateInventoryItemPreview(playerid, index, GetInventoryItemObjectId(Inventory_GetItemId(playerid, slotSelected)), Inventory_GetIsOpenedStatus(playerid));
+                    UpdateInventorySlot(playerid, index, slotSelected);
 
                     // Update Old Item Slot
-                    HidePreviewDescription(playerid, (Inventory_GetTextdrawSelected(playerid) + 36));
-                    UpdateInventoryItemPreview(playerid, Inventory_GetTextdrawSelected(playerid), GetInventoryItemObjectId(Inventory_GetItemId(playerid, Inventory_GetSlotSelected(playerid))), Inventory_GetIsOpenedStatus(playerid));
+                    UpdateInventorySlot(playerid, Inventory_GetTextdrawSelected(playerid), Inventory_GetSlotSelected(playerid));
 
                     ResetInventoryBoxInfo(playerid);
                     HideInventoryItemOptions(playerid);
@@ -542,6 +562,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
 
             gsLastPreviewRotX[playerid] = TEXTDRAW_DEFAULT_X_ROT;
             gsLastPreviewRotZ[playerid] = TEXTDRAW_DEFAULT_Z_ROT;
+            return 1;
         }
         return 1;
     }
@@ -647,7 +668,7 @@ hook OnPlayerClickPlayerTD(playerid, PlayerText:playertextid)
             return SendClientMessage(playerid, COLOR_INVALID, "[Inventário]: Não há nenhum item para ser usado nesse espaço.");
         }
 
-        ShowPlayerDialog(playerid, DIALOG_INVENTORY_REMOVE_ITEM, DIALOG_STYLE_MSGBOX, "Descartar Item", "{FFFFFF}Você tem certeza que deseja descatar esse item?.\n\n{ff6347}OBS: {8C8C8C}O descarte de item é um processo irreversível\ne não poderá ser recuperado..", "Descartar", "Cancelar");
+        ShowPlayerDialog(playerid, DIALOG_INVENTORY_REMOVE_ITEM, DIALOG_STYLE_MSGBOX, "Descartar Item", "{FFFFFF}Você tem certeza que deseja descatar esse item?.\n\n{ff6347}OBS: {8C8C8C}O descarte de item é um processo irreversível\ne não poderá ser recuperado.", "Descartar", "Cancelar");
         return 1;
     }
 
