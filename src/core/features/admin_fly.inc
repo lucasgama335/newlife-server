@@ -3,10 +3,10 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static Timer:gsAdminFlyTimer[MAX_PLAYERS];
+static gsAdminFlyTimer[MAX_PLAYERS];
 
 //------------------------- Timers (Timers used in the module.) -------------------------
-timer AdminFly[100](playerid)
+function:AdminFly(playerid)
 {
 	new k, ud, lr;
 	GetPlayerKeys(playerid, k, ud, lr);
@@ -75,11 +75,12 @@ stock bool:StartFly(playerid)
 	~r~~k~~PED_SPRINT~ ~w~- AUMENTAR SPEED~n~\
 	~r~~k~~SNEAK_ABOUT~ ~w~- REDUZ SPEED", 10000, 3);
 	AdminFly(playerid);
-	if (Timer_IsRunning(gsAdminFlyTimer[playerid]))
+	if (gsAdminFlyTimer[playerid] != INVALID_VALUE)
 	{
-		stop gsAdminFlyTimer[playerid];
+		KillTimer(gsAdminFlyTimer[playerid]);
+		gsAdminFlyTimer[playerid] = INVALID_VALUE;
 	}
-	gsAdminFlyTimer[playerid] = repeat AdminFly(playerid);
+	gsAdminFlyTimer[playerid] = SetTimerEx("AdminFly", 100, true, "i", playerid);
 	return true;
 }
 
@@ -88,9 +89,10 @@ stock bool:StopFly(playerid)
 	new Float:xf3, Float:yf3, Float:zf3;
 	GetPlayerPos(playerid, xf3, yf3, zf3);
 	SetPlayerPos(playerid, xf3, yf3, zf3);
-	if (Timer_IsRunning(gsAdminFlyTimer[playerid]))
+	if (gsAdminFlyTimer[playerid] != INVALID_VALUE)
 	{
-		stop gsAdminFlyTimer[playerid];
+		KillTimer(gsAdminFlyTimer[playerid]);
+		gsAdminFlyTimer[playerid] = INVALID_VALUE;
 	}
 	return true;
 }
@@ -98,15 +100,17 @@ stock bool:StopFly(playerid)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerConnect(playerid)
 {
+	gsAdminFlyTimer[playerid] = INVALID_VALUE;
 	Admin_SetFlying(playerid, false);
     return 1;
 }
 
 hook OnPlayerDisconnect(playerid)
 {
-	if (Timer_IsRunning(gsAdminFlyTimer[playerid]))
+	if (gsAdminFlyTimer[playerid] != INVALID_VALUE)
 	{
-		stop gsAdminFlyTimer[playerid];
+		KillTimer(gsAdminFlyTimer[playerid]);
+		gsAdminFlyTimer[playerid] = INVALID_VALUE;
 	}
 	return 1;
 }

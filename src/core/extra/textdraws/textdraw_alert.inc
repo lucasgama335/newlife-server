@@ -4,7 +4,7 @@
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static PlayerText:gsAlertMessage[MAX_PLAYERS][2]; // 0 - Title | 1 - Message
-static Timer:gsAlertTimer[MAX_PLAYERS];
+static gsAlertTimer[MAX_PLAYERS];
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 static stock Alert_CreateUltrawideScreen(playerid)
@@ -72,7 +72,7 @@ static stock Alert_CreateNormalScreen(playerid)
 }
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-timer DismissClientAlert[5000](playerid)
+function:DismissClientAlert(playerid)
 {
     HideClientAlert(playerid);
 	return 1;
@@ -153,17 +153,19 @@ stock SendClientAlert(playerid, const title[], const message[], bool:adaptToScre
 	}
 	ShowClientAlert(playerid);
 
-    if (Timer_IsRunning(gsAlertTimer[playerid])) 
+    if (gsAlertTimer[playerid] != INVALID_VALUE) 
 	{
-		stop gsAlertTimer[playerid];
+		KillTimer(gsAlertTimer[playerid]);
+		gsAlertTimer[playerid] = INVALID_VALUE;
 	}
-    gsAlertTimer[playerid] = defer DismissClientAlert(playerid);
+    gsAlertTimer[playerid] = SetTimerEx("DismissClientAlert", 5000, false, "i", playerid);
 	return 1;
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerConnect(playerid)
 {
+	gsAlertTimer[playerid] = INVALID_VALUE;
 	Alert_CreateNormalScreen(playerid);
     return 1;
 }
@@ -172,6 +174,12 @@ hook OnPlayerDisconnect(playerid, reason)
 {
 	#pragma unused reason // need this directive, on account of YSI which shows warnings in case the parameter is not used.
 
+	if (gsAlertTimer[playerid] != INVALID_VALUE) 
+	{
+		KillTimer(gsAlertTimer[playerid]);
+		gsAlertTimer[playerid] = INVALID_VALUE;
+	}
+	
 	HideClientAlert(playerid);
 	DestroyClientAlert(playerid);
 	return 1;

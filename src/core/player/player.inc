@@ -11,11 +11,11 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static Timer:gsPlayerUpdateStatusTimer[MAX_PLAYERS];
+static gsPlayerUpdateStatusTimer[MAX_PLAYERS];
 static gsLastDeath[MAX_PLAYERS];
 
 //------------------------- Timers (Timers used in the module.) -------------------------
-timer PlayerUpdateStatus[1000](playerid)
+function:PlayerUpdateStatus(playerid)
 {
     // Tag System
     if (Player_GetWantedLevel(playerid) > 0)
@@ -167,21 +167,23 @@ stock PlayerGetPayday(playerid)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerConnect(playerid)
 {
+    gsPlayerUpdateStatusTimer[playerid] = INVALID_VALUE;
     gsLastDeath[playerid] = 0;
     return 1;
 }
 
 hook FirstSpawnOnLogin(playerid)
 {
-    gsPlayerUpdateStatusTimer[playerid] = repeat PlayerUpdateStatus(playerid);
+    gsPlayerUpdateStatusTimer[playerid] = SetTimerEx("PlayerUpdateStatus", 1000, true, "i", playerid);
     return 1;
 }
 
 public OnPlayerDisconnect(playerid, reason)
 {
-    if (Timer_IsRunning(gsPlayerUpdateStatusTimer[playerid])) 
+    if (gsPlayerUpdateStatusTimer[playerid] != INVALID_VALUE) 
     {
-        stop gsPlayerUpdateStatusTimer[playerid];
+        KillTimer(gsPlayerUpdateStatusTimer[playerid]);
+        gsPlayerUpdateStatusTimer[playerid] = INVALID_VALUE;
     }
     CallLocalFunction("BeforeSaveOnDisconnect", "i", playerid);
     Player_SetLastLogin(playerid, Player_GetLastLoginTemp(playerid));

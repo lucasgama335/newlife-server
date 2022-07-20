@@ -10,7 +10,7 @@
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 
 //------------------------- Timers (Timers used in the module.) -------------------------
-task CheckVehicleFuel[18000]()
+function:CheckVehicleFuel()
 {
 	VehicleDecreaseGlobalFuel();
 	return 1;
@@ -84,6 +84,12 @@ stock Vehicle_SetEngineToPlayer(playerid, vehicleid, bool:status)
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+hook OnGameModeInit()
+{
+	SetTimer("CheckVehicleFuel", 18000, true);
+	return 1;
+}
+
 hook OnVehicleSpawn(vehicleid)
 {
 	if (vehicleid != INVALID_VEHICLE_ID)

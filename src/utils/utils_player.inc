@@ -3,10 +3,10 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static Timer:gsPlayerMusic[MAX_PLAYERS];
+static gsPlayerMusicTimer[MAX_PLAYERS];
 
 //------------------------- Timers (Timers used in the module.) -------------------------
-timer StopPlayerMusic[5000](playerid)
+function:StopPlayerMusic(playerid)
 {
 	PlayerPlaySound(playerid, 0, 0.0, 0.0, 0.0);
 	return 1;
@@ -91,13 +91,15 @@ stock PlayerPlayMusic(playerid, musicId)
 {
 	if (IsPlayerConnected(playerid))
 	{
-		if (Timer_IsRunning(gsPlayerMusic[playerid]))
+		if (gsPlayerMusicTimer[playerid] != INVALID_VALUE)
 		{
-			stop gsPlayerMusic[playerid];
+			KillTimer(gsPlayerMusicTimer[playerid]);
+			gsPlayerMusicTimer[playerid] = INVALID_VALUE;
 		}
-		gsPlayerMusic[playerid] = defer StopPlayerMusic(playerid);
+		gsPlayerMusicTimer[playerid] = SetTimerEx("StopPlayerMusic", 5000, false, "i", playerid);
 		PlayerPlaySound(playerid, musicId, 0.0, 0.0, 0.0);
 	}
+	return 1;
 }
 
 stock SetPlayerLookAt(playerid, Float:xl, Float:yl)

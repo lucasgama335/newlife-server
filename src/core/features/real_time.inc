@@ -20,7 +20,7 @@ static gsChangeWeatherCounter = TIME_WEATHER_FORECAST; // this is for change wea
 static bool:gsWeatherForeactStatus;
 
 //------------------------- Timers (Timers used in the module.) -------------------------
-task SyncRealTime[1000]()
+function:SyncRealTime()
 {
     new Timestamp:timeNow = Chrono_GetTimeNow(), minutes = Server_FormatMinuteDigit(timeNow), seconds = Server_FormatSecondDigit(timeNow);
 	if (minutes == 0 && seconds == 0) UpdateWorldTime(timeNow);
@@ -163,6 +163,8 @@ hook OnGameModeInit()
     gsWeatherForeactStatus = true;
     UpdateWorldTime(Chrono_GetTimeNow());
     SetWeather(0);
+	
+	SetTimer("SyncRealTime", 1000, true);
     return 1;
 }
 

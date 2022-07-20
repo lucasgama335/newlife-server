@@ -8,10 +8,10 @@ static loginAttempts[MAX_PLAYERS],
        bool:recentlyLogged[MAX_PLAYERS],
        bool:isRegistered[MAX_PLAYERS];
 
-static Timer:timerToKickPlayer[MAX_PLAYERS];
+static gskickPlayerTimer[MAX_PLAYERS];
 
 //------------------------- Timers (Timers used in the module.) -------------------------
-timer OnLoginTimeout[60000](playerid)
+function:OnLoginTimeout(playerid)
 {
     ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX, "Fazer Login ", "{FFFFFF}Você foi kickado automaticamente por ficar\nmuito tempo no processo de login sem realizar tentativas válidas.\nPor favor, logue novamente!.", "Okay", "");
     KickPlayer(playerid);
@@ -244,11 +244,12 @@ public OnPlayerConnect(playerid)
         {
             isRegistered[playerid] = false;
         }
-        if (Timer_IsRunning(timerToKickPlayer[playerid])) 
+        if (gskickPlayerTimer[playerid] != INVALID_VALUE) 
         {
-            stop timerToKickPlayer[playerid];
+            KillTimer(gskickPlayerTimer[playerid]);
+            gskickPlayerTimer[playerid] = INVALID_VALUE;
         }
-        timerToKickPlayer[playerid] = defer OnLoginTimeout(playerid);
+        gskickPlayerTimer[playerid] = SetTimerEx("OnLoginTimeout", 60000, false, "i", playerid);
         Streamer_UpdateEx(playerid, 1430.3030, -1222.7921, 153.7742, 0, 0, STREAMER_TYPE_OBJECT, 3000, 1);
         Streamer_UpdateEx(playerid, 1430.3030, -1222.7921, 153.7742, 0, 0, STREAMER_TYPE_ACTOR);
         InterpolateCameraPos(playerid, 1430.3030, -1222.7921, 153.7742, 1430.2842, -1227.1599, 153.6056, CAMERA_SPEED, CAMERA_MOVE);
@@ -500,9 +501,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 function:OnPlayerLogin(playerid) 
 {
-    if (Timer_IsRunning(timerToKickPlayer[playerid])) 
+    if (gskickPlayerTimer[playerid] != INVALID_VALUE) 
     {
-        stop timerToKickPlayer[playerid];
+        KillTimer(gskickPlayerTimer[playerid]);
+        gskickPlayerTimer[playerid] = INVALID_VALUE;
     }
     
     if (Player_GetAdminLevel(playerid) > OWNER)

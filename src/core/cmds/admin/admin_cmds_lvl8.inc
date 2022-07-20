@@ -7,7 +7,7 @@
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
-timer RestartServer[5000]()
+function:RestartServer()
 {
 	SendClientMessageToAll(COLOR_YELLOW, "[Servidor]: Salvamento de dados concluído.");
 	SendClientMessageToAll(COLOR_YELLOW, "[Servidor]: Reinicialização iniciada.");
@@ -54,7 +54,7 @@ YCMD:gmx(playerid, params[], help)
     format(gmx,sizeof(gmx),"[Administração]: %s está reinicializando o servidor, por favor aguarde!", GetPlayerNameCustom(playerid));
 	SendClientMessageToAll(COLOR_YELLOW, gmx);
 	SendClientMessageToAll(COLOR_YELLOW, "[Servidor]: Salvamento de dados iniciados...");
-	defer RestartServer();
+	SetTimer("RestartServer", 5000, false);
     return 1;
 }
 

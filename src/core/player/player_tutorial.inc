@@ -52,25 +52,34 @@
 #define 	TUT_CAMERA_LOOK10  	1354.8054, -923.0244, 91.7638
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static TutTime[MAX_PLAYERS],
-       bool:NoTuto[MAX_PLAYERS];
-static Timer:tutorialTimer[MAX_PLAYERS];
+static gsTutorialLeftTime[MAX_PLAYERS],
+       bool:gsIsPlayerInTutorial[MAX_PLAYERS];
+static gsTutorialTimer[MAX_PLAYERS];
 
 //------------------------- Timers (Timers used in the module.) -------------------------
-timer NextStepTutorial[1000](playerid)
+function:NextStepTutorial(playerid)
 {
-    if (TutTime[playerid] > 0)
+    if (gsTutorialLeftTime[playerid] > 0)
     {
-        TutTime[playerid] --;
-        if (TutTime[playerid] <= 0) {
-           TutTime[playerid] = 0;
-		   if (Timer_IsRunning(tutorialTimer[playerid])) stop tutorialTimer[playerid];
+        gsTutorialLeftTime[playerid] --;
+        if (gsTutorialLeftTime[playerid] <= 0) 
+		{
+        	gsTutorialLeftTime[playerid] = 0;
+		    if (gsTutorialTimer[playerid] != INVALID_VALUE)
+			{
+				KillTimer(gsTutorialTimer[playerid]);
+				gsTutorialTimer[playerid] = INVALID_VALUE;
+			}
         }
     }
     else
     {
-        TutTime[playerid] = 0;
-		if (Timer_IsRunning(tutorialTimer[playerid])) stop tutorialTimer[playerid];
+        gsTutorialLeftTime[playerid] = 0;
+		if (gsTutorialTimer[playerid] != INVALID_VALUE)
+		{
+			KillTimer(gsTutorialTimer[playerid]);
+			gsTutorialTimer[playerid] = INVALID_VALUE;
+		}
 	}
 	return 1;
 }
@@ -102,14 +111,25 @@ stock ShowGenderDialog(playerid)
 
 stock bool:Player_IsInTutorial(playerid)
 {
-	return NoTuto[playerid];
+	return gsIsPlayerInTutorial[playerid];
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerConnect(playerid)
 {
-    TutTime[playerid] = 0;
-    NoTuto[playerid] = false;
+    gsTutorialLeftTime[playerid] = 0;
+    gsIsPlayerInTutorial[playerid] = false;
+	gsTutorialTimer[playerid] = INVALID_VALUE;
+	return 1;
+}
+
+hook OnPlayerDisconnect(playerid)
+{
+	if (gsTutorialTimer[playerid] != INVALID_VALUE)
+	{
+		KillTimer(gsTutorialTimer[playerid]);
+		gsTutorialTimer[playerid] = INVALID_VALUE;
+	}
 	return 1;
 }
 
@@ -162,9 +182,9 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				// Tutorial Step 1
-                TutTime[playerid] = 5;
-	            NoTuto[playerid] = true;
-                tutorialTimer[playerid] = repeat NextStepTutorial(playerid);
+                gsTutorialLeftTime[playerid] = 5;
+	            gsIsPlayerInTutorial[playerid] = true;
+                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 		
 				PlayAudioStreamForPlayer(playerid, "https://www.dropbox.com/s/f8nrr60p9wkk4c9/tutorial.mp3?dl=1");
 				ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
@@ -186,18 +206,18 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    if (response)
 		    {
 	            ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
-		        if (TutTime[playerid] != 0)
+		        if (gsTutorialLeftTime[playerid] != 0)
 				{
 					// Tutorial Step 1
 					new string[128];
-					format(string, sizeof(string), "Você ainda não pode avançar no tutorial, faltam [%d] segundos, leia o tutorial com atenção !", TutTime[playerid]);
+					format(string, sizeof(string), "Você ainda não pode avançar no tutorial, faltam [%d] segundos, leia o tutorial com atenção !", gsTutorialLeftTime[playerid]);
 					SendClientMessage(playerid, COLOR_GRAD1, string);
 					PlayerPlaySound(playerid, 1058, 0.0, 0.0, 0.0);
 	                return ShowPlayerDialog(playerid, DIALOG_STEP_TUT_1, DIALOG_STYLE_MSGBOX, TUTORIAL_STEP1TILE, TUTORIAL_STEP1, "Avançar", "Cancelar");
 				}
 				// Tutorial Step 2
-				TutTime[playerid] = 5;
-                tutorialTimer[playerid] = repeat NextStepTutorial(playerid);
+				gsTutorialLeftTime[playerid] = 5;
+                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS1, TUT_CAMERA_POS2, CAMERA_SPEED, CAMERA_MOVE);
 				InterpolateCameraLookAt(playerid, TUT_CAMERA_LOOK1, TUT_CAMERA_LOOK2, CAMERA_SPEED, CAMERA_MOVE);
@@ -209,9 +229,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    if (!response)
 		    {
 				// Tutorial Step 1
-				TutTime[playerid] = 5;
-                if (Timer_IsRunning(tutorialTimer[playerid])) stop tutorialTimer[playerid];
-                tutorialTimer[playerid] = repeat NextStepTutorial(playerid);
+				gsTutorialLeftTime[playerid] = 5;
+                if (gsTutorialTimer[playerid] != INVALID_VALUE)
+				{
+					KillTimer(gsTutorialTimer[playerid]);
+					gsTutorialTimer[playerid] = INVALID_VALUE;
+				}
+                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 	            ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 	            InterpolateCameraPos(playerid, TUT_CAMERA_POS2, TUT_CAMERA_POS1, CAMERA_SPEED, CAMERA_MOVE);
@@ -221,18 +245,18 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 			    ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
-		        if (TutTime[playerid] != 0)
+		        if (gsTutorialLeftTime[playerid] != 0)
 				{
 					// Tutorial Step 2
 					new string[128];
-					format(string, sizeof(string), "Você ainda não pode avançar no tutorial, faltam [%d] segundos, leia o tutorial com atenção !", TutTime[playerid]);
+					format(string, sizeof(string), "Você ainda não pode avançar no tutorial, faltam [%d] segundos, leia o tutorial com atenção !", gsTutorialLeftTime[playerid]);
 					SendClientMessage(playerid, COLOR_GRAD1, string);
 					PlayerPlaySound(playerid, 1058, 0.0, 0.0, 0.0);
 	                return ShowPlayerDialog(playerid, DIALOG_STEP_TUT_2, DIALOG_STYLE_MSGBOX, TUTORIAL_STEP2TILE, TUTORIAL_STEP2, "Avançar", "Cancelar");
 				}
 				// Tutorial Step 3
-				TutTime[playerid] = 5;
-                tutorialTimer[playerid] = repeat NextStepTutorial(playerid);
+				gsTutorialLeftTime[playerid] = 5;
+                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS2, TUT_CAMERA_POS3, CAMERA_SPEED, CAMERA_MOVE);
 				InterpolateCameraLookAt(playerid, TUT_CAMERA_LOOK2, TUT_CAMERA_LOOK3, CAMERA_SPEED, CAMERA_MOVE);
@@ -244,9 +268,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    if (!response)
 		    {
 				// Tutorial Step 2
-				TutTime[playerid] = 5;
-                if (Timer_IsRunning(tutorialTimer[playerid])) stop tutorialTimer[playerid];
-                tutorialTimer[playerid] = repeat NextStepTutorial(playerid);
+				gsTutorialLeftTime[playerid] = 5;
+                if (gsTutorialTimer[playerid] != INVALID_VALUE)
+				{
+					KillTimer(gsTutorialTimer[playerid]);
+					gsTutorialTimer[playerid] = INVALID_VALUE;
+				}
+                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 	            ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 	            InterpolateCameraPos(playerid, TUT_CAMERA_POS3, TUT_CAMERA_POS2, CAMERA_SPEED, CAMERA_MOVE);
@@ -256,18 +284,18 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 			    ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
-		        if (TutTime[playerid] != 0)
+		        if (gsTutorialLeftTime[playerid] != 0)
 				{
 					// Tutorial Step 3
 					new string[128];
-					format(string, sizeof(string), "Você ainda não pode avançar no tutorial, faltam [%d] segundos, leia o tutorial com atenção !", TutTime[playerid]);
+					format(string, sizeof(string), "Você ainda não pode avançar no tutorial, faltam [%d] segundos, leia o tutorial com atenção !", gsTutorialLeftTime[playerid]);
 					SendClientMessage(playerid, COLOR_GRAD1, string);
 					PlayerPlaySound(playerid, 1058, 0.0, 0.0, 0.0);
 	                return ShowPlayerDialog(playerid, DIALOG_STEP_TUT_3, DIALOG_STYLE_MSGBOX, TUTORIAL_STEP3TILE, TUTORIAL_STEP3, "Avançar", "Cancelar");
 				}
 				// Tutorial Step 4
-				TutTime[playerid] = 5;
-                tutorialTimer[playerid] = repeat NextStepTutorial(playerid);
+				gsTutorialLeftTime[playerid] = 5;
+                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS3, TUT_CAMERA_POS4, CAMERA_SPEED, CAMERA_MOVE);
 				InterpolateCameraLookAt(playerid, TUT_CAMERA_LOOK3, TUT_CAMERA_LOOK4, CAMERA_SPEED, CAMERA_MOVE);
@@ -279,9 +307,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    if (!response)
 		    {
 				// Tutorial Step 3
-				TutTime[playerid] = 5;
-                if (Timer_IsRunning(tutorialTimer[playerid])) stop tutorialTimer[playerid];
-                tutorialTimer[playerid] = repeat NextStepTutorial(playerid);
+				gsTutorialLeftTime[playerid] = 5;
+                if (gsTutorialTimer[playerid] != INVALID_VALUE)
+				{
+					KillTimer(gsTutorialTimer[playerid]);
+					gsTutorialTimer[playerid] = INVALID_VALUE;
+				}
+                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 	            ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 	            InterpolateCameraPos(playerid, TUT_CAMERA_POS4, TUT_CAMERA_POS3, CAMERA_SPEED, CAMERA_MOVE);
@@ -291,18 +323,18 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 			    ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
-		        if (TutTime[playerid] != 0)
+		        if (gsTutorialLeftTime[playerid] != 0)
 				{
 					// Tutorial Step 4
 					new string[128];
-					format(string, sizeof(string), "Você ainda não pode avançar no tutorial, faltam [%d] segundos, leia o tutorial com atenção !", TutTime[playerid]);
+					format(string, sizeof(string), "Você ainda não pode avançar no tutorial, faltam [%d] segundos, leia o tutorial com atenção !", gsTutorialLeftTime[playerid]);
 					SendClientMessage(playerid, COLOR_GRAD1, string);
 					PlayerPlaySound(playerid, 1058, 0.0, 0.0, 0.0);
 	                return ShowPlayerDialog(playerid, DIALOG_STEP_TUT_4, DIALOG_STYLE_MSGBOX, TUTORIAL_STEP4TILE, TUTORIAL_STEP4, "Avançar", "Cancelar");
 				}
 				// Tutorial Step 5
-				TutTime[playerid] = 5;
-                tutorialTimer[playerid] = repeat NextStepTutorial(playerid);
+				gsTutorialLeftTime[playerid] = 5;
+                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS4, TUT_CAMERA_POS5, CAMERA_SPEED, CAMERA_MOVE);
 				InterpolateCameraLookAt(playerid, TUT_CAMERA_LOOK4, TUT_CAMERA_LOOK5, CAMERA_SPEED, CAMERA_MOVE);
@@ -314,9 +346,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    if (!response)
 		    {
 				// Tutorial Step 4
-				TutTime[playerid] = 5;
-                if (Timer_IsRunning(tutorialTimer[playerid])) stop tutorialTimer[playerid];
-                tutorialTimer[playerid] = repeat NextStepTutorial(playerid);
+				gsTutorialLeftTime[playerid] = 5;
+                if (gsTutorialTimer[playerid] != INVALID_VALUE)
+				{
+					KillTimer(gsTutorialTimer[playerid]);
+					gsTutorialTimer[playerid] = INVALID_VALUE;
+				}
+                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 	            ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS5, TUT_CAMERA_POS4, CAMERA_SPEED, CAMERA_MOVE);
@@ -326,18 +362,18 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 			    ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
-		        if (TutTime[playerid] != 0)
+		        if (gsTutorialLeftTime[playerid] != 0)
 				{
 					// Tutorial Step 5
 					new string[128];
-					format(string, sizeof(string), "Você ainda não pode avançar no tutorial, faltam [%d] segundos, leia o tutorial com atenção !", TutTime[playerid]);
+					format(string, sizeof(string), "Você ainda não pode avançar no tutorial, faltam [%d] segundos, leia o tutorial com atenção !", gsTutorialLeftTime[playerid]);
 					SendClientMessage(playerid, COLOR_GRAD1, string);
 					PlayerPlaySound(playerid, 1058, 0.0, 0.0, 0.0);
 	                return ShowPlayerDialog(playerid, DIALOG_STEP_TUT_5, DIALOG_STYLE_MSGBOX, TUTORIAL_STEP5TILE, TUTORIAL_STEP5, "Avançar", "Cancelar");
 				}
 				// Tutorial Step 6
-				TutTime[playerid] = 5;
-                tutorialTimer[playerid] = repeat NextStepTutorial(playerid);
+				gsTutorialLeftTime[playerid] = 5;
+                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS5, TUT_CAMERA_POS6, CAMERA_SPEED, CAMERA_MOVE);
 				InterpolateCameraLookAt(playerid, TUT_CAMERA_LOOK5, TUT_CAMERA_LOOK6, CAMERA_SPEED, CAMERA_MOVE);
@@ -349,9 +385,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    if (!response)
 		    {
 				// Tutorial Step 5
-				TutTime[playerid] = 5;
-                if (Timer_IsRunning(tutorialTimer[playerid])) stop tutorialTimer[playerid];
-                tutorialTimer[playerid] = repeat NextStepTutorial(playerid);
+				gsTutorialLeftTime[playerid] = 5;
+                if (gsTutorialTimer[playerid] != INVALID_VALUE)
+				{
+					KillTimer(gsTutorialTimer[playerid]);
+					gsTutorialTimer[playerid] = INVALID_VALUE;
+				}
+                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 	            ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS6, TUT_CAMERA_POS5, CAMERA_SPEED, CAMERA_MOVE);
@@ -361,18 +401,18 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 			    ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
-		        if (TutTime[playerid] != 0)
+		        if (gsTutorialLeftTime[playerid] != 0)
 				{
 					// Tutorial Step 6
 					new string[128];
-					format(string, sizeof(string), "Você ainda não pode avançar no tutorial, faltam [%d] segundos, leia o tutorial com atenção !", TutTime[playerid]);
+					format(string, sizeof(string), "Você ainda não pode avançar no tutorial, faltam [%d] segundos, leia o tutorial com atenção !", gsTutorialLeftTime[playerid]);
 					SendClientMessage(playerid, COLOR_GRAD1, string);
 					PlayerPlaySound(playerid, 1058, 0.0, 0.0, 0.0);
 	                return ShowPlayerDialog(playerid, DIALOG_STEP_TUT_6, DIALOG_STYLE_MSGBOX, TUTORIAL_STEP6TILE, TUTORIAL_STEP6, "Avançar", "Cancelar");
 				}
 				// Tutorial Step 7
-				TutTime[playerid] = 5;
-                tutorialTimer[playerid] = repeat NextStepTutorial(playerid);
+				gsTutorialLeftTime[playerid] = 5;
+                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS6, TUT_CAMERA_POS7, CAMERA_SPEED, CAMERA_MOVE);
 				InterpolateCameraLookAt(playerid, TUT_CAMERA_LOOK6, TUT_CAMERA_LOOK7, CAMERA_SPEED, CAMERA_MOVE);
@@ -384,9 +424,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    if (!response)
 		    {
 				// Tutorial Step 6
-				TutTime[playerid] = 5;
-                if (Timer_IsRunning(tutorialTimer[playerid])) stop tutorialTimer[playerid];
-                tutorialTimer[playerid] = repeat NextStepTutorial(playerid);
+				gsTutorialLeftTime[playerid] = 5;
+                if (gsTutorialTimer[playerid] != INVALID_VALUE)
+				{
+					KillTimer(gsTutorialTimer[playerid]);
+					gsTutorialTimer[playerid] = INVALID_VALUE;
+				}
+                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 	            ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 	            InterpolateCameraPos(playerid, TUT_CAMERA_POS7, TUT_CAMERA_POS6, CAMERA_SPEED, CAMERA_MOVE);
@@ -396,18 +440,18 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 			    ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
-		        if (TutTime[playerid] != 0)
+		        if (gsTutorialLeftTime[playerid] != 0)
 				{
 					// Tutorial Step 7
 					new string[128];
-					format(string, sizeof(string), "Você ainda não pode avançar no tutorial, faltam [%d] segundos, leia o tutorial com atenção !", TutTime[playerid]);
+					format(string, sizeof(string), "Você ainda não pode avançar no tutorial, faltam [%d] segundos, leia o tutorial com atenção !", gsTutorialLeftTime[playerid]);
 					SendClientMessage(playerid, COLOR_GRAD1, string);
 					PlayerPlaySound(playerid, 1058, 0.0, 0.0, 0.0);
 	                return ShowPlayerDialog(playerid, DIALOG_STEP_TUT_7, DIALOG_STYLE_MSGBOX, TUTORIAL_STEP7TILE, TUTORIAL_STEP7, "Avançar", "Cancelar");
 				}
 				// Tutorial Step 8
-				TutTime[playerid] = 5;
-                tutorialTimer[playerid] = repeat NextStepTutorial(playerid);
+				gsTutorialLeftTime[playerid] = 5;
+                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS7, TUT_CAMERA_POS8, CAMERA_SPEED, CAMERA_MOVE);
 				InterpolateCameraLookAt(playerid, TUT_CAMERA_LOOK7, TUT_CAMERA_LOOK8, CAMERA_SPEED, CAMERA_MOVE);
@@ -419,9 +463,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    if (!response)
 		    {
 				// Tutorial Step 7
-				TutTime[playerid] = 5;
-                if (Timer_IsRunning(tutorialTimer[playerid])) stop tutorialTimer[playerid];
-                tutorialTimer[playerid] = repeat NextStepTutorial(playerid);
+				gsTutorialLeftTime[playerid] = 5;
+                if (gsTutorialTimer[playerid] != INVALID_VALUE)
+				{
+					KillTimer(gsTutorialTimer[playerid]);
+					gsTutorialTimer[playerid] = INVALID_VALUE;
+				}
+                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 	            ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 	            InterpolateCameraPos(playerid, TUT_CAMERA_POS8, TUT_CAMERA_POS7, CAMERA_SPEED, CAMERA_MOVE);
@@ -431,18 +479,18 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 			    ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
-		        if (TutTime[playerid] != 0)
+		        if (gsTutorialLeftTime[playerid] != 0)
 				{
 					// Tutorial Step 8
 					new string[128];
-					format(string, sizeof(string), "Você ainda não pode avançar no tutorial, faltam [%d] segundos, leia o tutorial com atenção !", TutTime[playerid]);
+					format(string, sizeof(string), "Você ainda não pode avançar no tutorial, faltam [%d] segundos, leia o tutorial com atenção !", gsTutorialLeftTime[playerid]);
 					SendClientMessage(playerid, COLOR_GRAD1, string);
 					PlayerPlaySound(playerid, 1058, 0.0, 0.0, 0.0);
 	                return ShowPlayerDialog(playerid, DIALOG_STEP_TUT_8, DIALOG_STYLE_MSGBOX, TUTORIAL_STEP8TILE, TUTORIAL_STEP8, "Avançar", "Cancelar");
 				}
 				// Tutorial Step 9
-				TutTime[playerid] = 5;
-                tutorialTimer[playerid] = repeat NextStepTutorial(playerid);
+				gsTutorialLeftTime[playerid] = 5;
+                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS8, TUT_CAMERA_POS9, CAMERA_SPEED, CAMERA_MOVE);
 				InterpolateCameraLookAt(playerid, TUT_CAMERA_LOOK8, TUT_CAMERA_LOOK9, CAMERA_SPEED, CAMERA_MOVE);
@@ -454,9 +502,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    if (!response)
 		    {
 				// Tutorial Step 8
-				TutTime[playerid] = 5;
-                if (Timer_IsRunning(tutorialTimer[playerid])) stop tutorialTimer[playerid];
-                tutorialTimer[playerid] = repeat NextStepTutorial(playerid);
+				gsTutorialLeftTime[playerid] = 5;
+                if (gsTutorialTimer[playerid] != INVALID_VALUE)
+				{
+					KillTimer(gsTutorialTimer[playerid]);
+					gsTutorialTimer[playerid] = INVALID_VALUE;
+				}
+                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 	            ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 	            InterpolateCameraPos(playerid, TUT_CAMERA_POS9, TUT_CAMERA_POS8, CAMERA_SPEED, CAMERA_MOVE);
@@ -466,18 +518,18 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 			    ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
-		        if (TutTime[playerid] != 0)
+		        if (gsTutorialLeftTime[playerid] != 0)
 				{
 					// Tutorial Step 9
 					new string[128];
-					format(string, sizeof(string), "Você ainda não pode avançar no tutorial, faltam [%d] segundos, leia o tutorial com atenção !", TutTime[playerid]);
+					format(string, sizeof(string), "Você ainda não pode avançar no tutorial, faltam [%d] segundos, leia o tutorial com atenção !", gsTutorialLeftTime[playerid]);
 					SendClientMessage(playerid, COLOR_GRAD1, string);
 					PlayerPlaySound(playerid, 1058, 0.0, 0.0, 0.0);
 	                return ShowPlayerDialog(playerid, DIALOG_STEP_TUT_9, DIALOG_STYLE_MSGBOX, TUTORIAL_STEP9TILE, TUTORIAL_STEP9, "Avançar", "Cancelar");
 				}
 				// Tutorial Step 10
-				TutTime[playerid] = 5;
-                tutorialTimer[playerid] = repeat NextStepTutorial(playerid);
+				gsTutorialLeftTime[playerid] = 5;
+                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS9, TUT_CAMERA_POS10, CAMERA_SPEED, CAMERA_MOVE);
 				InterpolateCameraLookAt(playerid, TUT_CAMERA_LOOK9, TUT_CAMERA_LOOK10, CAMERA_SPEED, CAMERA_MOVE);
@@ -489,9 +541,13 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    if (!response)
 		    {
 				// Tutorial Step 9
-				TutTime[playerid] = 5;
-                if (Timer_IsRunning(tutorialTimer[playerid])) stop tutorialTimer[playerid];
-                tutorialTimer[playerid] = repeat NextStepTutorial(playerid);
+				gsTutorialLeftTime[playerid] = 5;
+                if (gsTutorialTimer[playerid] != INVALID_VALUE)
+				{
+					KillTimer(gsTutorialTimer[playerid]);
+					gsTutorialTimer[playerid] = INVALID_VALUE;
+				}
+                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 	            ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS10, TUT_CAMERA_POS9, CAMERA_SPEED, CAMERA_MOVE);
@@ -501,19 +557,23 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
-		        if (TutTime[playerid] != 0)
+		        if (gsTutorialLeftTime[playerid] != 0)
 				{
 					// Tutorial Step 10
 					new string[128];
-					format(string, sizeof(string), "Você ainda não pode avançar no tutorial, faltam [%d] segundos, leia o tutorial com atenção !", TutTime[playerid]);
+					format(string, sizeof(string), "Você ainda não pode avançar no tutorial, faltam [%d] segundos, leia o tutorial com atenção !", gsTutorialLeftTime[playerid]);
 					SendClientMessage(playerid, COLOR_GRAD1, string);
 					PlayerPlaySound(playerid, 1058, 0.0, 0.0, 0.0);
 	                return ShowPlayerDialog(playerid, DIALOG_STEP_TUT_10, DIALOG_STYLE_MSGBOX, TUTORIAL_STEP10TILE, TUTORIAL_STEP10, "Finalizar", "Cancelar");
 				}
 				// Finished Tut
-				NoTuto[playerid] = false;
-	     		TutTime[playerid] = 0;
-                if (Timer_IsRunning(tutorialTimer[playerid])) stop tutorialTimer[playerid];
+				gsIsPlayerInTutorial[playerid] = false;
+	     		gsTutorialLeftTime[playerid] = 0;
+                if (gsTutorialTimer[playerid] != INVALID_VALUE)
+				{
+					KillTimer(gsTutorialTimer[playerid]);
+					gsTutorialTimer[playerid] = INVALID_VALUE;
+				}
 
                 Player_SetTutorialStatus(playerid, true);
 				Database_SaveTutorial(playerid);

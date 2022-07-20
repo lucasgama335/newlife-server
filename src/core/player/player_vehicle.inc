@@ -4,24 +4,24 @@
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static gsPlayerLastCarEntered[MAX_PLAYERS];
-static Timer:gsPlayerSpeedometerTimer[MAX_PLAYERS];
-static Timer:gsPlayerCheckFuelTimer[MAX_PLAYERS];
-static Timer:gsPlayerCheckBrokenTimer[MAX_PLAYERS];
+static gsPlayerSpeedometerTimer[MAX_PLAYERS];
+static gsPlayerCheckFuelTimer[MAX_PLAYERS];
+static gsPlayerCheckBrokenTimer[MAX_PLAYERS];
 
 //------------------------- Timers (Timers used in the module.) -------------------------
-timer UpdateVehicleSpeedometer[500](playerid, vehicleid, type)
+function:UpdateVehicleSpeedometer(playerid, vehicleid, type)
 {
 	UpdatePlayerSpeedometer(playerid, vehicleid, type);
 	return 1;
 }
 
-timer RemovePlayerVehicleEmptyGas[5000](playerid)
+function:RemovePlayerVehicleEmptyGas(playerid)
 {
 	RemovePlayerFromVehicle(playerid);
 	return 1;
 }
 
-timer RemovePlayerVehicleBroken[5000](playerid)
+function:RemovePlayerVehicleBroken(playerid)
 {
 	RemovePlayerFromVehicle(playerid);
 	return 1;
@@ -44,17 +44,19 @@ static stock PlayerCheckVehicleFuel(playerid, vehicleid)
 		GameTextForPlayer(playerid,"~r~~n~~n~~n~~n~~n~~n~~n~~n~SEM GAS !", 1500, 3);
 		SendClientMessage(playerid, COLOR_WHITE, "O Seu veículo está sem gasolina.");
 		PlayerPlayMusic(playerid, 1159);
-		if (Timer_IsRunning(gsPlayerCheckFuelTimer[playerid]))
+		if (gsPlayerCheckFuelTimer[playerid] != INVALID_VALUE)
 		{
-			stop gsPlayerCheckFuelTimer[playerid];
+			KillTimer(gsPlayerCheckFuelTimer[playerid]);
+			gsPlayerCheckFuelTimer[playerid] = INVALID_VALUE;
 		}
-		gsPlayerCheckFuelTimer[playerid] = defer RemovePlayerVehicleEmptyGas(playerid); 
+		gsPlayerCheckFuelTimer[playerid] = SetTimerEx("RemovePlayerVehicleEmptyGas", 5000, false, "i", playerid);
 	}
 	else
 	{
-		if (Timer_IsRunning(gsPlayerCheckFuelTimer[playerid]))
+		if (gsPlayerCheckFuelTimer[playerid] != INVALID_VALUE)
 		{
-			stop gsPlayerCheckFuelTimer[playerid];
+			KillTimer(gsPlayerCheckFuelTimer[playerid]);
+			gsPlayerCheckFuelTimer[playerid] = INVALID_VALUE;
 		}
 	}
 	return 1;
@@ -65,17 +67,19 @@ static stock PlayerCheckVehicleBroken(playerid, vehicleid)
 	{
 		SendClientMessage(playerid, COLOR_RED, "O Seu veículo bateu o motor, chame um mecânico(/solicitar) ou use seu kit(/kitcarro) !");
 		GameTextForPlayer(playerid,"~r~VEICULO QUEBRADO~n~~w~ Chame um mecanico ou use um~n~~w~ KIT[/kitcarro]", 15000, 1);
-		if (Timer_IsRunning(gsPlayerCheckBrokenTimer[playerid]))
+		if (gsPlayerCheckBrokenTimer[playerid] != INVALID_VALUE)
 		{
-			stop gsPlayerCheckBrokenTimer[playerid];
+			KillTimer(gsPlayerCheckBrokenTimer[playerid]);
+			gsPlayerCheckBrokenTimer[playerid] = INVALID_VALUE;
 		}
-		gsPlayerCheckBrokenTimer[playerid] = defer RemovePlayerVehicleBroken(playerid); 
+		gsPlayerCheckBrokenTimer[playerid] = SetTimerEx("RemovePlayerVehicleBroken", 5000, false, "i", playerid);
 	}
 	else
 	{
-		if (Timer_IsRunning(gsPlayerCheckBrokenTimer[playerid]))
+		if (gsPlayerCheckBrokenTimer[playerid] != INVALID_VALUE)
 		{
-			stop gsPlayerCheckBrokenTimer[playerid];
+			KillTimer(gsPlayerCheckBrokenTimer[playerid]);
+			gsPlayerCheckBrokenTimer[playerid] = INVALID_VALUE;
 		}
 	}
 	return 1;
@@ -84,11 +88,12 @@ static stock PlayerCheckVehicleBroken(playerid, vehicleid)
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 stock StartSpeedometerTimer(playerid, vehicleid)
 {
-	if (Timer_IsRunning(gsPlayerSpeedometerTimer[playerid]))
+	if (gsPlayerSpeedometerTimer[playerid] != INVALID_VALUE)
 	{
-		stop gsPlayerSpeedometerTimer[playerid];
+		KillTimer(gsPlayerSpeedometerTimer[playerid]);
+		gsPlayerSpeedometerTimer[playerid] = INVALID_VALUE;
 	}
-	gsPlayerSpeedometerTimer[playerid] = repeat UpdateVehicleSpeedometer(playerid, vehicleid, Player_GetSpeedometer(playerid));
+	gsPlayerSpeedometerTimer[playerid] = SetTimerEx("UpdateVehicleSpeedometer", 500, true, "iii", playerid, vehicleid, Player_GetSpeedometer(playerid));
 	return 1;
 }
 
@@ -96,6 +101,32 @@ stock StartSpeedometerTimer(playerid, vehicleid)
 hook OnPlayerConnect(playerid)
 {
 	gsPlayerLastCarEntered[playerid] = INVALID_VEHICLE_ID;
+	gsPlayerSpeedometerTimer[playerid] = INVALID_VALUE;
+	gsPlayerCheckFuelTimer[playerid] = INVALID_VALUE;
+	gsPlayerCheckBrokenTimer[playerid] = INVALID_VALUE;
+	return 1;
+}
+
+hook OnPlayerDisconnect(playerid)
+{
+	if (gsPlayerSpeedometerTimer[playerid] != INVALID_VALUE)
+	{
+		KillTimer(gsPlayerSpeedometerTimer[playerid]);
+		gsPlayerSpeedometerTimer[playerid] = INVALID_VALUE;
+	}
+
+	if (gsPlayerCheckFuelTimer[playerid] != INVALID_VALUE)
+	{
+		KillTimer(gsPlayerCheckFuelTimer[playerid]);
+		gsPlayerCheckFuelTimer[playerid] = INVALID_VALUE;
+	}
+
+	if (gsPlayerCheckBrokenTimer[playerid] != INVALID_VALUE)
+	{
+		KillTimer(gsPlayerCheckBrokenTimer[playerid]);
+		gsPlayerCheckBrokenTimer[playerid] = INVALID_VALUE;
+	}
+
 	return 1;
 }
 

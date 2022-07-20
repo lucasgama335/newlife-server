@@ -5,7 +5,7 @@
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static bool:gsIsPlayerRefueling[MAX_PLAYERS];
-static Timer:gsFuelTimer[MAX_PLAYERS];
+static gsFuelTimer[MAX_PLAYERS];
 
 static Float:gsFuelPumps[][3] =
 {
@@ -36,7 +36,7 @@ static Float:gsFuelPumps[][3] =
 };
 
 //------------------------- Timers (Timers used in the module.) -------------------------
-timer FillUp[250](playerid, vehicleid, totalPrice, pricePerLiter)
+function:FillUp(playerid, vehicleid, totalPrice, pricePerLiter)
 {
     new fillUp = (Vehicle_GetFuel(vehicleid) + 1);
 	Vehicle_SetFuel(vehicleid, fillUp);
@@ -53,9 +53,10 @@ timer FillUp[250](playerid, vehicleid, totalPrice, pricePerLiter)
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 static stock GasStationFinishFuel(playerid, price)
 {
-	if (Timer_IsRunning(gsFuelTimer[playerid]))
+	if (gsFuelTimer[playerid] != INVALID_VALUE)
 	{
-		stop gsFuelTimer[playerid];
+        KillTimer(gsFuelTimer[playerid]);
+		gsFuelTimer[playerid] = INVALID_VALUE;
 	}
 	SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - price));
 	TogglePlayerControllable(playerid, true);
@@ -67,11 +68,12 @@ static stock GasStationFinishFuel(playerid, price)
 stock GasStationStartFuel(playerid, vehicleid, totalPrice, pricePerLiter)
 {
 	ShowFuelTextdraw(playerid);
-	if (Timer_IsRunning(gsFuelTimer[playerid]))
+	if (gsFuelTimer[playerid] != INVALID_VALUE)
 	{
-		stop gsFuelTimer[playerid];
+        KillTimer(gsFuelTimer[playerid]);
+		gsFuelTimer[playerid] = INVALID_VALUE;
 	}
-	gsFuelTimer[playerid] = repeat FillUp(playerid, vehicleid, totalPrice, pricePerLiter);
+    gsFuelTimer[playerid] = SetTimerEx("FillUp", 300, true, "iiii", playerid, vehicleid, totalPrice, pricePerLiter);
 	TogglePlayerControllable(playerid, false);
 	SendClientMessage(playerid, COLOR_YELLOW2, "[Posto de Gasolina]: Abastecimendo do veículo iniciado. Aguarde até completar o tanque...");
 }
@@ -102,7 +104,18 @@ stock SetPlayerRefueling(playerid, bool:status)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerConnect(playerid)
 {
+    gsFuelTimer[playerid] = INVALID_VALUE;
     gsIsPlayerRefueling[playerid] = false;
+    return 1;
+}
+
+hook OnPlayerDisconnect(playerid)
+{
+    if (gsFuelTimer[playerid] != INVALID_VALUE)
+	{
+        KillTimer(gsFuelTimer[playerid]);
+		gsFuelTimer[playerid] = INVALID_VALUE;
+	}
     return 1;
 }
 

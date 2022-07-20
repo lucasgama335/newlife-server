@@ -5,7 +5,7 @@
 #define MAX_DRINK_BAR_LIST   1
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static Timer:gsUpdateHungryAndDrink[MAX_PLAYERS];
+static gsUpdatePlayerNeedsTimer[MAX_PLAYERS];
 
 enum f_LIST_INFO
 {
@@ -32,7 +32,7 @@ static gsDrinkBarList[MAX_DRINK_BAR_LIST][d_LIST_INFO] =
 };
 
 //------------------------- Timers (Timers used in the module.) -------------------------
-timer UpdateHungryAndDrink[300000](playerid)
+function:UpdateHungryAndDrink(playerid)
 {
     // Hungry
     new hungryQuantity = (Player_GetHungry(playerid) - (1 + random(1)));
@@ -113,13 +113,30 @@ static stock ShowDrinkDialog(playerid)
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+hook OnPlayerConnect(playerid)
+{
+    gsUpdatePlayerNeedsTimer[playerid] = INVALID_VALUE;
+    return 1;
+}
+
+hook OnPlayerDisconnect(playerid)
+{
+    if (gsUpdatePlayerNeedsTimer[playerid] != INVALID_VALUE)
+    {
+        KillTimer(gsUpdatePlayerNeedsTimer[playerid]);
+        gsUpdatePlayerNeedsTimer[playerid] = INVALID_VALUE;
+    }
+    return 1;
+}
+
 hook FirstSpawnOnLogin(playerid)
 {
-    if (Timer_IsRunning(gsUpdateHungryAndDrink[playerid]))
+    if (gsUpdatePlayerNeedsTimer[playerid] != INVALID_VALUE)
     {
-        stop gsUpdateHungryAndDrink[playerid];
+        KillTimer(gsUpdatePlayerNeedsTimer[playerid]);
+        gsUpdatePlayerNeedsTimer[playerid] = INVALID_VALUE;
     }
-    gsUpdateHungryAndDrink[playerid] = repeat UpdateHungryAndDrink(playerid);
+    gsUpdatePlayerNeedsTimer[playerid] = SetTimerEx("UpdateHungryAndDrink", 300000, true, "i", playerid);
     return 1;
 }
 

@@ -25,7 +25,7 @@ static gsActualTestCheckpoint[MAX_PLAYERS];
 static gsMaxTestCheckpoints[MAX_PLAYERS];
 static gsMaxSpeedTest[MAX_PLAYERS];
 static gsDriveSchoolTimeToFinish[MAX_PLAYERS];
-static Timer:gsDriveSchoolTimer[MAX_PLAYERS];
+static gsDriveSchoolTimer[MAX_PLAYERS];
 
 static Float:gsCarRouteTest[MAX_CAR_ROUTES][3] =
 {
@@ -153,7 +153,7 @@ static Float:gsTruckRouteTest[MAX_TRUCK_ROUTES][3] =
 };
 
 //------------------------- Timers (Timers used in the module.) -------------------------
-timer DriveSchoolTimer[1000](playerid, maxCp)
+function:DriveSchoolTimer(playerid, maxCp)
 {
     gsDriveSchoolTimeToFinish[playerid] --;
     if (gsDriveSchoolTimeToFinish[playerid] <= 0)
@@ -195,9 +195,11 @@ static stock ResetPlayerDrivingTest(playerid, bool:updatePos = true)
     {
         TeleportPlayer(playerid, PLAYER_FINISH_DRIVING_TEST, DRIVING_SCHOOL_LOCALE, 0, DRIVING_SCHOOL_LOCALE, true, 3000);
     }
-    if (Timer_IsRunning(gsDriveSchoolTimer[playerid]))
+
+    if (gsDriveSchoolTimer[playerid] != INVALID_VALUE)
     {
-        stop gsDriveSchoolTimer[playerid];
+        KillTimer(gsDriveSchoolTimer[playerid]);
+        gsDriveSchoolTimer[playerid] = INVALID_VALUE;
     }
     return 1;
 }
@@ -225,6 +227,7 @@ stock ShowPlayerGunLincensesMenu(playerid)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerConnect(playerid)
 {
+    gsDriveSchoolTimer[playerid] = INVALID_VALUE;
     ResetPlayerDrivingData(playerid);
     return 1;
 }
@@ -286,11 +289,14 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     GameTextForPlayer(playerid,"~r~siga as marcas vermelhas. ~n~ va devagar e nao bata !", 5000, 1);
                     SendClientMessage(playerid, COLOR_DARKGREEN, "Você pagou para iniciar o teste para conseguir sua licença de carro.");
                     SendClientMessage(playerid, COLOR_DARKGREEN, "O limite de velocidade é de 80 km/h, não ultrapasse e não bata em nada !");
-                    if (Timer_IsRunning(gsDriveSchoolTimer[playerid]))
+
+                    if (gsDriveSchoolTimer[playerid] != INVALID_VALUE)
                     {
-                        stop gsDriveSchoolTimer[playerid];
+                        KillTimer(gsDriveSchoolTimer[playerid]);
+                        gsDriveSchoolTimer[playerid] = INVALID_VALUE;
                     }
-                    gsDriveSchoolTimer[playerid] = repeat DriveSchoolTimer(playerid, MAX_CAR_ROUTES);
+                    gsDriveSchoolTimer[playerid] = SetTimerEx("DriveSchoolTimer", 1000, true, "ii", playerid, MAX_CAR_ROUTES);
+
                     ShowDriveSchoolHud(playerid);
                     return 1;
                 }
@@ -321,11 +327,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     GameTextForPlayer(playerid,"~r~siga as marcas vermelhas. ~n~ va devagar e nao bata !", 5000, 1);
                     SendClientMessage(playerid, COLOR_DARKGREEN, "Você pagou para iniciar o teste para conseguir sua licença de moto.");
                     SendClientMessage(playerid, COLOR_DARKGREEN, "O limite de velocidade é de 100 km/h, não ultrapasse e não bata em nada !");
-                    if (Timer_IsRunning(gsDriveSchoolTimer[playerid]))
+                    if (gsDriveSchoolTimer[playerid] != INVALID_VALUE)
                     {
-                        stop gsDriveSchoolTimer[playerid];
+                        KillTimer(gsDriveSchoolTimer[playerid]);
+                        gsDriveSchoolTimer[playerid] = INVALID_VALUE;
                     }
-                    gsDriveSchoolTimer[playerid] = repeat DriveSchoolTimer(playerid, MAX_CAR_ROUTES);
+                    gsDriveSchoolTimer[playerid] = SetTimerEx("DriveSchoolTimer", 1000, true, "ii", playerid, MAX_MOTORCYCLE_ROUTES);
                     ShowDriveSchoolHud(playerid);
                     return 1;
                 }
@@ -356,11 +363,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     GameTextForPlayer(playerid,"~r~siga as marcas vermelhas. ~n~ va devagar e nao bata !", 5000, 1);
                     SendClientMessage(playerid, COLOR_DARKGREEN, "Você pagou para iniciar o teste para conseguir sua licença de voo.");
                     SendClientMessage(playerid, COLOR_DARKGREEN, "O limite de velocidade é de 100 km/h, não ultrapasse e não bata em nada !");
-                    if (Timer_IsRunning(gsDriveSchoolTimer[playerid]))
+                    if (gsDriveSchoolTimer[playerid] != INVALID_VALUE)
                     {
-                        stop gsDriveSchoolTimer[playerid];
+                        KillTimer(gsDriveSchoolTimer[playerid]);
+                        gsDriveSchoolTimer[playerid] = INVALID_VALUE;
                     }
-                    gsDriveSchoolTimer[playerid] = repeat DriveSchoolTimer(playerid, MAX_CAR_ROUTES);
+                    gsDriveSchoolTimer[playerid] = SetTimerEx("DriveSchoolTimer", 1000, true, "ii", playerid, MAX_FLY_ROUTES);
                     ShowDriveSchoolHud(playerid);
                     return 1;
                 }
@@ -391,11 +399,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     GameTextForPlayer(playerid,"~r~siga as marcas vermelhas. ~n~ va devagar e nao bata !", 5000, 1);
                     SendClientMessage(playerid, COLOR_DARKGREEN, "Você pagou para iniciar o teste para conseguir sua licença de barcos.");
                     SendClientMessage(playerid, COLOR_DARKGREEN, "O limite de velocidade é de 150 km/h, não ultrapasse e não bata em nada !");
-                    if (Timer_IsRunning(gsDriveSchoolTimer[playerid]))
+                    if (gsDriveSchoolTimer[playerid] != INVALID_VALUE)
                     {
-                        stop gsDriveSchoolTimer[playerid];
+                        KillTimer(gsDriveSchoolTimer[playerid]);
+                        gsDriveSchoolTimer[playerid] = INVALID_VALUE;
                     }
-                    gsDriveSchoolTimer[playerid] = repeat DriveSchoolTimer(playerid, MAX_CAR_ROUTES);
+                    gsDriveSchoolTimer[playerid] = SetTimerEx("DriveSchoolTimer", 1000, true, "ii", playerid, MAX_BOAT_ROUTES);
                     ShowDriveSchoolHud(playerid);
                     return 1;
                 }
@@ -426,11 +435,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     GameTextForPlayer(playerid,"~r~siga as marcas vermelhas. ~n~ va devagar e nao bata !", 5000, 1);
                     SendClientMessage(playerid, COLOR_DARKGREEN, "Você pagou para iniciar o teste para conseguir sua licença de caminhões e ônibus.");
                     SendClientMessage(playerid, COLOR_DARKGREEN, "O limite de velocidade é de 90 km/h, não ultrapasse e não bata em nada !");
-                    if (Timer_IsRunning(gsDriveSchoolTimer[playerid]))
+                    if (gsDriveSchoolTimer[playerid] != INVALID_VALUE)
                     {
-                        stop gsDriveSchoolTimer[playerid];
+                        KillTimer(gsDriveSchoolTimer[playerid]);
+                        gsDriveSchoolTimer[playerid] = INVALID_VALUE;
                     }
-                    gsDriveSchoolTimer[playerid] = repeat DriveSchoolTimer(playerid, MAX_CAR_ROUTES);
+                    gsDriveSchoolTimer[playerid] = SetTimerEx("DriveSchoolTimer", 1000, true, "ii", playerid, MAX_TRUCK_ROUTES);
                     ShowDriveSchoolHud(playerid);
                     return 1;
                 }

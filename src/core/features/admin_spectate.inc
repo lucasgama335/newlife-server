@@ -3,10 +3,10 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static Timer:gsSpectateTimer[MAX_PLAYERS];
+static gsSpectateTimer[MAX_PLAYERS];
 
 //------------------------- Timers (Timers used in the module.) -------------------------
-timer AdminSpectatePlayer[1000](playerid)
+function:AdminSpectatePlayer(playerid)
 {
 	new spectated_id = Admin_GetPlayerSpectated(playerid);
 	if (spectated_id != INVALID_PLAYER_ID && Player_GetAdminLevel(playerid) >= HELPER)
@@ -27,19 +27,18 @@ timer AdminSpectatePlayer[1000](playerid)
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) ------------------------
 stock Admin_StartSpectate(playerid)
 {
-	gsSpectateTimer[playerid] = repeat AdminSpectatePlayer(playerid);
+	gsSpectateTimer[playerid] = SetTimerEx("AdminSpectatePlayer", 1000, true, "i", playerid);
 	return 1;
 }
 
 stock Admin_StopSpectate(playerid)
 {
-	if (Timer_IsRunning(gsSpectateTimer[playerid])) stop gsSpectateTimer[playerid];
+	if (gsSpectateTimer[playerid] != INVALID_VALUE)
+	{
+		KillTimer(gsSpectateTimer[playerid]);
+		gsSpectateTimer[playerid] = INVALID_VALUE;
+	}
 	return 1;
-}
-
-stock Admin_GetSpectateTimerId(playerid)
-{
-	return gsSpectateTimer[playerid];
 }
 
 stock UpdateSpectatePlayer(playerid, id)
@@ -96,8 +95,19 @@ stock HideSpectatePlayer(playerid)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerConnect(playerid)
 {
+	gsSpectateTimer[playerid] = INVALID_VALUE;
 	Admin_SetWatchStatus(playerid, false);
 	Admin_SetPlayerSpectated(playerid, INVALID_PLAYER_ID);
+	return 1;
+}
+
+hook OnPlayerDisconnect(playerid)
+{
+	if (gsSpectateTimer[playerid] != INVALID_VALUE)
+	{
+		KillTimer(gsSpectateTimer[playerid]);
+		gsSpectateTimer[playerid] = INVALID_VALUE;
+	}
 	return 1;
 }
 

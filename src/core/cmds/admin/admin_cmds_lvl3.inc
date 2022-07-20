@@ -77,12 +77,6 @@ YCMD:go(playerid, params[], help)
     return 1;
 }
 
-timer DestroyFlyObject[500](objectId)
-{
-    DestroyObject(objectId);
-    return 1;
-}
-
 YCMD:voaron(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < BEGINNER)
@@ -104,8 +98,6 @@ YCMD:voaron(playerid, params[], help)
 	  	format(string, sizeof(string), "[Aviso]: %s ativou o modo voar.", GetPlayerNameCustom(playerid));
 	    SendAdminMessage(COLOR_YELLOW, string, HELPER);
 	    SendClientMessage(playerid, COLOR_LIGHTBLUE, "Para sair do modo de voar digite /voaron novamente !");
-        new smoke_id = CreateObject(2780, X, Y, Z - 3.0, 0.0, 0.0, 0.0);
-        defer DestroyFlyObject(smoke_id);
      	StartFly(playerid);
     }
     else
