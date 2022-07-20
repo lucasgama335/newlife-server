@@ -176,7 +176,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 14:
 					{
-					    ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "{FFFFFF}Perguntas Frequentes", "{ff6347}Pergunta:\n{FFFFFF}Como eu passo de nível?\n\n{f04b87}Resposta:\n{FFFFFF}Para passar de nível é necessário que você possua\n a experiência e dinheiro necessário para avançar para\no próximo nível.\nCaso você cumpra esses requisitos basta utilizar o\ncomando: /passarnivel.", "Voltar", "Fechar");
+					    ShowPlayerDialog(playerid, DIALOG_FAQ_ITEM, DIALOG_STYLE_MSGBOX, "{FFFFFF}Perguntas Frequentes", "{ff6347}Pergunta:\n{FFFFFF}Como eu passo de nível?\n\n{f04b87}Resposta:\n{FFFFFF}Para passar de nível é necessário que você possua\n a experiência e dinheiro necessário para avançar para\no próximo nível.\nCaso você cumpra esses requisitos basta utilizar o\ncomando: /comprarnivel.", "Voltar", "Fechar");
 					}
 					case 15:
 					{
@@ -1254,5 +1254,30 @@ YCMD:minhaslicencas(playerid, params[], help)
 	format(licenseString, sizeof(licenseString), (Player_GetGunLicense(playerid) ? "{FFFFFF}Armas\t{33aa33}Válida\t{00e7c6}%d\n" : "{FFFFFF}Armas\t{FF6347}Vencida\t{00e7c6}%d\n"), Player_GetGunLicense(playerid));
 	strcat(licensesList, licenseString);
 	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_TABLIST_HEADERS, "Minhas Licenças", licensesList, "Fechar", "");
+	return 1;
+}
+
+YCMD:comprarnivel(playerid, params[], help)
+{
+	new experienceNecessary = (Player_GetLevel(playerid) * 4), levelCost = (Player_GetLevel(playerid) * 3000);
+	if (Player_GetExperience(playerid) < experienceNecessary)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não possui a experiência necessária para passar de nível.");
+	}
+	if (Player_GetMoney(playerid) < levelCost)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não possui o dinheiro necessário para passar de nível.");
+	}
+
+	new string[250];
+	Player_SetLevel(playerid, (Player_GetLevel(playerid) + 1));
+	Player_SetExperience(playerid, (Player_GetExperience(playerid) - experienceNecessary));
+	PlayerPlayMusic(playerid, 1068);
+	format(string, sizeof(string), "{a4a4a4}Você acumulou a experiência necessária e passou de nível!\n\n{FFFF00}Informações:\n{FFFFFF}Nível Adquirido: {0080ff}%d{FFFFFF}.\n{FFFFFF}Experiência Usada: {0080ff}%d{FFFFFF}.\n{FFFFFF}Experiência Atual: {0080ff}%d{FFFFFF}.", Player_GetLevel(playerid), experienceNecessary, Player_GetExperience(playerid));
+	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX, "{FFFFFF}Level UP!", string, "Fechar", "");
+	format(string, sizeof(string), "~g~nivel adquirido~n~agora seu nivel e ~w~%d", Player_GetLevel(playerid));
+	GameTextForPlayer(playerid, string, 5000, 1);
+	PlayerPlaySound(playerid, 1052, 0.0, 0.0, 0.0);
+	Player_SaveScoreData(playerid);
 	return 1;
 }
