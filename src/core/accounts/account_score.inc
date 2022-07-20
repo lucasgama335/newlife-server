@@ -64,6 +64,7 @@ stock Player_SetLevel(playerid, level)
 {
     if (!IsPlayerConnected(playerid)) return 0;
 
+    SetPlayerScore(playerid, level);
     return gsScoreInfo[playerid][p_LEVEL] = level;
 }
 
@@ -149,6 +150,7 @@ stock Player_SetWantedLevel(playerid, level)
 {
     if (!IsPlayerConnected(playerid)) return 0;
     
+    SetPlayerWantedLevel(playerid, level);
     return gsScoreInfo[playerid][p_WANTED_LEVEL] = level;
 }
 

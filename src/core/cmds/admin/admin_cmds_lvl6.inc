@@ -188,6 +188,10 @@ YCMD:setgrana(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Esse não é um jogador ativo.");
 	}
+	if (money > 10000000)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Não digite um valor tão alto.");
+	}
 
 	new string[110], moneyString[MAX_MONEY_STRING];
 	FormatMoneyString(money, moneyString);
@@ -217,6 +221,10 @@ YCMD:dargrana(playerid, params[], help)
     if (!IsValidPlayer(id))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Esse não é um jogador ativo.");
+	}
+	if (money > 10000000)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Não digite um valor tão alto.");
 	}
 
 	new string[97], moneyString[MAX_MONEY_STRING];
