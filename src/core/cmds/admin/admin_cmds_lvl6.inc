@@ -198,8 +198,8 @@ YCMD:setgrana(playerid, params[], help)
 	}
 
 	new string[110], moneyString[MAX_MONEY_STRING];
-	FormatMoneyString(money, moneyString);
 	Player_SetMoney(id, money);
+	FormatMoneyString(money, moneyString);
     format(string, sizeof(string), "[Administração]: %s setou a grana de %s para R$[%s].", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id), moneyString);
 	SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
     PrintLog(FOLDER_ADMIN_SETMONEY, string);

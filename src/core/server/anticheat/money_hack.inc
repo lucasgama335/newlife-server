@@ -11,17 +11,16 @@
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
-hook OnPlayerUpdate(playerid)
+stock OnPlayerUpdate(playerid)
 {
     if (Player_GetLoggedStatus(playerid)) 
     {
         new hacked_money = GetPlayerMoney(playerid); 
         if (hacked_money != Player_GetMoney(playerid))
         {
-            new moneyString[MAX_MONEY_STRING];
+            new moneyString[MAX_MONEY_STRING], string[MAX_LOG_STRING];
             FormatMoneyString((hacked_money - Player_GetMoney(playerid)), moneyString);
             Player_SetMoney(playerid, Player_GetMoney(playerid));
-            new string[MAX_LOG_STRING];
             format(string, sizeof(string), "Anti-Cheat: %s possivelmente usou money hack R$ [%s], ou o seu dinheiro bugou.", GetPlayerNameCustom(playerid), moneyString);
             PrintLog(FOLDER_ANTICHEAT_MONEY, string);
         }

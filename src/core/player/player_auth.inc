@@ -149,7 +149,7 @@ public OnPlayerConnect(playerid)
             cache_get_value_name_int(0, PLAYER_FIELD_BANK_MONEY, bankMoney);
             cache_get_value_name_int(0, PLAYER_FIELD_COINS, coins);
 
-            Player_SetMoney(playerid, money);
+            Player_SetMoney(playerid, money, false);
             Player_SetIllegalMoney(playerid, illegalMoney);
             Player_SetIllegalSafeMoney(playerid, illegalSafeMoney);
             Player_SetBankStatus(playerid, bankStatus == 0 ? false : true);

@@ -65,16 +65,17 @@ stock Player_GetMoney(playerid)
 }
 
 // Setters
-stock Player_SetMoney(playerid, money)
+stock Player_SetMoney(playerid, money, bool:save = true)
 {
     if (!IsPlayerConnected(playerid)) 
     {
         return 0;
     }
-
+    
+    ResetPlayerMoney(playerid);
     gsMoneyInfo[playerid][p_MONEY] = money;
     GivePlayerMoney(playerid, gsMoneyInfo[playerid][p_MONEY]);
-    if (Player_GetLoggedStatus(playerid))
+    if (save)
     {
         Player_SaveMoneyData(playerid);
     }
