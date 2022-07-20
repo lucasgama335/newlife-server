@@ -65,21 +65,11 @@ function:NextStepTutorial(playerid)
         if (gsTutorialLeftTime[playerid] <= 0) 
 		{
         	gsTutorialLeftTime[playerid] = 0;
-		    if (gsTutorialTimer[playerid] != INVALID_VALUE)
-			{
-				KillTimer(gsTutorialTimer[playerid]);
-				gsTutorialTimer[playerid] = INVALID_VALUE;
-			}
         }
     }
     else
     {
         gsTutorialLeftTime[playerid] = 0;
-		if (gsTutorialTimer[playerid] != INVALID_VALUE)
-		{
-			KillTimer(gsTutorialTimer[playerid]);
-			gsTutorialTimer[playerid] = INVALID_VALUE;
-		}
 	}
 	return 1;
 }
@@ -217,7 +207,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				// Tutorial Step 2
 				gsTutorialLeftTime[playerid] = 5;
-                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS1, TUT_CAMERA_POS2, CAMERA_SPEED, CAMERA_MOVE);
 				InterpolateCameraLookAt(playerid, TUT_CAMERA_LOOK1, TUT_CAMERA_LOOK2, CAMERA_SPEED, CAMERA_MOVE);
@@ -230,12 +219,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    {
 				// Tutorial Step 1
 				gsTutorialLeftTime[playerid] = 5;
-                if (gsTutorialTimer[playerid] != INVALID_VALUE)
-				{
-					KillTimer(gsTutorialTimer[playerid]);
-					gsTutorialTimer[playerid] = INVALID_VALUE;
-				}
-                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 	            ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 	            InterpolateCameraPos(playerid, TUT_CAMERA_POS2, TUT_CAMERA_POS1, CAMERA_SPEED, CAMERA_MOVE);
@@ -256,7 +239,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				// Tutorial Step 3
 				gsTutorialLeftTime[playerid] = 5;
-                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS2, TUT_CAMERA_POS3, CAMERA_SPEED, CAMERA_MOVE);
 				InterpolateCameraLookAt(playerid, TUT_CAMERA_LOOK2, TUT_CAMERA_LOOK3, CAMERA_SPEED, CAMERA_MOVE);
@@ -269,12 +251,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    {
 				// Tutorial Step 2
 				gsTutorialLeftTime[playerid] = 5;
-                if (gsTutorialTimer[playerid] != INVALID_VALUE)
-				{
-					KillTimer(gsTutorialTimer[playerid]);
-					gsTutorialTimer[playerid] = INVALID_VALUE;
-				}
-                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 	            ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 	            InterpolateCameraPos(playerid, TUT_CAMERA_POS3, TUT_CAMERA_POS2, CAMERA_SPEED, CAMERA_MOVE);
@@ -295,7 +271,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				// Tutorial Step 4
 				gsTutorialLeftTime[playerid] = 5;
-                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS3, TUT_CAMERA_POS4, CAMERA_SPEED, CAMERA_MOVE);
 				InterpolateCameraLookAt(playerid, TUT_CAMERA_LOOK3, TUT_CAMERA_LOOK4, CAMERA_SPEED, CAMERA_MOVE);
@@ -308,12 +283,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    {
 				// Tutorial Step 3
 				gsTutorialLeftTime[playerid] = 5;
-                if (gsTutorialTimer[playerid] != INVALID_VALUE)
-				{
-					KillTimer(gsTutorialTimer[playerid]);
-					gsTutorialTimer[playerid] = INVALID_VALUE;
-				}
-                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 	            ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 	            InterpolateCameraPos(playerid, TUT_CAMERA_POS4, TUT_CAMERA_POS3, CAMERA_SPEED, CAMERA_MOVE);
@@ -334,7 +303,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				// Tutorial Step 5
 				gsTutorialLeftTime[playerid] = 5;
-                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS4, TUT_CAMERA_POS5, CAMERA_SPEED, CAMERA_MOVE);
 				InterpolateCameraLookAt(playerid, TUT_CAMERA_LOOK4, TUT_CAMERA_LOOK5, CAMERA_SPEED, CAMERA_MOVE);
@@ -347,12 +315,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    {
 				// Tutorial Step 4
 				gsTutorialLeftTime[playerid] = 5;
-                if (gsTutorialTimer[playerid] != INVALID_VALUE)
-				{
-					KillTimer(gsTutorialTimer[playerid]);
-					gsTutorialTimer[playerid] = INVALID_VALUE;
-				}
-                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 	            ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS5, TUT_CAMERA_POS4, CAMERA_SPEED, CAMERA_MOVE);
@@ -373,7 +335,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				// Tutorial Step 6
 				gsTutorialLeftTime[playerid] = 5;
-                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS5, TUT_CAMERA_POS6, CAMERA_SPEED, CAMERA_MOVE);
 				InterpolateCameraLookAt(playerid, TUT_CAMERA_LOOK5, TUT_CAMERA_LOOK6, CAMERA_SPEED, CAMERA_MOVE);
@@ -386,12 +347,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    {
 				// Tutorial Step 5
 				gsTutorialLeftTime[playerid] = 5;
-                if (gsTutorialTimer[playerid] != INVALID_VALUE)
-				{
-					KillTimer(gsTutorialTimer[playerid]);
-					gsTutorialTimer[playerid] = INVALID_VALUE;
-				}
-                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 	            ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS6, TUT_CAMERA_POS5, CAMERA_SPEED, CAMERA_MOVE);
@@ -412,7 +367,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				// Tutorial Step 7
 				gsTutorialLeftTime[playerid] = 5;
-                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS6, TUT_CAMERA_POS7, CAMERA_SPEED, CAMERA_MOVE);
 				InterpolateCameraLookAt(playerid, TUT_CAMERA_LOOK6, TUT_CAMERA_LOOK7, CAMERA_SPEED, CAMERA_MOVE);
@@ -425,12 +379,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    {
 				// Tutorial Step 6
 				gsTutorialLeftTime[playerid] = 5;
-                if (gsTutorialTimer[playerid] != INVALID_VALUE)
-				{
-					KillTimer(gsTutorialTimer[playerid]);
-					gsTutorialTimer[playerid] = INVALID_VALUE;
-				}
-                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 	            ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 	            InterpolateCameraPos(playerid, TUT_CAMERA_POS7, TUT_CAMERA_POS6, CAMERA_SPEED, CAMERA_MOVE);
@@ -451,7 +399,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				// Tutorial Step 8
 				gsTutorialLeftTime[playerid] = 5;
-                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS7, TUT_CAMERA_POS8, CAMERA_SPEED, CAMERA_MOVE);
 				InterpolateCameraLookAt(playerid, TUT_CAMERA_LOOK7, TUT_CAMERA_LOOK8, CAMERA_SPEED, CAMERA_MOVE);
@@ -464,12 +411,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    {
 				// Tutorial Step 7
 				gsTutorialLeftTime[playerid] = 5;
-                if (gsTutorialTimer[playerid] != INVALID_VALUE)
-				{
-					KillTimer(gsTutorialTimer[playerid]);
-					gsTutorialTimer[playerid] = INVALID_VALUE;
-				}
-                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 	            ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 	            InterpolateCameraPos(playerid, TUT_CAMERA_POS8, TUT_CAMERA_POS7, CAMERA_SPEED, CAMERA_MOVE);
@@ -490,7 +431,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				// Tutorial Step 9
 				gsTutorialLeftTime[playerid] = 5;
-                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS8, TUT_CAMERA_POS9, CAMERA_SPEED, CAMERA_MOVE);
 				InterpolateCameraLookAt(playerid, TUT_CAMERA_LOOK8, TUT_CAMERA_LOOK9, CAMERA_SPEED, CAMERA_MOVE);
@@ -503,12 +443,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    {
 				// Tutorial Step 8
 				gsTutorialLeftTime[playerid] = 5;
-                if (gsTutorialTimer[playerid] != INVALID_VALUE)
-				{
-					KillTimer(gsTutorialTimer[playerid]);
-					gsTutorialTimer[playerid] = INVALID_VALUE;
-				}
-                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 	            ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 	            InterpolateCameraPos(playerid, TUT_CAMERA_POS9, TUT_CAMERA_POS8, CAMERA_SPEED, CAMERA_MOVE);
@@ -529,7 +463,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				// Tutorial Step 10
 				gsTutorialLeftTime[playerid] = 5;
-                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS9, TUT_CAMERA_POS10, CAMERA_SPEED, CAMERA_MOVE);
 				InterpolateCameraLookAt(playerid, TUT_CAMERA_LOOK9, TUT_CAMERA_LOOK10, CAMERA_SPEED, CAMERA_MOVE);
@@ -542,12 +475,6 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    {
 				// Tutorial Step 9
 				gsTutorialLeftTime[playerid] = 5;
-                if (gsTutorialTimer[playerid] != INVALID_VALUE)
-				{
-					KillTimer(gsTutorialTimer[playerid]);
-					gsTutorialTimer[playerid] = INVALID_VALUE;
-				}
-                gsTutorialTimer[playerid] = SetTimerEx("NextStepTutorial", 1000, true, "i", playerid);
 
 	            ClearChatBox(playerid, DEFAULT_CLEAR_LINES);
 				InterpolateCameraPos(playerid, TUT_CAMERA_POS10, TUT_CAMERA_POS9, CAMERA_SPEED, CAMERA_MOVE);
