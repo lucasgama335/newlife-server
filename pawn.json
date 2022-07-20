@@ -5,7 +5,6 @@
 	"output": "gamemodes/main.amx",
 	"dependencies": [
 		"pawn-lang/samp-stdlib",
-		"pawn-lang/sa-mp-fixes",
 		"pawn-lang/YSI-Includes",
 		"Zeex/samp-plugin-crashdetect:v4.20",
 		"pBlueG/SA-MP-MySQL:R41-4",
@@ -22,8 +21,8 @@
 		"port": 7777,
 		"hostname": "NewLife RPG",
 		"maxplayers": 50,
-		"language": "Portuguï¿½s BR/PT",
-		"mapname": "San Andreas",
+		"language": "Português BR/PT",
+		"mapname": "Brasil RPG",
 		"weburl": "www.nlrpg.forumeiros.com",
 		"gamemodetext": "main",
 		"announce": true,

@@ -4,25 +4,16 @@
 /*==============================================================================
 	Library Predefinitions
 ==============================================================================*/
-// #define FIXES_Single 1
-// #define FIXES_ServerVarMsg 0
-
 #if defined MAX_PLAYERS
-#undef MAX_PLAYERS
-#define MAX_PLAYERS   50
+	#undef MAX_PLAYERS
+	#define MAX_PLAYERS   50
 #endif
 
 #define YSI_NO_HEAP_MALLOC
 
-#if !defined IsValidVehicle
-    native IsValidVehicle(vehicleid);
-#endif
-
-
 /*==============================================================================
 	Libraries and respective links to their release pages
 ==============================================================================*/
-// #include <fixes>						// By Y_Less:				https://github.com/pawn-lang/sa-mp-fixes (have a bug on android, show a empty dialog)
 #include <a_mysql>						// By pBlueG:				https://github.com/pBlueG/SA-MP-MySQL
 #include <samp_bcrypt>					// By LassiR				https://github.com/LassiR/bcrypt-samp
 #include <sscanf2>						// By Y_Less:				https://github.com/Y-Less/sscanf
