@@ -4,9 +4,7 @@
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 
-//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-
-//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+//------------------------- Timers (Timers used in the module.) -------------------------
 function:RestartServer()
 {
 	SendClientMessageToAll(COLOR_YELLOW, "[Servidor]: Salvamento de dados concluído.");
@@ -15,6 +13,10 @@ function:RestartServer()
 	SendRconCommand("gmx");
 	return 1;
 }
+
+//------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+
+//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
@@ -33,6 +35,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	return 1;
 }
 
+//------------------------- Commands (Module related commands) -------------------------
 YCMD:gmx(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < HELPER_OWNER)

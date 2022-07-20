@@ -24,7 +24,10 @@ static gsStatusInfo[MAX_PLAYERS][p_STATUS_DATA];
 // ============== SAVE DB INFO ============== //
 stock Player_SaveStatusData(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     new query_string[177];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
@@ -51,21 +54,27 @@ stock Player_ResetStatusData(playerid)
     gsStatusInfo[playerid][p_PAYDAY_TIME] = 3600;
     gsStatusInfo[playerid][p_HUNGRY] = 100;
     gsStatusInfo[playerid][p_DRINK] = 100;
-    return gsStatusInfo[playerid];
+    return 1;
 }
 
 // ============== JAIL ACCESSORS ============== //
 // Getters
 stock Player_GetJailed(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsStatusInfo[playerid][p_JAILED];
 }
 
 stock Player_GetJailTime(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsStatusInfo[playerid][p_JAIL_TIME];
 }
@@ -73,23 +82,34 @@ stock Player_GetJailTime(playerid)
 // Setters
 stock Player_SetJailed(playerid, value)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsStatusInfo[playerid][p_JAILED] = value;
+    gsStatusInfo[playerid][p_JAILED] = value;
+    return 1;
 }
 
 stock Player_SetJailTime(playerid, value)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsStatusInfo[playerid][p_JAIL_TIME] = value;
+    gsStatusInfo[playerid][p_JAIL_TIME] = value;
+    return 1;
 }
 
 // ============== HUNGRY ACCESSORS ============== //
 // Getters
 stock Player_GetHungry(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsStatusInfo[playerid][p_HUNGRY];
 }
@@ -97,16 +117,23 @@ stock Player_GetHungry(playerid)
 // Setters
 stock Player_SetHungry(playerid, value)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsStatusInfo[playerid][p_HUNGRY] = value;
+    gsStatusInfo[playerid][p_HUNGRY] = value;
+    return 1;
 }
 
 // ============== DRINK ACCESSORS ============== //
 // Getters
 stock Player_GetDrink(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsStatusInfo[playerid][p_DRINK];
 }
@@ -114,16 +141,23 @@ stock Player_GetDrink(playerid)
 // Setters
 stock Player_SetDrink(playerid, value)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsStatusInfo[playerid][p_DRINK] = value;
+    gsStatusInfo[playerid][p_DRINK] = value;
+    return 1;
 }
 
 // ============== PAYDAY ACCESSORS ============== //
 // Getters
 stock Player_GetPaydayTime(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsStatusInfo[playerid][p_PAYDAY_TIME];
 }
@@ -131,16 +165,23 @@ stock Player_GetPaydayTime(playerid)
 // Setters
 stock Player_SetPaydayTime(playerid, time)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsStatusInfo[playerid][p_PAYDAY_TIME] = time;
+    gsStatusInfo[playerid][p_PAYDAY_TIME] = time;
+    return 1;
 }
 
 // ============== WARNINGS ACCESSORS ============== //
 // Getters
 stock Player_GetWarnings(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsStatusInfo[playerid][p_WARNINGS];
 }
@@ -148,16 +189,23 @@ stock Player_GetWarnings(playerid)
 // Setters
 stock Player_SetWarnings(playerid, value)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
     
-    return gsStatusInfo[playerid][p_WARNINGS] = value;
+    gsStatusInfo[playerid][p_WARNINGS] = value;
+    return 1;
 }
 
 // ============== MUTED ACCESSORS ============== //
 // Getters
 stock Player_GetMutedTime(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsStatusInfo[playerid][p_MUTED];
 }
@@ -165,16 +213,23 @@ stock Player_GetMutedTime(playerid)
 // Setters
 stock Player_SetMutedTime(playerid, time)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsStatusInfo[playerid][p_MUTED] = time;
+    gsStatusInfo[playerid][p_MUTED] = time;
+    return 1;
 }
 
 // ============== MUTED NOOB ACCESSORS ============== //
 // Getters
 stock Player_GetNoobMutedTime(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsStatusInfo[playerid][p_MUTED_NOOB];
 }
@@ -182,9 +237,13 @@ stock Player_GetNoobMutedTime(playerid)
 // Setters
 stock Player_SetNoobMutedTime(playerid, time)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsStatusInfo[playerid][p_MUTED_NOOB] = time;
+    gsStatusInfo[playerid][p_MUTED_NOOB] = time;
+    return 1;
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------

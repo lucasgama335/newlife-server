@@ -514,21 +514,8 @@ function:OnPlayerLogin(playerid)
         return 1;
     }
 
-    SetPlayerScore(playerid, Player_GetLevel(playerid));
-    SetPlayerWantedLevel(playerid, Player_GetWantedLevel(playerid));
-    SetPlayerMoneyCustom(playerid, Player_GetMoney(playerid));
     SetPlayerVirtualWorld(playerid, 0);
     SetPlayerInterior(playerid, 0);
-    switch(Player_GetFightStyle(playerid))
-    {
-        case 0: SetPlayerFightingStyle(playerid, FIGHT_STYLE_NORMAL);
-        case 1: SetPlayerFightingStyle(playerid, FIGHT_STYLE_BOXING);
-        case 2: SetPlayerFightingStyle(playerid, FIGHT_STYLE_KUNGFU);
-        case 3: SetPlayerFightingStyle(playerid, FIGHT_STYLE_KNEEHEAD);
-        case 4: SetPlayerFightingStyle(playerid, FIGHT_STYLE_GRABKICK);
-        case 5: SetPlayerFightingStyle(playerid, FIGHT_STYLE_ELBOW);
-        default: SetPlayerFightingStyle(playerid, FIGHT_STYLE_NORMAL);
-    }
     recentlyLogged[playerid] = false;
     isRegistered[playerid] = true;
     

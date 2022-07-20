@@ -22,14 +22,6 @@ static gsBanInfo[MAX_PLAYERS][p_BAN_DATA];
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-// ============== SAVE DB INFO ============== //
-stock Player_SaveBanData(playerid)
-{
-    if (!IsPlayerConnected(playerid)) return 0;
-
-    return 1;
-}
-
 // ============== RESET INFO ============== //
 stock Player_ResetBanData(playerid)
 {
@@ -39,22 +31,28 @@ stock Player_ResetBanData(playerid)
     gsBanInfo[playerid][p_REASON] = EOS;
     gsBanInfo[playerid][p_ADMIN_NAME] = EOS;
     gsBanInfo[playerid][p_BAN_FOREVER] = false;
-    return gsBanInfo[playerid];
+    return 1;
 }
 
 // ============== BAN STATUS INFO ============== //
 // Getters
 stock Player_GetBanId(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
-
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
+    
     return gsBanInfo[playerid][p_BAN_ID];
 }
 
 // Setters
 stock Player_SetBanId(playerid, banId)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
     gsBanInfo[playerid][p_BAN_ID] = banId;
     return 1;
@@ -64,7 +62,10 @@ stock Player_SetBanId(playerid, banId)
 // Getters
 stock Player_GetBanPlayerId(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsBanInfo[playerid][p_PLAYER_ID];
 }
@@ -72,7 +73,10 @@ stock Player_GetBanPlayerId(playerid)
 // Setters
 stock Player_SetBanPlayerId(playerid, id)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     gsBanInfo[playerid][p_PLAYER_ID] = id;
     return 1;
@@ -82,7 +86,10 @@ stock Player_SetBanPlayerId(playerid, id)
 // Getters
 stock Player_GetBanAdminId(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsBanInfo[playerid][p_ADMIN_ID];
 }
@@ -97,7 +104,10 @@ stock Player_GetBanAdminName(playerid)
 // Setters
 stock Player_SetBanAdminId(playerid, id)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     gsBanInfo[playerid][p_ADMIN_ID] = id;
     return 1;
@@ -105,7 +115,10 @@ stock Player_SetBanAdminId(playerid, id)
 
 stock Player_SetBanAdminName(playerid, const string[])
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     format(gsBanInfo[playerid][p_ADMIN_NAME], (MAX_PLAYER_NAME + 1), "%s", string);
     return 1;
@@ -123,7 +136,10 @@ stock Player_GetBanIp(playerid)
 // Setters
 stock Player_SetBanIp(playerid, const ip[])
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     format(gsBanInfo[playerid][p_PLAYER_IP], MAX_IP_STRING, "%s", ip);
     return 1;
@@ -176,7 +192,10 @@ stock Player_GetBanReason(playerid)
 // Setters
 stock Player_SetBanReason(playerid, const reason[])
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     format(gsBanInfo[playerid][p_REASON], MAX_REASON_STRING, "%s", reason);
     return 1;

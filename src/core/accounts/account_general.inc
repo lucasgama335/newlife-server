@@ -32,7 +32,10 @@ static Timestamp:gsLastLoginTimeTemp[MAX_PLAYERS];
 // ============== SAVE DB INFO ============== //
 stock Player_SaveGeneralData(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     new query_string[425];
     Player_UpdateIp(playerid);
@@ -69,14 +72,17 @@ stock Player_ResetGeneralData(playerid)
     gsGeneralInfo[playerid][p_IP] = EOS;
     gsPlayerIsUsingAndroid[playerid] = false;
     gsPlayerIsLogged[playerid] = false;
-    return gsGeneralInfo[playerid];
+    return 1;
 }
 
 // ============== ID ACCESSORS ============== //
 // Getters
 stock Player_GetId(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsGeneralInfo[playerid][p_ID];
 }
@@ -84,26 +90,37 @@ stock Player_GetId(playerid)
 // Setters
 stock Player_SetId(playerid, id)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsGeneralInfo[playerid][p_ID] = id;
+    gsGeneralInfo[playerid][p_ID] = id;
+    return 1;
 }
 
 // ============== TUTORIAL ACCESSORS ============== //
 // Getters
 stock bool:Player_GetTutorialStatus(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
     return gsGeneralInfo[playerid][p_TUTORIAL];
 }
 
 // Setters
-stock bool:Player_SetTutorialStatus(playerid, bool:status)
+stock Player_SetTutorialStatus(playerid, bool:status)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsGeneralInfo[playerid][p_TUTORIAL] = status;
+    gsGeneralInfo[playerid][p_TUTORIAL] = status;
+    return 1;
 }
 
 // ============== LAST LOGIN ACCESSORS ============== //
@@ -121,7 +138,10 @@ stock Timestamp:Player_GetLastLoginTemp(playerid)
 
 stock Player_GetLastConnectedTime(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsGeneralInfo[playerid][p_LAST_CONNECTED_TIME];
 }
@@ -129,7 +149,10 @@ stock Player_GetLastConnectedTime(playerid)
 // Setters
 stock Player_SetLastLogin(playerid, Timestamp:timestamp)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     gsGeneralInfo[playerid][p_LAST_LOGIN_TIME] = timestamp;
     return 1;
@@ -137,7 +160,10 @@ stock Player_SetLastLogin(playerid, Timestamp:timestamp)
 
 stock Player_UpdateLastLoginTemp(playerid, Timestamp:time)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
     
     gsLastLoginTimeTemp[playerid] = time;
     return 1;
@@ -145,16 +171,23 @@ stock Player_UpdateLastLoginTemp(playerid, Timestamp:time)
 
 stock Player_SetLastConnectedTime(playerid, timestamp)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsGeneralInfo[playerid][p_LAST_CONNECTED_TIME] = timestamp;
+    gsGeneralInfo[playerid][p_LAST_CONNECTED_TIME] = timestamp;
+    return 1;
 }
 
 // ============== LAST POSITION ACCESSORS ============== //
 // Getters
 stock Player_GetLastPosition(playerid, &Float:x, &Float:y, &Float:z, &interior, &vW)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     x = gsGeneralInfo[playerid][p_LAST_POSX];
     y = gsGeneralInfo[playerid][p_LAST_POSY];
@@ -166,7 +199,10 @@ stock Player_GetLastPosition(playerid, &Float:x, &Float:y, &Float:z, &interior, 
 
 stock Player_GetLastPosAngle(playerid, &Float:a)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     a = gsGeneralInfo[playerid][p_LAST_POSA];
     return 1;
@@ -175,7 +211,10 @@ stock Player_GetLastPosAngle(playerid, &Float:a)
 // Setters
 stock Player_SetLastPosition(playerid, Float:setX, Float:setY, Float:setZ, Float:setA, interiorId, vW)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     gsGeneralInfo[playerid][p_LAST_INTERIOR] = interiorId;
     gsGeneralInfo[playerid][p_LAST_VIRTUAL_WORLD] = vW;
@@ -188,7 +227,10 @@ stock Player_SetLastPosition(playerid, Float:setX, Float:setY, Float:setZ, Float
 
 stock Player_UpdateLastPosition(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     new Float:pos_x, Float:pos_y, Float:pos_z, Float:pos_a;
     GetPlayerPos(playerid, pos_x, pos_y, pos_z);
@@ -212,42 +254,60 @@ stock e_INTERIOR_LOCALES:Player_GetInteriorLocale(playerid)
 }
 
 // Setters
-stock e_INTERIOR_LOCALES:Player_SetInteriorLocale(playerid, e_INTERIOR_LOCALES:interiorId)
+stock Player_SetInteriorLocale(playerid, e_INTERIOR_LOCALES:interiorId)
 {
-    if (!IsPlayerConnected(playerid)) return NO_INTERIOR;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsGeneralInfo[playerid][p_LAST_INTERIOR_LOCALE] = interiorId;
+    gsGeneralInfo[playerid][p_LAST_INTERIOR_LOCALE] = interiorId;
+    return 1;
 }
 
 // ============== TEMPORARY ACCESSORS ============== //
 // Getters
 stock bool:Player_GetUsingAndroidStatus(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
     return gsPlayerIsUsingAndroid[playerid];
 }
 
 stock bool:Player_GetLoggedStatus(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
     return gsPlayerIsLogged[playerid];
 }
 
 // Setters
-stock bool:Player_SetUsingAndroidStatus(playerid, bool:status)
+stock Player_SetUsingAndroidStatus(playerid, bool:status)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsPlayerIsUsingAndroid[playerid] = status;
+    gsPlayerIsUsingAndroid[playerid] = status;
+    return 1;
 }
 
-stock bool:Player_SetLoggedStatus(playerid, bool:status)
+stock Player_SetLoggedStatus(playerid, bool:status)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
     
-    return gsPlayerIsLogged[playerid] = status;
+    gsPlayerIsLogged[playerid] = status;
+    return 1;
 }
 
 // ============== LAST LOGIN ACCESSORS ============== //

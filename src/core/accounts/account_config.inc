@@ -30,7 +30,10 @@ static gsConfigInfo[MAX_PLAYERS][p_CONFIG_DATA];
 // ============== SAVE DB INFO ============== //
 stock Player_SaveConfigData(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     new query_string[329];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
@@ -68,31 +71,41 @@ stock Player_ResetConfigData(playerid)
     gsConfigInfo[playerid][p_NOOB_CHAT] = true;
     gsConfigInfo[playerid][p_LEADER_CHAT] = true;
     gsConfigInfo[playerid][p_STREAM_MUSIC] = true;
-    return gsConfigInfo[playerid];
+    return 1;
 }
 
 // ============== TAG ACCESSORS ============== //
 // Getters
 stock e_TAGS:Player_GetTag(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return NO_TAG;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return NO_TAG;
+    }
 
     return gsConfigInfo[playerid][p_TAG];
 }
 
 // Setters
-stock e_TAGS:Player_SetTag(playerid, e_TAGS:tag)
+stock Player_SetTag(playerid, e_TAGS:tag)
 {
-    if (!IsPlayerConnected(playerid)) return NO_TAG;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsConfigInfo[playerid][p_TAG] = tag;
+    gsConfigInfo[playerid][p_TAG] = tag;
+    return 1;
 }
 
 // ============== CITY ACCESSORS ============== //
 // Getters
 stock Player_GetCity(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsConfigInfo[playerid][p_CITY_SPAWN];
 }
@@ -100,16 +113,23 @@ stock Player_GetCity(playerid)
 // Setters
 stock Player_SetCity(playerid, type)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsConfigInfo[playerid][p_CITY_SPAWN] = type;
+    gsConfigInfo[playerid][p_CITY_SPAWN] = type;
+    return 1;
 }
 
 // ============== SPAWN ACCESSORS ============== //
 // Getters
 stock Player_GetSpawn(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsConfigInfo[playerid][p_SPAWN_PLACE];
 }
@@ -117,16 +137,23 @@ stock Player_GetSpawn(playerid)
 // Setters
 stock Player_SetSpawn(playerid, type)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsConfigInfo[playerid][p_SPAWN_PLACE] = type;
+    gsConfigInfo[playerid][p_SPAWN_PLACE] = type;
+    return 1;
 }
 
 // ============== DOCUMENT ACCESSORS ============== //
 // Getters
 stock Player_GetDocument(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsConfigInfo[playerid][p_DOCUMENT_TYPE];
 }
@@ -134,16 +161,23 @@ stock Player_GetDocument(playerid)
 // Setters
 stock Player_SetDocument(playerid, type)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsConfigInfo[playerid][p_DOCUMENT_TYPE] = type;
+    gsConfigInfo[playerid][p_DOCUMENT_TYPE] = type;
+    return 1;
 }
 
 // ============== SPEEDOMETER ACCESSORS ============== //
 // Getters
 stock Player_GetSpeedometer(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsConfigInfo[playerid][p_SPEEDOMETER_TYPE];
 }
@@ -151,16 +185,23 @@ stock Player_GetSpeedometer(playerid)
 // Setters
 stock Player_SetSpeedometer(playerid, type)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsConfigInfo[playerid][p_SPEEDOMETER_TYPE] = type;
+    gsConfigInfo[playerid][p_SPEEDOMETER_TYPE] = type;
+    return 1;
 }
 
 // ============== TRACKER ACCESSORS ============== //
 // Getters
 stock Player_GetTracker(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsConfigInfo[playerid][p_TRACKER_TYPE];
 }
@@ -168,16 +209,23 @@ stock Player_GetTracker(playerid)
 // Setters
 stock Player_SetTracker(playerid, type)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsConfigInfo[playerid][p_TRACKER_TYPE] = type;
+    gsConfigInfo[playerid][p_TRACKER_TYPE] = type;
+    return 1;
 }
 
 // ============== HITSOUND ACCESSORS ============== //
 // Getters
 stock Player_GetHitSound(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsConfigInfo[playerid][p_HIT_SOUND_TYPE];
 }
@@ -185,16 +233,23 @@ stock Player_GetHitSound(playerid)
 // Setters
 stock Player_SetHitSound(playerid, type)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsConfigInfo[playerid][p_HIT_SOUND_TYPE] = type;
+    gsConfigInfo[playerid][p_HIT_SOUND_TYPE] = type;
+    return 1;
 }
 
 // ============== SCREEN TYPE ACCESSORS ============== //
 // Getters
 stock e_SCREENS:Player_GetScreenSize(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return SCREEN_INVALID;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return SCREEN_INVALID;
+    }
 
     return gsConfigInfo[playerid][p_SCREEN_TYPE];
 }
@@ -202,7 +257,10 @@ stock e_SCREENS:Player_GetScreenSize(playerid)
 // Setters
 stock Player_SetScreenSize(playerid, e_SCREENS:type)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     gsConfigInfo[playerid][p_SCREEN_TYPE] = type;
     return 1;
@@ -212,102 +270,144 @@ stock Player_SetScreenSize(playerid, e_SCREENS:type)
 // Getters
 stock bool:Player_GetTerritorialChatStatus(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
     return gsConfigInfo[playerid][p_TERRITORIAL_CHAT];
 }
 
 // Setters
-stock bool:Player_SetTerritorialChatStatus(playerid, bool:status)
+stock Player_SetTerritorialChatStatus(playerid, bool:status)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsConfigInfo[playerid][p_TERRITORIAL_CHAT] = status;
+    gsConfigInfo[playerid][p_TERRITORIAL_CHAT] = status;
+    return 1;
 }
 
 // ============== VIP CHAT ACCESSORS ============== //
 // Getters
 stock bool:Player_GetVipChatStatus(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
     return gsConfigInfo[playerid][p_VIP_CHAT];
 }
 
 // Setters
-stock bool:Player_SetVipChatStatus(playerid, bool:status)
+stock Player_SetVipChatStatus(playerid, bool:status)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsConfigInfo[playerid][p_VIP_CHAT] = status;
+    gsConfigInfo[playerid][p_VIP_CHAT] = status;
+    return 1;
 }
 
 // ============== SOCIO CHAT ACCESSORS ============== //
 // Getters
 stock bool:Player_GetSocioChatStatus(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
     return gsConfigInfo[playerid][p_SOCIO_CHAT];
 }
 
 // Setters
-stock bool:Player_SetSocioChatStatus(playerid, bool:status)
+stock Player_SetSocioChatStatus(playerid, bool:status)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsConfigInfo[playerid][p_SOCIO_CHAT] = status;
+    gsConfigInfo[playerid][p_SOCIO_CHAT] = status;
+    return 1;
 }
 
 // ============== NOOB CHAT ACCESSORS ============== //
 // Getters
 stock bool:Player_GetNoobChatStatus(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
     return gsConfigInfo[playerid][p_NOOB_CHAT];
 }
 
 // Setters
-stock bool:Player_SetNoobChatStatus(playerid, bool:status)
+stock Player_SetNoobChatStatus(playerid, bool:status)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsConfigInfo[playerid][p_NOOB_CHAT] = status;
+    gsConfigInfo[playerid][p_NOOB_CHAT] = status;
+    return 1;
 }
 
 // ============== LEADER CHAT ACCESSORS ============== //
 // Getters
 stock bool:Player_GetLeaderChatStatus(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
     return gsConfigInfo[playerid][p_LEADER_CHAT];
 }
 
 // Setters
-stock bool:Player_SetLeaderChatStatus(playerid, bool:status)
+stock Player_SetLeaderChatStatus(playerid, bool:status)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsConfigInfo[playerid][p_LEADER_CHAT] = status;
+    gsConfigInfo[playerid][p_LEADER_CHAT] = status;
+    return 1;
 }
 
 // ============== STREAM MUSIC CHAT ACCESSORS ============== //
 // Getters
 stock bool:Player_GetMusicStreamStatus(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
     return gsConfigInfo[playerid][p_STREAM_MUSIC];
 }
 
 // Setters
-stock bool:Player_SetMusicStreamStatus(playerid, bool:status)
+stock Player_SetMusicStreamStatus(playerid, bool:status)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsConfigInfo[playerid][p_STREAM_MUSIC] = status;
+    gsConfigInfo[playerid][p_STREAM_MUSIC] = status;
+    return 1;
 }
 
 // ============== AUTO UPDATE ============== //

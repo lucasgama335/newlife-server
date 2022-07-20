@@ -23,7 +23,10 @@ static gsMoneyInfo[MAX_PLAYERS][p_MONEY_DATA];
 // ============== SAVE DB INFO ============== //
 stock Player_SaveMoneyData(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     new query_string[193];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
@@ -45,14 +48,18 @@ stock Player_SaveMoneyData(playerid)
 stock Player_ResetMoneyData(playerid)
 {
     static const scEmptyData[p_MONEY_DATA];
-    return gsMoneyInfo[playerid] = scEmptyData;
+    gsMoneyInfo[playerid] = scEmptyData;
+    return 1;
 }
 
 // ============== MONEY ACCESSORS ============== //
 // Getters
 stock Player_GetMoney(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsMoneyInfo[playerid][p_MONEY];
 }
@@ -60,9 +67,13 @@ stock Player_GetMoney(playerid)
 // Setters
 stock Player_SetMoney(playerid, money)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     gsMoneyInfo[playerid][p_MONEY] = money;
+    GivePlayerMoney(playerid, gsMoneyInfo[playerid][p_MONEY]);
     if (Player_GetLoggedStatus(playerid))
     {
         Player_SaveMoneyData(playerid);
@@ -74,14 +85,20 @@ stock Player_SetMoney(playerid, money)
 // Getters
 stock Player_GetIllegalMoney(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsMoneyInfo[playerid][p_ILLEGAL_MONEY];
 }
 
 stock Player_GetIllegalSafeMoney(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsMoneyInfo[playerid][p_ILLEGAL_SAFE_MONEY];
 }
@@ -89,40 +106,58 @@ stock Player_GetIllegalSafeMoney(playerid)
 // Setters
 stock Player_SetIllegalMoney(playerid, money)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsMoneyInfo[playerid][p_ILLEGAL_MONEY] = money;
+    gsMoneyInfo[playerid][p_ILLEGAL_MONEY] = money;
+    return 1;
 }
 
 stock Player_SetIllegalSafeMoney(playerid, money)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsMoneyInfo[playerid][p_ILLEGAL_SAFE_MONEY] = money;
+    gsMoneyInfo[playerid][p_ILLEGAL_SAFE_MONEY] = money;
+    return 1;
 }
 
 // ============== BANK STATUS ACCESSORS ============== //
 // Getters
 stock bool:Player_GetBankStatus(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
     return gsMoneyInfo[playerid][p_BANK_ACCOUNT];
 }
 
 // Setters
-stock bool:Player_SetBankStatus(playerid, bool:status)
+stock Player_SetBankStatus(playerid, bool:status)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
-    return gsMoneyInfo[playerid][p_BANK_ACCOUNT] = status;
+    gsMoneyInfo[playerid][p_BANK_ACCOUNT] = status;
+    return 1;
 }
 
 // ============== BANK MONEY ACCESSORS ============== //
 // Getters
 stock Player_GetBankMoney(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsMoneyInfo[playerid][p_BANK_MONEY];
 }
@@ -130,16 +165,23 @@ stock Player_GetBankMoney(playerid)
 // Setters
 stock Player_SetBankMoney(playerid, money)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsMoneyInfo[playerid][p_BANK_MONEY] = money;
+    gsMoneyInfo[playerid][p_BANK_MONEY] = money;
+    return 1;
 }
 
 // ============== SALARY ACCESSORS ============== //
 // Getters
 stock Player_GetSalary(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsMoneyInfo[playerid][p_SALARY];
 }
@@ -147,16 +189,23 @@ stock Player_GetSalary(playerid)
 // Setters
 stock Player_SetSalary(playerid, money)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsMoneyInfo[playerid][p_SALARY] = money;
+    gsMoneyInfo[playerid][p_SALARY] = money;
+    return 1;
 }
 
 // ============== COINS ACCESSORS ============== //
 // Getters
 stock Player_GetCoins(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsMoneyInfo[playerid][p_COINS];
 }
@@ -164,9 +213,13 @@ stock Player_GetCoins(playerid)
 // Setters
 stock Player_SetCoins(playerid, coins)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
     
-    return gsMoneyInfo[playerid][p_COINS] = coins;
+    gsMoneyInfo[playerid][p_COINS] = coins;
+    return 1;
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------

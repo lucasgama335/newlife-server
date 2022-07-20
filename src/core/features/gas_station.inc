@@ -58,7 +58,7 @@ static stock GasStationFinishFuel(playerid, price)
         KillTimer(gsFuelTimer[playerid]);
 		gsFuelTimer[playerid] = INVALID_VALUE;
 	}
-	SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - price));
+	Player_SetMoney(playerid, (Player_GetMoney(playerid) - price));
 	TogglePlayerControllable(playerid, true);
 	SendClientMessage(playerid, COLOR_YELLOW2, "[Posto de Gasolina]: O tanque do seu veículo foi reabastecido completamente.");
 	HideFuelTextDraw(playerid);

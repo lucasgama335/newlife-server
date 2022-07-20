@@ -23,7 +23,10 @@ static gsScoreInfo[MAX_PLAYERS][p_SCORE_DATA];
 // ============== SAVE DB INFO ============== //
 stock Player_SaveScoreData(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     new query_string[200];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
@@ -47,14 +50,17 @@ stock Player_ResetScoreData(playerid)
     static const empty_data[p_SCORE_DATA];
     gsScoreInfo[playerid] = empty_data;
     gsScoreInfo[playerid][p_LEVEL] = 1;
-    return gsScoreInfo[playerid];
+    return 1;
 }
 
 // ============== LEVEL ACCESSORS ============== //
 // Getters
 stock Player_GetLevel(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsScoreInfo[playerid][p_LEVEL];
 }
@@ -62,17 +68,24 @@ stock Player_GetLevel(playerid)
 // Setters
 stock Player_SetLevel(playerid, level)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     SetPlayerScore(playerid, level);
-    return gsScoreInfo[playerid][p_LEVEL] = level;
+    gsScoreInfo[playerid][p_LEVEL] = level;
+    return 1;
 }
 
 // ============== HOURS PLAYED ACCESSORS ============== //
 // Getters
 stock Player_GetHoursPlayed(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsScoreInfo[playerid][p_HOURS_PLAYED];
 }
@@ -80,16 +93,23 @@ stock Player_GetHoursPlayed(playerid)
 // Setters
 stock Player_SetHoursPlayed(playerid, quantity)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsScoreInfo[playerid][p_HOURS_PLAYED] = quantity;
+    gsScoreInfo[playerid][p_HOURS_PLAYED] = quantity;
+    return 1;
 }
 
 // ============== EXPERIENCE ACCESSORS ============== //
 // Getters
 stock Player_GetExperience(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsScoreInfo[playerid][p_EXPERIENCE];
 }
@@ -97,16 +117,23 @@ stock Player_GetExperience(playerid)
 // Setters
 stock Player_SetExperience(playerid, experience)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsScoreInfo[playerid][p_EXPERIENCE] = experience;
+    gsScoreInfo[playerid][p_EXPERIENCE] = experience;
+    return 1;
 }
 
 // ============== DEATHS ACCESSORS ============== //
 // Getters
 stock Player_GetDeaths(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsScoreInfo[playerid][p_DEATHS];
 }
@@ -114,16 +141,23 @@ stock Player_GetDeaths(playerid)
 // Setters
 stock Player_SetDeaths(playerid, deaths)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsScoreInfo[playerid][p_DEATHS] = deaths;
+    gsScoreInfo[playerid][p_DEATHS] = deaths;
+    return 1;
 }
 
 // ============== KILLS ACCESSORS ============== //
 // Getters
 stock Player_GetKills(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsScoreInfo[playerid][p_KILLS];
 }
@@ -131,16 +165,23 @@ stock Player_GetKills(playerid)
 // Setters
 stock Player_SetKills(playerid, kills)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsScoreInfo[playerid][p_KILLS] = kills;
+    gsScoreInfo[playerid][p_KILLS] = kills;
+    return 1;
 }
 
 // ============== WANTED LEVEL ACCESSORS ============== //
 // Getters
 stock Player_GetWantedLevel(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsScoreInfo[playerid][p_WANTED_LEVEL];
 }
@@ -148,17 +189,24 @@ stock Player_GetWantedLevel(playerid)
 // Setters
 stock Player_SetWantedLevel(playerid, level)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
     
     SetPlayerWantedLevel(playerid, level);
-    return gsScoreInfo[playerid][p_WANTED_LEVEL] = level;
+    gsScoreInfo[playerid][p_WANTED_LEVEL] = level;
+    return 1;
 }
 
 // ============== NOOB ANSERS ACCESSORS ============== //
 // Getters
 stock Player_GetNoobAnswers(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsScoreInfo[playerid][p_NOOB_ANSWERS];
 }
@@ -166,9 +214,13 @@ stock Player_GetNoobAnswers(playerid)
 // Setters
 stock Player_SetNoobAnswers(playerid, quantity)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
     
-    return gsScoreInfo[playerid][p_NOOB_ANSWERS] = quantity;
+    gsScoreInfo[playerid][p_NOOB_ANSWERS] = quantity;
+    return 1;
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------

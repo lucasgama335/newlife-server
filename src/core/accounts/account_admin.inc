@@ -40,8 +40,11 @@ static gsAdminPlayerSpectated[MAX_PLAYERS];
 // ============== SAVE DB INFO ============== //
 stock Player_SaveAdminData(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
-
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
+    
     new query_string[123];
     Player_UpdateIp(playerid);
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
@@ -61,35 +64,47 @@ stock Player_ResetAdminData(playerid)
 {
     static const empty_data[p_ADMIN_DATA];
     gsAdminInfo[playerid] = empty_data;
-    return gsAdminInfo[playerid];
+    return 1;
 }
 
 // ============== ADMIN ACCESSORS ============== //
 // Getters
 stock e_ADMIN_LEVELS:Player_GetAdminLevel(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return NO_ADMIN;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return NO_ADMIN;
+    }
 
     return gsAdminInfo[playerid][p_ADMIN];
 }
 
 stock Player_GetAdminAttendances(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return NO_ADMIN;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return NO_ADMIN;
+    }
 
     return gsAdminInfo[playerid][p_ATTENDANCE];
 }
 
 stock Player_GetAdminRating(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsAdminInfo[playerid][p_RATING];
 }
 
 stock Player_GetAdminNumberRating(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsAdminInfo[playerid][p_NUMBER_RATING];
 }
@@ -97,121 +112,176 @@ stock Player_GetAdminNumberRating(playerid)
 // Setters
 stock Player_SetAdminLevel(playerid, e_ADMIN_LEVELS:level, bool:save)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     gsAdminInfo[playerid][p_ADMIN] = level;
-    if (save) Player_SaveAdminData(playerid);
+    if (save) 
+    {
+        Player_SaveAdminData(playerid);
+    }
     return 1;
 }
 
 stock Player_SetAdminAttendances(playerid, value)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsAdminInfo[playerid][p_ATTENDANCE] = value;
+    gsAdminInfo[playerid][p_ATTENDANCE] = value;
+    return 1;
 }
 
 stock Player_SetAdminRating(playerid, value)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsAdminInfo[playerid][p_RATING] = value;
+    gsAdminInfo[playerid][p_RATING] = value;
+    return 1;
 }
 
 stock Player_SetAdminNumberRating(playerid, value)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsAdminInfo[playerid][p_NUMBER_RATING] = value;
+    gsAdminInfo[playerid][p_NUMBER_RATING] = value;
+    return 1;
 }
 
 // ============== WORK MODE ACCESSORS ============== //
 // Getters
 stock bool:Admin_GetWorkStatus(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
     return gsAdminWorkMode[playerid];
 }
 
 // Setters
-stock bool:Admin_SetWorkStatus(playerid, bool:status)
+stock Admin_SetWorkStatus(playerid, bool:status)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
-    return gsAdminWorkMode[playerid] = status;
+    gsAdminWorkMode[playerid] = status;
+    return 1;
 }
 
 // ============== AFK MODE ACCESSORS ============== //
 // Getters
 stock bool:Admin_GetAfkStatus(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
     return gsAdminAfkMode[playerid];
 }
 
 // Setters
-stock bool:Admin_SetAfkStatus(playerid, bool:status)
+stock Admin_SetAfkStatus(playerid, bool:status)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
-    return gsAdminAfkMode[playerid] = status;
+    gsAdminAfkMode[playerid] = status;
+    return 1;
 }
 
 // ============== HIDE MODE ACCESSORS ============== //
 // Getters
 stock bool:Admin_GetHideStatus(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
     return gsAdminHideMode[playerid];
 }
 
 // Setters
-stock bool:Admin_SetHideStatus(playerid, bool:status)
+stock Admin_SetHideStatus(playerid, bool:status)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
-    return gsAdminHideMode[playerid] = status;
+    gsAdminHideMode[playerid] = status;
+    return 1;
 }
 
 // ============== VIEW ALL PRIVATE MESSAGES ACCESSORS ============== //
 // Getters
 stock bool:Admin_GetViewAllPm(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
 	return gsAdminViewAllPm[playerid];
 }
 
 // Setters
-stock bool:Admin_SetViewAllPm(playerid, bool:status)
+stock Admin_SetViewAllPm(playerid, bool:status)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
-	return gsAdminViewAllPm[playerid] = status;
+	gsAdminViewAllPm[playerid] = status;
+    return 1;
 }
 
 // ============== SPECTATE ACCESSORS ============== //
 // Getters
 stock bool:Admin_GetWatchStatus(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
     return gsAdminIsWatchingPlayer[playerid];
 }
 
 stock Admin_GetPlayerSpectated(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsAdminPlayerSpectated[playerid];
 }
 
 stock Spectate_GetCoords(playerid, &Float:x, &Float:y, &Float:z, &interior, &world)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
     
     x = gsSpectateInfo[playerid][a_POSX];
     y = gsSpectateInfo[playerid][a_POSY];
@@ -222,18 +292,26 @@ stock Spectate_GetCoords(playerid, &Float:x, &Float:y, &Float:z, &interior, &wor
 }
 
 // Setters
-stock bool:Admin_SetWatchStatus(playerid, bool:status)
+stock Admin_SetWatchStatus(playerid, bool:status)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsAdminIsWatchingPlayer[playerid] = status;
+    gsAdminIsWatchingPlayer[playerid] = status;
+    return 1;
 }
 
 stock Admin_SetPlayerSpectated(playerid, id)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsAdminPlayerSpectated[playerid] = id;
+    gsAdminPlayerSpectated[playerid] = id;
+    return 1;
 }
 
 stock Spectate_SetCoords(playerid, Float:x, Float:y, Float:z, interior, world)

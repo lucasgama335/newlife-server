@@ -283,7 +283,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     gsDriveSchoolTimeToFinish[playerid] = 300;
                     gsMaxSpeedTest[playerid] = 80;
                     gsDrivingTestType[playerid] = e_DRIVING_TEST_CAR;
-                    SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 1500));
+                    Player_SetMoney(playerid, (Player_GetMoney(playerid) - 1500));
                     TeleportPlayer(playerid, -2067.2366, -92.3412, 35.1641, 0, DRIVE_SCHOOL_VEHICLES_WORLD, NO_INTERIOR);
                     SetPlayerRaceCheckpoint(playerid, 0, gsCarRouteTest[gsActualTestCheckpoint[playerid]][0], gsCarRouteTest[gsActualTestCheckpoint[playerid]][1], gsCarRouteTest[gsActualTestCheckpoint[playerid]][2], gsCarRouteTest[(gsActualTestCheckpoint[playerid] + 1)][0], gsCarRouteTest[(gsActualTestCheckpoint[playerid] + 1)][1], gsCarRouteTest[(gsActualTestCheckpoint[playerid] + 1)][2], 2.0);
                     GameTextForPlayer(playerid,"~r~siga as marcas vermelhas. ~n~ va devagar e nao bata !", 5000, 1);
@@ -321,7 +321,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     gsDriveSchoolTimeToFinish[playerid] = 300;
                     gsMaxSpeedTest[playerid] = 100;
                     gsDrivingTestType[playerid] = e_DRIVING_TEST_MOTORCYCLE;
-                    SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 1500));
+                    Player_SetMoney(playerid, (Player_GetMoney(playerid) - 1500));
                     TeleportPlayer(playerid, 1546.6271, 20.8116, 24.1406, 0, DRIVE_SCHOOL_MOTORCYCLE_WORLD, NO_INTERIOR);
                     SetPlayerRaceCheckpoint(playerid, 0, gsMotorcycleRouteTest[gsActualTestCheckpoint[playerid]][0], gsMotorcycleRouteTest[gsActualTestCheckpoint[playerid]][1], gsMotorcycleRouteTest[gsActualTestCheckpoint[playerid]][2], gsMotorcycleRouteTest[(gsActualTestCheckpoint[playerid] + 1)][0], gsMotorcycleRouteTest[(gsActualTestCheckpoint[playerid] + 1)][1], gsMotorcycleRouteTest[(gsActualTestCheckpoint[playerid] + 1)][2], 2.0);
                     GameTextForPlayer(playerid,"~r~siga as marcas vermelhas. ~n~ va devagar e nao bata !", 5000, 1);
@@ -357,7 +357,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     gsDriveSchoolTimeToFinish[playerid] = 420;
                     gsMaxSpeedTest[playerid] = 90;
                     gsDrivingTestType[playerid] = e_DRIVING_TEST_FLY;
-                    SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 3500));
+                    Player_SetMoney(playerid, (Player_GetMoney(playerid) - 3500));
                     TeleportPlayer(playerid, -1108.5317, -209.0739, 14.144, 0, DRIVE_SCHOOL_FLY_WORLD, NO_INTERIOR);
                     SetPlayerRaceCheckpoint(playerid, 4, gsFlyRouteTest[gsActualTestCheckpoint[playerid]][0], gsFlyRouteTest[gsActualTestCheckpoint[playerid]][1], gsFlyRouteTest[gsActualTestCheckpoint[playerid]][2], gsFlyRouteTest[(gsActualTestCheckpoint[playerid] + 1)][0], gsFlyRouteTest[(gsActualTestCheckpoint[playerid] + 1)][1], gsFlyRouteTest[(gsActualTestCheckpoint[playerid] + 1)][2], 4.0);
                     GameTextForPlayer(playerid,"~r~siga as marcas vermelhas. ~n~ va devagar e nao bata !", 5000, 1);
@@ -393,7 +393,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     gsDriveSchoolTimeToFinish[playerid] = 300;
                     gsMaxSpeedTest[playerid] = 100;
                     gsDrivingTestType[playerid] = e_DRIVING_TEST_BOAT;
-                    SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 3000));
+                    Player_SetMoney(playerid, (Player_GetMoney(playerid) - 3000));
                     TeleportPlayer(playerid, 2577.2090, -2202.4290, -0.2188, 0, DRIVE_SCHOOL_BOAT_WORLD, NO_INTERIOR);
                     SetPlayerRaceCheckpoint(playerid, 0, gsBoatRouteTest[gsActualTestCheckpoint[playerid]][0], gsBoatRouteTest[gsActualTestCheckpoint[playerid]][1], gsBoatRouteTest[gsActualTestCheckpoint[playerid]][2], gsBoatRouteTest[(gsActualTestCheckpoint[playerid] + 1)][0], gsBoatRouteTest[(gsActualTestCheckpoint[playerid] + 1)][1], gsBoatRouteTest[(gsActualTestCheckpoint[playerid] + 1)][2], 4.0);
                     GameTextForPlayer(playerid,"~r~siga as marcas vermelhas. ~n~ va devagar e nao bata !", 5000, 1);
@@ -429,7 +429,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     gsDriveSchoolTimeToFinish[playerid] = 300;
                     gsMaxSpeedTest[playerid] = 90;
                     gsDrivingTestType[playerid] = e_DRIVING_TEST_TRUCK;
-                    SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 2500));
+                    Player_SetMoney(playerid, (Player_GetMoney(playerid) - 2500));
                     TeleportPlayer(playerid, -2137.1187, -248.2467, 36.5156, 0, DRIVE_SCHOOL_TRUCK_WORLD, NO_INTERIOR);
                     SetPlayerRaceCheckpoint(playerid, 0, gsTruckRouteTest[gsActualTestCheckpoint[playerid]][0], gsTruckRouteTest[gsActualTestCheckpoint[playerid]][1], gsTruckRouteTest[gsActualTestCheckpoint[playerid]][2], gsTruckRouteTest[(gsActualTestCheckpoint[playerid] + 1)][0], gsTruckRouteTest[(gsActualTestCheckpoint[playerid] + 1)][1], gsTruckRouteTest[(gsActualTestCheckpoint[playerid] + 1)][2], 4.0);
                     GameTextForPlayer(playerid,"~r~siga as marcas vermelhas. ~n~ va devagar e nao bata !", 5000, 1);
@@ -464,7 +464,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                     return SendClientMessage(playerid, COLOR_INVALID, "[Atendente]: Você não possui dinheiro suficiente para retirar o porte de armas.");
                 }
 
-                SetPlayerMoneyCustom(playerid, (Player_GetMoney(playerid) - 5000));
+                Player_SetMoney(playerid, (Player_GetMoney(playerid) - 5000));
                 Player_SetGunLicense(playerid, 120);
                 Player_SaveLicensesData(playerid);
                 SendClientMessage(playerid, COLOR_LIGHTBLUE, "[Atendente]: Você adquiriu o porte de armas, você poderá acompanhar a duração utilizando: /minhaslicencas.");

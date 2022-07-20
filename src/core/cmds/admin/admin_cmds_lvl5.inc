@@ -5,9 +5,13 @@
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static gsToEditPlayer[MAX_PLAYERS];
 
-//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+//------------------------- Timers (Timers used in the module.) -------------------------
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
+
+//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+
+//------------------------- Commands (Module related commands) -------------------------
 static stock ShowPlayerEditMenu(playerid, id)
 {
 	new string[33], dialogString[142], formatedNumber[MAX_MONEY_STRING];

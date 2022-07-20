@@ -21,13 +21,16 @@ stock Player_ResetJobData(playerid)
 {
     static const scEmptyData[p_JOB_DATA];
     gsJobInfo[playerid] = scEmptyData;
-    return gsJobInfo[playerid];
+    return 1;
 }
 
 // ============== SAVE DB INFO ============== //
 stock Player_SaveJobData(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return false;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return false;
+    }
 
     new query_string[67 + 1];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
@@ -45,7 +48,10 @@ stock Player_SaveJobData(playerid)
 // Getters
 stock Player_GetJob(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsJobInfo[playerid][p_JOB];
 }
@@ -53,23 +59,33 @@ stock Player_GetJob(playerid)
 // Setters
 stock Player_SetJob(playerid, jobId)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsJobInfo[playerid][p_JOB] = jobId;
+    gsJobInfo[playerid][p_JOB] = jobId;
+    return 1;
 }
 
 // ============== ORG ACCESSORS ============== //
 // Getters
 stock Player_GetOrg(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsJobInfo[playerid][p_ORG];
 }
 
 stock Player_GetOrgRole(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsJobInfo[playerid][p_ORG_ROLE];
 }
@@ -77,7 +93,10 @@ stock Player_GetOrgRole(playerid)
 // Setters
 stock Player_SetOrg(playerid, orgId, role)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     gsJobInfo[playerid][p_ORG] = orgId;
     gsJobInfo[playerid][p_ORG_ROLE] = role;

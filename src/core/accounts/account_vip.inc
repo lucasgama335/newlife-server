@@ -19,7 +19,10 @@ static gsVipInfo[MAX_PLAYERS][p_VIP_DATA];
 // ============== SAVE DB INFO ============== //
 stock Player_SaveVipData(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     new query_string[71];
     mysql_format(Database_GetConnection(), query_string, sizeof(query_string), "UPDATE %s SET \
@@ -38,14 +41,17 @@ stock Player_ResetVipData(playerid)
 {
     static const scEmptyData[p_VIP_DATA];
     gsVipInfo[playerid] = scEmptyData;
-    return gsVipInfo[playerid];
+    return 1;
 }
 
 // ============== VIP ACCESSORS ============== //
 // Getters
 stock Player_GetVipLevel(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsVipInfo[playerid][p_VIP];
 }
@@ -53,16 +59,23 @@ stock Player_GetVipLevel(playerid)
 // Setters
 stock Player_SetVipLevel(playerid, level)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsVipInfo[playerid][p_VIP] = level;
+    gsVipInfo[playerid][p_VIP] = level;
+    return 1;
 }
 
 // ============== SOCIO ACCESSORS ============== //
 // Getters
 stock Player_GetSocioLevel(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsVipInfo[playerid][p_SOCIO];
 }
@@ -70,16 +83,23 @@ stock Player_GetSocioLevel(playerid)
 // Setters
 stock Player_SetSocioLevel(playerid, level)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsVipInfo[playerid][p_SOCIO] = level;
+    gsVipInfo[playerid][p_SOCIO] = level;
+    return 1;
 }
 
 // ============== VIP DAYS ACCESSORS ============== //
 // Getters
 stock Player_GetVipDays(playerid)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
     return gsVipInfo[playerid][p_VIP_DAYS];
 }
@@ -87,9 +107,13 @@ stock Player_GetVipDays(playerid)
 // Setters
 stock Player_SetVipDays(playerid, days)
 {
-    if (!IsPlayerConnected(playerid)) return 0;
+    if (!IsPlayerConnected(playerid)) 
+    {
+        return 0;
+    }
 
-    return gsVipInfo[playerid][p_VIP_DAYS] = days;
+    gsVipInfo[playerid][p_VIP_DAYS] = days;
+    return 1;
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------

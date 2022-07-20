@@ -4,11 +4,15 @@
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 
-//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+//------------------------- Timers (Timers used in the module.) -------------------------
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
+//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+
+//------------------------- Commands (Module related commands) -------------------------
 YCMD:setworld(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < MASTERP)
@@ -195,8 +199,7 @@ YCMD:setgrana(playerid, params[], help)
 
 	new string[110], moneyString[MAX_MONEY_STRING];
 	FormatMoneyString(money, moneyString);
-	ResetPlayerMoneyCustom(playerid);
-	SetPlayerMoneyCustom(id, money);
+	Player_SetMoney(id, money);
     format(string, sizeof(string), "[Administração]: %s setou a grana de %s para R$[%s].", GetPlayerNameCustom(playerid), GetPlayerNameCustom(id), moneyString);
 	SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
     PrintLog(FOLDER_ADMIN_SETMONEY, string);
@@ -229,7 +232,7 @@ YCMD:dargrana(playerid, params[], help)
 
 	new string[97], moneyString[MAX_MONEY_STRING];
 	FormatMoneyString(money, moneyString);
-	SetPlayerMoneyCustom(id, (Player_GetMoney(id) + money));
+	Player_SetMoney(id, (Player_GetMoney(id) + money));
     format(string, sizeof(string), "[Administração]: %s está dando R$[%s] para %s.", GetPlayerNameCustom(playerid), moneyString, GetPlayerNameCustom(id));
 	SendAdminMessage(COLOR_LIGHTRED, string, HELPER);
     PrintLog(FOLDER_ADMIN_SETMONEY, string);

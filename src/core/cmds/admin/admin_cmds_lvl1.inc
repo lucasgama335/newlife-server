@@ -5,7 +5,7 @@
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static skinAdmin[MAX_PLAYERS];
 
-//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+//------------------------- Timers (Timers used in the module.) -------------------------
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 static stock ShowCommandsListDialog(playerid)
@@ -20,6 +20,8 @@ static stock ShowCommandsListDialog(playerid)
 	ShowPlayerDialog(playerid, DIALOG_ADMIN_CMDS, DIALOG_STYLE_LIST, "Comandos da Administração", stringDialog, "Selecionar", "Cancelar");
 	return 1;
 }
+
+//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
@@ -150,6 +152,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
     return 1;
 }
 
+//------------------------- Commands (Module related commands) -------------------------
 YCMD:aa(playerid, params[], help)
 {
 	if (Player_GetAdminLevel(playerid) < HELPER)

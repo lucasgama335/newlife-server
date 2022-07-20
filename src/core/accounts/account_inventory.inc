@@ -201,12 +201,14 @@ stock bool:Inventory_GetSyncStatus(playerid)
 // Setters
 stock Inventory_SetTextdrawSelected(playerid, index)
 {
-    return gsLastTextdrawSelected[playerid] = index;
+    gsLastTextdrawSelected[playerid] = index;
+    return 1;
 }
 
 stock Inventory_SetActualPage(playerid, page)
 {
-    return gsInventoryPage[playerid] = page;
+    gsInventoryPage[playerid] = page;
+    return 1;
 }
 
 stock Inventory_SetSlotSelected(playerid, slot)
@@ -215,12 +217,14 @@ stock Inventory_SetSlotSelected(playerid, slot)
     {
         return 0;
     }
-    return gsInventorySlotSelected[playerid] = slot;
+    gsInventorySlotSelected[playerid] = slot;
+    return 1;
 }
 
 stock Inventory_SetTotalValidItems(playerid, quantity)
 {
-    return gsInventoryTotalValidItems[playerid] = quantity;
+    gsInventoryTotalValidItems[playerid] = quantity;
+    return 1;
 }
 
 stock Inventory_SetIsOpenedStatus(playerid, bool:status)
