@@ -172,12 +172,6 @@ hook OnPlayerConnect(playerid)
     return 1;
 }
 
-hook FirstSpawnOnLogin(playerid)
-{
-    gsPlayerUpdateStatusTimer[playerid] = SetTimerEx("PlayerUpdateStatus", 1000, true, "i", playerid);
-    return 1;
-}
-
 public OnPlayerDisconnect(playerid, reason)
 {
     if (gsPlayerUpdateStatusTimer[playerid] != INVALID_VALUE) 
@@ -206,6 +200,18 @@ hook OnPlayerDeath(playerid, killerid, reason)
     }
 	gsLastDeath[playerid] = gettime();
     SendDeathMessage(killerid, playerid, reason);
+    return 1;
+}
+
+public OnPlayerEnterCheckpoint(playerid)
+{
+    DisablePlayerCheckpoint(playerid);
+    return 1;
+}
+
+hook FirstSpawnOnLogin(playerid)
+{
+    gsPlayerUpdateStatusTimer[playerid] = SetTimerEx("PlayerUpdateStatus", 1000, true, "i", playerid);
     return 1;
 }
 

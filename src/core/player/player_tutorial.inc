@@ -167,6 +167,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				Database_SaveTutorial(playerid);
 				ShowPlayerHud(playerid);
 				SendClientMessage(playerid, COLOR_LIGHTBLUE, "Você optou por não ver o tutorial!");
+				GameTextForPlayer(playerid, "~p~CONSIGA UM EMPREGO NA PREFEITURA", 5000, 1);
+				SetPlayerCheckpoint(playerid, CITY_HALL_ENTRANCE, 5.0);
 				return 1;
 			}
 			if (response)
@@ -510,7 +512,10 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ShowPlayerHud(playerid);
 				SetCameraBehindPlayer(playerid);
 				SendClientMessage(playerid, COLOR_LIGHTBLUE, "Tutorial finalizado. Tenha um bom jogo!");
+				GameTextForPlayer(playerid, "~p~CONSIGA UM EMPREGO NA PREFEITURA", 5000, 1);
+				SetPlayerCheckpoint(playerid, CITY_HALL_ENTRANCE, 5.0);
 				SpawnPlayer(playerid);
+				return 1;
 			}
 		}
     }
