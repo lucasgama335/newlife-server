@@ -120,7 +120,7 @@ public OnPlayerConnect(playerid)
             Player_SetLastPosition(playerid, posX, posY, posZ, posA, interior, vW);
 
             // Job
-            new job, org, orgRole;
+            new j_JOBS_LIST:job, org, orgRole;
             cache_get_value_name_int(0, PLAYER_FIELD_JOB, job);
             cache_get_value_name_int(0, PLAYER_FIELD_ORG, org);
             cache_get_value_name_int(0, PLAYER_FIELD_ORG_ROLE, orgRole);

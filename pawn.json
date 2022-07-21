@@ -81,6 +81,7 @@
 			"src/core/server/database",
 			"src/core/server/database/tables",
 			"src/core/features",
+			"src/core/features/jobs",
 			"src/core/vehicles",
 			"src/core/vehicles/data"
 		],

@@ -4,6 +4,7 @@
 #define	CITY_HALL_ENTRANCE		1481.0397,-1772.3135,18.7958
 #define	CITY_HALL_EXIT			390.7694,173.8226,1008.3828
 #define	GUN_LICENSES_MENU		358.2363,184.5656,1008.3828
+#define	JOBS_LIST_MENU			361.8300,173.5202,1008.3828
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static gsCityHallActor[3];
@@ -18,11 +19,13 @@ hook OnGameModeInit()
 	//=====================================[ 3DTEXT ]====================================||
     Create3DTextLabel("Prefeitura de {FFFFFF}Los Santos{B4B5B7}\nPara Entrar\nAperte '{FFFFFF}F{B4B5B7}'", COLOR_GRAD1, CITY_HALL_ENTRANCE, 20.0, 0);
 	Create3DTextLabel("Porte de Armas\nPara retirar seu porte\nAperte 'F'.", COLOR_ORANGE, GUN_LICENSES_MENU, 20.0, 0);
+	Create3DTextLabel("Menu de Empregos\nAperte F", COLOR_3DLABEL, JOBS_LIST_MENU, 20.0, 0);
 
     //=====================================[ PICKUPS ]====================================||
-    AddStaticPickup(1318, 23, CITY_HALL_ENTRANCE); // Entrance
-    AddStaticPickup(1318, 23, CITY_HALL_EXIT); // Exit
+    AddStaticPickup(1318, 23, CITY_HALL_ENTRANCE);
+    AddStaticPickup(1318, 23, CITY_HALL_EXIT);
 	AddStaticPickup(2061, 23, GUN_LICENSES_MENU);
+	AddStaticPickup(1210, 23, JOBS_LIST_MENU);
 
 	//=====================================[ OBJECTS ]====================================||
     CreateDynamicObject(1231, 1483.80566, -1750.43030, 17.18440,   0.00000, 0.00000, 0.00000);

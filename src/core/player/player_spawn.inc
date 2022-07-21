@@ -81,12 +81,15 @@ hook OnPlayerSpawn(playerid)
     SetPlayerArmour(playerid, 0);
 	SetPlayerHealth(playerid, 100);
     ResetPlayerWeapons(playerid);
-	SetPlayerInterior(playerid, 0);
-    SetPlayerVirtualWorld(playerid, 0);
-    SetPlayerSkin(playerid, Player_GetSkin(playerid));
-	SetPlayerPos(playerid, SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ);
-    SetPlayerFacingAngle(playerid, SPAWN_POSA);
     SetPlayerToTeamColor(playerid);
+    if (Player_GetJob(playerid) == j_JOB_NONE)
+    {
+        SetPlayerInterior(playerid, 0);
+        SetPlayerVirtualWorld(playerid, 0);
+        SetPlayerSkin(playerid, Player_GetSkin(playerid));
+        SetPlayerPos(playerid, SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ);
+        SetPlayerFacingAngle(playerid, SPAWN_POSA);
+    }
     return 1;
 }
 

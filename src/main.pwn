@@ -49,6 +49,7 @@
 #include <player>
 // FEATURES CORE
 #include <features>
+#include <jobs>
 // CHAT
 #include <chat>
 // COMMANDS

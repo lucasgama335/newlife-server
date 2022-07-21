@@ -2,6 +2,16 @@
 #include <vehicles_functions>
 #include <vehicles_spawn_civil>
 #include <vehicles_driving_school>
+// Jobs
+#include <vehicles_job_garbageman>
+#include <vehicles_job_truckdriver>
+#include <vehicles_job_taxidriver>
+#include <vehicles_job_lawyer>
+#include <vehicles_job_gravedigger>
+#include <vehicles_job_rescuer>
+#include <vehicles_job_eletrician>
+#include <vehicles_job_bus_driver>
+#include <vehicles_job_farmer>
 
 #include <YSI_Coding\y_hooks>
 

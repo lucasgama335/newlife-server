@@ -39,6 +39,7 @@ stock AddStaticVehicleCustom(modelId, Float:posX, Float:posY, Float:posZ, Float:
 		Vehicle_SetPlate(tempVehicleId, "");
 		Vehicle_SetEngine(tempVehicleId, false);
 		Vehicle_SetHealth(tempVehicleId, MAX_VEHICLE_HEALTH);
+		Vehicle_SetJob(tempVehicleId, j_JOB_NONE);
 		Iter_Add(Vehicles, tempVehicleId);
 	}
 	return tempVehicleId;

@@ -164,6 +164,18 @@ stock TeleportPlayer(playerid, Float:x, Float:y, Float:z, interiorId, worldId, e
 	return 1;
 }
 
+stock SendJobMessage(COLOR, const string[], j_JOBS_LIST:jobId)
+{
+	foreach(new i: Player)
+	{
+		if (Player_GetJob(i) == jobId)
+		{
+			SendClientMessage(i, COLOR, string);
+		}
+	}
+	return 1;
+}
+
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 
 //------------------------- Commands (Module related commands) -------------------------

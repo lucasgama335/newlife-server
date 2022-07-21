@@ -141,6 +141,17 @@ hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 		return 1;
 	}
 
+	if (Vehicle_GetJob(vehicleid) != j_JOB_NONE && Player_GetJob(playerid) != Vehicle_GetJob(vehicleid))
+	{
+		new string[(40 + MAX_JOB_NAME)];
+		SetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
+		format(string, sizeof(string), "* Você não é um %s.", Job_GetName(Vehicle_GetJob(vehicleid)));
+		SendClientMessage(playerid, COLOR_GRAD2, string);
+		return 1;
+	}
+	
+	gsPlayerLastCarEntered[playerid] = vehicleid;
+
     if (!Vehicle_GetEngineStatus(vehicleid) && !ispassenger)
     {
     	if (Vehicle_IsCivilVehicle(vehicleid))
@@ -148,14 +159,9 @@ hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 			SendClientMessage(playerid, COLOR_NEONGREEN, "Novato, você pode achar aos locais digitando: /gps.");
 	    	SendClientMessage(playerid, COLOR_NEONGREEN, "Em caso de dúvidas use: /faq, ou fale diretamente com os administradores: /relatorio.");		
 		}
-        else
-		{
-			SendClientMessage(playerid, COLORDGREEN, "[Veículo]: Para ligar o motor deste veículo pressione {FFFFFF}N{228b22} ou digite {FFFFFF}/motor{228b22}.");
-		}
-        return 1;
-    }
 
-	gsPlayerLastCarEntered[playerid] = vehicleid;
+		SendClientMessage(playerid, COLORDGREEN, "[Veículo]: Para ligar o motor deste veículo pressione {FFFFFF}N{228b22} ou digite {FFFFFF}/motor{228b22}.");
+    }
 	return 1;
 }
 
@@ -171,20 +177,31 @@ hook OnPlayerStateChange(playerid, newstate, oldstate)
 		StartSpeedometerTimer(playerid, vehicleid);
 		PlayerCheckVehicleFuel(playerid, vehicleid);
 		PlayerCheckVehicleBroken(playerid, vehicleid);
+		if (gsPlayerLastCarEntered[playerid] != vehicleid)
+		{
+			ShowActualVehicleName(playerid, vehicleid);
+		}
+		
 		if (newstate == PLAYER_STATE_DRIVER)
 		{
 			if (Vehicle_IsCivilVehicle(vehicleid) && !Vehicle_GetEngineStatus(vehicleid))
 			{
 				Vehicle_SetEngineToPlayer(playerid, vehicleid, true);
+				return 1;
 			}
 			if (Vehicle_IsBike(GetVehicleModel(vehicleid)) && !Vehicle_GetEngineStatus(vehicleid))
 			{
 				Vehicle_SetEngine(vehicleid, true);
+				return 1;
 			}
-		}
-		if (gsPlayerLastCarEntered[playerid] != vehicleid)
-		{
-			ShowActualVehicleName(playerid, vehicleid);
+
+			if (Vehicle_GetJob(vehicleid) != j_JOB_NONE && Player_GetJob(playerid) != Vehicle_GetJob(vehicleid))
+			{
+				new string[(40 + MAX_JOB_NAME)];
+				format(string, sizeof(string), "* Você não é um %s.", Job_GetName(Vehicle_GetJob(vehicleid)));
+				SendClientMessage(playerid, COLOR_GRAD2, string);
+				return 1;
+			}
 		}
 	}
 	else

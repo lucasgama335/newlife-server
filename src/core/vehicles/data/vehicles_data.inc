@@ -3,7 +3,7 @@
 //------------------------- Definitions and constants -------------------------
 #if defined MAX_VEHICLES
 #undef  MAX_VEHICLES
-#define MAX_VEHICLES   38 + 1 // Sempre Será a Soma das Variáveis de Carros + 1
+#define MAX_VEHICLES   118 + 1 // Sempre Será a Soma das Variáveis de Carros + 1
 #endif
 
 #define MAX_PLATE_STRING    9
@@ -20,7 +20,8 @@ enum v_VEHICLE_DATA
     v_MONEY,
 	bool:v_BROKEN,
     v_COLOR_ONE,
-    v_COLOR_TWO
+    v_COLOR_TWO,
+    j_JOBS_LIST:v_VEHICLE_JOB
 }
 static gsVehicleInfo[MAX_VEHICLES][v_VEHICLE_DATA];
 
@@ -193,6 +194,24 @@ stock Vehicle_SetColor(vehicleid, colorOne, colorTwo)
 
     gsVehicleInfo[vehicleid][v_COLOR_ONE] = colorOne;
     gsVehicleInfo[vehicleid][v_COLOR_TWO] = colorTwo;
+    return 1;
+}
+
+// ============== JOB ACCESSORS ============== //
+// Getters
+stock j_JOBS_LIST:Vehicle_GetJob(vehicleid)
+{
+    if (!IsValidVehicle(vehicleid)) return j_JOB_NONE;
+
+    return gsVehicleInfo[vehicleid][v_VEHICLE_JOB];
+}
+
+// Setters
+stock Vehicle_SetJob(vehicleid, j_JOBS_LIST:jobId)
+{
+    if (!IsValidVehicle(vehicleid)) return false;
+
+    gsVehicleInfo[vehicleid][v_VEHICLE_JOB] = jobId;
     return 1;
 }
 
