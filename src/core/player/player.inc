@@ -159,6 +159,48 @@ stock PlayerGetPayday(playerid)
         Player_SetSalary(playerid, 0);
     }
 
+    // Decrease Licenses (I save the license data in each verification because the licenses expires in different periods.)
+    if (Player_GetCarLicense(playerid) > 0)
+    {
+        Player_SetCarLicense(playerid, (Player_GetCarLicense(playerid) - 1));
+        Player_SaveLicensesData(playerid);
+    }
+    if (Player_GetMotorCycleLicense(playerid) > 0)
+    {
+        Player_SetMotorCycleLicense(playerid, (Player_GetMotorCycleLicense(playerid) - 1));
+        Player_SaveLicensesData(playerid);
+    }
+    if (Player_GetTruckLicense(playerid) > 0)
+    {
+        Player_SetTruckLicense(playerid, (Player_GetTruckLicense(playerid) - 1));
+        Player_SaveLicensesData(playerid);
+    }
+    if (Player_GetFlyLicense(playerid) > 0)
+    {
+        Player_SetFlyLicense(playerid, (Player_GetFlyLicense(playerid) - 1));
+        Player_SaveLicensesData(playerid);
+    }
+    if (Player_GetBoatLicense(playerid) > 0)
+    {
+        Player_SetBoatLicense(playerid, (Player_GetBoatLicense(playerid) - 1));
+        Player_SaveLicensesData(playerid);
+    }
+
+    if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
+    {
+        new vehicleid = GetPlayerVehicleID(playerid);
+        if (IsValidVehicle(vehicleid))
+        {
+            if (Vehicle_IsCar(GetVehicleModel(vehicleid)) && Player_GetCarLicense(playerid) <= 0 || Vehicle_IsMotorBike(GetVehicleModel(vehicleid)) && Player_GetMotorCycleLicense(playerid) <= 0 ||
+            Vehicle_IsTruck(GetVehicleModel(vehicleid)) && Player_GetTruckLicense(playerid) <= 0 || Vehicle_IsPlane(GetVehicleModel(vehicleid)) && Player_GetFlyLicense(playerid) <= 0 ||
+            Vehicle_IsHelicopter(GetVehicleModel(vehicleid)) && Player_GetFlyLicense(playerid) <= 0 || Vehicle_IsBoat(GetVehicleModel(vehicleid)) && Player_GetBoatLicense(playerid) <= 0)
+            {
+                RemovePlayerFromVehicle(playerid);
+                SendClientMessage(playerid, COLOR_INVALID, "A sua habilitação para conduzir esse veículo venceu.");
+            }
+        }
+    }
+
     Player_SetPaydayTime(playerid, 3600);
     Player_SaveScoreData(playerid);
     Player_SaveStatusData(playerid);
