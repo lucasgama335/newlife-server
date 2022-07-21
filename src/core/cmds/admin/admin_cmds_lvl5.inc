@@ -55,7 +55,7 @@ hook OnPlayerConnect(playerid)
 	return 1;
 }
 
-hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
+hook OnDialogResponse(playerid, dialogid, response, listitem, const inputtext[])
 {
 	switch (dialogid)
 	{
