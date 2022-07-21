@@ -2,19 +2,19 @@
 
 //------------------------- Definitions and constants -------------------------
 #define	UNKNOWN_FUEL_CAPACITY			0
-#define SALOONS_FUEL_CAPACITY			60
-#define	SPORTS_FUEL_CAPACITY			60
+#define SALOONS_FUEL_CAPACITY			70
+#define	SPORTS_FUEL_CAPACITY			75
 #define	INDUSTRIAL_FUEL_CAPACITY		80
 #define	TRUCK_FUEL_CAPACITY				90
 #define	LOWRIDERS_FUEL_CAPACITY			70
-#define	CONVERTIBLES_FUEL_CAPACITY  	70
-#define OFFROADS_FUEL_CAPACITY			70
+#define	CONVERTIBLES_FUEL_CAPACITY  	75
+#define OFFROADS_FUEL_CAPACITY			75
 #define	STATION_WARGONS_FUEL_CAPACITY	70
 #define	BOATS_FUEL_CAPACITY				100
 #define	AIRPLANES_FUEL_CAPACITY			120
 #define	HELICOPTERS_FUEL_CAPACITY		120
 #define	TRAILERS_FUEL_CAPACITY			120
-#define	MOTORBIKE_FUEL_CAPACITY			50
+#define	MOTORBIKE_FUEL_CAPACITY			65
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 enum e_VEHICLE_TYPE
