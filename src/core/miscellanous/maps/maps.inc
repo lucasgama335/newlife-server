@@ -5,6 +5,7 @@
 #include <map_gas_station>
 #include <map_gas_station_verona>
 #include <map_driving_school>
+#include <map_court_of_justice>
 
 #include <YSI_Coding\y_hooks>
 

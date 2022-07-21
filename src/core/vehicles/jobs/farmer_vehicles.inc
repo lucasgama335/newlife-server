@@ -34,7 +34,7 @@ hook OnGameModeInit()
     gsFarmerVehicle[15] = AddStaticVehicleCustom(531, -106.4333, -48.2856, 3.0870, 73.9065, 123, 123, 6);
 	for(new i; i < sizeof(gsFarmerVehicle); i++)
 	{
-        Vehicle_SetJob(i, j_JOB_FARMER);
+        Vehicle_SetJob(gsFarmerVehicle[i], j_JOB_FARMER);
 	}
     return 1;
 }

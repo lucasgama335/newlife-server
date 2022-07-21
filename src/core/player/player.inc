@@ -1,10 +1,11 @@
 #include <player_auth>
 #include <player_tutorial>
 #include <player_ban>
-#include <player_inventory>
 #include <player_anims>
 #include <player_spawn>
-#include <player_vehicle>
+#include <player_commands>
+#include <player_chat>
+#include <player_inventory>
 
 #include <YSI_Coding\y_hooks>
 

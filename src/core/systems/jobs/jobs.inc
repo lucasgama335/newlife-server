@@ -9,9 +9,10 @@
 #include <job_bus_driver>
 #include <job_farmer>
 
-#include <YSI_Coding/y_hooks>
+#include <YSI_Coding\y_hooks>
 
 //------------------------- Definitions and constants -------------------------
+#define	JOBS_LIST_MENU			361.8300,173.5202,1008.3828
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static j_JOBS_LIST:gsJobSelected[MAX_PLAYERS];
@@ -103,6 +104,9 @@ static stock ShowPlayerJobHelp(playerid)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnGameModeInit()
 {
+    AddStaticPickup(1210, 23, JOBS_LIST_MENU);
+    Create3DTextLabel("Menu de Empregos\nAperte F", COLOR_3DLABEL, JOBS_LIST_MENU, 20.0, 0);
+    
     new Float:helpX, Float:helpY, Float:helpZ;
     Job_GetHelpPosition(j_JOB_GARBAGEMAN, helpX, helpY, helpZ);
     AddStaticPickup(1239, 23, helpX, helpY, helpZ);
@@ -156,10 +160,10 @@ hook OnPlayerSpawn(playerid)
 {
     if (Player_GetJob(playerid) != j_JOB_NONE)
     {
-        new Float:posX, Float:posY, Float:posZ, Float:posA, interior, virtualWorld, e_INTERIOR_LOCALES:locale;
-        Job_GetSpawn(Player_GetJob(playerid), posX, posY, posZ, posA, interior, virtualWorld, locale);
+        new Float:posX, Float:posY, Float:posZ, Float:posA, interior, virtualWorld, e_INTERIOR_LOCALES:locale, bool:freeze, freezeTime;
+        Job_GetSpawn(Player_GetJob(playerid), posX, posY, posZ, posA, interior, virtualWorld, locale, freeze, freezeTime);
         SetPlayerSkin(playerid, Job_GetSkin(playerid, Player_GetJob(playerid)));
-        TeleportPlayer(playerid, posX, posY, posZ, interior, virtualWorld, locale);
+        TeleportPlayer(playerid, posX, posY, posZ, interior, virtualWorld, locale, freeze, freezeTime);
         SetPlayerFacingAngle(playerid, posA);
     }
     return 1;

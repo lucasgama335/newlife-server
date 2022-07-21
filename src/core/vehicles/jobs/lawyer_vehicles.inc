@@ -5,7 +5,7 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static gsGravediggerVehicle[5];
+static gsLawyerVehicle[8];
 
 //------------------------- Timers (Timers used in the module.) -------------------------
 
@@ -16,14 +16,17 @@ static gsGravediggerVehicle[5];
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnGameModeInit()
 {
-    gsGravediggerVehicle[0] = AddStaticVehicleCustom(442, 869.7429, -1107.9686, 24.0293, 268.8243, 0, 0, 120);
-	gsGravediggerVehicle[1] = AddStaticVehicleCustom(442, 861.3201, -1097.7219, 24.1539, 270.9617, 0, 0, 120);
-	gsGravediggerVehicle[2] = AddStaticVehicleCustom(442, 853.1974, -1091.1332, 24.0277, 187.0366, 0, 0, 120);
-	gsGravediggerVehicle[3] = AddStaticVehicleCustom(442, 835.1767, -1092.6215, 24.0354, 180.8675, 0, 0, 120);
-	gsGravediggerVehicle[4] = AddStaticVehicleCustom(442, 835.0997, -1111.1815, 23.9121, 0.8723, 0, 0, 120);
-	for(new i; i < sizeof(gsGravediggerVehicle); i++)
+    gsLawyerVehicle[0] = AddStaticVehicleCustom(471, 1097.1378, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
+	gsLawyerVehicle[1] = AddStaticVehicleCustom(471, 1095.7000, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
+	gsLawyerVehicle[2] = AddStaticVehicleCustom(471, 1094.2000, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
+	gsLawyerVehicle[3] = AddStaticVehicleCustom(471, 1092.7000, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
+	gsLawyerVehicle[4] = AddStaticVehicleCustom(471, 1091.1500, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
+	gsLawyerVehicle[5] = AddStaticVehicleCustom(471, 1089.7000, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
+	gsLawyerVehicle[6] = AddStaticVehicleCustom(471, 1088.2000, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
+	gsLawyerVehicle[7] = AddStaticVehicleCustom(471, 1086.7000, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
+	for(new i; i < sizeof(gsLawyerVehicle); i++)
 	{
-        Vehicle_SetJob(i, j_JOB_GRAVEDIGGER);
+        Vehicle_SetJob(gsLawyerVehicle[i], j_JOB_LAWYER);
 	}
     return 1;
 }

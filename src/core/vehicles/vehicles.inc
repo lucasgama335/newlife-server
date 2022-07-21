@@ -1,17 +1,17 @@
 #include <vehicles_data>
-#include <vehicles_functions>
-#include <vehicles_spawn_civil>
-#include <vehicles_driving_school>
+#include <player_vehicle>
+#include <spawn_vehicles>
+#include <driving-school_vehicles>
 // Jobs
-#include <vehicles_job_garbageman>
-#include <vehicles_job_truckdriver>
-#include <vehicles_job_taxidriver>
-#include <vehicles_job_lawyer>
-#include <vehicles_job_gravedigger>
-#include <vehicles_job_rescuer>
-#include <vehicles_job_eletrician>
-#include <vehicles_job_bus_driver>
-#include <vehicles_job_farmer>
+#include <garbageman_vehicles>
+#include <truck-driver_vehicles>
+#include <taxi-driver_vehicles>
+#include <lawyer_vehicles>
+#include <gravedigger_vehicles>
+#include <rescuer_vehicles>
+#include <eletrician_vehicles>
+#include <bus_driver_vehicles>
+#include <farmer_vehicles>
 
 #include <YSI_Coding\y_hooks>
 
@@ -96,7 +96,7 @@ stock Vehicle_SetEngineToPlayer(playerid, vehicleid, bool:status)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnGameModeInit()
 {
-	SetTimer("CheckVehicleFuel", 18000, true);
+	SetTimer("CheckVehicleFuel", 20000, true);
 	return 1;
 }
 

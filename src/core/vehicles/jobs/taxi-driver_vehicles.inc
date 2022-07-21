@@ -35,7 +35,7 @@ hook OnGameModeInit()
 	gsTaxidriverVehicle[16] = AddStaticVehicleCustom(487, 611.9767, -1531.8496, 31.0145, 358.2441, 6, 6, 120);
 	for(new i; i < sizeof(gsTaxidriverVehicle); i++)
 	{
-        Vehicle_SetJob(i, j_JOB_TAXI_DRIVER);
+        Vehicle_SetJob(gsTaxidriverVehicle[i], j_JOB_TAXI_DRIVER);
 	}
     return 1;
 }

@@ -25,7 +25,7 @@ hook OnGameModeInit()
     gsGarbagemanVehicle[6] = AddStaticVehicleCustom(574, 2198.5291, -1973.2627, 13.2721, 267.3567, 222, 222, 120);
 	for(new i; i < sizeof(gsGarbagemanVehicle); i++)
 	{
-        Vehicle_SetJob(i, j_JOB_GARBAGEMAN);
+        Vehicle_SetJob(gsGarbagemanVehicle[i], j_JOB_GARBAGEMAN);
 	}
     return 1;
 }

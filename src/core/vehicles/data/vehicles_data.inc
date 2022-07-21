@@ -25,6 +25,8 @@ enum v_VEHICLE_DATA
 }
 static gsVehicleInfo[MAX_VEHICLES][v_VEHICLE_DATA];
 
+static Iterator:Vehicles<MAX_VEHICLES>;
+
 //------------------------- Timers (Timers used in the module.) -------------------------
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
@@ -213,6 +215,83 @@ stock Vehicle_SetJob(vehicleid, j_JOBS_LIST:jobId)
 
     gsVehicleInfo[vehicleid][v_VEHICLE_JOB] = jobId;
     return 1;
+}
+
+// ============== CUSTOM FUNCTIONS ============== //
+stock AddStaticVehicleCustom(modelId, Float:posX, Float:posY, Float:posZ, Float:posA, colorOne, colorTwo, timeToRespawn, bool:siren = false)
+{
+	new tempVehicleId = AddStaticVehicleEx(modelId, posX, posY, posZ, posA, colorOne, colorTwo, timeToRespawn, siren);
+	if (tempVehicleId != INVALID_VEHICLE_ID)
+	{
+		Vehicle_SetColor(tempVehicleId, colorOne, colorTwo);
+		Vehicle_SetFuel(tempVehicleId, GetVehicleFuelCapacity(modelId));
+		Vehicle_SetShield(tempVehicleId, 0);
+		Vehicle_SetMoney(tempVehicleId, 0);
+		Vehicle_SetBrokenStatus(tempVehicleId, false);
+		Vehicle_SetLockedStatus(tempVehicleId, false);
+		Vehicle_SetPlate(tempVehicleId, "");
+		Vehicle_SetEngine(tempVehicleId, false);
+		Vehicle_SetHealth(tempVehicleId, MAX_VEHICLE_HEALTH);
+		Vehicle_SetJob(tempVehicleId, j_JOB_NONE);
+		Iter_Add(Vehicles, tempVehicleId);
+	}
+	return tempVehicleId;
+}
+
+stock RespawnNearVehicles(playerid)
+{
+	foreach (new vehicleid : Vehicles)
+	{
+		if (IsPlayerNearVehicle(50.0, playerid, vehicleid))
+		{
+			if (!IsVehicleOccupied(vehicleid))
+			{
+				SetVehicleToRespawn(vehicleid);
+			}
+		}
+	}
+	return 1;
+}
+
+stock VehicleDecreaseGlobalFuel()
+{
+    foreach (new vehicleid : Vehicles)
+	{
+		if (Vehicle_GetEngineStatus(vehicleid) && !Vehicle_IsBike(GetVehicleModel(vehicleid)))
+		{
+			if (Vehicle_GetFuel(vehicleid) <= 1)
+			{
+				Vehicle_SetFuel(vehicleid, 0);
+				Vehicle_SetEngine(vehicleid, false);
+			}
+			else
+			{
+				Vehicle_SetFuel(vehicleid, (Vehicle_GetFuel(vehicleid) - 1));
+			}
+		}
+	}
+    return 1;
+}
+
+stock RefuelAllVehicles()
+{
+	foreach (new vehicleid : Vehicles)
+	{
+		Vehicle_SetFuel(vehicleid, 100);
+	}
+	return 1;
+}
+
+stock RespawnAllVehicles()
+{
+	foreach (new vehicleid : Vehicles)
+	{
+		if (!IsVehicleOccupied(vehicleid))
+		{
+			SetVehicleToRespawn(vehicleid);
+		}
+	}
+	return 1;
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------

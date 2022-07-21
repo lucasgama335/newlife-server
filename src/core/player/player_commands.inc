@@ -1,10 +1,11 @@
 #include <YSI_Coding\y_hooks>
 
 //------------------------- Definitions and constants -------------------------
-static ChatNoobStatus = true;
-static talkChatNoob[MAX_PLAYERS];
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
+static cmd_Cooldown[MAX_PLAYERS];
+static ChatNoobStatus = true;
+static talkChatNoob[MAX_PLAYERS];
 
 //------------------------- Timers (Timers used in the module.) -------------------------
 
@@ -91,12 +92,107 @@ stock ShowPlayerFaqList(playerid)
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
-hook OnPlayerPressF(playerid)
+public e_COMMAND_ERRORS:OnPlayerCommandReceived(playerid, cmdtext[], e_COMMAND_ERRORS:success)
 {
-	if (IsPlayerInRangeOfPoint(playerid, 2.0, 809.5279, -1341.4880, 13.5405))
+	// if player is not spawned, do not allow him to use commands.
+	if(!Player_GetLoggedStatus(playerid))
 	{
-		ShowPlayerFaqList(playerid);
-		return 1;
+		SendClientMessage(playerid, COLOR_INVALID, "Você não está logado.");
+		Command_SetDeniedReturn(true);
+		return COMMAND_DENIED;
+	}
+
+	if (Server_IsRestarting())
+	{
+		SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar comandos durante a reinicizalização do servidor.");
+		Command_SetDeniedReturn(true);
+		return COMMAND_DENIED;
+	}
+
+	if (Player_IsInTutorial(playerid))
+	{
+		SendClientMessage(playerid, COLOR_GRAD1, "Você não pode usar comandos durante o tutorial.");
+		Command_SetDeniedReturn(true);
+		return COMMAND_DENIED;
+	}    
+
+	// anti command spam
+	if(gettime() < cmd_Cooldown[playerid]) 
+    {
+		SendClientMessage(playerid, COLOR_GRAD1, "Aguarde 2 segundos para digitar novamente um comando.");
+		Command_SetDeniedReturn(true);
+		return COMMAND_DENIED;
+	}
+
+	if (success != COMMAND_OK) 
+    {
+        new string[134];
+		format(string, sizeof(string), "[ALERTA]: O comando que você digitou ({33CCFF}%s{FFFFFF}) não foi reconhecido, use {33CCFF}/ajuda{FFFFFF}.", cmdtext);
+		SendClientMessage(playerid, COLOR_WHITE, string);
+		Command_SetDeniedReturn(true);
+		return COMMAND_DENIED;
+    }
+
+	//get time data everytime a command is recieved.
+	cmd_Cooldown[playerid] = gettime() + 2;
+    return COMMAND_OK;
+}
+
+public e_COMMAND_ERRORS:OnPlayerCommandPerformed(playerid, cmdtext[], e_COMMAND_ERRORS:success)
+{
+	if (success != COMMAND_OK) 
+    {
+		Command_SetDeniedReturn(true);
+		return COMMAND_DENIED;
+    }
+	
+	cmd_Cooldown[playerid] = gettime() + 2;
+    return COMMAND_OK;
+}
+
+hook OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
+{
+	#pragma unused oldkeys // need this directive, on account of YSI which shows warnings in case the parameter is not used.
+
+	switch (newkeys)
+	{
+		case KEY_F: 
+		{
+			if (newkeys == KEY_F && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
+			{
+				if (Player_GetAnimationStatus(playerid) && IsValidPlayer(playerid))
+				{
+					Player_SetAnimationStatus(playerid, false);
+					ClearAnimations(playerid);
+				}
+				CallLocalFunction("OnPlayerPressF", "i", playerid);
+			}
+		}
+		case KEY_N: 
+		{
+			new vehicleid = GetPlayerVehicleID(playerid);
+			if (vehicleid != INVALID_VEHICLE_ID && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
+			{
+				Vehicle_SetEngineToPlayer(playerid, vehicleid, (Vehicle_GetEngineStatus(vehicleid) ? false : true));
+			}
+		}
+		case KEY_H:
+		{
+			if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
+			{
+				if (IsPlayerInGasStation(playerid))
+				{
+					ShowPlayerGasStationDialog(playerid);
+				}
+			}
+		}
+		case KEY_Y:
+		{
+			if (newkeys == KEY_Y)
+			{
+				CallLocalFunction("OnPlayerPressY", "i", playerid);
+			}
+		}
 	}
 	return 1;
 }
@@ -1070,6 +1166,16 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
     return 1;
 }
 
+hook OnPlayerPressF(playerid)
+{
+	if (IsPlayerInRangeOfPoint(playerid, 2.0, 809.5279, -1341.4880, 13.5405))
+	{
+		ShowPlayerFaqList(playerid);
+		return 1;
+	}
+	return 1;
+}
+
 //------------------------- Commands (Module related commands) -------------------------
 YCMD:ajuda(playerid, params[], help)
 {
@@ -1234,26 +1340,6 @@ YCMD:nchat(playerid, params[], help)
 	}
 	SendDuvidaMessage(COLOR_NCHAT, string);
 	talkChatNoob[playerid] = gettime();
-	return 1;
-}
-
-YCMD:minhaslicencas(playerid, params[], help)
-{
-	new licensesList[300], licenseString[80];
-    strcat(licensesList, "Tipo\tStatus\tValidade\n");
-	format(licenseString, sizeof(licenseString), (Player_GetCarLicense(playerid) > 0 ? "{FFFFFF}Carro\t{33aa33}Válida\t{00e7c6}%d\n" : "{FFFFFF}Carro\t{FF6347}Vencida\t{00e7c6}%d\n"), Player_GetCarLicense(playerid));
-	strcat(licensesList, licenseString);
-	format(licenseString, sizeof(licenseString), (Player_GetMotorCycleLicense(playerid) > 0 ? "{FFFFFF}Moto\t{33aa33}Válida\t{00e7c6}%d\n" : "{FFFFFF}Moto\t{FF6347}Vencida\t{00e7c6}%d\n"), Player_GetMotorCycleLicense(playerid));
-	strcat(licensesList, licenseString);
-	format(licenseString, sizeof(licenseString), (Player_GetTruckLicense(playerid) > 0 ? "{FFFFFF}Caminhão/Ônibus\t{33aa33}Válida\t{00e7c6}%d\n" : "{FFFFFF}Caminhão/Ônibus\t{FF6347}Vencida\t{00e7c6}%d\n"), Player_GetTruckLicense(playerid));
-	strcat(licensesList, licenseString);
-	format(licenseString, sizeof(licenseString), (Player_GetBoatLicense(playerid) > 0 ? "{FFFFFF}Barco\t{33aa33}Válida\t{00e7c6}%d\n" : "{FFFFFF}Barco\t{FF6347}Vencida\t{00e7c6}%d\n"), Player_GetBoatLicense(playerid));
-	strcat(licensesList, licenseString);
-	format(licenseString, sizeof(licenseString), (Player_GetFlyLicense(playerid) > 0 ? "{FFFFFF}Aeronave\t{33aa33}Válida\t{00e7c6}%d\n" : "{FFFFFF}Aeronave\t{FF6347}Vencida\t{00e7c6}%d\n"), Player_GetFlyLicense(playerid));
-	strcat(licensesList, licenseString);
-	format(licenseString, sizeof(licenseString), (Player_GetGunLicense(playerid) ? "{FFFFFF}Armas\t{33aa33}Válida\t{00e7c6}%d\n" : "{FFFFFF}Armas\t{FF6347}Vencida\t{00e7c6}%d\n"), Player_GetGunLicense(playerid));
-	strcat(licensesList, licenseString);
-	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_TABLIST_HEADERS, "Minhas Licenças", licensesList, "Fechar", "");
 	return 1;
 }
 

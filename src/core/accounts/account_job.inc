@@ -25,6 +25,8 @@ enum j_JOB_INFO
     Float:j_JOB_SPAWNA,
     j_JOB_INTERIOR,
     j_JOB_VIRTUAL_WORLD,
+    bool:j_JOB_FREEZE,
+    j_JOB_FREEZE_TIME,
     e_INTERIOR_LOCALES:j_JOB_LOCALE,
     Float:j_JOB_HELPX,
     Float:j_JOB_HELPY,
@@ -32,17 +34,17 @@ enum j_JOB_INFO
 }
 static gsJobInfo[][j_JOB_INFO] = 
 {
-    { j_JOB_NONE, "Nenhum", 1, 1, 0.0, 0.0, 0.0, 0.0, 0, 0, NO_INTERIOR, 0.0, 0.0, 0.0 },
-    { j_JOB_GARBAGEMAN, "Lixeiro", 260, 77, 2200.0781, -1969.9874, 13.7841, 88.9771, 0, 0, NO_INTERIOR, 2194.0466, -1970.0131, 13.7841 },
-    { j_JOB_TRUCK_DRIVER, "Caminhoneiro", 133, 232, -77.8258, -1135.2129, 1.0781, 337.4821, 0, 0, NO_INTERIOR, -74.3430, -1136.1361, 1.0781 },
-    { j_JOB_TAXI_DRIVER, "Taxista", 253, 40, 588.8351, -1491.7993, 15.4013, 181.6931, 0, 0, NO_INTERIOR, 583.7798, -1496.8689, 15.3653 },
-    { j_JOB_LAWYER, "Advogado", 187, 76, 1435.7312, -1458.8724, 1616.3073, 175.7873, COURT_OF_JUSTICE, 0, COURT_OF_JUSTICE, 1444.6176, -1460.9321, 1616.3073 },
-    { j_JOB_GRAVEDIGGER, "Coveiro", 68, 39, 832.8286, -1078.0800, 24.2969, 176.0949, 0, 0, NO_INTERIOR, 831.5405, -1095.4967, 24.2969 },
-    { j_JOB_MINER, "Minerador", 27, 77, 1003.9560, -91.6045, 22.4495, 28.0772, 0, 0, NO_INTERIOR, 2400.9707, -1504.3239, 1402.2000 },
-    { j_JOB_RESCUER, "Socorrista", 275, 219, 2041.5758, -1410.4382, 17.1641, 178.8488, 0, 0, NO_INTERIOR, 2038.0348, -1404.6837, 17.2531 },
-    { j_JOB_ELETRICIAN, "Eletricista", 16, 157, 800.6542, -613.6274, 16.3359, 177.3649, 0, 0, NO_INTERIOR, 797.6886, -621.0000, 16.3359 },
-    { j_JOB_BUS_DRIVER, "Motorista de Ônibus", 20, 157, 1796.3976, -2344.6323, 13.4902, 178.6017, 0, 0, NO_INTERIOR, 1802.6227, -2352.5845, 13.5261 },
-    { j_JOB_FARMER, "Fazendeiro", 158, 198, -93.6237, -26.5389, 3.1172, 88.9771, 0, 0, NO_INTERIOR, -104.1152, -16.2457, 3.1094 }
+    { j_JOB_NONE, "Nenhum", 1, 1, 0.0, 0.0, 0.0, 0.0, 0, 0, false, 0, NO_INTERIOR, 0.0, 0.0, 0.0 },
+    { j_JOB_GARBAGEMAN, "Lixeiro", 260, 77, 2200.0781, -1969.9874, 13.7841, 88.9771, 0, 0, false, 0, NO_INTERIOR, 2194.0466, -1970.0131, 13.7841 },
+    { j_JOB_TRUCK_DRIVER, "Caminhoneiro", 133, 232, -77.8258, -1135.2129, 1.0781, 337.4821, 0, 0, false, 0, NO_INTERIOR, -74.3430, -1136.1361, 1.0781 },
+    { j_JOB_TAXI_DRIVER, "Taxista", 253, 40, 588.8351, -1491.7993, 15.4013, 181.6931, 0, 0, false, 0, NO_INTERIOR, 583.7798, -1496.8689, 15.3653 },
+    { j_JOB_LAWYER, "Advogado", 187, 76, 1435.7312, -1458.8724, 1616.3073, 175.7873, COURT_OF_JUSTICE, 0, true, 3000, COURT_OF_JUSTICE, 1444.6176, -1460.9321, 1616.3073 },
+    { j_JOB_GRAVEDIGGER, "Coveiro", 68, 39, 832.8286, -1078.0800, 24.2969, 176.0949, 0, 0, false, 0, NO_INTERIOR, 831.5405, -1095.4967, 24.2969 },
+    { j_JOB_MINER, "Minerador", 27, 77, 1003.9560, -91.6045, 22.4495, 28.0772, 0, 0, false, 0, NO_INTERIOR, 2400.9707, -1504.3239, 1402.2000 },
+    { j_JOB_RESCUER, "Socorrista", 275, 219, 2041.5758, -1410.4382, 17.1641, 178.8488, 0, 0, false, 0, NO_INTERIOR, 2038.0348, -1404.6837, 17.2531 },
+    { j_JOB_ELETRICIAN, "Eletricista", 16, 157, 800.6542, -613.6274, 16.3359, 177.3649, 0, 0, false, 0, NO_INTERIOR, 797.6886, -621.0000, 16.3359 },
+    { j_JOB_BUS_DRIVER, "Motorista de Ônibus", 20, 157, 1796.3976, -2344.6323, 13.4902, 178.6017, 0, 0, false, 0, NO_INTERIOR, 1802.6227, -2352.5845, 13.5261 },
+    { j_JOB_FARMER, "Fazendeiro", 158, 198, -93.6237, -26.5389, 3.1172, 88.9771, 0, 0, false, 0, NO_INTERIOR, -104.1152, -16.2457, 3.1094 }
 };
 
 //------------------------- Timers (Timers used in the module.) -------------------------
@@ -71,7 +73,7 @@ stock Job_GetSkin(playerid, j_JOBS_LIST:jobId)
     return 1;
 }
 
-stock Job_GetSpawn(j_JOBS_LIST:jobId, &Float:posX, &Float:posY, &Float:posZ, &Float:posA, &interior, &virtualWorld, &e_INTERIOR_LOCALES:locale)
+stock Job_GetSpawn(j_JOBS_LIST:jobId, &Float:posX, &Float:posY, &Float:posZ, &Float:posA, &interior, &virtualWorld, &e_INTERIOR_LOCALES:locale, &bool:freeze, &freezeTime)
 {
     posX = gsJobInfo[jobId][j_JOB_SPAWNX];
     posY = gsJobInfo[jobId][j_JOB_SPAWNY];
@@ -80,6 +82,8 @@ stock Job_GetSpawn(j_JOBS_LIST:jobId, &Float:posX, &Float:posY, &Float:posZ, &Fl
     interior = gsJobInfo[jobId][j_JOB_INTERIOR];
     virtualWorld = gsJobInfo[jobId][j_JOB_VIRTUAL_WORLD];
     locale = gsJobInfo[jobId][j_JOB_LOCALE];
+    freeze = gsJobInfo[jobId][j_JOB_FREEZE];
+    freezeTime = gsJobInfo[jobId][j_JOB_FREEZE_TIME];
     return 1;
 }
 

@@ -28,32 +28,26 @@
 /*==============================================================================
 	Definitions
 ==============================================================================*/
-#include <global_definitions>
+#include <constants>
 
 /*==============================================================================
 	Gamemode Scripts
 ==============================================================================*/
 // SERVER CORE
 #include <server>
-#include <database>
 #include <accounts>
-#include <anticheat>
 // UTILS
 #include <utils>
+// ANTICHEAT
+#include <anticheat>
 // VEHICLES CORE
 #include <vehicles>
-// EXTRA
-#include <maps>
-#include <textdraws>
+// MISCELLANOUS
+#include <miscellanous>
 // PLAYER CORE
 #include <player>
-// FEATURES CORE
-#include <features>
-#include <jobs>
-// CHAT
-#include <chat>
-// COMMANDS
-#include <cmds>
+// SYSTEMS CORE
+#include <systems>
 
 /*==============================================================================
 	Main Gamemode

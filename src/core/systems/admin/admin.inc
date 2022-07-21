@@ -1,13 +1,18 @@
-// General Features
-#include <real_time>
-#include <gas_station>
-// Player Features
-#include <admin_spectate>
-#include <admin_fly>
-#include <licenses_system>
-#include <hungry_and_drink>
+#include <fly_system>
+#include <spectate_system>
+// Commands
+#include <admin_cmds_lvl1>
+#include <admin_cmds_lvl2>
+#include <admin_cmds_lvl3>
+#include <admin_cmds_lvl4>
+#include <admin_cmds_lvl5>
+#include <admin_cmds_lvl6>
+#include <admin_cmds_lvl7>
+#include <admin_cmds_lvl8>
+#include <admin_cmds_lvl9>
+#include <admin_cmds_lvl10>
 
-#include <YSI_Coding\y_hooks>
+#include <YSI_Coding/y_hooks>
 
 //------------------------- Definitions and constants -------------------------
 
@@ -17,8 +22,9 @@
 
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
-//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
+//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) ------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 
 //------------------------- Commands (Module related commands) -------------------------
+

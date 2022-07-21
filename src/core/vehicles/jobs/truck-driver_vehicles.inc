@@ -5,7 +5,7 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static gsLawyerVehicle[8];
+static gsTruckdriverVehicle[7];
 
 //------------------------- Timers (Timers used in the module.) -------------------------
 
@@ -16,17 +16,16 @@ static gsLawyerVehicle[8];
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnGameModeInit()
 {
-    gsLawyerVehicle[0] = AddStaticVehicleCustom(471, 1097.1378, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
-	gsLawyerVehicle[1] = AddStaticVehicleCustom(471, 1095.7000, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
-	gsLawyerVehicle[2] = AddStaticVehicleCustom(471, 1094.2000, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
-	gsLawyerVehicle[3] = AddStaticVehicleCustom(471, 1092.7000, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
-	gsLawyerVehicle[4] = AddStaticVehicleCustom(471, 1091.1500, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
-	gsLawyerVehicle[5] = AddStaticVehicleCustom(471, 1089.7000, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
-	gsLawyerVehicle[6] = AddStaticVehicleCustom(471, 1088.2000, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
-	gsLawyerVehicle[7] = AddStaticVehicleCustom(471, 1086.7000, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
-	for(new i; i < sizeof(gsLawyerVehicle); i++)
+    gsTruckdriverVehicle[0] = AddStaticVehicleCustom(573,-77.0928,-1106.8040,1.5164,160.0013,0,0,120);
+    gsTruckdriverVehicle[1] = AddStaticVehicleCustom(573,-71.3447,-1109.8883,1.5159,158.8741,0,0,120);
+    gsTruckdriverVehicle[2] = AddStaticVehicleCustom(455,-66.1184,-1111.7091,1.5159,158.6986,0,0,120);
+    gsTruckdriverVehicle[3] = AddStaticVehicleCustom(573,-45.4056,-1136.1332,1.5147,70.0738,0,0,120);
+    gsTruckdriverVehicle[4] = AddStaticVehicleCustom(455,-59.6849,-1130.6948,1.5150,69.0487,0,0,120);
+    gsTruckdriverVehicle[5] = AddStaticVehicleCustom(455,-45.0255,-1155.7328,1.5148,62.4110,0,0,120);
+    gsTruckdriverVehicle[6] = AddStaticVehicleCustom(455,-59.5375,-1148.5664,1.5147,63.9188,0,0,120);
+	for(new i; i < sizeof(gsTruckdriverVehicle); i++)
 	{
-        Vehicle_SetJob(i, j_JOB_LAWYER);
+        Vehicle_SetJob(gsTruckdriverVehicle[i], j_JOB_TRUCK_DRIVER);
 	}
     return 1;
 }

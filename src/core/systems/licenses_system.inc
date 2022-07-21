@@ -8,6 +8,8 @@
 #define MAX_TRUCK_ROUTES                    21
 
 #define PLAYER_FINISH_DRIVING_TEST          -2045.0015,-126.8082,-50.9141
+#define	LICENSES_MENU_PICKUP		        -2039.3788,-125.9986,-50.9141
+#define	GUN_LICENSES_MENU		            358.2363,184.5656,1008.3828
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 enum e_DRIVING_TEST_TYPE
@@ -225,6 +227,15 @@ stock ShowPlayerGunLincensesMenu(playerid)
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
+hook OnGameModeInit()
+{
+	AddStaticPickup(2061, 23, GUN_LICENSES_MENU);
+    Create3DTextLabel("Porte de Armas\nPara retirar seu porte\nAperte 'F'.", COLOR_ORANGE, GUN_LICENSES_MENU, 20.0, 0);
+
+	AddStaticPickup(1581, 23, LICENSES_MENU_PICKUP); // Licenses Menu
+    Create3DTextLabel("Autoescola\nPara retirar sua habilitação\nAperte 'F'.", COLOR_ORANGE, LICENSES_MENU_PICKUP, 20.0, 0);
+    return 1;
+}
 hook OnPlayerConnect(playerid)
 {
     gsDriveSchoolTimer[playerid] = INVALID_VALUE;
@@ -594,4 +605,24 @@ YCMD:licencas(playerid, params[], help)
 
     ShowPlayerLicensesMenu(playerid);
  	return 1;
+}
+
+YCMD:minhaslicencas(playerid, params[], help)
+{
+	new licensesList[300], licenseString[80];
+    strcat(licensesList, "Tipo\tStatus\tValidade\n");
+	format(licenseString, sizeof(licenseString), (Player_GetCarLicense(playerid) > 0 ? "{FFFFFF}Carro\t{33aa33}Válida\t{00e7c6}%d\n" : "{FFFFFF}Carro\t{FF6347}Vencida\t{00e7c6}%d\n"), Player_GetCarLicense(playerid));
+	strcat(licensesList, licenseString);
+	format(licenseString, sizeof(licenseString), (Player_GetMotorCycleLicense(playerid) > 0 ? "{FFFFFF}Moto\t{33aa33}Válida\t{00e7c6}%d\n" : "{FFFFFF}Moto\t{FF6347}Vencida\t{00e7c6}%d\n"), Player_GetMotorCycleLicense(playerid));
+	strcat(licensesList, licenseString);
+	format(licenseString, sizeof(licenseString), (Player_GetTruckLicense(playerid) > 0 ? "{FFFFFF}Caminhão/Ônibus\t{33aa33}Válida\t{00e7c6}%d\n" : "{FFFFFF}Caminhão/Ônibus\t{FF6347}Vencida\t{00e7c6}%d\n"), Player_GetTruckLicense(playerid));
+	strcat(licensesList, licenseString);
+	format(licenseString, sizeof(licenseString), (Player_GetBoatLicense(playerid) > 0 ? "{FFFFFF}Barco\t{33aa33}Válida\t{00e7c6}%d\n" : "{FFFFFF}Barco\t{FF6347}Vencida\t{00e7c6}%d\n"), Player_GetBoatLicense(playerid));
+	strcat(licensesList, licenseString);
+	format(licenseString, sizeof(licenseString), (Player_GetFlyLicense(playerid) > 0 ? "{FFFFFF}Aeronave\t{33aa33}Válida\t{00e7c6}%d\n" : "{FFFFFF}Aeronave\t{FF6347}Vencida\t{00e7c6}%d\n"), Player_GetFlyLicense(playerid));
+	strcat(licensesList, licenseString);
+	format(licenseString, sizeof(licenseString), (Player_GetGunLicense(playerid) ? "{FFFFFF}Armas\t{33aa33}Válida\t{00e7c6}%d\n" : "{FFFFFF}Armas\t{FF6347}Vencida\t{00e7c6}%d\n"), Player_GetGunLicense(playerid));
+	strcat(licensesList, licenseString);
+	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_TABLIST_HEADERS, "Minhas Licenças", licensesList, "Fechar", "");
+	return 1;
 }

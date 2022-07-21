@@ -3,7 +3,6 @@
 //------------------------- Definitions and constants -------------------------
 #define DRIVING_SCHOOL_ENTRANCE     1081.1854,-1696.7837,13.5469
 #define DRIVING_SCHOOL_EXIT         -2039.1577,-134.5164,-50.9141
-#define	LICENSES_MENU_PICKUP		-2039.3788,-125.9986,-50.9141
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static gsDrivingSchoolActor[9];
@@ -17,13 +16,11 @@ hook OnGameModeInit()
 {
 	//=====================================[ 3DTEXT ]====================================||
     Create3DTextLabel("Autoescola de {FFFFFF}Los Santos{B4B5B7}\nPara Entrar\nAperte '{FFFFFF}F{B4B5B7}'", COLOR_GRAD1, DRIVING_SCHOOL_ENTRANCE, 20.0, 0);
-	Create3DTextLabel("Autoescola\nPara retirar sua habilitação\nAperte 'F'.", COLOR_ORANGE, LICENSES_MENU_PICKUP, 20.0, 0);
 
 	//=====================================[ PICKUPS ]====================================||
     AddStaticPickup(1318, 23, DRIVING_SCHOOL_ENTRANCE); // Entrance
     AddStaticPickup(1318, 23, DRIVING_SCHOOL_EXIT); // Exit
 
-	AddStaticPickup(1581, 23, LICENSES_MENU_PICKUP); // Licenses Menu
 	//=====================================[ OBJECTS ]====================================||
     new drivingSchoolObject;
 	drivingSchoolObject = CreateDynamicObject(2165, -2046.143310, -126.097991, -51.914001, 0.000000, 0.000000, 270.000000);

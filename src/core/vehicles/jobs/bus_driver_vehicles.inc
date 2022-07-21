@@ -5,7 +5,7 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static gsRescuerVehicle[7];
+static gsBusdriverVehicle[6];
 
 //------------------------- Timers (Timers used in the module.) -------------------------
 
@@ -16,16 +16,15 @@ static gsRescuerVehicle[7];
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnGameModeInit()
 {
-    gsRescuerVehicle[0] = AddStaticVehicleCustom(416, 2039.7706, -1419.3419, 17.2318, 89.5749, -1, -1, 120);
-	gsRescuerVehicle[1] = AddStaticVehicleCustom(416, 2039.7706, -1429.0637, 17.2318, 89.5749, -1, -1, 120);
-	gsRescuerVehicle[2] = AddStaticVehicleCustom(416, 2039.7706, -1424.6201, 17.2318, 89.5749, -1, -1, 120);
-	gsRescuerVehicle[3] = AddStaticVehicleCustom(416, 2015.5696, -1412.3545, 17.2318, 180.5917, -1, -1, 120);
-	gsRescuerVehicle[4] = AddStaticVehicleCustom(416, 2010.6547, -1412.3545, 17.2318, 180.5917, -1, -1, 120);
-	gsRescuerVehicle[5] = AddStaticVehicleCustom(407, 2033.3182, -1447.9312, 17.4290, 89.7876, -1, -1, 120);
-	gsRescuerVehicle[6] = AddStaticVehicleCustom(407, 2033.7844, -1439.4271, 17.4290, 2.7910, -1, -1, 120);
-	for(new i; i < sizeof(gsRescuerVehicle); i++)
+    gsBusdriverVehicle[0] = AddStaticVehicleCustom(437, 1791.6146, -2350.6851, 13.5544, 181.3456, 6, 6, 120);
+	gsBusdriverVehicle[1] = AddStaticVehicleCustom(437, 1786.4606, -2350.7319, 13.6762, 181.6334, 6, 6, 120);
+	gsBusdriverVehicle[2] = AddStaticVehicleCustom(437, 1781.6776, -2350.5740, 13.6679, 180.0032, 6, 6, 120);
+	gsBusdriverVehicle[3] = AddStaticVehicleCustom(437, 1786.6947, -2362.9531, 13.7514, 180.0976, 6, 6, 120);
+	gsBusdriverVehicle[4] = AddStaticVehicleCustom(437, 1781.7631, -2362.8447, 13.6653, 179.7903, 6, 6, 120);
+	gsBusdriverVehicle[5] = AddStaticVehicleCustom(437, 1791.8979, -2362.7944, 13.6768, 180.7691, 6, 6, 120);
+	for(new i; i < sizeof(gsBusdriverVehicle); i++)
 	{
-        Vehicle_SetJob(i, j_JOB_RESCUER);
+        Vehicle_SetJob(gsBusdriverVehicle[i], j_JOB_BUS_DRIVER);
 	}
     return 1;
 }
