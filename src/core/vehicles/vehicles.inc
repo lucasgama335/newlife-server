@@ -35,7 +35,6 @@ stock Vehicle_SetEngine(vehicleid, bool:status)
 	{
 		return 0;
 	}
-
     new engine, lights, alarm, doors, bonnet, boot, objective;
     GetVehicleParamsEx(vehicleid, engine, lights, alarm, doors, bonnet, boot, objective);
 	if (status == false)
@@ -63,6 +62,10 @@ stock Vehicle_SetEngineToPlayer(playerid, vehicleid, bool:status)
 	if (Vehicle_IsBike(GetVehicleModel(vehicleid)))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Esse veículo não possui um motor.");
+	}
+	if (IsPlayerRefueling(playerid))
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não pode ligar o veículo enquanto ele está sendo abastecido.");
 	}
 	if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER && Vehicle_GetFuel(vehicleid) <= 0)
 	{

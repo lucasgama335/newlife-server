@@ -3,7 +3,6 @@
 //------------------------- Definitions and constants -------------------------
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
-static bool:gsIsPlayerRefueling[MAX_PLAYERS];
 static gsFuelTimer[MAX_PLAYERS];
 
 //------------------------- Timers (Timers used in the module.) -------------------------
@@ -31,6 +30,7 @@ static stock GasStationFinishFuel(playerid, price)
 	}
 	Player_SetMoney(playerid, (Player_GetMoney(playerid) - price));
 	TogglePlayerControllable(playerid, true);
+	SetPlayerRefueling(playerid, false);
 	SendClientMessage(playerid, COLOR_YELLOW2, "[Posto de Gasolina]: O tanque do seu veículo foi reabastecido completamente.");
 	HideFuelTextDraw(playerid);
 }
@@ -46,25 +46,15 @@ stock GasStationStartFuel(playerid, vehicleid, totalPrice, pricePerLiter)
 	}
     gsFuelTimer[playerid] = SetTimerEx("FillUp", 300, true, "iiii", playerid, vehicleid, totalPrice, pricePerLiter);
 	TogglePlayerControllable(playerid, false);
+	SetPlayerRefueling(playerid, true);
 	SendClientMessage(playerid, COLOR_YELLOW2, "[Posto de Gasolina]: Abastecimendo do veículo iniciado. Aguarde até completar o tanque...");
-}
-
-stock bool:IsPlayerRefueling(playerid)
-{
-    return gsIsPlayerRefueling[playerid];
-}
-
-stock SetPlayerRefueling(playerid, bool:status)
-{
-    gsIsPlayerRefueling[playerid] = status;
-    return 1;
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnPlayerConnect(playerid)
 {
     gsFuelTimer[playerid] = INVALID_VALUE;
-    gsIsPlayerRefueling[playerid] = false;
+	SetPlayerRefueling(playerid, false);
     return 1;
 }
 

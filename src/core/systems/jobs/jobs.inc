@@ -375,7 +375,7 @@ hook OnPlayerPressF(playerid)
     if (Player_GetJob(playerid) != j_JOB_NONE)
     {
         new Float:helpX, Float:helpY, Float:helpZ;
-        Job_GetHelpPosition(j_JOB_ELETRICIAN, helpX, helpY, helpZ);
+        Job_GetHelpPosition(Player_GetJob(playerid), helpX, helpY, helpZ);
         if (IsPlayerInRangeOfPoint(playerid, 2.0, helpX, helpY, helpZ))
         {
             ShowPlayerJobHelp(playerid);
@@ -411,7 +411,7 @@ YCMD:sairdoemprego(playerid, params[], help)
 
 	ResetPlayerWeapons(playerid);
     Player_SetJob(playerid, j_JOB_NONE);
-    Player_SetSkin(playerid, Player_GetSkin(playerid));
+    SetPlayerSkin(playerid, Player_GetSkin(playerid));
 	Player_SaveJobData(playerid);
 	DisablePlayerCheckpoint(playerid);
     SendClientMessage(playerid, COLOR_LIGHTBLUE, "[Agência de Emprego]: Você saiu do seu emprego.");

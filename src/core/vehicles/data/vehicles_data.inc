@@ -24,7 +24,6 @@ enum v_VEHICLE_DATA
     j_JOBS_LIST:v_VEHICLE_JOB
 }
 static gsVehicleInfo[MAX_VEHICLES][v_VEHICLE_DATA];
-
 static Iterator:Vehicles<MAX_VEHICLES>;
 
 //------------------------- Timers (Timers used in the module.) -------------------------

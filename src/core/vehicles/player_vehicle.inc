@@ -8,6 +8,7 @@ static gsPlayerLastCarEntered[MAX_PLAYERS];
 static gsPlayerSpeedometerTimer[MAX_PLAYERS];
 static gsPlayerCheckFuelTimer[MAX_PLAYERS];
 static gsPlayerCheckBrokenTimer[MAX_PLAYERS];
+static bool:gsIsPlayerRefueling[MAX_PLAYERS];
 static Float:gsFuelPumps[][3] =
 {
     { 1004.0070, -939.3102, 42.1797 },
@@ -187,6 +188,27 @@ stock ShowPlayerGasStationDialog(playerid)
 	format(string, sizeof(string), "{FFFFFF}Eletricidade\tR$ %s/L\n", priceString);
  	strcat(StrCat, string);
 	ShowPlayerDialog(playerid, DIALOG_GAS_STATION, DIALOG_STYLE_TABLIST_HEADERS, "Abastecimento de Veículos", StrCat, "Abastecer", "Fechar");
+	return 1;
+}
+
+stock bool:IsPlayerRefueling(playerid)
+{
+	if (!IsValidPlayer(playerid))
+	{
+		return false;
+	}
+
+	return gsIsPlayerRefueling[playerid];
+}
+
+stock SetPlayerRefueling(playerid, bool:status)
+{
+	if (!IsValidPlayer(playerid))
+	{
+		return 0;
+	}
+
+	gsIsPlayerRefueling[playerid] = status;
 	return 1;
 }
 
