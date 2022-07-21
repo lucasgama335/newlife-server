@@ -265,6 +265,38 @@ hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 		return 1;
 	}
 	
+	if (Vehicle_IsCar(GetVehicleModel(vehicleid)) && Player_GetCarLicense(playerid) <= 0)
+	{
+		SetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
+		SendClientMessage(playerid, COLOR_INVALID, "Você não possui a habilitação para dirigir esse carro.");
+		return 1;
+	}
+	if (Vehicle_IsMotorBike(GetVehicleModel(vehicleid)) && Player_GetMotorCycleLicense(playerid) <= 0)
+	{
+		SetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
+		SendClientMessage(playerid, COLOR_INVALID, "Você não possui a habilitação para pilotar essa moto.");
+		return 1;
+	}
+	if (Vehicle_IsTruck(GetVehicleModel(vehicleid)) && Player_GetTruckLicense(playerid) <= 0)
+	{
+		SetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
+		SendClientMessage(playerid, COLOR_INVALID, "Você não possui a habilitação para dirigir esse caminhão/ônibus.");
+		return 1;
+	}
+	if (Vehicle_IsHelicopter(GetVehicleModel(vehicleid)) && Player_GetFlyLicense(playerid) <= 0
+	|| Vehicle_IsPlane(GetVehicleModel(vehicleid)) && Player_GetFlyLicense(playerid) <= 0)
+	{
+		SetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
+		SendClientMessage(playerid, COLOR_INVALID, "Você não possui a habilitação para pilotar essa aeronave.");
+		return 1;
+	}
+	if (Vehicle_IsBoat(GetVehicleModel(vehicleid)) && Player_GetBoatLicense(playerid) <= 0)
+	{
+		SetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
+		SendClientMessage(playerid, COLOR_INVALID, "Você não possui a habilitação para pilotar esse barco.");
+		return 1;
+	}
+
 	gsPlayerLastCarEntered[playerid] = vehicleid;
 
     if (!Vehicle_GetEngineStatus(vehicleid) && !ispassenger)
@@ -314,8 +346,40 @@ hook OnPlayerStateChange(playerid, newstate, oldstate)
 			if (Vehicle_GetJob(vehicleid) != j_JOB_NONE && Player_GetJob(playerid) != Vehicle_GetJob(vehicleid))
 			{
 				new string[(40 + MAX_JOB_NAME)];
+				RemovePlayerFromVehicle(playerid);
 				format(string, sizeof(string), "* Você não é um %s.", Job_GetName(Vehicle_GetJob(vehicleid)));
 				SendClientMessage(playerid, COLOR_GRAD2, string);
+				return 1;
+			}
+			if (Vehicle_IsCar(GetVehicleModel(vehicleid)) && Player_GetCarLicense(playerid) <= 0)
+			{
+				RemovePlayerFromVehicle(playerid);
+				SendClientMessage(playerid, COLOR_INVALID, "Você não possui a habilitação para dirigir esse carro.");
+				return 1;
+			}
+			if (Vehicle_IsMotorBike(GetVehicleModel(vehicleid)) && Player_GetMotorCycleLicense(playerid) <= 0)
+			{
+				RemovePlayerFromVehicle(playerid);
+				SendClientMessage(playerid, COLOR_INVALID, "Você não possui a habilitação para pilotar essa moto.");
+				return 1;
+			}
+			if (Vehicle_IsTruck(GetVehicleModel(vehicleid)) && Player_GetTruckLicense(playerid) <= 0)
+			{
+				RemovePlayerFromVehicle(playerid);
+				SendClientMessage(playerid, COLOR_INVALID, "Você não possui a habilitação para dirigir esse caminhão/ônibus.");
+				return 1;
+			}
+			if (Vehicle_IsHelicopter(GetVehicleModel(vehicleid)) && Player_GetFlyLicense(playerid) <= 0
+			|| Vehicle_IsPlane(GetVehicleModel(vehicleid)) && Player_GetFlyLicense(playerid) <= 0)
+			{
+				RemovePlayerFromVehicle(playerid);
+				SendClientMessage(playerid, COLOR_INVALID, "Você não possui a habilitação para pilotar essa aeronave.");
+				return 1;
+			}
+			if (Vehicle_IsBoat(GetVehicleModel(vehicleid)) && Player_GetBoatLicense(playerid) <= 0)
+			{
+				RemovePlayerFromVehicle(playerid);
+				SendClientMessage(playerid, COLOR_INVALID, "Você não possui a habilitação para pilotar esse barco.");
 				return 1;
 			}
 		}
