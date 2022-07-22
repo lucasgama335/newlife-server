@@ -229,11 +229,11 @@ stock ShowPlayerGunLincensesMenu(playerid)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnGameModeInit()
 {
-	AddStaticPickup(2061, 23, GUN_LICENSES_MENU);
-    Create3DTextLabel("Porte de Armas\nPara retirar seu porte\nAperte 'F'.", COLOR_ORANGE, GUN_LICENSES_MENU, 20.0, 0);
+	CreateDynamicPickup(2061, 23, GUN_LICENSES_MENU);
+    CreateDynamic3DTextLabel("Porte de Armas\nPara retirar seu porte\nAperte 'F'.", COLOR_ORANGE, GUN_LICENSES_MENU, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
 
-	AddStaticPickup(1581, 23, LICENSES_MENU_PICKUP); // Licenses Menu
-    Create3DTextLabel("Autoescola\nPara retirar sua habilitação\nAperte 'F'.", COLOR_ORANGE, LICENSES_MENU_PICKUP, 20.0, 0);
+	CreateDynamicPickup(1581, 23, LICENSES_MENU_PICKUP); // Licenses Menu
+    CreateDynamic3DTextLabel("Autoescola\nPara retirar sua habilitação\nAperte 'F'.", COLOR_ORANGE, LICENSES_MENU_PICKUP, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
     return 1;
 }
 hook OnPlayerConnect(playerid)

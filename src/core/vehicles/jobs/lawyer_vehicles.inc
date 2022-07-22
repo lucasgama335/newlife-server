@@ -16,14 +16,14 @@ static gsLawyerVehicle[8];
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnGameModeInit()
 {
-    gsLawyerVehicle[0] = AddStaticVehicleCustom(471, 1097.1378, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
-	gsLawyerVehicle[1] = AddStaticVehicleCustom(471, 1095.7000, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
-	gsLawyerVehicle[2] = AddStaticVehicleCustom(471, 1094.2000, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
-	gsLawyerVehicle[3] = AddStaticVehicleCustom(471, 1092.7000, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
-	gsLawyerVehicle[4] = AddStaticVehicleCustom(471, 1091.1500, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
-	gsLawyerVehicle[5] = AddStaticVehicleCustom(471, 1089.7000, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
-	gsLawyerVehicle[6] = AddStaticVehicleCustom(471, 1088.2000, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
-	gsLawyerVehicle[7] = AddStaticVehicleCustom(471, 1086.7000, -1803.0062, 13.0120, 0.0000, 0, 0, 120);
+	gsLawyerVehicle[0] = AddStaticVehicleCustom(471, 1144.1881, -1765.1663, 13.0259, 0.0000, 0, 0, 120);
+	gsLawyerVehicle[1] = AddStaticVehicleCustom(471, 1163.8289, -1752.2219, 13.0259, 90.0000, 0, 0, 120);
+	gsLawyerVehicle[2] = AddStaticVehicleCustom(471, 1142.1526, -1757.8859, 13.0259, -90.0000, 0, 0, 120);
+	gsLawyerVehicle[3] = AddStaticVehicleCustom(471, 1142.1526, -1754.9735, 13.0259, -90.0000, 0, 0, 120);
+	gsLawyerVehicle[4] = AddStaticVehicleCustom(471, 1142.1526, -1752.2219, 13.0259, -90.0000, 0, 0, 120);
+	gsLawyerVehicle[5] = AddStaticVehicleCustom(471, 1163.8289, -1754.9735, 13.0259, 90.0000, 0, 0, 120);
+	gsLawyerVehicle[6] = AddStaticVehicleCustom(471, 1163.8289, -1757.8859, 13.0259, 90.0000, 0, 0, 120);
+	gsLawyerVehicle[7] = AddStaticVehicleCustom(471, 1142.1526, -1760.6241, 13.0259, -90.0000, 0, 0, 120);
 	for(new i; i < sizeof(gsLawyerVehicle); i++)
 	{
         Vehicle_SetJob(gsLawyerVehicle[i], j_JOB_LAWYER);

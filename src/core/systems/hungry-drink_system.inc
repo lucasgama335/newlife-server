@@ -430,14 +430,14 @@ hook OnGameModeInit()
 
     for (new i; i < MAX_FOOD_BAR_LIST; i++)
     {
-		Create3DTextLabel("{FFFFFF}Cardápio de Comidas\n{B4B5B7}Para Ver as Opções\nAperte '{FFFFFF}F{B4B5B7}'", COLOR_GRAD1, gsFoodBarList[i][f_POS_X], gsFoodBarList[i][f_POS_Y], gsFoodBarList[i][f_POS_Z], 10.0, gsFoodBarList[i][f_VIRTUAL_WORLD]);
-		AddStaticPickup(2768, 23, gsFoodBarList[i][f_POS_X], gsFoodBarList[i][f_POS_Y], gsFoodBarList[i][f_POS_Z], gsFoodBarList[i][f_VIRTUAL_WORLD]);
+		CreateDynamic3DTextLabel("{FFFFFF}Cardápio de Comidas\n{B4B5B7}Para Ver as Opções\nAperte '{FFFFFF}F{B4B5B7}'", COLOR_GRAD1, gsFoodBarList[i][f_POS_X], gsFoodBarList[i][f_POS_Y], gsFoodBarList[i][f_POS_Z], 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, gsFoodBarList[i][f_VIRTUAL_WORLD]);
+		CreateDynamicPickup(2768, 23, gsFoodBarList[i][f_POS_X], gsFoodBarList[i][f_POS_Y], gsFoodBarList[i][f_POS_Z], gsFoodBarList[i][f_VIRTUAL_WORLD]);
     }
 
     for (new i; i < MAX_DRINK_BAR_LIST; i++)
     {
-		Create3DTextLabel("{FFFFFF}Cardápio de Bebidas\n{B4B5B7}Para Ver as Opções\nAperte '{FFFFFF}F{B4B5B7}'", COLOR_GRAD1, gsDrinkBarList[i][d_POS_X], gsDrinkBarList[i][d_POS_Y], gsDrinkBarList[i][d_POS_Z], 10.0, gsDrinkBarList[i][d_VIRTUAL_WORLD]);
-		AddStaticPickup(1484, 23, gsDrinkBarList[i][d_POS_X], gsDrinkBarList[i][d_POS_Y], gsDrinkBarList[i][d_POS_Z], gsDrinkBarList[i][d_VIRTUAL_WORLD]);
+		CreateDynamic3DTextLabel("{FFFFFF}Cardápio de Bebidas\n{B4B5B7}Para Ver as Opções\nAperte '{FFFFFF}F{B4B5B7}'", COLOR_GRAD1, gsDrinkBarList[i][d_POS_X], gsDrinkBarList[i][d_POS_Y], gsDrinkBarList[i][d_POS_Z], 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, gsDrinkBarList[i][d_VIRTUAL_WORLD]);
+		CreateDynamicPickup(1484, 23, gsDrinkBarList[i][d_POS_X], gsDrinkBarList[i][d_POS_Y], gsDrinkBarList[i][d_POS_Z], gsDrinkBarList[i][d_VIRTUAL_WORLD]);
     }
     return 1;
 }

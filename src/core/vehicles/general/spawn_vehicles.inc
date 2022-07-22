@@ -39,7 +39,7 @@ hook OnGameModeInit()
 	{
 		GetVehicleName(GetVehicleModel(gsCivilVehicle[x]), vehicleName);
 		format(string, sizeof string, "{00BFFF}%s\n{FFFFFF}•• Veículo Civil ••", vehicleName);
-		new Text3D:textVehicle = Create3DTextLabel(string, 0xFFFFFFFF, 0.0, 0.0, 0.0, 10.0, 0);
+		new Text3D:textVehicle = CreateDynamic3DTextLabel(string, 0xFFFFFFFF, 0.0, 0.0, 0.0, 10.0, INVALID_PLAYER_ID, gsCivilVehicle[x], 0);
 		Attach3DTextLabelToVehicle(textVehicle, gsCivilVehicle[x], 0.0, 0.0, 0.0);
 	}
     return 1;

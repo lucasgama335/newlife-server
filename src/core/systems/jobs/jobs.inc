@@ -104,49 +104,49 @@ static stock ShowPlayerJobHelp(playerid)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnGameModeInit()
 {
-    AddStaticPickup(1210, 23, JOBS_LIST_MENU);
-    Create3DTextLabel("Menu de Empregos\nAperte F", COLOR_3DLABEL, JOBS_LIST_MENU, 20.0, 0);
+    CreateDynamicPickup(1210, 23, JOBS_LIST_MENU);
+    CreateDynamic3DTextLabel("Menu de Empregos\nAperte F", COLOR_3DLABEL, JOBS_LIST_MENU, 20.0, 0);
     
     new Float:helpX, Float:helpY, Float:helpZ;
     Job_GetHelpPosition(j_JOB_GARBAGEMAN, helpX, helpY, helpZ);
-    AddStaticPickup(1239, 23, helpX, helpY, helpZ);
-	Create3DTextLabel("\nAjuda Emprego\nAperte 'F' para saber\nmais sobre o seu emprego.", 0xFFA500FF, helpX, helpY, helpZ, 20.0, 0);
+    CreateDynamicPickup(1239, 23, helpX, helpY, helpZ);
+	CreateDynamic3DTextLabel("\nAjuda Emprego\nAperte 'F' para saber\nmais sobre o seu emprego.", 0xFFA500FF, helpX, helpY, helpZ, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
 
     Job_GetHelpPosition(j_JOB_TRUCK_DRIVER, helpX, helpY, helpZ);
-    AddStaticPickup(1239, 23, helpX, helpY, helpZ);
-	Create3DTextLabel("\nAjuda Emprego\nAperte 'F' para saber\nmais sobre o seu emprego.", 0xFFA500FF, helpX, helpY, helpZ, 20.0, 0);
+    CreateDynamicPickup(1239, 23, helpX, helpY, helpZ);
+	CreateDynamic3DTextLabel("\nAjuda Emprego\nAperte 'F' para saber\nmais sobre o seu emprego.", 0xFFA500FF, helpX, helpY, helpZ, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
 
     Job_GetHelpPosition(j_JOB_TAXI_DRIVER, helpX, helpY, helpZ);
-    AddStaticPickup(1239, 23, helpX, helpY, helpZ);
-	Create3DTextLabel("\nAjuda Emprego\nAperte 'F' para saber\nmais sobre o seu emprego.", 0xFFA500FF, helpX, helpY, helpZ, 20.0, 0);
+    CreateDynamicPickup(1239, 23, helpX, helpY, helpZ);
+	CreateDynamic3DTextLabel("\nAjuda Emprego\nAperte 'F' para saber\nmais sobre o seu emprego.", 0xFFA500FF, helpX, helpY, helpZ, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
 
     Job_GetHelpPosition(j_JOB_LAWYER, helpX, helpY, helpZ);
-    AddStaticPickup(1239, 23, helpX, helpY, helpZ);
-	Create3DTextLabel("\nAjuda Emprego\nAperte 'F' para saber\nmais sobre o seu emprego.", 0xFFA500FF, helpX, helpY, helpZ, 20.0, 0);
+    CreateDynamicPickup(1239, 23, helpX, helpY, helpZ);
+	CreateDynamic3DTextLabel("\nAjuda Emprego\nAperte 'F' para saber\nmais sobre o seu emprego.", 0xFFA500FF, helpX, helpY, helpZ, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
 
     Job_GetHelpPosition(j_JOB_GRAVEDIGGER, helpX, helpY, helpZ);
-    AddStaticPickup(1239, 23, helpX, helpY, helpZ);
-	Create3DTextLabel("\nAjuda Emprego\nAperte 'F' para saber\nmais sobre o seu emprego.", 0xFFA500FF, helpX, helpY, helpZ, 20.0, 0);
+    CreateDynamicPickup(1239, 23, helpX, helpY, helpZ);
+	CreateDynamic3DTextLabel("\nAjuda Emprego\nAperte 'F' para saber\nmais sobre o seu emprego.", 0xFFA500FF, helpX, helpY, helpZ, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
 
     Job_GetHelpPosition(j_JOB_RESCUER, helpX, helpY, helpZ);
-    AddStaticPickup(1239, 23, helpX, helpY, helpZ);
-	Create3DTextLabel("\nAjuda Emprego\nAperte 'F' para saber\nmais sobre o seu emprego.", 0xFFA500FF, helpX, helpY, helpZ, 20.0, 0);
+    CreateDynamicPickup(1239, 23, helpX, helpY, helpZ);
+	CreateDynamic3DTextLabel("\nAjuda Emprego\nAperte 'F' para saber\nmais sobre o seu emprego.", 0xFFA500FF, helpX, helpY, helpZ, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
 
     Job_GetHelpPosition(j_JOB_MINER, helpX, helpY, helpZ);
-    AddStaticPickup(1239, 23, helpX, helpY, helpZ);
-	Create3DTextLabel("\nAjuda Emprego\nAperte 'F' para saber\nmais sobre o seu emprego.", 0xFFA500FF, helpX, helpY, helpZ, 20.0, 0);
+    CreateDynamicPickup(1239, 23, helpX, helpY, helpZ);
+	CreateDynamic3DTextLabel("\nAjuda Emprego\nAperte 'F' para saber\nmais sobre o seu emprego.", 0xFFA500FF, helpX, helpY, helpZ, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
 
     Job_GetHelpPosition(j_JOB_ELETRICIAN, helpX, helpY, helpZ);
-    AddStaticPickup(1239, 23, helpX, helpY, helpZ);
-	Create3DTextLabel("\nAjuda Emprego\nAperte 'F' para saber\nmais sobre o seu emprego.", 0xFFA500FF, helpX, helpY, helpZ, 20.0, 0);
+    CreateDynamicPickup(1239, 23, helpX, helpY, helpZ);
+	CreateDynamic3DTextLabel("\nAjuda Emprego\nAperte 'F' para saber\nmais sobre o seu emprego.", 0xFFA500FF, helpX, helpY, helpZ, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
 
     Job_GetHelpPosition(j_JOB_BUS_DRIVER, helpX, helpY, helpZ);
-    AddStaticPickup(1239, 23, helpX, helpY, helpZ);
-	Create3DTextLabel("\nAjuda Emprego\nAperte 'F' para saber\nmais sobre o seu emprego.", 0xFFA500FF, helpX, helpY, helpZ, 20.0, 0);
+    CreateDynamicPickup(1239, 23, helpX, helpY, helpZ);
+	CreateDynamic3DTextLabel("\nAjuda Emprego\nAperte 'F' para saber\nmais sobre o seu emprego.", 0xFFA500FF, helpX, helpY, helpZ, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
 
     Job_GetHelpPosition(j_JOB_FARMER, helpX, helpY, helpZ);
-    AddStaticPickup(1239, 23, helpX, helpY, helpZ);
-	Create3DTextLabel("\nAjuda Emprego\nAperte 'F' para saber\nmais sobre o seu emprego.", 0xFFA500FF, helpX, helpY, helpZ, 20.0, 0);
+    CreateDynamicPickup(1239, 23, helpX, helpY, helpZ);
+	CreateDynamic3DTextLabel("\nAjuda Emprego\nAperte 'F' para saber\nmais sobre o seu emprego.", 0xFFA500FF, helpX, helpY, helpZ, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
     return 1;
 }
 

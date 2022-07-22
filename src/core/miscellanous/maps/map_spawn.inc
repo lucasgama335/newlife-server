@@ -12,10 +12,10 @@ static gsSpawnActor[3];
 hook OnGameModeInit()
 {
 	//=====================================[ 3DTEXT ]====================================||
-	Create3DTextLabel("{00e7c6}AJUDA PARA NOVATOS\n{FFFFFF}Aperte '{00e7c6}F{FFFFFF}'\n{FFFFFF}Em caso de dúvidas ou use o {00e7c6}/faq{FFFFFF}.", COLOR_CYAN, 809.5279,-1341.4880,13.5405, 20.0,0);
+	CreateDynamic3DTextLabel("{00e7c6}AJUDA PARA NOVATOS\n{FFFFFF}Aperte '{00e7c6}F{FFFFFF}'\n{FFFFFF}Em caso de dúvidas ou use o {00e7c6}/faq{FFFFFF}.", COLOR_CYAN, 809.5279, -1341.4880, 13.5405, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
 
 	//=====================================[ PICKUPS ]====================================||
-	AddStaticPickup(18749, 23, 809.5279,-1341.4880,13.5405); // Faq Civil
+	CreateDynamicPickup(18749, 23, 809.5279, -1341.4880, 13.5405); // Faq Civil
 
 	//=====================================[ OBJECTS ]====================================||
     CreateDynamicObject(984, 831.67279, -1337.40552, 13.17600,   0.00000, 0.00000, 270.02731);

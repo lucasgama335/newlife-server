@@ -15,11 +15,11 @@ static gsCityHallActor[3];
 hook OnGameModeInit()
 {
 	//=====================================[ 3DTEXT ]====================================||
-    Create3DTextLabel("Prefeitura de {FFFFFF}Los Santos{B4B5B7}\nPara Entrar\nAperte '{FFFFFF}F{B4B5B7}'", COLOR_GRAD1, CITY_HALL_ENTRANCE, 20.0, 0);
+    CreateDynamic3DTextLabel("Prefeitura de {FFFFFF}Los Santos{B4B5B7}\nPara Entrar\nAperte '{FFFFFF}F{B4B5B7}'", COLOR_GRAD1, CITY_HALL_ENTRANCE, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
 
     //=====================================[ PICKUPS ]====================================||
-    AddStaticPickup(1318, 23, CITY_HALL_ENTRANCE);
-    AddStaticPickup(1318, 23, CITY_HALL_EXIT);
+    CreateDynamicPickup(1318, 23, CITY_HALL_ENTRANCE);
+    CreateDynamicPickup(1318, 23, CITY_HALL_EXIT);
 
 	//=====================================[ OBJECTS ]====================================||
     CreateDynamicObject(1231, 1483.80566, -1750.43030, 17.18440,   0.00000, 0.00000, 0.00000);

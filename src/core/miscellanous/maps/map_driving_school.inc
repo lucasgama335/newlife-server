@@ -15,11 +15,11 @@ static gsDrivingSchoolActor[9];
 hook OnGameModeInit()
 {
 	//=====================================[ 3DTEXT ]====================================||
-    Create3DTextLabel("Autoescola de {FFFFFF}Los Santos{B4B5B7}\nPara Entrar\nAperte '{FFFFFF}F{B4B5B7}'", COLOR_GRAD1, DRIVING_SCHOOL_ENTRANCE, 20.0, 0);
+    CreateDynamic3DTextLabel("Autoescola de {FFFFFF}Los Santos{B4B5B7}\nPara Entrar\nAperte '{FFFFFF}F{B4B5B7}'", COLOR_GRAD1, DRIVING_SCHOOL_ENTRANCE, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
 
 	//=====================================[ PICKUPS ]====================================||
-    AddStaticPickup(1318, 23, DRIVING_SCHOOL_ENTRANCE); // Entrance
-    AddStaticPickup(1318, 23, DRIVING_SCHOOL_EXIT); // Exit
+    CreateDynamicPickup(1318, 23, DRIVING_SCHOOL_ENTRANCE); // Entrance
+    CreateDynamicPickup(1318, 23, DRIVING_SCHOOL_EXIT); // Exit
 
 	//=====================================[ OBJECTS ]====================================||
     new drivingSchoolObject;
