@@ -277,15 +277,15 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 {
                     if (Player_GetCarLicense(playerid) > 0)
                     {
-                        return SendClientMessage(playerid, COLOR_INVALID, "Você já possui a habilitação dessa categoria.");
+                        return SendClientMessage(playerid, COLOR_INVALID, "[Autoescola]: Você já possui a habilitação dessa categoria.");
                     }
                     if (Player_GetHoursPlayed(playerid) < 1)
                     {
-                        return SendClientMessage(playerid, COLOR_INVALID, "Você precisa ter no mínimo uma hora de jogo para conseguir essa habilitação.");
+                        return SendClientMessage(playerid, COLOR_INVALID, "[Autoescola]: Você precisa ter no mínimo uma hora de jogo para conseguir essa habilitação.");
                     }
                     if (Player_GetMoney(playerid) < 1500)
                     {
-                        return SendClientMessage(playerid, COLOR_INVALID, "Você precisa ter no mínimo R$ 1.500 para conseguir essa habilitação.");
+                        return SendClientMessage(playerid, COLOR_INVALID, "[Autoescola]: Você precisa ter no mínimo R$ 1.500 para conseguir essa habilitação.");
                     }
 
                     gsInDrivingTest[playerid] = true;
@@ -315,15 +315,15 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 {
                     if (Player_GetMotorCycleLicense(playerid) > 0)
                     {
-                        return SendClientMessage(playerid, COLOR_INVALID, "Você já possui a habilitação dessa categoria.");
+                        return SendClientMessage(playerid, COLOR_INVALID, "[Autoescola]: Você já possui a habilitação dessa categoria.");
                     }
                     if (Player_GetHoursPlayed(playerid) < 1)
                     {
-                        return SendClientMessage(playerid, COLOR_INVALID, "Você precisa ter no mínimo uma hora de jogo para conseguir essa habilitação.");
+                        return SendClientMessage(playerid, COLOR_INVALID, "[Autoescola]: Você precisa ter no mínimo uma hora de jogo para conseguir essa habilitação.");
                     }
                     if (Player_GetMoney(playerid) < 1500)
                     {
-                        return SendClientMessage(playerid, COLOR_INVALID, "Você precisa ter no mínimo R$ 1.500 para conseguir essa habilitação.");
+                        return SendClientMessage(playerid, COLOR_INVALID, "[Autoescola]: Você precisa ter no mínimo R$ 1.500 para conseguir essa habilitação.");
                     }
 
                     gsInDrivingTest[playerid] = true;
@@ -351,15 +351,15 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 {
                     if (Player_GetFlyLicense(playerid) > 0)
                     {
-                        return SendClientMessage(playerid, COLOR_INVALID, "Você já possui a habilitação dessa categoria.");
+                        return SendClientMessage(playerid, COLOR_INVALID, "[Autoescola]: Você já possui a habilitação dessa categoria.");
                     }
                     if (Player_GetHoursPlayed(playerid) < 1)
                     {
-                        return SendClientMessage(playerid, COLOR_INVALID, "Você precisa ter no mínimo uma hora de jogo para conseguir essa habilitação.");
+                        return SendClientMessage(playerid, COLOR_INVALID, "[Autoescola]: Você precisa ter no mínimo uma hora de jogo para conseguir essa habilitação.");
                     }
                     if (Player_GetMoney(playerid) < 3500)
                     {
-                        return SendClientMessage(playerid, COLOR_INVALID, "Você precisa ter no mínimo R$ 3.500 para conseguir essa habilitação.");
+                        return SendClientMessage(playerid, COLOR_INVALID, "[Autoescola]: Você precisa ter no mínimo R$ 3.500 para conseguir essa habilitação.");
                     }
 
                     gsInDrivingTest[playerid] = true;
@@ -387,15 +387,15 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 {
                     if (Player_GetBoatLicense(playerid) > 0)
                     {
-                        return SendClientMessage(playerid, COLOR_INVALID, "Você já possui a habilitação dessa categoria.");
+                        return SendClientMessage(playerid, COLOR_INVALID, "[Autoescola]: Você já possui a habilitação dessa categoria.");
                     }
                     if (Player_GetHoursPlayed(playerid) < 1)
                     {
-                        return SendClientMessage(playerid, COLOR_INVALID, "Você precisa ter no mínimo uma hora de jogo para conseguir essa habilitação.");
+                        return SendClientMessage(playerid, COLOR_INVALID, "[Autoescola]: Você precisa ter no mínimo uma hora de jogo para conseguir essa habilitação.");
                     }
                     if (Player_GetMoney(playerid) < 3000)
                     {
-                        return SendClientMessage(playerid, COLOR_INVALID, "Você precisa ter no mínimo R$ 3.000 para conseguir essa habilitação.");
+                        return SendClientMessage(playerid, COLOR_INVALID, "[Autoescola]: Você precisa ter no mínimo R$ 3.000 para conseguir essa habilitação.");
                     }
 
                     gsInDrivingTest[playerid] = true;
@@ -423,15 +423,15 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 {
                     if (Player_GetTruckLicense(playerid) > 0)
                     {
-                        return SendClientMessage(playerid, COLOR_INVALID, "Você já possui a habilitação dessa categoria.");
+                        return SendClientMessage(playerid, COLOR_INVALID, "[Autoescola]: Você já possui a habilitação dessa categoria.");
                     }
                     if (Player_GetHoursPlayed(playerid) < 1)
                     {
-                        return SendClientMessage(playerid, COLOR_INVALID, "Você precisa ter no mínimo uma hora de jogo para conseguir essa habilitação.");
+                        return SendClientMessage(playerid, COLOR_INVALID, "[Autoescola]: Você precisa ter no mínimo uma hora de jogo para conseguir essa habilitação.");
                     }
                     if (Player_GetMoney(playerid) < 2500)
                     {
-                        return SendClientMessage(playerid, COLOR_INVALID, "Você precisa ter no mínimo R$ 2.500 para conseguir essa habilitação.");
+                        return SendClientMessage(playerid, COLOR_INVALID, "[Autoescola]: Você precisa ter no mínimo R$ 2.500 para conseguir essa habilitação.");
                     }
 
                     gsInDrivingTest[playerid] = true;
