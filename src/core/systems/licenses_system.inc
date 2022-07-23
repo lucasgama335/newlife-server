@@ -236,6 +236,7 @@ hook OnGameModeInit()
     CreateDynamic3DTextLabel("Autoescola\nPara retirar sua habilitação\nAperte 'F'.", COLOR_ORANGE, LICENSES_MENU_PICKUP, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
     return 1;
 }
+
 hook OnPlayerConnect(playerid)
 {
     gsDriveSchoolTimer[playerid] = INVALID_VALUE;

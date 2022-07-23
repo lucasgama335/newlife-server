@@ -62,6 +62,7 @@
 #define KEY_LALT        		1024
 #define KEY_LSHIFT      		32
 
+#define MAX_ATTACHED_OBJ 		9
 #define	PLAYER_OBJECT_1			0
 #define	PLAYER_OBJECT_2			1
 #define	PLAYER_OBJECT_3			2
@@ -72,6 +73,8 @@
 #define	PLAYER_OBJECT_8			7
 #define	PLAYER_OBJECT_9			8
 #define	PLAYER_OBJECT_10		9
+#define SLOT_SERVER      		9
+
 
 #define	MAX_VEHICLE_HEALTH		999.9
 

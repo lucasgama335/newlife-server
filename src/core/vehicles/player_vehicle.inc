@@ -36,6 +36,7 @@ static Float:gsFuelPumps[][3] =
     { -1327.7218, 2678.8723, 50.0625 },
 	{ 838.3388, -1750.3429, 13.6911 }
 };
+
 static const Float:gsPaynsprayLocales[][] =
 {
     {1025.05, -1024.23, 32.1}, // LS Temple
@@ -313,7 +314,7 @@ hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 	return 1;
 }
 
-hook OnPlayerStateChange(playerid, newstate, oldstate)
+first_hook OnPlayerStateChange(playerid, newstate, oldstate)
 {
 	#pragma unused oldstate // need this directive, on account of YSI which shows warnings in case the parameter is not used.
 
