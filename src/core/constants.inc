@@ -24,7 +24,7 @@
 
 // Macros
 #define function:%0(%1)			forward %0(%1); public %0(%1)
-
+#define	first_hook%0(%1)		hook%0@0(%1)
 // Configuration
 #define	INVALID_VALUE			-1
 

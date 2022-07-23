@@ -232,14 +232,15 @@ public OnPlayerDisconnect(playerid, reason)
     return 1;
 }
 
-hook OnPlayerDeath(playerid, killerid, reason)
+first_hook OnPlayerDeath(playerid, killerid, reason)
 {
     if ((gettime() - gsLastDeath[playerid]) < 3)
     {
 		new cheatString[128];
 		format(cheatString, sizeof(cheatString), "Anti-Cheat: %s[%d] foi kickado por suspeita de fake-kill.", GetPlayerNameCustom(playerid), playerid);
 		SendClientMessageToAll(COLOR_LIGHTRED, cheatString);
-		DelayedKick(playerid);
+		KickPlayer(playerid);
+        return 1;
     }
 	gsLastDeath[playerid] = gettime();
     SendDeathMessage(killerid, playerid, reason);
