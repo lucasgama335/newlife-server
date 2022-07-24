@@ -304,8 +304,8 @@ hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
     {
     	if (Vehicle_IsCivilVehicle(vehicleid))
         {
-			SendClientMessage(playerid, COLOR_NEONGREEN, "Novato, você pode achar os locais digitando: /gps.");
-	    	SendClientMessage(playerid, COLOR_NEONGREEN, "Em caso de dúvidas use: /faq, ou fale diretamente com os administradores: /relatorio.");		
+			SendClientMessage(playerid, COLOR_SKIN, "[Dica]: Novato, você pode achar os locais digitando: /gps.");
+	    	SendClientMessage(playerid, COLOR_SKIN, "[Dica]: Em caso de dúvidas use: /faq, ou fale diretamente com os administradores: /relatorio.");		
 			return 1;
 		}
 
