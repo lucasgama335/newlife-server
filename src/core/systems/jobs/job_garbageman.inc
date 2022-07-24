@@ -1,34 +1,34 @@
 #include <YSI_Coding\y_hooks>
 
 //------------------------- Definitions and constants -------------------------
-#define MAX_TRASH_ROUTES    20
+
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static gsTrashPickup[MAX_PLAYERS];
 static bool:gsMarkedTrash[MAX_PLAYERS];
 static bool:gsCaughtTrash[MAX_PLAYERS];
 static gsNextTrashCommand[MAX_PLAYERS];
-static Float:gsSpawnTrash[MAX_TRASH_ROUTES][4] =
+static Float:gsSpawnTrash[][4] =
 {
-	{1811.5840,-1752.1294,13.5490},
-    {884.9703,-1663.8604,13.5469},
-    {369.1192,-1765.5521,5.5147},
-    {-90.4849,-1169.6840,2.4040},
-    {279.3895,-1241.0728,74.3764},
-    {1005.2083,-401.4265,68.4287},
-    {2073.5068,-1575.8424,13.4414},
-    {1830.8624,-1108.7552,23.8446},
-    {1830.8624,-1108.7552,23.8446},
-    {724.7245,-470.5882,16.3359},
-    {780.9676,-596.6437,16.3359},
-    {553.9373,-1358.3655,15.3062},
-    {477.4827,-1744.4395,9.3750},
-    {117.9634,-186.1646,1.5106},
-    {159.3121,-175.2853,1.5781},
-    {203.9658,-163.4601,1.5781},
-    {1275.6146,304.5439,19.5547},
-    {1250.1162,245.9012,19.5547},
-    {1294.2323,177.9601,20.4609},
-    {1486.0442,357.1795,19.3169}
+	{2388.1665, -2015.1119, 13.5489},
+    {2416.5940, -1699.4072, 13.7904},
+    {2765.6951, -2031.1461, 13.5547},
+    {2817.7329, -1511.4391, 15.7644},
+    {2753.1218, -1282.2955, 56.5938},
+    {2623.1702, -1124.7756, 66.1440},
+    {2561.7012, -954.0216, 82.7547},
+    {2326.4272, -1056.4502, 52.3516},
+    {2221.0327, -1055.8872, 46.0059},
+    {1953.4849, -1091.4570, 25.2143},
+    {1784.8915, -1217.9871, 16.9428},
+    {1661.6531, -1003.0493, 24.0511},
+    {1220.4478, -1067.8431, 29.2236},
+    {1035.6873, -1235.5797, 16.3364},
+    {901.7509, -1360.1044, 13.5469},
+    {862.3225, -1383.4161, 13.6883},
+    {660.5856, -1498.4351, 14.8584},
+    {363.2824, -1680.8828, 32.0616},
+    {204.7870, -1432.1246, 13.1673},
+    {-38.4919, -1555.1075, 2.3054}
 };
 
 //------------------------- Timers (Timers used in the module.) -------------------------
@@ -49,7 +49,7 @@ hook OnPlayerConnect(playerid)
 
 hook OnPlayerDisconnect(playerid)
 {
-    if (gsCaughtTrash[playerid])
+    if (IsPlayerAttachedObjectSlotUsed(playerid, SLOT_SERVER))
     {
         RemovePlayerAttachedObject(playerid, SLOT_SERVER);
     }
@@ -89,13 +89,17 @@ hook OnPlayerStateChange(playerid, newstate, oldstate)
         new vehicleid = GetPlayerVehicleID(playerid);
         if (Vehicle_GetJob(vehicleid) == j_JOB_GARBAGEMAN)
         {
-            if (gsCaughtTrash[playerid] && !gsMarkedTrash[playerid])
+            if (!gsMarkedTrash[playerid] && !gsCaughtTrash[playerid])
             {
-                SendClientMessage(playerid, COLOR_GREEN, "Lixeiro, você já possui um lixo, vá ate o lixão e digite: /elixo.");
+                SendClientMessage(playerid, COLOR_SKIN, "[Dica]: Para iniciar uma rota de coleta utilize: /mlixo.");
             }
-            else
+            else if (gsMarkedTrash[playerid] && !gsCaughtTrash[playerid])
             {
-                SendClientMessage(playerid, COLOR_GREEN, "Lixeiro, para marcar seu lixo no mapa, digite: /mlixo e vá buscá-lo.");
+                SendClientMessage(playerid, COLOR_SKIN, "[Dica]: Você já está com uma rota de coleta ativa, busque-a no local marcado.");
+            }
+            else if (gsMarkedTrash[playerid] && gsCaughtTrash[playerid])
+            {
+                SendClientMessage(playerid, COLOR_SKIN, "[Dica]: Você já coletou o lixo, vá até a sua hq e digite: /elixo.");
             }
         }
     }
@@ -121,8 +125,7 @@ YCMD:mlixo(playerid, params[], help)
     {
       	return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você já tem um lixo no mapa vá buscá-lo.");
     }
-    if (!IsPlayerInRangeOfPoint(playerid, 80.0, 2202.9292,-1971.4089,13.5572) && !IsPlayerInRangeOfPoint(playerid, 80.0, 2202.9536,-1981.9543,13.5515) && !IsPlayerInRangeOfPoint(playerid, 80.0, 2193.7070,-1999.6227,13.5469) && !IsPlayerInRangeOfPoint(playerid, 80.0, 2161.2625,-1987.3088,14.2694) && !IsPlayerInRangeOfPoint(playerid, 80.0, 2166.5229,-1971.7751,13.5541)
-	&& !IsPlayerInRangeOfPoint(playerid, 60.0, -2752.4666,90.7031,7.0313) && !IsPlayerInRangeOfPoint(playerid, 60.0, -2737.6907,93.2707,4.4333) && !IsPlayerInRangeOfPoint(playerid, 60.0, -2738.3879,115.5734,4.4962) && !IsPlayerInRangeOfPoint(playerid, 60.0, -2735.8149,133.7296,4.2641) && !IsPlayerInRangeOfPoint(playerid, 60.0, -2752.5149,129.2021,7.0313))
+    if (!IsPlayerInRangeOfPoint(playerid, 60.0, 2180.3018,-1984.0994,13.5510))
     {
 	   SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Para marcar um lixo, você deve estar em sua HQ.");
 	   SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Não se lembra onde fica? digite: /gps - Empregos - Lixeiros.");
@@ -134,7 +137,7 @@ YCMD:mlixo(playerid, params[], help)
 	   	return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está em um caminhão de lixo.");
     }
 
-    new rand = random(MAX_TRASH_ROUTES), string[80];
+    new rand = random(sizeof(gsSpawnTrash)), string[80];
     gsMarkedTrash[playerid] = true;
     gsNextTrashCommand[playerid] = (gettime() + 120);
     gsTrashPickup[playerid] = CreateDynamicPickup(1265, 23, gsSpawnTrash[rand][0], gsSpawnTrash[rand][1], gsSpawnTrash[rand][2]);
@@ -151,8 +154,7 @@ YCMD:elixo(playerid, params[], help)
     {
         return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não é um lixeiro.");
     }
-    if (!IsPlayerInRangeOfPoint(playerid, 80.0, 2202.9292,-1971.4089,13.5572) && !IsPlayerInRangeOfPoint(playerid, 80.0, 2202.9536,-1981.9543,13.5515) && !IsPlayerInRangeOfPoint(playerid, 80.0, 2193.7070,-1999.6227,13.5469) && !IsPlayerInRangeOfPoint(playerid, 80.0, 2161.2625,-1987.3088,14.2694) && !IsPlayerInRangeOfPoint(playerid, 80.0, 2166.5229,-1971.7751,13.5541)
-	&& !IsPlayerInRangeOfPoint(playerid, 60.0, -2752.4666,90.7031,7.0313) && !IsPlayerInRangeOfPoint(playerid, 60.0, -2737.6907,93.2707,4.4333) && !IsPlayerInRangeOfPoint(playerid, 60.0, -2738.3879,115.5734,4.4962) && !IsPlayerInRangeOfPoint(playerid, 60.0, -2735.8149,133.7296,4.2641) && !IsPlayerInRangeOfPoint(playerid, 60.0, -2752.5149,129.2021,7.0313))
+    if (!IsPlayerInRangeOfPoint(playerid, 60.0, 2180.3018,-1984.0994,13.5510))
     {
 	   SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Para marcar um lixo, você deve estar em sua HQ.");
 	   SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Não se lembra onde fica? digite: /gps - Empregos - Lixeiros.");
