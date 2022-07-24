@@ -7,7 +7,7 @@
 #define	DEV_MODE				true
 
 #define	MYSQL_DEBUG				true
-#define	MYSQL_SETUP_TABLES		false
+#define	MYSQL_SETUP_TABLES		true
 #define	MYSQL_INVALID_VALUE		-1
 
 #define SERVER_NAME				"NewLife"
@@ -17,7 +17,7 @@
 #define	SCRIPT_VERSION_MAJOR 	"0"
 #define	SCRIPT_VERSION_MINOR 	"0"
 #define	SCRIPT_VERSION_PATCH 	"1"
-#define	SERVER_LANGUAGE			"Português BR/PT"
+#define	SERVER_LANGUAGE			"Portuguï¿½s BR/PT"
 #define	SERVER_WEBSITE			"www.nlrpg.forumeiros.com"
 #define	SERVER_OWNER			"Lucas Gama"
 #define	SERVER_ADMIN_PASS   	"123"	
