@@ -91,6 +91,8 @@ public OnGameModeInit()
 	SendRconCommand(serverCmd);
 	format(serverCmd, sizeof(serverCmd), "gamemodetext %s - v%s.%s.%s", SERVER_MODE, SCRIPT_VERSION_MAJOR, SCRIPT_VERSION_MINOR, SCRIPT_VERSION_PATCH);
 	SendRconCommand(serverCmd);
+	format(serverCmd, sizeof(serverCmd), "mapname %s", SERVER_MAPNAME);
+	SendRconCommand(serverCmd);
 	format(serverCmd, sizeof(serverCmd), "language %s", SERVER_LANGUAGE);
 	SendRconCommand(serverCmd);
 	format(serverCmd, sizeof(serverCmd), "weburl %s", SERVER_WEBSITE);
