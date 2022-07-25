@@ -117,8 +117,8 @@ hook OnVehicleHealthChange(vehicleid, playerid, Float:oldHealth, Float:actualHea
 {
 	#pragma unused playerid // need this directive, on account of YSI which shows warnings in case the parameter is not used.
 
-	new lostHealth = floatround((oldHealth - actualHealth), floatround_round);
-	if (lostHealth > 0)
+	new Float:lostHealth = (oldHealth - actualHealth);
+	if (lostHealth > 0.0)
 	{
 		if (actualHealth <= 300.0)
 		{
@@ -129,7 +129,7 @@ hook OnVehicleHealthChange(vehicleid, playerid, Float:oldHealth, Float:actualHea
 		}
 		else
 		{
-			if (Vehicle_GetShield(vehicleid) > 0)
+			if (Vehicle_GetShield(vehicleid) > 0.0)
 			{
 				if (Vehicle_GetShield(vehicleid) > lostHealth)
 				{
@@ -137,7 +137,7 @@ hook OnVehicleHealthChange(vehicleid, playerid, Float:oldHealth, Float:actualHea
 				}
 				else
 				{
-					Vehicle_SetShield(vehicleid, 0);
+					Vehicle_SetShield(vehicleid, 0.0);
 				}
 				RepairVehicleCustom(vehicleid);
 			}

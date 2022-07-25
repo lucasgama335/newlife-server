@@ -925,13 +925,13 @@ stock UpdatePlayerSpeedometer(playerid, vehicleid, type)
 
 			if (modernSpeedometer[playerid][10] != INVALID_PLAYER_TEXT_DRAW)
             {
-				format(speedometerString, sizeof (speedometerString), "%0.0f%", vehicleHealth / 10);
+				format(speedometerString, sizeof (speedometerString), "%0.0f%", (vehicleHealth / 10));
             	PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][10], speedometerString);
 			}
 
 			if (modernSpeedometer[playerid][11] != INVALID_PLAYER_TEXT_DRAW)
 			{
-				format(speedometerString, sizeof (speedometerString), "%d%%", Vehicle_GetShield(vehicleid));
+				format(speedometerString, sizeof (speedometerString), "%0.0f%", (Vehicle_GetShield(vehicleid) / 10));
             	PlayerTextDrawSetString(playerid, modernSpeedometer[playerid][11], speedometerString);
 			}
         }
@@ -979,13 +979,13 @@ stock UpdatePlayerSpeedometer(playerid, vehicleid, type)
 
 			if (compactSpeedometer[playerid][1] != INVALID_PLAYER_TEXT_DRAW)
 			{
-    	        format(speedometerString, sizeof (speedometerString), "Lataria: %0.0f%", vehicleHealth / 10);
+    	        format(speedometerString, sizeof (speedometerString), "Lataria: %0.0f%", (vehicleHealth / 10));
 	            PlayerTextDrawSetString(playerid, compactSpeedometer[playerid][1], speedometerString);
 			}
 
 			if (compactSpeedometer[playerid][0] != INVALID_PLAYER_TEXT_DRAW)
 			{
-    	        format(speedometerString, sizeof (speedometerString), "Blindagem: %d%%", Vehicle_GetShield(vehicleid));
+    	        format(speedometerString, sizeof (speedometerString), "Blindagem: %0.0f%", (Vehicle_GetShield(vehicleid) / 10));
 	            PlayerTextDrawSetString(playerid, compactSpeedometer[playerid][0], speedometerString);
 			}
         }

@@ -14,7 +14,7 @@ enum v_VEHICLE_DATA
     bool:v_ENGINE,
     Float:v_HEALTH,
 	v_FUEL,
-	v_SHIELD,
+	Float:v_SHIELD,
 	bool:v_LOCKED,
 	v_PLATE[MAX_PLATE_STRING],
     v_MONEY,
@@ -35,24 +35,34 @@ static Iterator:Vehicles<MAX_VEHICLES>;
 // Getters
 stock bool:Vehicle_GetEngineStatus(vehicleid)
 {
-    if (!IsValidVehicle(vehicleid)) return false;
+    if (!IsValidVehicle(vehicleid)) 
+    {
+        return false;
+    }
 
     return gsVehicleInfo[vehicleid][v_ENGINE];
 }
 
 // Setters
-stock bool:Vehicle_SetEngineStatus(vehicleid, bool:status)
+stock Vehicle_SetEngineStatus(vehicleid, bool:status)
 {
-    if (!IsValidVehicle(vehicleid)) return false;
-
-    return gsVehicleInfo[vehicleid][v_ENGINE] = status;
+    if (!IsValidVehicle(vehicleid)) 
+    {
+        return 0;
+    }
+    
+    gsVehicleInfo[vehicleid][v_ENGINE] = status;
+    return 1;
 }
 
 // ============== HEALTH ACCESSORS ============== //
 // Getters
 stock Float:Vehicle_GetHealth(vehicleid)
 {
-    if (!IsValidVehicle(vehicleid)) return 0.0;
+    if (!IsValidVehicle(vehicleid)) 
+    {
+        return 0.0;
+    }
 
     return gsVehicleInfo[vehicleid][v_HEALTH];
 }
@@ -71,7 +81,10 @@ stock Vehicle_SetHealth(vehicleid, Float:health)
 // Getters
 stock Vehicle_GetFuel(vehicleid)
 {
-    if (!IsValidVehicle(vehicleid)) return 0;
+    if (!IsValidVehicle(vehicleid)) 
+    {
+        return 0;
+    }
 
     return gsVehicleInfo[vehicleid][v_FUEL];
 }
@@ -79,50 +92,71 @@ stock Vehicle_GetFuel(vehicleid)
 // Setters
 stock Vehicle_SetFuel(vehicleid, quantity)
 {
-    if (!IsValidVehicle(vehicleid)) return 0;
+    if (!IsValidVehicle(vehicleid)) 
+    {
+        return 0;
+    }
 
-    return gsVehicleInfo[vehicleid][v_FUEL] = quantity;
+    gsVehicleInfo[vehicleid][v_FUEL] = quantity;
+    return 1;
 }
 
 // ============== SHIELD ACCESSORS ============== //
 // Getters
-stock Vehicle_GetShield(vehicleid)
+stock Float:Vehicle_GetShield(vehicleid)
 {
-    if (!IsValidVehicle(vehicleid)) return 0;
+    if (!IsValidVehicle(vehicleid)) 
+    {
+        return 0.0;
+    }
 
     return gsVehicleInfo[vehicleid][v_SHIELD];
 }
 
 // Setters
-stock Vehicle_SetShield(vehicleid, quantity)
+stock Vehicle_SetShield(vehicleid, Float:quantity)
 {
-    if (!IsValidVehicle(vehicleid)) return 0;
-
-    return gsVehicleInfo[vehicleid][v_SHIELD] = quantity;
+    if (!IsValidVehicle(vehicleid)) 
+    {
+        return 0;
+    }
+    
+    gsVehicleInfo[vehicleid][v_SHIELD] = quantity;
+    return 1;
 }
 
 // ============== LOCK ACCESSORS ============== //
 // Getters
 stock bool:Vehicle_GetLockedStatus(vehicleid)
 {
-    if (!IsValidVehicle(vehicleid)) return false;
+    if (!IsValidVehicle(vehicleid)) 
+    {
+        return false;
+    }
 
     return gsVehicleInfo[vehicleid][v_LOCKED];
 }
 
 // Setters
-stock bool:Vehicle_SetLockedStatus(vehicleid, bool:status)
+stock Vehicle_SetLockedStatus(vehicleid, bool:status)
 {
-    if (!IsValidVehicle(vehicleid)) return false;
+    if (!IsValidVehicle(vehicleid)) 
+    {
+        return 0;
+    }
 
-    return gsVehicleInfo[vehicleid][v_LOCKED] = status;
+    gsVehicleInfo[vehicleid][v_LOCKED] = status;
+    return 1;
 }
 
 // ============== PLATE ACCESSORS ============== //
 // Getters
 stock Vehicle_GetPlate(vehicleid)
 {
-    if (!IsValidVehicle(vehicleid)) return 0;
+    if (!IsValidVehicle(vehicleid)) 
+    {
+        return 0;
+    }
 
     new string[MAX_PLATE_STRING];
     format(string, sizeof(string), "%s", gsVehicleInfo[vehicleid][v_PLATE]);
@@ -132,7 +166,10 @@ stock Vehicle_GetPlate(vehicleid)
 // Setters
 stock Vehicle_SetPlate(vehicleid, const string[])
 {
-    if (!IsValidVehicle(vehicleid)) return 0;
+    if (!IsValidVehicle(vehicleid)) 
+    {
+        return 0;
+    }
 
     format(gsVehicleInfo[vehicleid][v_PLATE], MAX_PLATE_STRING, "%s", string);
     return 1;
@@ -142,7 +179,10 @@ stock Vehicle_SetPlate(vehicleid, const string[])
 // Getters
 stock Vehicle_GetMoney(vehicleid)
 {
-    if (!IsValidVehicle(vehicleid)) return 0;
+    if (!IsValidVehicle(vehicleid)) 
+    {
+        return 0;
+    }
 
     return gsVehicleInfo[vehicleid][v_MONEY];
 }
@@ -150,40 +190,57 @@ stock Vehicle_GetMoney(vehicleid)
 // Setters
 stock Vehicle_SetMoney(vehicleid, quantity)
 {
-    if (!IsValidVehicle(vehicleid)) return 0;
+    if (!IsValidVehicle(vehicleid)) 
+    {
+        return 0;
+    }
 
-    return gsVehicleInfo[vehicleid][v_MONEY] = quantity;
+    gsVehicleInfo[vehicleid][v_MONEY] = quantity;
+    return 1;
 }
 
 // ============== BROKEN ACCESSORS ============== //
 // Getters
 stock bool:Vehicle_GetBrokenStatus(vehicleid)
 {
-    if (!IsValidVehicle(vehicleid)) return false;
+    if (!IsValidVehicle(vehicleid)) 
+    {
+        return false;
+    }
 
     return gsVehicleInfo[vehicleid][v_BROKEN];
 }
 
 // Setters
-stock bool:Vehicle_SetBrokenStatus(vehicleid, bool:status)
+stock Vehicle_SetBrokenStatus(vehicleid, bool:status)
 {
-    if (!IsValidVehicle(vehicleid)) return false;
+    if (!IsValidVehicle(vehicleid)) 
+    {
+        return 0;
+    }
 
-    return gsVehicleInfo[vehicleid][v_BROKEN] = status;
+    gsVehicleInfo[vehicleid][v_BROKEN] = status;
+    return 1;
 }
 
 // ============== COLORS ACCESSORS ============== //
 // Getters
 stock Vehicle_GetColorOne(vehicleid)
 {
-    if (!IsValidVehicle(vehicleid)) return 0;
+    if (!IsValidVehicle(vehicleid)) 
+    {
+        return 0;
+    }
 
     return gsVehicleInfo[vehicleid][v_COLOR_ONE];
 }
 
 stock Vehicle_GetColorTwo(vehicleid)
 {
-    if (!IsValidVehicle(vehicleid)) return 0;
+    if (!IsValidVehicle(vehicleid)) 
+    {
+        return 0;
+    }
 
     return gsVehicleInfo[vehicleid][v_COLOR_TWO];
 }
@@ -191,7 +248,10 @@ stock Vehicle_GetColorTwo(vehicleid)
 // Setters
 stock Vehicle_SetColor(vehicleid, colorOne, colorTwo)
 {
-    if (!IsValidVehicle(vehicleid)) return false;
+    if (!IsValidVehicle(vehicleid)) 
+    {
+        return false;
+    }
 
     gsVehicleInfo[vehicleid][v_COLOR_ONE] = colorOne;
     gsVehicleInfo[vehicleid][v_COLOR_TWO] = colorTwo;
@@ -210,7 +270,10 @@ stock j_JOBS_LIST:Vehicle_GetJob(vehicleid)
 // Setters
 stock Vehicle_SetJob(vehicleid, j_JOBS_LIST:jobId)
 {
-    if (!IsValidVehicle(vehicleid)) return false;
+    if (!IsValidVehicle(vehicleid)) 
+    {
+        return false;
+    }
 
     gsVehicleInfo[vehicleid][v_VEHICLE_JOB] = jobId;
     return 1;

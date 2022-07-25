@@ -1,5 +1,6 @@
 // General Features
 #include <sync-time_system>
+#include <announcements_system>
 #include <gas-station_system>
 // Player Features
 #include <gps_system>

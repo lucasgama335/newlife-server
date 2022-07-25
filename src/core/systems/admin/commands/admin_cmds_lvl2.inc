@@ -60,7 +60,7 @@ YCMD:blindarid(playerid, params[], help)
 	SendAdminMessage(COLOR_YELLOW, string, HELPER);
     Vehicle_SetBrokenStatus(vehicleid, false);
 	RepairVehicleCustom(vehicleid);
-    Vehicle_SetShield(vehicleid, 100);
+    Vehicle_SetShield(vehicleid, 1000.0);
     return 1;
 }
 
