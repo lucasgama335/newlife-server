@@ -317,7 +317,7 @@ hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 			return 1;
 		}
 
-		SendClientMessage(playerid, COLORDGREEN, "[Veículo]: Para ligar o motor deste veículo pressione {FFFFFF}N{228b22} ou digite {FFFFFF}/motor{228b22}.");
+		SendClientMessage(playerid, COLORDGREEN, "[{FFFFFF}Veículo{228b22}]: Para ligar o motor deste veículo pressione {FFFFFF}N{228b22} ou digite {FFFFFF}/motor{228b22}.");
     }
 	return 1;
 }

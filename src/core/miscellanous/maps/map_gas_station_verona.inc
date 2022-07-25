@@ -72,6 +72,7 @@ hook OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 726, 865.101, -1710.554, 10.742, 0.250);
 
     //=====================================[ MAP ICONS ]====================================||
+	SetPlayerMapIcon(playerid, m_MAP_ICON_GAS_STATION_3, 838.3388, -1750.3429, 13.6911, 17, 0xE6E6E6E6);
 	return 1;
     
 }

@@ -25,18 +25,19 @@ hook FirstSpawnOnLogin(playerid)
         new lastLoginString[MAX_FULL_DATE_STRING];
         Player_GetLastLoginFormated(playerid, lastLoginString);
         SendClientMessage(playerid, COLOR_WHITE, "________________________________________________________________________________________________");
-        format(string, sizeof(string), "* [Aviso]: Seja Bem Vindo(a): {FFFFFF}%s{33ccff}.", GetPlayerNameCustom(playerid));
-        SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
-        SendClientMessage(playerid, COLOR_LIGHTBLUE, "* [Aviso]: Para voltar na última posição de onde saiu pela última vez digite ({FFFFFF}/irposicao{33ccff})!");
-        SendClientMessage(playerid, COLOR_LIGHTBLUE, "* [Aviso]: Retire suas dúvidas usando ({FFFFFF}/relato{33ccff}) ou com o chat de dúvidas ({FFFFFF}/nchat{33ccff}).");
-        format(string, sizeof(string), "* [Aviso]: Último login no dia: {FFFFFF}%s {33ccff}durante {FFFFFF}%d{33ccff} hora(s).", lastLoginString, Player_GetLastConnectedTime(playerid));
- 		SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
+        format(string, sizeof(string), "* [{FFFFFF}Aviso{934ff6}]: Seja Bem Vindo(a): {FFFFFF}%s{934ff6} ao servidor.", GetPlayerNameCustom(playerid));
+        SendClientMessage(playerid, COLOR_MARKET, string);
+        SendClientMessage(playerid, COLOR_MARKET, "* [{FFFFFF}Aviso{934ff6}]: Para voltar a última posição, na qual você esteve pela última vez digite: ({FFFFFF}/irposicao{934ff6}).");
+        SendClientMessage(playerid, COLOR_MARKET, "* [{FFFFFF}Aviso{934ff6}]: Retire suas dúvidas usando: ({FFFFFF}/relatorio{934ff6}) ou com o chat de dúvidas: ({FFFFFF}/nchat{934ff6}).");
+        format(string, sizeof(string), "* [{FFFFFF}Aviso{934ff6}]: Seu último login foi no dia: {FFFFFF}%s {934ff6}durante {FFFFFF}%d{934ff6} hora(s).", lastLoginString, Player_GetLastConnectedTime(playerid));
+ 		SendClientMessage(playerid, COLOR_MARKET, string);
+        SendClientMessage(playerid, COLOR_WHITE, "________________________________________________________________________________________________");
         if (Player_GetAdminLevel(playerid) >= HELPER)
         {
             new roleName[MAX_ADMIN_ROLE_STRING];
             GetAdminRoleName(Player_GetAdminLevel(playerid), roleName);
-            format(string, sizeof(string), "[{FFFFFF}ADMIN{33ccff}]: Você Logou Como Admin: [{FFFFFF}%s{33ccff}].", roleName);
-            SendClientMessage(playerid, COLOR_LIGHTBLUE, string);
+            format(string, sizeof(string), "[{FFFFFF}Administração{ff3399}]: Você logou com o nível de administração: [{FFFFFF}%s{ff3399}].", roleName);
+            SendClientMessage(playerid, COLOR_ADMIN, string);
         }
 		if (Player_GetAdminLevel(playerid) >= HELPER && Player_GetAdminLevel(playerid) < SUB_OWNER)
 		{

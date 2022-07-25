@@ -56,7 +56,7 @@ YCMD:gmx(playerid, params[], help)
 	}
     format(gmx,sizeof(gmx),"[Administração]: %s está reinicializando o servidor, por favor aguarde!", GetPlayerNameCustom(playerid));
 	SendClientMessageToAll(COLOR_YELLOW, gmx);
-	SendClientMessageToAll(COLOR_YELLOW, "[Servidor]: Salvamento de dados iniciados...");
+	SendClientMessageToAll(COLOR_YELLOW, "[Servidor]: Salvamento de dados iniciado...");
 	SetTimer("RestartServer", 5000, false);
     return 1;
 }

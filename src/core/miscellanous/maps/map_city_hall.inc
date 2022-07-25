@@ -19,7 +19,7 @@ hook OnGameModeInit()
 
     //=====================================[ PICKUPS ]====================================||
     CreateDynamicPickup(1318, 23, CITY_HALL_ENTRANCE);
-    CreateDynamicPickup(1318, 23, CITY_HALL_EXIT);
+    CreateDynamicPickup(19133, 23, CITY_HALL_EXIT);
 
 	//=====================================[ OBJECTS ]====================================||
     CreateDynamicObject(1231, 1483.80566, -1750.43030, 17.18440,   0.00000, 0.00000, 0.00000);
@@ -237,7 +237,7 @@ hook OnPlayerConnect(playerid)
     //=====================================[ REMOVE WORLD OBJECTS ]====================================||
 
     //=====================================[ MAP ICONS ]====================================||
-    SetPlayerMapIcon(playerid, 1, 1480.9403,-1770.8481,18.7958, 44 , 0xE6E6E6E6);
+    SetPlayerMapIcon(playerid, m_MAP_ICON_CITY_HALL, 1480.9403,-1770.8481,18.7958, 44 , 0xE6E6E6E6);
 	return 1;
     
 }

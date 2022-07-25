@@ -19,7 +19,7 @@ hook OnGameModeInit()
 
 	//=====================================[ PICKUPS ]====================================||
     CreateDynamicPickup(1318, 23, DRIVING_SCHOOL_ENTRANCE); // Entrance
-    CreateDynamicPickup(1318, 23, DRIVING_SCHOOL_EXIT); // Exit
+    CreateDynamicPickup(19133, 23, DRIVING_SCHOOL_EXIT); // Exit
 
 	//=====================================[ OBJECTS ]====================================||
     new drivingSchoolObject;

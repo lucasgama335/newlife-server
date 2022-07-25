@@ -467,7 +467,7 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						ShowPlayerDialog(playerid, DIALOG_ADMIN_HIDE, DIALOG_STYLE_MSGBOX, "Menu Admin Dono", "Escolha qual modo deseja ficar.", "Oculto", "Exibido");
 					}
-					return SendClientMessage(playerid, COLOR_LIGHTBLUE, "Você autenticou o seu nível de administrador com sucesso.");
+					return SendClientMessage(playerid, COLOR_DARKGREEN, "Você autenticou o seu nível de administrador com sucesso.");
 				}
 				else
 				{
