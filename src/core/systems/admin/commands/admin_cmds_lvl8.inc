@@ -28,8 +28,8 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	{
 		case DIALOG_GMX:
 		{
-			if (!response) return ShowPlayerDialog(playerid, DIALOG_GMX, DIALOG_STYLE_MSGBOX, "GMX", "Reinicialização em andamento...\n\nIsso pode demorar alguns segundos\npor favor aguarde!\n\nAgradecemos sua compreensão.", "AGUARDE", "");
-			if (response) return ShowPlayerDialog(playerid, DIALOG_GMX, DIALOG_STYLE_MSGBOX, "GMX", "Reinicialização em andamento...\n\nIsso pode demorar alguns segundos\npor favor aguarde!\n\nAgradecemos sua compreensão.", "AGUARDE", "");
+			if (!response) return ShowPlayerDialog(playerid, DIALOG_GMX, DIALOG_STYLE_MSGBOX, "{FFFFFF}Reinicialização do Servidor", "{B4B5B7}Aviso: {ED801A}GMX{FFFFFF} [Reinicilização].\n\n{B4B5B7}Status: {FFFFFF}Processo de reinicialização iniciado.\n\n{B4B5B7}Objetivo: \n{FFFFFF}A reinicialização do servidor é realizada\npara introduzir novos sistemas, correções de bugs\nou em alguma situação expecional. Nesse processo \ntodos os dados de jogadores e do servidor são salvos.\n\n{ff6347}Importante: \n{FFFFFF}Esse processo pode demorar alguns segundos, aguarde.\nCaso você tenha problemas para se conectar após o gmx,\n feche o seu jogo e entre novamente.\n\n{87ED34}Agradecemos a sua compreensão.", "Entendido", "");
+			if (response) return ShowPlayerDialog(playerid, DIALOG_GMX, DIALOG_STYLE_MSGBOX, "{FFFFFF}Reinicialização do Servidor", "{B4B5B7}Aviso: {ED801A}GMX{FFFFFF} [Reinicilização].\n\n{B4B5B7}Status: {FFFFFF}Processo de reinicialização iniciado.\n\n{B4B5B7}Objetivo: \n{FFFFFF}A reinicialização do servidor é realizada\npara introduzir novos sistemas, correções de bugs\nou em alguma situação expecional. Nesse processo \ntodos os dados de jogadores e do servidor são salvos.\n\n{ff6347}Importante: \n{FFFFFF}Esse processo pode demorar alguns segundos, aguarde.\nCaso você tenha problemas para se conectar após o gmx,\n feche o seu jogo e entre novamente.\n\n{87ED34}Agradecemos a sua compreensão.", "Entendido", "");
 		}
 	}
 	return 1;
@@ -52,7 +52,7 @@ YCMD:gmx(playerid, params[], help)
 	foreach(new i: Player)
 	{
         StopAudioStreamForPlayer(i);
-		ShowPlayerDialog(i, DIALOG_GMX, DIALOG_STYLE_MSGBOX, "{FFFFFF}GMX", "{FFFFFF}Reinicialização em andamento...\n\nIsso pode demorar alguns segundos\npor favor aguarde!\n\nAgradecemos sua compreensão.", "AGUARDE", "");
+		ShowPlayerDialog(i, DIALOG_GMX, DIALOG_STYLE_MSGBOX, "{FFFFFF}Reinicialização do Servidor", "{B4B5B7}Aviso: {ED801A}GMX{FFFFFF} [Reinicilização].\n\n{B4B5B7}Status: {FFFFFF}Processo de reinicialização iniciado.\n\n{B4B5B7}Objetivo: \n{FFFFFF}A reinicialização do servidor é realizada\npara introduzir novos sistemas, correções de bugs\nou em alguma situação expecional. Nesse processo \ntodos os dados de jogadores e do servidor são salvos.\n\n{ff6347}Importante: \n{FFFFFF}Esse processo pode demorar alguns segundos, aguarde.\nCaso você tenha problemas para se conectar após o gmx,\n feche o seu jogo e entre novamente.\n\n{87ED34}Agradecemos a sua compreensão.", "Entendido", "");
 	}
     format(gmx,sizeof(gmx),"[Administração]: %s está reinicializando o servidor, por favor aguarde!", GetPlayerNameCustom(playerid));
 	SendClientMessageToAll(COLOR_YELLOW, gmx);

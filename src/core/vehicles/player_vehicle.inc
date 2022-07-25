@@ -265,6 +265,14 @@ hook OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 		SendClientMessage(playerid, COLOR_GRAD2, string);
 		return 1;
 	}
+
+	if (Vehicle_IsCivilVehicle(vehicleid) && Player_GetJob(playerid) != j_JOB_NONE
+	|| Vehicle_IsCivilVehicle(vehicleid) && Player_GetLevel(playerid) > 5)
+	{
+		SetPlayerPos(playerid, Pos[0], Pos[1], Pos[2]);
+		SendClientMessage(playerid, COLOR_GRAD2, "* Esse veículo é apenas para novatos. Solicite um táxi usando: /solicitar.");
+		return 1;
+	}
 	
 	if (Vehicle_IsCar(GetVehicleModel(vehicleid)) && Player_GetCarLicense(playerid) <= 0)
 	{
@@ -352,6 +360,15 @@ first_hook OnPlayerStateChange(playerid, newstate, oldstate)
 				SendClientMessage(playerid, COLOR_GRAD2, string);
 				return 1;
 			}
+
+			if (Vehicle_IsCivilVehicle(vehicleid) && Player_GetJob(playerid) != j_JOB_NONE
+			|| Vehicle_IsCivilVehicle(vehicleid) && Player_GetLevel(playerid) > 5)
+			{
+				RemovePlayerFromVehicle(playerid);
+				SendClientMessage(playerid, COLOR_GRAD2, "* Esse veículo é apenas para novatos. Solicite um táxi usando: /solicitar.");
+				return 1;
+			}
+			
 			if (Vehicle_IsCar(GetVehicleModel(vehicleid)) && Player_GetCarLicense(playerid) <= 0)
 			{
 				RemovePlayerFromVehicle(playerid);

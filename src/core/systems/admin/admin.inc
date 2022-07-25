@@ -1,5 +1,6 @@
 #include <fly_system>
 #include <spectate_system>
+#include <teleports_system>
 // Commands
 #include <admin_cmds_lvl1>
 #include <admin_cmds_lvl2>

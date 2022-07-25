@@ -56,7 +56,7 @@ hook OnPlayerDisconnect(playerid)
     return 1;
 }
 
-hook OnPlayerPickUpDinamicPC(playerid, pickupid)
+hook OnPlayerPickUpDynamicPC(playerid, pickupid)
 {
     if (pickupid == gsTrashPickup[playerid])
     {

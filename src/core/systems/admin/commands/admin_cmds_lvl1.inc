@@ -693,7 +693,7 @@ YCMD:avisar(playerid, params[], help)
     if (CheckInvalidWords(message))
 	{
 	    new stringd[215];
-		format(stringd, sizeof(stringd), "[ADMIN ALERTA]: %s[%d] tentou divulgar: %s.", GetPlayerNameCustom(playerid), playerid, message);
+		format(stringd, sizeof(stringd), "[Alerta]: %s[%d] tentou divulgar: %s.", GetPlayerNameCustom(playerid), playerid, message);
 		SendAdminMessage(COLOR_YELLOW, stringd, HELPER);
 		PrintLog(FOLDER_ANTICHEAT_ADVERTISING, stringd);
 		return 1;
@@ -754,7 +754,18 @@ YCMD:testegod(playerid, params[], help)
 // TO-DO
 // /paredao
 // /rparedao
-// /teles
+
+YCMD:teles(playerid, params[], help) = teleportes;
+YCMD:teleportes(playerid, params[], help)
+{
+	if (Player_GetAdminLevel(playerid) < HELPER)
+	{
+		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está autorizado a utilizar esse comando.");
+	}
+
+	ShowPlayerTeleportsList(playerid);
+	return 1;
+}
 
 YCMD:setspawn(playerid, params[], help)
 {

@@ -2,10 +2,12 @@
 #include <sync-time_system>
 #include <gas-station_system>
 // Player Features
+#include <gps_system>
 #include <admin>
 #include <licenses_system>
 #include <hungry-drink_system>
 #include <jobs>
+#include <general-commands_system>
 
 #include <YSI_Coding\y_hooks>
 

@@ -24,11 +24,11 @@ static stock ShowPlayerJobsList(playerid)
 {
     if (Player_GetJob(playerid) != j_JOB_NONE)
 	{
-		return SendClientMessage(playerid, COLOR_YELLOW, "Você já tem um emprego, digite /sairdoemprego !");
+		return SendClientMessage(playerid, COLOR_YELLOW, "[Agência de Emprego]: Você já tem um emprego, digite /sairdoemprego !");
 	}
     if (!IsPlayerInRangeOfPoint(playerid, 2.0, JOBS_LIST_MENU))
 	{
-	    return SendClientMessage(playerid, COLOR_INVALID, "Você não está no menu de empregos.");
+	    return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não está no menu de empregos.");
 	}
 
     new jobsList[409 + 1];
@@ -47,49 +47,50 @@ static stock ShowPlayerJobsList(playerid)
     return 1;
 }
 
-static stock ShowPlayerJobHelp(playerid)
+//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) ------------------------
+stock ShowPlayerJobHelp(playerid)
 {
 	switch(Player_GetJob(playerid))
 	{
 	    case j_JOB_GARBAGEMAN:
 	    {
-	        ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,"Ajuda Emprego", "{B4B5B7}Emprego: [{33CCFF}Lixeiro{B4B5B7}]:\n\n{33CCFF}Comandos: /mlixo (Marcar um Lixo) | /elixo (Entergar um Lixo na HQ) | /echat (Chat dos Lixeiros)\n\n{FFFFFF}Para localizar a sua HQ, use: /gps!\n{ff6347}Explicação: {FFFFFF}Sua função é coletar lixos pela cidade.\n{ff6347}DICA:{B4B5B7} Quando chegar em um lixo, saia do veículo para poder pegá-lo.", "Fechar", "");
+	        ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,"{FFFFFF}Ajuda Emprego", "{B4B5B7}Emprego: {9acd32}Lixeiro{B4B5B7}.\n\n{B4B5B7}Função Social:\n{FFFFFF}A profissão de lixeiro é de extrema importância na \nmanutenção da cidade, pois ela cuida da higiene \ne limpeza da cidade, mantendo-a habitável para\ntodos os jogadores.\n\n{B4B5B7}Comandos da Profissão:\n\n{B4B5B7}* {8d8dff}/echat - {FFFFFF}Chat com os demais membros do emprego.\n{B4B5B7}* {8d8dff}/mlixo - {FFFFFF}Inicia uma rota de coleta pela cidade.\n{B4B5B7}* {8d8dff}/elixo - {FFFFFF}Finaliza a rota de coleto, após coletar o lixo.", "Fechar", "");
 	    }
 	    case j_JOB_TRUCK_DRIVER:
 	    {
-	        ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,"Ajuda Emprego", "{B4B5B7}Emprego: [{33CCFF}Caminhoneiro{B4B5B7}]:\n\n{33CCFF}Comandos: /mcarga (Marcar uma Mercadoria) | /ecarga (Entergar uma Mercadoria na HQ) | /echat (Chat dos Caminhoneiros)\n\n{FFFFFF}Para localizar a sua HQ, use: /gps!\n{ff6347}Explicação: {FFFFFF}Sua função é coletar mercadorias pela cidade.\n{ff6347}DICA:{B4B5B7} Quando chegar em uma mercadoria, saia do veículo para poder pegá-la.", "Fechar", "");
+	        ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,"{FFFFFF}Ajuda Emprego", "{B4B5B7}Emprego: {9acd32}Caminhoneiro{B4B5B7}.\n\n{B4B5B7}Função Social:\n{FFFFFF}Os caminhoneiros são os responsáveis por movimentar\na economia de qualquer cidade. São eles quem realizam\no transporte de mercadorias por todo o país.\n\n{B4B5B7}Comandos da Profissão:\n\n{B4B5B7}* {8d8dff}/echat - {FFFFFF}Chat com os demais membros do emprego.\n{B4B5B7}* {8d8dff}/mcarga - {FFFFFF}Inicia uma rota de entrega.\n{B4B5B7}* {8d8dff}/ecarga - {FFFFFF}Finaliza a entrega.", "Fechar", "");
 	    }
 	    case j_JOB_TAXI_DRIVER:
 	    {
-	        ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,"Ajuda Emprego", "{B4B5B7}Emprego: [{33CCFF}Taxista{B4B5B7}]:\n\n{33CCFF}Comandos: /corrida [Preço] (Iniciar uma Corrida) | /servicos (Serviços Disponíveis) | /cservico (Cancela o Serviço Atual)\nComandos: /echat (Chat dos Taxistas)\n\n{FFFFFF}Para localizar a sua HQ, use: /gps!\n{ff6347}Explicação: {FFFFFF}Sua função é transportar os jogadores pela cidade.\n{ff6347}DICA:{B4B5B7} Seja gentil com os jogadores que solicitarem serviço.", "Fechar", "");
+	        ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,"{FFFFFF}Ajuda Emprego", "{B4B5B7}Emprego: {9acd32}Taxista{B4B5B7}.\n\n{B4B5B7}Função Social:\n{FFFFFF}Os taxistas são os responsáveis por transportar as\npessoas para todos os pontos da cidade. É um emprego\ncom muita interação com os demais jogadores.\n\n{B4B5B7}Comandos da Profissão:\n\n{B4B5B7}* {8d8dff}/echat - {FFFFFF}Chat com os demais membros do emprego.\n{B4B5B7}* {8d8dff}/corrida [preço] - {FFFFFF}Inicia uma corrida.\n{B4B5B7}* {8d8dff}/servicos - {FFFFFF}Mostra as solicitações disponíveis.\n{B4B5B7}* {8d8dff}/cservico - {FFFFFF}Cancela o serviço atual.", "Fechar", "");
 	    }
 	    case j_JOB_LAWYER:
 	    {
-         	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,"Ajuda Emprego", "{B4B5B7}Emprego: [{33CCFF}Advogado{B4B5B7}]:\n\n{33CCFF}Comandos: /soltar [ID] [Preço] (Soltar um Detento) | /autorizacao (Pegar um Habeas Corpus na Penitenciária)\nComandos: /habilidades (Habilidade do Emprego) | /echat (Chat dos Advogados)\n\n{FFFFFF}Para localizar a sua HQ, use: /gps!\n{ff6347}Explicação: {FFFFFF}Sua função é coletar mercadorias pela cidade.\n{ff6347}DICA:{B4B5B7} Quanto mais dententos você soltar mais a sua habilidade de advocacia irá melhorar.", "Fechar", "");
+         	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,"{FFFFFF}Ajuda Emprego", "{B4B5B7}Emprego: {9acd32}Advogado{B4B5B7}.\n\n{B4B5B7}Função Social:\n{FFFFFF}Os advogados são responsáveis pela defesa jurídica\ndos indivíduos perante à justiça.\n\n{B4B5B7}Comandos da Profissão:\n\n{B4B5B7}* {8d8dff}/echat - {FFFFFF}Chat com os demais membros do emprego.\n{B4B5B7}* {8d8dff}/soltar [id] [preço] - {FFFFFF}Faz uma proposta de liberação\npara um preso.\n\n{ff6347}Importante:\n{FFFFFF}Nesse emprego, há níveis de habilidade. Quanto mais\nalto for seu nível de advogado, você conseguirá soltar\njogadores com tempo de prisão mais elevados.", "Fechar", "");
 	    }
 	    case j_JOB_GRAVEDIGGER:
 	    {
-         	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,"Ajuda Emprego", "{B4B5B7}Emprego: [{33CCFF}Coveiro{B4B5B7}]:\n\n{33CCFF}Comandos: /mcadaver (Marcar um Cadáver) | /ecadaver (Entergar um Cadáver na HQ) | /echat (Chat dos Advogados)\n\n{FFFFFF}Para localizar a sua HQ, use: /gps!\n{ff6347}Explicação: {FFFFFF}Sua função é coletar corpos pela cidade.\n{ff6347}DICA:{B4B5B7} Quando chegar em um cadáver, saia do veículo para poder pegá-lo.", "Fechar", "");
+         	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,"{FFFFFF}Ajuda Emprego", "{B4B5B7}Emprego: {9acd32}Coveiro{B4B5B7}.\n\n{B4B5B7}Função Social:\n{FFFFFF}Os coveiros são os responsáveis por coletar os cadáveres\nque estão pela cidade.\n\n{B4B5B7}Comandos da Profissão:\n\n{B4B5B7}* {8d8dff}/echat - {FFFFFF}Chat com os demais membros do emprego.\n{B4B5B7}* {8d8dff}/mcadaver - {FFFFFF}Inicia uma coleta de cadáver.\n{B4B5B7}* {8d8dff}/ecadaver - {FFFFFF}Entrega o cadáver no cemitério.", "Fechar", "");
 	    }
 	    case j_JOB_MINER:
 	    {
-         	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,"Ajuda Emprego", "{B4B5B7}Emprego: [{33CCFF}Minerador{B4B5B7}]:\n\n{33CCFF}Comandos: /minerar (Minera um Metal Precioso) | /infominerio (Informações sobre o Minério) | /pegarminerio (Pega um Minério do Chão)\nComandos: /venderminerio (Vende um Minério) | /echat (Chat dos Mineradores)\n\n{FFFFFF}Para localizar a sua HQ, use: /gps!\n{ff6347}Explicação: {FFFFFF}Sua função é coletar os minérios da mina.\n{ff6347}DICA:{B4B5B7} As vezes vale mais a pena minerar metais mais comuns, pois são mais rápidos.", "Fechar", "");
+         	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,"{FFFFFF}Ajuda Emprego", "{B4B5B7}Emprego: {9acd32}Minerador{B4B5B7}.\n\n{B4B5B7}Função Social:\n{FFFFFF}Os mineradores são responsáveis por coletar pedras\npreciosas e gerar riqueza para a cidade.\n\n{B4B5B7}Comandos da Profissão:\n\n{B4B5B7}* {8d8dff}/echat - {FFFFFF}Chat com os demais membros do emprego.\n{B4B5B7}* {8d8dff}/minerar - {FFFFFF}Minera um veio de minério.\n{B4B5B7}* {8d8dff}/infominerio - {FFFFFF}Mostra informações sobre o minério.\n{B4B5B7}* {8d8dff}/pegarmineiro - {FFFFFF}Pega o minério que está no chão.\n{B4B5B7}* {8d8dff}/venderminerio - {FFFFFF}Vende um minério na central.\n\n{ff6347}Importante:\n{FFFFFF}Nesse emprego, há níveis de habilidade. Quanto mais\nalto for seu nível de mineração, você conseguirá minerar\nmetais mais preciosos.", "Fechar", "");
 	    }
 		case j_JOB_RESCUER:
 	    {
-         	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,"Ajuda Emprego", "{B4B5B7}Emprego: [{33CCFF}Socorrista{B4B5B7}]:\n\n{33CCFF}Comandos: /batercartao (Entra em modo de serviço) | /mudarsexo (Muda o Sexo do Jogador) | /scurar (Cura um Jogador)\nComandos: /scolete (Vende um Colete) | /echat (Chat dos Socorristas) | /localincendio (Localiza o Incêndio)\nComandos: /servicos (Serviços Disponíveis) | /cservico (Cancela o Serviço Atual)\n\n{FFFFFF}Para localizar a sua HQ, use: /gps!\n{ff6347}Explicação: {FFFFFF}Sua função é curar os jogadores e apagar incêndios pela cidade.\n{ff6347}DICA:{B4B5B7} Os incêndios surgem automaticamente pelo servidor.", "Fechar", "");
+         	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,"{FFFFFF}Ajuda Emprego", "{B4B5B7}Emprego: {9acd32}Socorrista{B4B5B7}.\n\n{B4B5B7}Função Social:\n{FFFFFF}Os socorristas possuem uma importância elevada na sociedade.\nEles são responsáveis por cuidar da saúde dos jogadores e\ncombater incêndios pela cidade.\n\n{B4B5B7}Comandos da Profissão:\n\n{B4B5B7}* {8d8dff}/echat - {FFFFFF}Chat com os demais membros do emprego.\n{B4B5B7}* {8d8dff}/batercartao - {FFFFFF}Entra em modo de serviço.\n{B4B5B7}* {8d8dff}/servicos - {FFFFFF}Mostra as solicitações de serviços.\n{B4B5B7}* {8d8dff}/cservico - {FFFFFF}Cancela o serviço atual.\n{B4B5B7}* {8d8dff}/curar - {FFFFFF}Recupera a saúde do jogador.\n{B4B5B7}* {8d8dff}/mudarsexo - {FFFFFF}Realiza a mudança de sexo do jogador.\n{B4B5B7}* {8d8dff}/localincendio - {FFFFFF}Localiza um incêndio que esteja ocorrendo.", "Fechar", "");
 	    }
 		case j_JOB_ELETRICIAN:
 	    {
-         	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,"Ajuda Emprego", "{B4B5B7}Emprego: [{33CCFF}Eletricista{B4B5B7}]:\n\n{33CCFF}Comandos: /rotaeletricista (Localizar uma ocorrência no mapa) | /echat (Chat do Emprego)\nComandos: /colocarescada (Colocar a escada no poste) OBS: A escada é colocada automaticamente ao chegar no checkpoint.\n\n{FFFFFF}Para localizar a sua HQ, use: /gps!\n{ff6347}Explicação: {FFFFFF}Sua função é consertar os postes defeituosos pela cidade.\n{ff6347}DICA:{B4B5B7} É necessário segurar a tecla 'Y' para consertar o poste.", "Fechar", "");
+         	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,"{FFFFFF}Ajuda Emprego", "{B4B5B7}Emprego: {9acd32}Eletricista{B4B5B7}.\n\n{B4B5B7}Função Social:\n{FFFFFF}A função dos eletricistas é manter o pleno funcionamento\ndos serviços elétricos da cidade, realizando manutenções\nnos postes de energia.\n\n{B4B5B7}Comandos da Profissão:\n\n{B4B5B7}* {8d8dff}/echat - {FFFFFF}Chat com os demais membros do emprego.\n{B4B5B7}* {8d8dff}/rotaeletricista- {FFFFFF}Inicia um serviço de reparo em um poste.", "Fechar", "");
 	    }
 		case j_JOB_BUS_DRIVER:
 	    {
-         	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,"Ajuda Emprego", "{B4B5B7}Emprego: [{33CCFF}Motorista de Ônibus{B4B5B7}]:\n\n{33CCFF}Comandos: /iniciarrota | /echat (Chat do Emprego)\n\n{FFFFFF}Para localizar a sua HQ, use: /gps!\n{ff6347}Explicação: {FFFFFF}Sua função é seguir pelas rotas marcadas no mapa\ne ajudar os jogadores a chegarem aos locais de destino.", "Fechar", "");
+         	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,"{FFFFFF}Ajuda Emprego", "{B4B5B7}Emprego: {9acd32}Motorista de Ônbus{B4B5B7}.\n\n{B4B5B7}Função Social:\n{FFFFFF}Os Motoristas de Ônibus são os responsáveis por transportar as\npessoas para todos os pontos da cidade. É um emprego\ncom muita interação com os demais jogadores.\n\n{B4B5B7}Comandos da Profissão:\n\n{B4B5B7}* {8d8dff}/echat - {FFFFFF}Chat com os demais membros do emprego.\n{B4B5B7}* {8d8dff}/iniciarrota - {FFFFFF}Inicia uma rota de transporte.", "Fechar", "");
 	    }
 		case j_JOB_FARMER:
 	    {
-         	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,"Ajuda Emprego", "{B4B5B7}Emprego: [{33CCFF}Fazendeiro{B4B5B7}]:\n\n{33CCFF}Comandos: /plantar /pesquisa | /echat (Chat do Emprego)\n\n{FFFFFF}Para localizar a sua HQ, use: /gps!\n{ff6347}Explicação: {FFFFFF}Você deve pegar as sementes no menu do fazendeiro e plantá-las.\nApós plantar as sementes, você deve colher elas e entregar o trigo recolhido no menu.", "Fechar", "");
+         	ShowPlayerDialog(playerid, DIALOG_ONLY_READ, DIALOG_STYLE_MSGBOX,"{FFFFFF}Ajuda Emprego", "{B4B5B7}Emprego: {9acd32}Fazendeiro{B4B5B7}.\n\n{B4B5B7}Função Social:\n{FFFFFF}Os Fazendeiros são os responsáveis pela base econômica\nda cidade, pois utilizam da agricultura como meio de vivência.\n\n{B4B5B7}Comandos da Profissão:\n\n{B4B5B7}* {8d8dff}/echat - {FFFFFF}Chat com os demais membros do emprego.\n{B4B5B7}* {8d8dff}/plantar - {FFFFFF}Planta uma semente.\n{B4B5B7}* {8d8dff}/pesquisa - {FFFFFF}Inicia uma rota de pesquisa por novas tecnologias.", "Fechar", "");
 	    }
 		default:
 		{
@@ -98,8 +99,6 @@ static stock ShowPlayerJobHelp(playerid)
 	}
 	return 1;
 }
-
-//------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) ------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnGameModeInit()
@@ -424,8 +423,8 @@ YCMD:echat(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: Você não possui um emprego.");
 	}
-	new text[91];
-	if (sscanf(params, "s[91]", text))
+	new text[95];
+	if (sscanf(params, "s[95]", text))
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: (/echat) [Chat Emprego]");
 	}
@@ -433,21 +432,21 @@ YCMD:echat(playerid, params[], help)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "USE: (/echat) [Chat Emprego]");
 	}
-    if (strlen(text) > 91)
+    if (strlen(text) > 95)
 	{
 		return SendClientMessage(playerid, COLOR_INVALID, "[Erro]: A mensagem digitada é muito longa.");
 	}
 	if (CheckInvalidWords(text))
 	{
 	    new string[90];
-		format(string, sizeof(string), "[ADMIN ALERTA]: %s[%d] tentou divulgar: %s.", GetPlayerNameCustom(playerid), playerid, text);
+		format(string, sizeof(string), "[Alerta]: %s[%d] tentou divulgar: %s.", GetPlayerNameCustom(playerid), playerid, text);
 		SendAdminMessage(COLOR_YELLOW, string, HELPER);
 		PrintLog(FOLDER_ANTICHEAT_ADVERTISING, string);
        	return 0;
 	}
 
 	new string[144];
-	format(string, sizeof(string), "** %s %s: %s **", Job_GetName(Player_GetJob(playerid)), GetPlayerNameCustom(playerid), text);
+	format(string, sizeof(string), "[%s] %s: %s", Job_GetName(Player_GetJob(playerid)), GetPlayerNameCustom(playerid), text);
 	SendJobMessage(0xBEBEBEFF, string, Player_GetJob(playerid));
     return 1;
 }
