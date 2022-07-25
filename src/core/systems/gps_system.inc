@@ -18,6 +18,8 @@ static gsGpsGeneral[][g_GPS_INFO] =
 	{ "Spawn Civil", SPAWN_POSX, SPAWN_POSY, SPAWN_POSZ },
 	{ "Prefeitura", 1481.0397, -1772.3135, 18.7958 },
 	{ "Autoescola", 1081.1952, -1696.7833, 13.5469 },
+	{ "Banco", 1462.3101, -1010.2200, 26.8438 },
+	{ "Penitenciária", 1684.4442, -1343.3179, 17.4371 },
 	{ "Aeroporto", 2073.4792, -2625.5288, 13.5469 },
 	{ "Igreja", 2233.9839, -1333.3507, 23.9816 },
 	{ "Estação de Trem", 1689.4321, -1974.5238, 8.8254 }

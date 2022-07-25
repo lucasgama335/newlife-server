@@ -1117,7 +1117,7 @@ hook OnPlayerConnect(playerid)
     //=====================================[ REMOVE WORLD OBJECTS ]====================================||
 
 	//=====================================[ MAP ICONS ]====================================||
-    SetPlayerMapIcon(playerid, 4, DRIVING_SCHOOL_ENTRANCE, 35, 0xE6E6E6E6);
+    SetPlayerMapIcon(playerid, m_MAP_ICON_DRIVING_SCHOOL, DRIVING_SCHOOL_ENTRANCE, 35, 0xE6E6E6E6);
 	return 1;
 }
 

@@ -1,8 +1,6 @@
 #include <YSI_Coding\y_hooks>
 
 //------------------------- Definitions and constants -------------------------
-#define MAX_FOOD_BAR_LIST    1
-#define MAX_DRINK_BAR_LIST   1
 
 //------------------------- Data (This section is for module-internal data. Make sure to make the accessor variable 'static') -------------------------
 static gsUpdatePlayerNeedsTimer[MAX_PLAYERS];
@@ -14,9 +12,10 @@ enum f_LIST_INFO
     Float:f_POS_Z,
     f_VIRTUAL_WORLD
 };
-static gsFoodBarList[MAX_FOOD_BAR_LIST][f_LIST_INFO] =
+static gsFoodBarList[][f_LIST_INFO] =
 {
-    { 815.7295, -1354.0405, 13.5378, 0 }
+    { 815.7295, -1354.0405, 13.5378, 0 }, // Spawn
+    { 300.1892, -1911.9113, 3.1653, 0 } // Beach Party
 };
 
 enum d_LIST_INFO
@@ -26,9 +25,10 @@ enum d_LIST_INFO
     Float:d_POS_Z,
     d_VIRTUAL_WORLD
 };
-static gsDrinkBarList[MAX_DRINK_BAR_LIST][d_LIST_INFO] =
+static gsDrinkBarList[][d_LIST_INFO] =
 {
-    { 811.8157, -1354.0371, 13.5378, 0 }
+    { 811.8157, -1354.0371, 13.5378, 0 }, // Spawn
+    { 319.5235, -1908.9147, 3.1653, 0 } // Beach Party
 };
 
 //------------------------- Timers (Timers used in the module.) -------------------------
@@ -116,13 +116,13 @@ static stock ShowDrinkDialog(playerid)
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
 hook OnGameModeInit()
 {
-    for (new i; i < MAX_FOOD_BAR_LIST; i++)
+    for (new i; i < sizeof(gsFoodBarList); i++)
     {
 		CreateDynamic3DTextLabel("{FFFFFF}Cardápio de Comidas\n{B4B5B7}Para Ver as Opções\nAperte '{FFFFFF}F{B4B5B7}'", COLOR_GRAD1, gsFoodBarList[i][f_POS_X], gsFoodBarList[i][f_POS_Y], gsFoodBarList[i][f_POS_Z], 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, gsFoodBarList[i][f_VIRTUAL_WORLD]);
 		CreateDynamicPickup(2768, 23, gsFoodBarList[i][f_POS_X], gsFoodBarList[i][f_POS_Y], gsFoodBarList[i][f_POS_Z], gsFoodBarList[i][f_VIRTUAL_WORLD]);
     }
 
-    for (new i; i < MAX_DRINK_BAR_LIST; i++)
+    for (new i; i < sizeof(gsDrinkBarList); i++)
     {
 		CreateDynamic3DTextLabel("{FFFFFF}Cardápio de Bebidas\n{B4B5B7}Para Ver as Opções\nAperte '{FFFFFF}F{B4B5B7}'", COLOR_GRAD1, gsDrinkBarList[i][d_POS_X], gsDrinkBarList[i][d_POS_Y], gsDrinkBarList[i][d_POS_Z], 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, gsDrinkBarList[i][d_VIRTUAL_WORLD]);
 		CreateDynamicPickup(1484, 23, gsDrinkBarList[i][d_POS_X], gsDrinkBarList[i][d_POS_Y], gsDrinkBarList[i][d_POS_Z], gsDrinkBarList[i][d_VIRTUAL_WORLD]);
@@ -159,7 +159,7 @@ hook FirstSpawnOnLogin(playerid)
 
 hook OnPlayerPressF(playerid)
 {
-    for (new i; i < MAX_FOOD_BAR_LIST; i++)
+    for (new i; i < sizeof(gsFoodBarList); i++)
     {
         if (IsPlayerInRangeOfPoint(playerid, 2.0, gsFoodBarList[i][f_POS_X], gsFoodBarList[i][f_POS_Y], gsFoodBarList[i][f_POS_Z]))
         {
@@ -168,7 +168,7 @@ hook OnPlayerPressF(playerid)
         }
     }
 
-    for (new i; i < MAX_DRINK_BAR_LIST; i++)
+    for (new i; i < sizeof(gsDrinkBarList); i++)
     {
         if (IsPlayerInRangeOfPoint(playerid, 2.0, gsDrinkBarList[i][d_POS_X], gsDrinkBarList[i][d_POS_Y], gsDrinkBarList[i][d_POS_Z]))
         {

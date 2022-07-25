@@ -183,6 +183,16 @@ stock CheckInvalidWords(const string[])
 	return 0;
 }
 
+stock RGBAToARGB(rgba)
+{
+    return rgba >>> 8 | rgba << 24;
+}
+
+stock ARGBToRGBA(colour)
+{
+	return colour = ((colour << 8) & 0xFFFFFF00) | ((colour >>> 24) & 0xFF);
+}
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------

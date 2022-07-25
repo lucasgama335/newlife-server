@@ -15,7 +15,7 @@ static gsCourtActor[11];
 hook OnGameModeInit()
 {
 	//=====================================[ 3DTEXT ]====================================||
-    CreateDynamic3DTextLabel("Tribunal de Justiça {FFFFFF}Los Santos{B4B5B7}\nPara Entrar\nAperte '{FFFFFF}F{B4B5B7}''", COLOR_GRAD1, COURT_OF_JUSTICE_ENTRANCE, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
+    CreateDynamic3DTextLabel("Tribunal de Justiça {FFFFFF}Los Santos{B4B5B7}\nPara Entrar\nAperte '{FFFFFF}F{B4B5B7}'", COLOR_GRAD1, COURT_OF_JUSTICE_ENTRANCE, 20.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0);
     
     //=====================================[ PICKUPS ]====================================||
     CreateDynamicPickup(1318, 23, COURT_OF_JUSTICE_ENTRANCE);
