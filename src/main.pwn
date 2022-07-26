@@ -108,13 +108,3 @@ public OnGameModeInit()
     ManualVehicleEngineAndLights();
 	return 1;
 }
-
-public OnPlayerEnterRaceCheckpoint(playerid)
-{
-	return 1;
-}
-
-public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
-{
-	return 1;
-}
