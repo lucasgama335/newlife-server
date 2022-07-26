@@ -16,7 +16,10 @@ stock Vehicle_IsCivilVehicle(vehicleid)
 {
     for(new x; x < sizeof(gsCivilVehicle); x++)
     {
-        if (vehicleid != INVALID_VEHICLE_ID && vehicleid == x) return true;
+        if (vehicleid != INVALID_VEHICLE_ID && vehicleid == x)
+		{
+			return true;
+		}
     }
     return false;
 }

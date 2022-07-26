@@ -17,11 +17,14 @@ static gsDriveSchoolVehicle[28];
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- External API (Functions accessible from other modules. Use 'stock' and PascalCase.) -------------------------
-stock Vehicle_IsgsDriveSchoolVehicle(vehicleid)
+stock Vehicle_IsDriveSchoolVehicle(vehicleid)
 {
-    for(new x; x < sizeof(gsCivilVehicle); x++)
+    for(new x; x < sizeof(gsDriveSchoolVehicle); x++)
     {
-        if (vehicleid != INVALID_VEHICLE_ID && vehicleid == x) return true;
+        if (vehicleid != INVALID_VEHICLE_ID && vehicleid == x)
+        {
+            return true;
+        }
     }
     return false;
 }
@@ -67,7 +70,7 @@ hook OnGameModeInit()
 
 hook OnVehicleSpawn(vehicleid)
 {
-	if (Vehicle_IsCivilVehicle(vehicleid))
+	if (Vehicle_IsDriveSchoolVehicle(vehicleid))
 	{
 		Vehicle_SetFuel(vehicleid, 100);
 	}
