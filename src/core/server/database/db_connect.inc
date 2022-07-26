@@ -34,7 +34,7 @@ stock Database_GetRaceCheck(playerid)
 }
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------
-hook OnGameModeInit()
+first_hook OnGameModeInit()
 {
     new MySQLOpt: mysqlConfig = mysql_init_options();
     mysql_set_option(mysqlConfig, AUTO_RECONNECT, true); // it automatically reconnects when loosing connection to mysql server
