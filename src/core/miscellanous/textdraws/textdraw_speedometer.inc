@@ -844,10 +844,10 @@ static stock Compact_CreateNormalScreen(playerid)
 
 static stock Center_CreateUltraWideScreen(playerid)
 {
-	gsSpeedometerCenter[playerid][0] = CreatePlayerTextDraw(playerid, 334.000000, 357.500000, "_");
+	gsSpeedometerCenter[playerid][0] = CreatePlayerTextDraw(playerid, 333.000000, 358.000000, "_");
 	PlayerTextDrawFont(playerid, gsSpeedometerCenter[playerid][0], 1);
-	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][0], 0.600000, 0.100003);
-	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][0], 288.500000, 185.000000);
+	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][0], 0.600000, 0.100002);
+	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][0], 288.500000, 144.000000);
 	PlayerTextDrawSetOutline(playerid, gsSpeedometerCenter[playerid][0], 1);
 	PlayerTextDrawSetShadow(playerid, gsSpeedometerCenter[playerid][0], 0);
 	PlayerTextDrawAlignment(playerid, gsSpeedometerCenter[playerid][0], 2);
@@ -858,7 +858,7 @@ static stock Center_CreateUltraWideScreen(playerid)
 	PlayerTextDrawSetProportional(playerid, gsSpeedometerCenter[playerid][0], 1);
 	PlayerTextDrawSetSelectable(playerid, gsSpeedometerCenter[playerid][0], 0);
 
-	gsSpeedometerCenter[playerid][1] = CreatePlayerTextDraw(playerid, 418.500000, 352.000000, "ld_beat:chit");
+	gsSpeedometerCenter[playerid][1] = CreatePlayerTextDraw(playerid, 399.500000, 351.000000, "ld_beat:chit");
 	PlayerTextDrawFont(playerid, gsSpeedometerCenter[playerid][1], 4);
 	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][1], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][1], 17.000000, 17.000000);
@@ -872,7 +872,7 @@ static stock Center_CreateUltraWideScreen(playerid)
 	PlayerTextDrawSetProportional(playerid, gsSpeedometerCenter[playerid][1], 1);
 	PlayerTextDrawSetSelectable(playerid, gsSpeedometerCenter[playerid][1], 0);
 
-	gsSpeedometerCenter[playerid][2] = CreatePlayerTextDraw(playerid, 230.500000, 352.000000, "ld_beat:chit");
+	gsSpeedometerCenter[playerid][2] = CreatePlayerTextDraw(playerid, 249.500000, 351.000000, "ld_beat:chit");
 	PlayerTextDrawFont(playerid, gsSpeedometerCenter[playerid][2], 4);
 	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][2], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][2], 17.000000, 17.000000);
@@ -888,8 +888,8 @@ static stock Center_CreateUltraWideScreen(playerid)
 
 	gsSpeedometerCenter[playerid][3] = CreatePlayerTextDraw(playerid, 333.000000, 362.500000, "_");
 	PlayerTextDrawFont(playerid, gsSpeedometerCenter[playerid][3], 1);
-	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][3], 0.600000, 6.100004);
-	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][3], 298.500000, 196.000000);
+	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][3], 0.600000, 6.150004);
+	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][3], 298.500000, 156.500000);
 	PlayerTextDrawSetOutline(playerid, gsSpeedometerCenter[playerid][3], 1);
 	PlayerTextDrawSetShadow(playerid, gsSpeedometerCenter[playerid][3], 0);
 	PlayerTextDrawAlignment(playerid, gsSpeedometerCenter[playerid][3], 2);
@@ -900,10 +900,10 @@ static stock Center_CreateUltraWideScreen(playerid)
 	PlayerTextDrawSetProportional(playerid, gsSpeedometerCenter[playerid][3], 1);
 	PlayerTextDrawSetSelectable(playerid, gsSpeedometerCenter[playerid][3], 0);
 
-	gsSpeedometerCenter[playerid][4] = CreatePlayerTextDraw(playerid, 314.000000, 334.000000, "ld_pool:ball");
+	gsSpeedometerCenter[playerid][4] = CreatePlayerTextDraw(playerid, 316.000000, 334.000000, "ld_pool:ball");
 	PlayerTextDrawFont(playerid, gsSpeedometerCenter[playerid][4], 4);
 	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][4], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][4], 38.000000, 46.500000);
+	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][4], 29.500000, 45.500000);
 	PlayerTextDrawSetOutline(playerid, gsSpeedometerCenter[playerid][4], 1);
 	PlayerTextDrawSetShadow(playerid, gsSpeedometerCenter[playerid][4], 0);
 	PlayerTextDrawAlignment(playerid, gsSpeedometerCenter[playerid][4], 1);
@@ -914,9 +914,9 @@ static stock Center_CreateUltraWideScreen(playerid)
 	PlayerTextDrawSetProportional(playerid, gsSpeedometerCenter[playerid][4], 1);
 	PlayerTextDrawSetSelectable(playerid, gsSpeedometerCenter[playerid][4], 0);
 
-	gsSpeedometerCenter[playerid][5] = CreatePlayerTextDraw(playerid, 333.000000, 345.000000, "120");
+	gsSpeedometerCenter[playerid][5] = CreatePlayerTextDraw(playerid, 331.000000, 345.000000, "120");
 	PlayerTextDrawFont(playerid, gsSpeedometerCenter[playerid][5], 3);
-	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][5], 0.479166, 2.049999);
+	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][5], 0.379166, 1.749999);
 	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][5], 400.000000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, gsSpeedometerCenter[playerid][5], 0);
 	PlayerTextDrawSetShadow(playerid, gsSpeedometerCenter[playerid][5], 0);
@@ -928,9 +928,9 @@ static stock Center_CreateUltraWideScreen(playerid)
 	PlayerTextDrawSetProportional(playerid, gsSpeedometerCenter[playerid][5], 1);
 	PlayerTextDrawSetSelectable(playerid, gsSpeedometerCenter[playerid][5], 0);
 
-	gsSpeedometerCenter[playerid][6] = CreatePlayerTextDraw(playerid, 333.000000, 365.000000, "KM/H");
+	gsSpeedometerCenter[playerid][6] = CreatePlayerTextDraw(playerid, 331.000000, 365.000000, "KM/H");
 	PlayerTextDrawFont(playerid, gsSpeedometerCenter[playerid][6], 3);
-	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][6], 0.208333, 0.900000);
+	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][6], 0.158333, 0.699999);
 	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][6], 400.000000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, gsSpeedometerCenter[playerid][6], 0);
 	PlayerTextDrawSetShadow(playerid, gsSpeedometerCenter[playerid][6], 0);
@@ -942,7 +942,7 @@ static stock Center_CreateUltraWideScreen(playerid)
 	PlayerTextDrawSetProportional(playerid, gsSpeedometerCenter[playerid][6], 1);
 	PlayerTextDrawSetSelectable(playerid, gsSpeedometerCenter[playerid][6], 0);
 
-	gsSpeedometerCenter[playerid][7] = CreatePlayerTextDraw(playerid, 411.000000, 362.000000, "Preview_Model");
+	gsSpeedometerCenter[playerid][7] = CreatePlayerTextDraw(playerid, 392.000000, 362.000000, "Preview_Model");
 	PlayerTextDrawFont(playerid, gsSpeedometerCenter[playerid][7], 5);
 	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][7], 0.600000, 2.000000);
 	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][7], 24.500000, 34.000000);
@@ -959,41 +959,41 @@ static stock Center_CreateUltraWideScreen(playerid)
 	PlayerTextDrawSetPreviewRot(playerid, gsSpeedometerCenter[playerid][7], -10.000000, 0.000000, -20.000000, 1.000000);
 	PlayerTextDrawSetPreviewVehCol(playerid, gsSpeedometerCenter[playerid][7], 1, 1);
 
-	gsSpeedometerCenter[playerid][8] = CreatePlayerTextDraw(playerid, 411.000000, 393.000000, "Preview_Model");
-	PlayerTextDrawFont(playerid, gsSpeedometerCenter[playerid][8], 5);
+	gsSpeedometerCenter[playerid][8] = CreatePlayerTextDraw(playerid, 255.000000, 375.000000, "HUD:radar_girlfriend");
+	PlayerTextDrawFont(playerid, gsSpeedometerCenter[playerid][8], 4);
 	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][8], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][8], 20.000000, 17.500000);
-	PlayerTextDrawSetOutline(playerid, gsSpeedometerCenter[playerid][8], 0);
+	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][8], 9.000000, 12.000000);
+	PlayerTextDrawSetOutline(playerid, gsSpeedometerCenter[playerid][8], 1);
 	PlayerTextDrawSetShadow(playerid, gsSpeedometerCenter[playerid][8], 0);
 	PlayerTextDrawAlignment(playerid, gsSpeedometerCenter[playerid][8], 1);
 	PlayerTextDrawColor(playerid, gsSpeedometerCenter[playerid][8], -1);
-	PlayerTextDrawBackgroundColor(playerid, gsSpeedometerCenter[playerid][8], 0);
-	PlayerTextDrawBoxColor(playerid, gsSpeedometerCenter[playerid][8], 255);
-	PlayerTextDrawUseBox(playerid, gsSpeedometerCenter[playerid][8], 0);
+	PlayerTextDrawBackgroundColor(playerid, gsSpeedometerCenter[playerid][8], 255);
+	PlayerTextDrawBoxColor(playerid, gsSpeedometerCenter[playerid][8], 50);
+	PlayerTextDrawUseBox(playerid, gsSpeedometerCenter[playerid][8], 1);
 	PlayerTextDrawSetProportional(playerid, gsSpeedometerCenter[playerid][8], 1);
 	PlayerTextDrawSetSelectable(playerid, gsSpeedometerCenter[playerid][8], 0);
-	PlayerTextDrawSetPreviewModel(playerid, gsSpeedometerCenter[playerid][8], 1650);
-	PlayerTextDrawSetPreviewRot(playerid, gsSpeedometerCenter[playerid][8], -10.000000, 0.000000, 0.000000, 1.000000);
-	PlayerTextDrawSetPreviewVehCol(playerid, gsSpeedometerCenter[playerid][8], 1, 1);
 
-	gsSpeedometerCenter[playerid][9] = CreatePlayerTextDraw(playerid, 237.000000, 377.000000, "HUD:radar_girlfriend");
-	PlayerTextDrawFont(playerid, gsSpeedometerCenter[playerid][9], 4);
+	gsSpeedometerCenter[playerid][9] = CreatePlayerTextDraw(playerid, 392.000000, 393.000000, "Preview_Model");
+	PlayerTextDrawFont(playerid, gsSpeedometerCenter[playerid][9], 5);
 	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][9], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][9], 10.500000, 11.000000);
-	PlayerTextDrawSetOutline(playerid, gsSpeedometerCenter[playerid][9], 1);
+	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][9], 20.000000, 17.500000);
+	PlayerTextDrawSetOutline(playerid, gsSpeedometerCenter[playerid][9], 0);
 	PlayerTextDrawSetShadow(playerid, gsSpeedometerCenter[playerid][9], 0);
 	PlayerTextDrawAlignment(playerid, gsSpeedometerCenter[playerid][9], 1);
 	PlayerTextDrawColor(playerid, gsSpeedometerCenter[playerid][9], -1);
-	PlayerTextDrawBackgroundColor(playerid, gsSpeedometerCenter[playerid][9], 255);
-	PlayerTextDrawBoxColor(playerid, gsSpeedometerCenter[playerid][9], 50);
-	PlayerTextDrawUseBox(playerid, gsSpeedometerCenter[playerid][9], 1);
+	PlayerTextDrawBackgroundColor(playerid, gsSpeedometerCenter[playerid][9], 0);
+	PlayerTextDrawBoxColor(playerid, gsSpeedometerCenter[playerid][9], 255);
+	PlayerTextDrawUseBox(playerid, gsSpeedometerCenter[playerid][9], 0);
 	PlayerTextDrawSetProportional(playerid, gsSpeedometerCenter[playerid][9], 1);
 	PlayerTextDrawSetSelectable(playerid, gsSpeedometerCenter[playerid][9], 0);
+	PlayerTextDrawSetPreviewModel(playerid, gsSpeedometerCenter[playerid][9], 1650);
+	PlayerTextDrawSetPreviewRot(playerid, gsSpeedometerCenter[playerid][9], -10.000000, 0.000000, 0.000000, 1.000000);
+	PlayerTextDrawSetPreviewVehCol(playerid, gsSpeedometerCenter[playerid][9], 1, 1);
 
-	gsSpeedometerCenter[playerid][10] = CreatePlayerTextDraw(playerid, 236.000000, 399.000000, "HUD:radar_modgarage");
+	gsSpeedometerCenter[playerid][10] = CreatePlayerTextDraw(playerid, 254.000000, 398.000000, "HUD:radar_modgarage");
 	PlayerTextDrawFont(playerid, gsSpeedometerCenter[playerid][10], 4);
 	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][10], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][10], 12.000000, 12.000000);
+	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][10], 10.500000, 12.500000);
 	PlayerTextDrawSetOutline(playerid, gsSpeedometerCenter[playerid][10], 1);
 	PlayerTextDrawSetShadow(playerid, gsSpeedometerCenter[playerid][10], 0);
 	PlayerTextDrawAlignment(playerid, gsSpeedometerCenter[playerid][10], 1);
@@ -1004,9 +1004,9 @@ static stock Center_CreateUltraWideScreen(playerid)
 	PlayerTextDrawSetProportional(playerid, gsSpeedometerCenter[playerid][10], 1);
 	PlayerTextDrawSetSelectable(playerid, gsSpeedometerCenter[playerid][10], 0);
 
-	gsSpeedometerCenter[playerid][11] = CreatePlayerTextDraw(playerid, 251.000000, 378.000000, "LATARIA: 100%");
+	gsSpeedometerCenter[playerid][11] = CreatePlayerTextDraw(playerid, 268.000000, 378.000000, "LATARIA: 100%");
 	PlayerTextDrawFont(playerid, gsSpeedometerCenter[playerid][11], 1);
-	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][11], 0.179167, 0.850000);
+	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][11], 0.133333, 0.750000);
 	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][11], 400.000000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, gsSpeedometerCenter[playerid][11], 0);
 	PlayerTextDrawSetShadow(playerid, gsSpeedometerCenter[playerid][11], 0);
@@ -1018,9 +1018,9 @@ static stock Center_CreateUltraWideScreen(playerid)
 	PlayerTextDrawSetProportional(playerid, gsSpeedometerCenter[playerid][11], 1);
 	PlayerTextDrawSetSelectable(playerid, gsSpeedometerCenter[playerid][11], 0);
 
-	gsSpeedometerCenter[playerid][12] = CreatePlayerTextDraw(playerid, 251.000000, 400.000000, "BLINDAGEM: 100%");
+	gsSpeedometerCenter[playerid][12] = CreatePlayerTextDraw(playerid, 268.000000, 400.000000, "BLINDAGEM: 100%");
 	PlayerTextDrawFont(playerid, gsSpeedometerCenter[playerid][12], 1);
-	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][12], 0.179167, 0.850000);
+	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][12], 0.133330, 0.750000);
 	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][12], 400.000000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, gsSpeedometerCenter[playerid][12], 0);
 	PlayerTextDrawSetShadow(playerid, gsSpeedometerCenter[playerid][12], 0);
@@ -1032,9 +1032,9 @@ static stock Center_CreateUltraWideScreen(playerid)
 	PlayerTextDrawSetProportional(playerid, gsSpeedometerCenter[playerid][12], 1);
 	PlayerTextDrawSetSelectable(playerid, gsSpeedometerCenter[playerid][12], 0);
 
-	gsSpeedometerCenter[playerid][13] = CreatePlayerTextDraw(playerid, 410.000000, 400.000000, "ELETRICIDADE: 100KWH");
+	gsSpeedometerCenter[playerid][13] = CreatePlayerTextDraw(playerid, 391.000000, 400.000000, "ELETRICIDADE: 100KWH");
 	PlayerTextDrawFont(playerid, gsSpeedometerCenter[playerid][13], 1);
-	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][13], 0.179167, 0.850000);
+	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][13], 0.133330, 0.750000);
 	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][13], 400.000000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, gsSpeedometerCenter[playerid][13], 0);
 	PlayerTextDrawSetShadow(playerid, gsSpeedometerCenter[playerid][13], 0);
@@ -1046,9 +1046,9 @@ static stock Center_CreateUltraWideScreen(playerid)
 	PlayerTextDrawSetProportional(playerid, gsSpeedometerCenter[playerid][13], 1);
 	PlayerTextDrawSetSelectable(playerid, gsSpeedometerCenter[playerid][13], 0);
 
-	gsSpeedometerCenter[playerid][14] = CreatePlayerTextDraw(playerid, 410.000000, 378.000000, "POLICE MAVERICK");
+	gsSpeedometerCenter[playerid][14] = CreatePlayerTextDraw(playerid, 391.000000, 378.000000, "POLICE MAVERICK");
 	PlayerTextDrawFont(playerid, gsSpeedometerCenter[playerid][14], 1);
-	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][14], 0.179167, 0.850000);
+	PlayerTextDrawLetterSize(playerid, gsSpeedometerCenter[playerid][14], 0.133330, 0.750000);
 	PlayerTextDrawTextSize(playerid, gsSpeedometerCenter[playerid][14], 400.000000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, gsSpeedometerCenter[playerid][14], 0);
 	PlayerTextDrawSetShadow(playerid, gsSpeedometerCenter[playerid][14], 0);
