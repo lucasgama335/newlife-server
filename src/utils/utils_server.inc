@@ -193,6 +193,20 @@ stock ARGBToRGBA(colour)
 	return colour = ((colour << 8) & 0xFFFFFF00) | ((colour >>> 24) & 0xFF);
 }
 
+stock Text_ToUpper(string[], lenght = sizeof(string))
+{
+    for (new i; i < lenght; i++)
+    {
+        if (string[i] == EOS)
+        {
+            continue;
+        }
+        
+        string[i] = toupper(string[i]);
+    }
+    return 1;
+}
+
 //------------------------- Internal API (Functions to be used only inside of this module. Use 'static (stock)' and camelCase) -------------------------
 
 //------------------------- Implementation (This section contains the concrete implementation for this module inside of the callbacks) -------------------------

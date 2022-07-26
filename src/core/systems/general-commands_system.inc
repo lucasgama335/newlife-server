@@ -42,6 +42,7 @@ static stock ShowPlayerConfig(playerid)
 	{
 		case 0: strcat(configDialog, "{0080ff}• {FFFFFF}Velocímetro\t{00aaff}Moderno\n");
 		case 1: strcat(configDialog, "{0080ff}• {FFFFFF}Velocímetro\t{00aaff}Compacto\n");
+		case 2: strcat(configDialog, "{0080ff}• {FFFFFF}Velocímetro\t{00aaff}Centralizado\n");
 	}
 	switch(Player_GetTracker(playerid))
 	{
@@ -667,6 +668,12 @@ hook OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								Player_SetSpeedometer(playerid, 1);
 								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
 								SendClientAlert(playerid, "Configuracoes", "Voce mudou o seu velocimetro~n~para o estilo compacto.");
+							}
+							case 1: 
+							{
+								Player_SetSpeedometer(playerid, 2);
+								PlayerPlaySound(playerid, 1054, 0.0, 0.0, 0.0);
+								SendClientAlert(playerid, "Configuracoes", "Voce mudou o seu velocimetro~n~para o estilo centralizado.");
 							}
 							default: 
 							{
